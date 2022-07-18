@@ -199,6 +199,8 @@
    color: var(--d-333333);
    font-size: 15px;
    margin-top: 10px;
+   box-sizing: border-box;
+   padding: 5px;
   }
 
   .add_countdown_content_box textarea {
@@ -228,10 +230,10 @@
  <div class="countdown_content_box"></div>
  <div class="add_countdown_title">Add Countdown</div>
  <div class="add_countdown_content_box">
-  <input type="text" placeholder="Title">
-  <textarea placeholder="Description"></textarea>
-  <input type="datetime-local">
-  <div class="add_countdown_btn">Add</div>
+  <input type="text" placeholder="Title" id="add_title">
+  <textarea placeholder="Description" id="add_description"></textarea>
+  <input type="datetime-local" id="add_date">
+  <div class="add_countdown_btn" r-click="addcountdown()">Add</div>
  </div>
 
 </body>
@@ -261,6 +263,9 @@
    return ''
   }
   var list_len = list.length
+  for (var d = 0; d < list_len; d++) {
+   list[d] = JSON.parse(String(list[d]))
+  }
   for (var e = 0; e < list_len; e++) {
    var this_list = list[e]
    $('.content_box').append('<div class="countdown_box"><div class="countdown_box_count" t="' + this_list.date + '"></div><div class="countdown_box_title">' + this_list.title + '</div><div class="countdown_box_description">' + this_list.description + '</div></div>')
@@ -319,6 +324,30 @@
  function openaddcountdown() {
   $('.add_countdown_title').css({ 'display': 'flex' })
   $('.add_countdown_content_box').css({ 'display': 'block' })
+ }
+ function closeaddcountdown() {
+  $('.add_countdown_title,.add_countdown_content_box').css({ 'display': 'none' })
+ }
+ function addcountdown() {
+  var title = $('#add_title').val()
+  var description = $('#add_description').val()
+  var date = new Date(String($('#add_date').val())).getTime()
+  var id = ''
+  var id_chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
+  for (var i = 0; i < 16; i++) {
+   var rdn = Math.floor(Math.random() * id_chars.length)
+   var rdnstr = id_chars.substring(rdn, rdn + 1)
+   id += rdnstr
+  }
+  var json = {
+   'title': title,
+   'description': description,
+   'date': date,
+   'id': id
+  }
+  localStorage.setItem('countdown_x_' + id, JSON.stringify(json))
+  closeaddcountdown()
+
  }
  function initialize() {
   var load_len = Math.floor(window.innerHeight / 120) + 1
