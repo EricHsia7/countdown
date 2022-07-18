@@ -192,6 +192,7 @@
   Countdown
  </div>
  <div class="content_box"></div>
+ <div class="addcountdown" r-click="openaddcountdown()"></div>
  <div class="countdown_title"></div>
  <div class="countdown_content_box"></div>
  <div class="add_countdown_title">Add Countdown</div>
@@ -199,13 +200,20 @@
   <input type="text" placeholder="Title">
   <textarea placeholder="Description"></textarea>
   <input type="datetime">
-  <div class="add_countdown_btn">Add Countdown</div>
+  <div class="add_countdown_btn">Add</div>
  </div>
 
- <div class="addcountdown"></div>
 </body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script>
+ function rclick(select) {
+  $(select).click(function (e) {
+   e.stopPropagation()
+   if ($(this).attr('r-click') != '') {
+    eval('setTimeout(function() {' + $(this).attr('r-click') + '},' + 1 + ');');
+   }
+  });
+ }
  function searchItemsbyname(name) {
   var gh = []
   for (var t in window.localStorage) {
@@ -277,6 +285,9 @@
   }
   window.requestAnimationFrame(countdown_update);
  }
+ function openaddcountdown() {
+  $('.add_countdown_title,.add_countdown_content_box').css({ 'display': 'block' })
+ }
  function initialize() {
   var load_len = Math.floor(window.innerHeight / 120) + 1
   var yy = []
@@ -287,9 +298,9 @@
   $(document).ready(function () {
    setTimeout(function () {
     print_countdown()
+    rclick('.addcountdown')
     window.requestAnimationFrame(countdown_update);
    }, 1500)
-
   })
  }
  initialize()
