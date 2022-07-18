@@ -209,6 +209,7 @@
  function print_countdown() {
   var list = searchItemsbyname('countdown_x_')
   if (list.length < 1) {
+   $('.content_box .loading').remove()
    return ''
   }
   var list_len = list.length
