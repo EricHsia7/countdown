@@ -44,6 +44,10 @@
    font-family: 'Noto Sans', sans-serif;
   }
 
+  body {
+   background: var(--d-ffffff)
+  }
+
   .title,
   .countdown_title,
   .add_countdown_title {
@@ -191,7 +195,12 @@
  <div class="countdown_title"></div>
  <div class="countdown_content_box"></div>
  <div class="add_countdown_title">Add Countdown</div>
- <div class="add_countdown_content_box"></div>
+ <div class="add_countdown_content_box">
+  <input type="text" placeholder="Title">
+  <textarea placeholder="Description"></textarea>
+  <input type="datetime">
+  <div class="add_countdown_btn">Add Countdown</div>
+ </div>
 
  <div class="addcountdown"></div>
 </body>
