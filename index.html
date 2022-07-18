@@ -264,8 +264,9 @@
   }
   var list_len = list.length
   for (var d = 0; d < list_len; d++) {
-   list[d] = JSON.parse(String(list[d]))
+   list[d] = JSON.parse(localStorage.getItem(String(list[d])))
   }
+  list_len = list.length
   for (var e = 0; e < list_len; e++) {
    var this_list = list[e]
    $('.content_box').append('<div class="countdown_box"><div class="countdown_box_count" t="' + this_list.date + '"></div><div class="countdown_box_title">' + this_list.title + '</div><div class="countdown_box_description">' + this_list.description + '</div></div>')
