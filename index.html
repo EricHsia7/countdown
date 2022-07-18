@@ -272,13 +272,43 @@
  <div class="add_countdown_content_box">
   <input type="text" placeholder="Title" id="add_title">
   <textarea placeholder="Description" id="add_description"></textarea>
-  <input type="datetime-local" id="add_date">
+  <input type="datetime-local" id="add_date" placeholder="Date">
   <div class="add_countdown_btn" r-click="addcountdown()">Add</div>
  </div>
 
 </body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script>
+ (function ($) {
+  $.fn.prompt = function (options) {
+   var settings = $.extend(
+    {
+     message: "undefined",
+     time: 2000,
+    },
+    options
+   );
+
+   return this.each(function () {
+    $('.prompt,style[promptanimation="promptanimation"]').remove();
+    var promptchars = "0123456789abcdefghijklmnopqrstuvwxyz";
+    var promptid = "";
+    for (var i = 0; i < 10; i++) {
+     var randomNumber = Math.floor(Math.random() * promptchars.length);
+     promptid += promptchars.substring(randomNumber, randomNumber + 1);
+    }
+    var translateY = -1 * (document.querySelector('.bottom').clientHeight + 20)
+    $(this).append('<style qix="promptanimation' + promptid + '" promptanimation="promptanimation">.promptanimation' + promptid + '{animation-name:prompt' + promptid + ';animation-duration:' + (settings.time + 300 * 2) + 'ms;animation-fill-mode:forwards;animation-timing-function:ease-in-out}@keyframes prompt' + promptid + '{0%{opacity:0;transform:translateX(-50%) translateY(' + translateY + 'px) scale(0.75);}' + Math.floor((300) / (settings.time + 300 + 150) * 100) + '%{opacity:1;transform:translateX(-50%) translateY(' + translateY + 'px) scale(1);}' + Math.floor((300 + settings.time) / (settings.time + 300 + 150) * 100) + '%{opacity:1;transform:translateX(-50%) translateY(' + translateY + 'px) scale(1);}100%{opacity:0;transform:translateX(-50%) translateY(' + translateY + 'px) scale(1);}}</style><div class="prompt promptanimation' + promptid + '" id="' + promptid + '"><span class="promptcenter">' + settings.message + "</span></div>");
+
+    setTimeout(function () {
+     $("#" + promptid + ',style[qix="promptanimation' + promptid + '"]').remove();
+    }, settings.time + 400 * 2 + 50);
+   });
+  };
+ })(jQuery);
+ function mes(mess) {
+  $('body').prompt({ 'message': mess, 'time': 1200 });
+ }
  function rclick(select) {
   $(select).click(function (e) {
    e.stopPropagation()
@@ -312,6 +342,10 @@
    $('.content_box').append('<div class="countdown_box"><div class="countdown_box_count" t="' + this_list.date + '"></div><div class="countdown_box_title">' + this_list.title + '</div><div class="countdown_box_description">' + this_list.description + '</div></div>')
   }
   $('.content_box .loading').remove()
+ }
+ function refresh_countdown() {
+  $('.content_box').html('')
+  print_countdown()
  }
  function tday(ms) {
   var sec_e = ms % 1000
@@ -388,7 +422,10 @@
   }
   localStorage.setItem('countdown_x_' + id, JSON.stringify(json))
   closeaddcountdown()
-
+  $('#add_title').val('')
+  $('#add_description').val('')
+  $('#add_date').val('')
+  mes('Countdown added')
  }
  function initialize() {
   var load_len = Math.floor(window.innerHeight / 120) + 1
