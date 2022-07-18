@@ -286,7 +286,8 @@
   window.requestAnimationFrame(countdown_update);
  }
  function openaddcountdown() {
-  $('.add_countdown_title,.add_countdown_content_box').css({ 'display': 'block' })
+  $('.add_countdown_title').css({ 'display': 'flex' })
+  $('.add_countdown_content_box').css({ 'display': 'block' })
  }
  function initialize() {
   var load_len = Math.floor(window.innerHeight / 120) + 1
