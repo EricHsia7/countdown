@@ -904,6 +904,7 @@
       $('.countdown_content_box_details #countdown_content_box_details_description').text(countdown_json.description)
       $('.countdown_content_box_details #countdown_content_box_details_date').text(date_str)
       window.requestAnimationFrame(countdown_content_count_update);
+      $('.options li[y="edit2"]').attr('r-click',"editcountdown_detail('" + countdown_id + "')")
     }
   }
   function closecountdown() {
