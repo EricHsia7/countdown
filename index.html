@@ -961,6 +961,16 @@
     opencountdown(countdown_id)
   }
 
+  function datestr(date) {
+    var pad = function (num) {
+      return (num < 10 ? '0' : '') + num;
+    };
+    return date.getFullYear() +
+      '-' + pad(date.getMonth() + 1) +
+      '-' + pad(date.getDate()) +
+      'T' + pad(date.getHours()) +
+      ':' + pad(date.getMinutes())
+  }
 
   function editcountdown_detail(countdown_id) {
     if (localStorage.hasOwnProperty('countdown_x_' + countdown_id)) {
@@ -972,7 +982,7 @@
       var countdown_json = JSON.parse(String(localStorage.getItem('countdown_x_' + countdown_id)))
       var date_o = new Date()
       date_o.setTime(parseInt(countdown_json.date))
-      var date_arr = String(date_o.toISOString()).split(':')
+      var date_arr = datestr(date_o)
       var date_str = date_arr[0] + ':' + date_arr[1]
       $('#edit_title').val(countdown_json.title)
       $('#edit_description').val(countdown_json.description)
