@@ -561,19 +561,39 @@
     if (mode === 1) {
       var return_arr = []
       if (week > 0) {
-        return_arr.push(week + 'week')
+        var s = ''
+        if (week > 1) {
+          s = 's'
+        }
+        return_arr.push(week + 'week' + s)
       }
       if (week_e > 0) {
-        return_arr.push(week_e + 'day')
+        var s = ''
+        if (week_e > 1) {
+          s = 's'
+        }
+        return_arr.push(week_e + 'day' + s)
       }
       if (day_e > 0) {
-        return_arr.push(day_e + 'hour')
+        var s = ''
+        if (day_e > 1) {
+          s = 's'
+        }
+        return_arr.push(day_e + 'hour' + s)
       }
       if (hour_e > 0) {
-        return_arr.push(hour_e + 'minute')
+        var s = ''
+        if (hour_e > 1) {
+          s = 's'
+        }
+        return_arr.push(hour_e + 'minute' + s)
       }
       if (minute_e > 0) {
-        return_arr.push(minute_e + 'sec')
+        var s = ''
+        if (minute_e > 1) {
+          s = 's'
+        }
+        return_arr.push(minute_e + 'sec' + s)
       }
       if (sec_e > 0) {
         return_arr.push(sec_e + 'ms')
