@@ -334,7 +334,18 @@
         fill="var(--d-333333)" fill-rule="evenodd" opacity="1" stroke="none" />
     </svg>
   </div>
-  <div class="countdown_title"></div>
+  <div class="countdown_title">
+    <div class="back_btn" r-click="closeaddcountdown()">
+      <svg stroke-miterlimit="10"
+        style="fill-rule:nonzero;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;" version="1.1"
+        viewBox="0 0 64 64" xml:space="preserve" xmlns="http://www.w3.org/2000/svg"
+        xmlns:xlink="http://www.w3.org/1999/xlink">
+        <path d="M32 64L0 32L32 0L36.2 4.2L11.4 29L64 29L64 35L11.4 35L36.2 59.8L32 64Z" fill="var(--d-333333)"
+          fill-rule="evenodd" opacity="1" stroke="none" />
+      </svg>
+    </div>
+    <span id="countdown_title_text"></span>
+  </div>
   <div class="countdown_content_box"></div>
   <div class="add_countdown_title">
     <div class="back_btn" r-click="closeaddcountdown()">
@@ -540,10 +551,11 @@
     refresh_countdown()
   }
   function opencountdown(countdown_id) {
-    $('.countdown_title').css({ 'display': 'flex' })
-    $('.countdown_content_box').css({ 'display': 'block' })
     if (localStorage.hasOwnProperty('countdown_x_' + countdown_id)) {
       var countdown_json = JSON.parse(String(localStorage.getItem('countdown_x_' + countdown_id)))
+      $('.countdown_title').css({ 'display': 'flex' })
+      $('.countdown_content_box').css({ 'display': 'block' })
+      $('#countdown_title_text').text(countdown_json.title)
       $('.countdown_content_box').html(JSON.stringify(countdown_json))
     }
   }
