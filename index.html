@@ -120,9 +120,26 @@
       user-select: none;
     }
 
-     .countdown_box:nth-last-child(1) {
+    .countdown_box:nth-last-child(1) {
       /*border-bottom: none;*/
-      margin-bottom:20px
+      margin-bottom: 20px
+    }
+
+    .countdown_box_select {
+      position: absolute;
+      top: 0px;
+      left: 0px;
+      width: 44px;
+      height: 120px;
+      display: none;
+      justify-content: center;
+      align-items: center;
+      background: var(--d-ffffff);
+      box-sizing: border-box;
+      font-size: 23px;
+      color: var(--d-333333);
+      -webkit-user-select: none;
+      user-select: none;
     }
 
     .countdown_box_count {
@@ -210,6 +227,16 @@
       width: calc(100% - 10px);
       height: calc(100% - 20px);
 
+    }
+
+    .countdown_box.edit .countdown_box_count,
+    .countdown_box.edit .countdown_box_title,
+    .countdown_box.edit .countdown_box_description {
+      transform: translateX(45px);
+    }
+
+    .countdown_box.edit .countdown_box_select {
+      display: flex;
     }
 
     .add_countdown_content_box input[type="text"],
@@ -582,7 +609,7 @@
       }
 
       var this_id = randid('countdown')
-      $('.content_box').append('<div class="countdown_box" id="' + this_id + '" r-click="opencountdown(' + "'" + this_list.id + "'" + ')"><div class="countdown_box_count" t="' + this_list.date + '"></div><div class="countdown_box_title">' + this_title + '</div><div class="countdown_box_description">' + this_description + '</div></div>')
+      $('.content_box').append('<div class="countdown_box" id="' + this_id + '" r-click="opencountdown(' + "'" + this_list.id + "'" + ')"><div class="countdown_box_select"></div><div class="countdown_box_count" t="' + this_list.date + '"></div><div class="countdown_box_title">' + this_title + '</div><div class="countdown_box_description">' + this_description + '</div></div>')
       rclick('#' + this_id)
     }
     $('.content_box .loading').remove()
