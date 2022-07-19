@@ -610,7 +610,7 @@
   </div>
 
   <div class="edit_countdown_title">
-    <div class="back_btn" r-click="closeeditcountdown()">
+    <div class="back_btn" r-click="closeeditcountdown()" id="edit_back_btn">
       <svg stroke-miterlimit="10"
         style="fill-rule:nonzero;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;" version="1.1"
         viewBox="0 0 64 64" xml:space="preserve" xmlns="http://www.w3.org/2000/svg"
@@ -956,14 +956,16 @@
     }
   }
 
-  function closeeditcountdown() {
+  function closeeditcountdown(countdown_id) {
     $('.edit_countdown_title,.edit_countdown_content_box').css({ 'display': 'none' })
+    opencountdown(countdown_id)
   }
 
 
   function editcountdown_detail(countdown_id) {
     if (localStorage.hasOwnProperty('countdown_x_' + countdown_id)) {
       closeoptions()
+      $('#edit_back_btn').attr('r-click',"closeeditcountdown('" + countdown_id + "')")
       $('.edit_countdown_title').css({ 'display': 'flex' })
       $('.edit_countdown_content_box').css({ 'display': 'block' })
       $('.countdown_content_box_count').attr('f', '1')
@@ -985,9 +987,8 @@
       countdown_json.title = $('#edit_title').val()
       countdown_json.description = $('#edit_description').val()
       localStorage.setItem('countdown_x_' + countdown_id, JSON.stringify(countdown_json))
-      closeeditcountdown()
+      closeeditcountdown(countdown_id)
       mes('Countdown edited')
-      opencountdown(countdown_id)
     }
   }
   function refreshpage() {
