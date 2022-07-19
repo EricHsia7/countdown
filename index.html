@@ -955,6 +955,7 @@
       mes(deleted_len + ' countdown deleted.')
     }
   }
+
   function closeeditcountdown() {
     $('.edit_countdown_title,.edit_countdown_content_box').css({ 'display': 'none' })
   }
@@ -962,6 +963,7 @@
 
   function editcountdown_detail(countdown_id) {
     if (localStorage.hasOwnProperty('countdown_x_' + countdown_id)) {
+      closeoptions()
       $('.edit_countdown_title').css({ 'display': 'flex' })
       $('.edit_countdown_content_box').css({ 'display': 'block' })
       $('.countdown_content_box_count').attr('f', '1')
