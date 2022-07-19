@@ -388,6 +388,19 @@
   function mes(mess) {
     $('body').prompt({ 'message': mess, 'time': 1200 });
   }
+  function randid(n) {
+    var genidchars = "0123456789abcdefghijklmnopqrstuvwxyz";
+    var genid = "";
+    for (var i = 0; i < 16; i++) {
+      var genrandomNumber = Math.floor(Math.random() * genidchars.length);
+      genid += genidchars.substring(genrandomNumber, genrandomNumber + 1);
+    }
+    if (!(n === undefined)) {
+      n = n.replaceAll('_', '-')
+      return n + '-' + genid + '' + new Date().getTime();
+    }
+    return genid + '' + new Date().getTime();
+  }
   function rclick(select) {
     $(select).click(function (e) {
       e.stopPropagation()
@@ -418,7 +431,9 @@
     list_len = list.length
     for (var e = 0; e < list_len; e++) {
       var this_list = list[e]
-      $('.content_box').append('<div class="countdown_box"><div class="countdown_box_count" t="' + this_list.date + '"></div><div class="countdown_box_title">' + this_list.title + '</div><div class="countdown_box_description">' + this_list.description + '</div></div>')
+      var this_id = randid('countdown')
+      $('.content_box').append('<div class="countdown_box"><div class="countdown_box_count" t="' + this_list.date + '" id="' + this_id + '" r-click="opencountdown(' + "'" + this_list.id + "'" + ')"></div><div class="countdown_box_title">' + this_list.title + '</div><div class="countdown_box_description">' + this_list.description + '</div></div>')
+      rclick('#' + this_id)
     }
     $('.content_box .loading').remove()
   }
@@ -515,6 +530,17 @@
     mes('Countdown added')
     refresh_countdown()
   }
+  function opencountdown(countdown_id) {
+    $('.countdown_title').css({ 'display': 'flex' })
+    $('.countdown_content_box').css({ 'display': 'block' })
+    if (localStorage.hasOwnProperty('countdown_x_' + countdown_id)) {
+      var countdown_json = JSON.parse(String(localStorage.getItem('countdown_x_' + countdown_id)))
+      $('.countdown_content_box').html(JSON.stringify(countdown_json))
+    }
+  }
+
+
+
   function initialize() {
     var load_len = Math.floor(window.innerHeight / 120) + 1
     var yy = []
