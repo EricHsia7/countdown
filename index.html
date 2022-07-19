@@ -976,7 +976,8 @@
   function savecountdown() {
     var countdown_id = $('.edit_countdown_btn').attr('countdown-id')
     if (localStorage.hasOwnProperty('countdown_x_' + countdown_id)) {
-      $('.countdown_content_box_count').attr('f', '1')
+      $('.countdown_content_box_count').attr('f', '0')
+      window.requestAnimationFrame(countdown_content_count_update);
       var countdown_json = JSON.parse(String(localStorage.getItem('countdown_x_' + countdown_id)))
       var date_o = new Date($('#edit_date').val())
       countdown_json.date = date_o.getTime()
