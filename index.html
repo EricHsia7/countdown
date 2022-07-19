@@ -904,7 +904,7 @@
       $('.countdown_content_box_details #countdown_content_box_details_description').text(countdown_json.description)
       $('.countdown_content_box_details #countdown_content_box_details_date').text(date_str)
       window.requestAnimationFrame(countdown_content_count_update);
-      $('.options li[y="edit2"]').attr('r-click',"editcountdown_detail('" + countdown_id + "')")
+      $('.options li[y="edit2"]').attr('r-click', "editcountdown_detail('" + countdown_id + "')")
     }
   }
   function closecountdown() {
@@ -964,6 +964,8 @@
 
   function editcountdown_detail(countdown_id) {
     if (localStorage.hasOwnProperty('countdown_x_' + countdown_id)) {
+      $('.edit_countdown_title').css({ 'display': 'flex' })
+      $('.edit_countdown_content_box').css({ 'display': 'block' })
       $('.countdown_content_box_count').attr('f', '1')
       var countdown_json = JSON.parse(String(localStorage.getItem('countdown_x_' + countdown_id)))
       var date_o = new Date()
