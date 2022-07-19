@@ -346,7 +346,16 @@
     </div>
     <span id="countdown_title_text"></span>
   </div>
-  <div class="countdown_content_box"></div>
+  <div class="countdown_content_box">
+    <div class="countdown_content_box_count"></div>
+    <div class="countdown_content_box_line"></div>
+    <div class="countdown_content_box_details">
+      <h3 id="countdown_content_box_details_title"></h3>
+      <p id="countdown_content_box_details_description"></p>
+      <p id="countdown_content_box_details_date"></p>
+    </div>
+
+  </div>
   <div class="add_countdown_title">
     <div class="back_btn" r-click="closeaddcountdown()">
       <svg stroke-miterlimit="10"
@@ -461,6 +470,14 @@
     $('.content_box').html('')
     print_countdown()
   }
+  function check_i(i) {
+    if (i < 10) {
+      return '0' + i
+    }
+    else {
+      return i
+    }
+  }
   function tday(ms) {
     var sec_e = ms % 1000
     var sec = (ms - sec_e) / 1000
@@ -553,10 +570,16 @@
   function opencountdown(countdown_id) {
     if (localStorage.hasOwnProperty('countdown_x_' + countdown_id)) {
       var countdown_json = JSON.parse(String(localStorage.getItem('countdown_x_' + countdown_id)))
+      var date_o = new Date()
+      date_o.setTime(parseInt(countdown_json.date))
+      var date_str = ([date_o.getFullYear(), check_i(date_o.getMonth() + 1), check_i(date_o.getDate())]).join('/') + ' ' + ([check_i(date_o.getHours()), check_i(date_o.getMinutes()), check_i(date_o.getSeconds())]).join(':')
       $('.countdown_title').css({ 'display': 'flex' })
       $('.countdown_content_box').css({ 'display': 'block' })
       $('#countdown_title_text').text(countdown_json.title)
-      $('.countdown_content_box').html(JSON.stringify(countdown_json))
+      $('.countdown_content_box_count').attr('t', countdown_json.date)
+      $('.countdown_content_box_details .countdown_content_box_details_title').text(countdown_json.title)
+      $('.countdown_content_box_details .countdown_content_box_details_description').text(countdown_json.description)
+      $('.countdown_content_box_details .countdown_content_box_details_date').text(date_str)
     }
   }
   function closecountdown() {
