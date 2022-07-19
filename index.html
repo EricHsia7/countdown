@@ -51,7 +51,8 @@
 
     .title,
     .countdown_title,
-    .add_countdown_title {
+    .add_countdown_title,
+    .edit_countdown_title {
       position: fixed;
       top: 0px;
       left: 0px;
@@ -71,13 +72,15 @@
     }
 
     .countdown_title,
-    .add_countdown_title {
+    .add_countdown_title,
+    .edit_countdown_title {
       display: none;
     }
 
     .content_box,
     .countdown_content_box,
-    .add_countdown_content_box {
+    .add_countdown_content_box,
+    .edit_countdown_content_box {
       position: fixed;
       top: 55px;
       left: 0px;
@@ -90,7 +93,8 @@
     }
 
     .countdown_content_box,
-    .add_countdown_content_box {
+    .add_countdown_content_box,
+    .edit_countdown_content_box {
       display: none;
     }
 
@@ -242,7 +246,9 @@
     }
 
     .add_countdown_content_box input[type="text"],
-    .add_countdown_content_box textarea {
+    .add_countdown_content_box textarea,
+    .edit_countdown_content_box input[type="text"],
+    .edit_countdown_content_box textarea {
       width: calc(100% - 20px);
       height: 45px;
       border: 1px solid var(--d-e3e3e3);
@@ -261,7 +267,8 @@
       color: var(--d-333333);
     }
 
-    .add_countdown_content_box input[type="datetime-local"] {
+    .add_countdown_content_box input[type="datetime-local"],
+    .edit_countdown_content_box input[type="datetime-local"] {
       -webkit-appearance: none;
       width: calc(100% - 20px);
       height: 45px;
@@ -278,11 +285,13 @@
       color: var(--d-333333)
     }
 
-    .add_countdown_content_box textarea {
+    .add_countdown_content_box textarea,
+    .edit_countdown_content_box textarea {
       height: 135px;
     }
 
-    .add_countdown_btn {
+    .add_countdown_btn,
+    .edit_countdown_btn {
       height: 45px;
       width: calc(100% - 20px);
       background: var(--d-e3e3e3);
@@ -499,9 +508,7 @@
       background: var(--d-ffffff);
     }
   </style>
-  <style id="options_css">
-    <
-  </style>
+  <style id="options_css"></style>
 </head>
 
 <body>
@@ -593,13 +600,32 @@
           fill-rule="evenodd" opacity="1" stroke="none" />
       </svg>
     </div>
-    Add Countdown
+    <span id="add_countdown_title_text">Add Countdown</span>
   </div>
   <div class="add_countdown_content_box">
     <input type="text" placeholder="Title" id="add_title">
     <textarea placeholder="Description" id="add_description"></textarea>
     <input type="datetime-local" id="add_date" placeholder="Date">
     <div class="add_countdown_btn" r-click="addcountdown()">Add</div>
+  </div>
+
+  <div class="edit_countdown_title">
+    <div class="back_btn" r-click="closeeditcountdown()">
+      <svg stroke-miterlimit="10"
+        style="fill-rule:nonzero;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;" version="1.1"
+        viewBox="0 0 64 64" xml:space="preserve" xmlns="http://www.w3.org/2000/svg"
+        xmlns:xlink="http://www.w3.org/1999/xlink">
+        <path d="M32 64L0 32L32 0L36.2 4.2L11.4 29L64 29L64 35L11.4 35L36.2 59.8L32 64Z" fill="var(--d-333333)"
+          fill-rule="evenodd" opacity="1" stroke="none" />
+      </svg>
+    </div>
+    <span id="edit_countdown_title_text">Edit Countdown</span>
+  </div>
+  <div class="edit_countdown_content_box">
+    <input type="text" placeholder="Title" id="edit_title">
+    <textarea placeholder="Description" id="edit_description"></textarea>
+    <input type="datetime-local" id="edit_date" placeholder="Date">
+    <div class="edit_countdown_btn" r-click="savecountdown()">Save</div>
   </div>
 
   <div class="options_mask" r-click="closeoptions()"></div>
@@ -809,9 +835,12 @@
     $('#add_title').val('')
     $('#add_description').val('')
     $('#add_date').val('')
+    $('#add_countdown_title_text').text('Add Countdown')
+    countdown_pause = 1
   }
   function closeaddcountdown() {
     $('.add_countdown_title,.add_countdown_content_box').css({ 'display': 'none' })
+    window.requestAnimationFrame(countdown_update);
   }
   function addcountdown() {
     var title = $('#add_title').val()
@@ -925,6 +954,40 @@
       mes(deleted_len + ' countdown deleted.')
     }
   }
+  function closeeditcountdown() {
+    $('.edit_countdown_title,.edit_countdown_content_box').css({ 'display': 'none' })
+    $('.countdown_content_box_count').attr('f', '0')
+    window.requestAnimationFrame(countdown_content_count_update);
+  }
+
+
+  function editcountdown_detail(countdown_id) {
+    if (localStorage.hasOwnProperty('countdown_x_' + countdown_id)) {
+      $('.countdown_content_box_count').attr('f', '1')
+      var countdown_json = JSON.parse(String(localStorage.getItem('countdown_x_' + countdown_id)))
+      var date_o = new Date()
+      date_o.setTime(parseInt(countdown_json.date))
+      $('#edit_title').val(countdown_json.title)
+      $('#edit_description').val(countdown_json.description)
+      $('#edit_date').val(date_o.toISOString())
+      $('.edit_countdown_btn').attr('countdown-id', countdown_json.id)
+    }
+  }
+  function savecountdown() {
+    var countdown_id = $('.edit_countdown_btn').attr('countdown-id')
+    if (localStorage.hasOwnProperty('countdown_x_' + countdown_id)) {
+      $('.countdown_content_box_count').attr('f', '1')
+      var countdown_json = JSON.parse(String(localStorage.getItem('countdown_x_' + countdown_id)))
+      var date_o = new Date($('#edit_date').val())
+      countdown_json.date = date_o.getTime()
+      countdown_json.title = $('#edit_title').val()
+      countdown_json.description = $('#edit_description').val()
+      localStorage.setItem('countdown_x_' + countdown_id, JSON.stringify(countdown_json))
+      closeeditcountdown()
+      mes('Countdown edited')
+    }
+
+  }
   function refreshpage() {
     location.replace('https://erichsia7.github.io/countdown/?' + randid())
     closeoptions()
@@ -943,7 +1006,7 @@
     $(document).ready(function () {
       setTimeout(function () {
         print_countdown()
-        rclick('.addcountdown,.add_countdown_btn,.back_btn,.options_btn,.options_mask,.options li,.cancel_btn,.delete_btn')
+        rclick('.addcountdown,.add_countdown_btn,.edit_countdown_btn,.back_btn,.options_btn,.options_mask,.options li,.cancel_btn,.delete_btn')
         window.requestAnimationFrame(countdown_update);
       }, 1500)
       if (urlparams('c') === '1') {
