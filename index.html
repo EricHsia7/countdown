@@ -478,7 +478,7 @@
       return i
     }
   }
-  function tday(ms) {
+  function tday(ms, mode) {
     var sec_e = ms % 1000
     var sec = (ms - sec_e) / 1000
     var minute_e = sec % 60
@@ -489,25 +489,31 @@
     var day = (hour - day_e) / 24
     var week_e = day % 7
     var week = (day - week_e) / 7
-    if (week > 0) {
-      return week + 'w'
+    if (mode === 0) {
+      if (week > 0) {
+        return week + 'w'
+      }
+      if (week_e > 0) {
+        return week_e + 'd'
+      }
+      if (day_e > 0) {
+        return day_e + 'h'
+      }
+      if (hour_e > 0) {
+        return hour_e + 'm'
+      }
+      if (minute_e > 0) {
+        return minute_e + 's'
+      }
+      if (sec_e > 0) {
+        return sec_e + 'ms'
+      }
+      return '--'
     }
-    if (week_e > 0) {
-      return week_e + 'd'
+    if (mode === 1) {
+      var return_arr = [week + 'week', week_e + 'day', day_e + 'hour', hour_e + 'minute', minute_e + 'sec', sec_e + 'ms']
+      return return_arr
     }
-    if (day_e > 0) {
-      return day_e + 'h'
-    }
-    if (hour_e > 0) {
-      return hour_e + 'm'
-    }
-    if (minute_e > 0) {
-      return minute_e + 's'
-    }
-    if (sec_e > 0) {
-      return sec_e + 'ms'
-    }
-    return '--'
   }
 
   function countdown_update() {
@@ -522,7 +528,7 @@
         var nowtime = new Date().getTime()
         var f = (time - nowtime)
         if (f > 0) {
-          this_h.text(tday(f))
+          this_h.text(tday(f, 0))
         }
         else {
           this_h.text('Finish')
@@ -567,6 +573,20 @@
     mes('Countdown added')
     refresh_countdown()
   }
+  function countdown_content_count_update() {
+    if (!($('.countdown_content_box_count').attr('f') === '1')) {
+      var time = parseInt($('.countdown_content_box_count').attr('t'))
+      var nowtime = new Date().getTime()
+      var f = (time - nowtime)
+      if (f > 0) {
+        $('.countdown_content_box_count').html('<span>' + (tday(f, 1)).join('</span><span>') + '</span>')
+        window.requestAnimationFrame(countdown_content_count_update);
+      }
+      else {
+        $('.countdown_content_box_count').html('<span>Finish</span>').attr('f', '1')
+      }
+    }
+  }
   function opencountdown(countdown_id) {
     if (localStorage.hasOwnProperty('countdown_x_' + countdown_id)) {
       var countdown_json = JSON.parse(String(localStorage.getItem('countdown_x_' + countdown_id)))
@@ -580,10 +600,11 @@
         t_title = String(t_title).substring(0, 12) + '...'
       }
       $('#countdown_title_text').text(t_title)
-      $('.countdown_content_box_count').attr('t', countdown_json.date)
+      $('.countdown_content_box_count').attr('t', countdown_json.date).attr('f', '0')
       $('.countdown_content_box_details #countdown_content_box_details_title').text(countdown_json.title)
       $('.countdown_content_box_details #countdown_content_box_details_description').text(countdown_json.description)
       $('.countdown_content_box_details #countdown_content_box_details_date').text(date_str)
+      window.requestAnimationFrame(countdown_content_count_update);
     }
   }
   function closecountdown() {
