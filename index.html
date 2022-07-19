@@ -234,6 +234,7 @@
     .content_box[edit="1"] .countdown_box .countdown_box_title,
     .content_box[edit="1"] .countdown_box .countdown_box_description {
       transform: translateX(45px);
+      opacity: 0.6;
     }
 
     .content_box[edit="1"] .countdown_box_select {
@@ -761,6 +762,9 @@
     }
   }
   function opencountdown(countdown_id) {
+    if ($('.content_box').attr('edit') === '1') {
+      return ''
+    }
     if (localStorage.hasOwnProperty('countdown_x_' + countdown_id)) {
       countdown_pause = 1
       history.pushState(null, null, 'https://erichsia7.github.io/countdown/?c=1&id=' + countdown_id);
