@@ -6,20 +6,18 @@
   <title>Countdown</title>
   <meta name="description" content="Countdown">
   <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=0" />
-  <!--
-  <link href="https://erichsia7.github.io/pwdgen2/pwaicon7/512x512.png" sizes="512x512"
+  <link href="https://erichsia7.github.io/countdown/pwaicon/512x512.png" sizes="512x512"
     rel="apple-touch-icon-precomposed" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="defualt" />
-  <link type="image/x-icon" href="https://erichsia7.github.io/pwdgen2/pwaicon7/256x256_corner_radius.ico" rel="icon" />
-  <link type="image/x-icon" href="https://erichsia7.github.io/pwdgen2/pwaicon7/256x256_corner_radius.ico"
+  <link type="image/x-icon" href="https://erichsia7.github.io/countdown/pwaicon/256x256_corner_radius.ico" rel="icon" />
+  <link type="image/x-icon" href="https://erichsia7.github.io/countdown/pwaicon/256x256_corner_radius.ico"
     rel="bookmark" />
-  <link type="image/x-icon" href="https://erichsia7.github.io/pwdgen2/pwaicon7/256x256_corner_radius.ico"
+  <link type="image/x-icon" href="https://erichsia7.github.io/countdown/pwaicon/256x256_corner_radius.ico"
     rel="shortcut icon" />
-  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#fff" kji="light">
-  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#1a1a1a" kji="dark">
-  <link rel="manifest" href="https://erichsia7.github.io/pwdgen2/manifest6.json?e1">
-    -->
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff" kji="light">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#000000" kji="dark">
+  <link rel="manifest" href="https://erichsia7.github.io/countdown/manifest.json">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@200;400&display=swap" rel="stylesheet">
@@ -581,7 +579,7 @@
       return return_arr
     }
   }
-var countdown_pause = 0
+  var countdown_pause = 0
   function countdown_update() {
     var countdown_len = $('.content_box .countdown_box').length
     for (var e = 0; e < countdown_len; e++) {
@@ -602,7 +600,7 @@ var countdown_pause = 0
         }
       }
     }
-    if(countdown_pause === 0) {
+    if (countdown_pause === 0) {
       window.requestAnimationFrame(countdown_update);
     }
     else {
