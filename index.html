@@ -1000,6 +1000,7 @@
       localStorage.setItem('countdown_x_' + countdown_id, JSON.stringify(countdown_json))
       closeeditcountdown(countdown_id)
       mes('Countdown edited')
+      window.requestAnimationFrame(countdown_update);
     }
   }
   function refreshpage() {
