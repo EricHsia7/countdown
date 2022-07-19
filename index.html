@@ -836,11 +836,11 @@
     $('#add_description').val('')
     $('#add_date').val('')
     $('#add_countdown_title_text').text('Add Countdown')
-    countdown_pause = 1
+    
   }
   function closeaddcountdown() {
     $('.add_countdown_title,.add_countdown_content_box').css({ 'display': 'none' })
-    window.requestAnimationFrame(countdown_update);
+    
   }
   function addcountdown() {
     var title = $('#add_title').val()
@@ -886,7 +886,7 @@
       return ''
     }
     if (localStorage.hasOwnProperty('countdown_x_' + countdown_id)) {
-      countdown_pause = 1
+      
       history.pushState(null, null, 'https://erichsia7.github.io/countdown/?c=1&id=' + countdown_id);
       var countdown_json = JSON.parse(String(localStorage.getItem('countdown_x_' + countdown_id)))
       var date_o = new Date()
@@ -911,7 +911,7 @@
     $('.countdown_title,.countdown_content_box').css({ 'display': 'none' })
     $('.countdown_content_box_count').attr('f', '1')
     history.pushState(null, null, 'https://erichsia7.github.io/countdown/');
-    window.requestAnimationFrame(countdown_update);
+    
   }
   function openoptions(r) {
     $('.options_mask').css({ 'display': 'block' })
@@ -1000,7 +1000,7 @@
       localStorage.setItem('countdown_x_' + countdown_id, JSON.stringify(countdown_json))
       closeeditcountdown(countdown_id)
       mes('Countdown edited')
-      window.requestAnimationFrame(countdown_update);
+      
     }
   }
   function refreshpage() {
