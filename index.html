@@ -333,7 +333,9 @@
     }
 
     .back_btn,
-    .options_btn {
+    .options_btn,
+    .delete_btn,
+    .cancel_btn {
       width: 35px;
       height: 35px;
       position: absolute;
@@ -351,6 +353,18 @@
     .options_btn {
       top: 10px;
       right: 10px;
+    }
+
+    .cancel_btn {
+      top: 10px;
+      right: 10px;
+      display: none;
+    }
+
+    .delete_btn {
+      top: 10px;
+      right: 55px;
+      display: none;
     }
 
     .addcountdown svg,
@@ -498,6 +512,27 @@
           fill="var(--d-333333)" fill-rule="evenodd" opacity="1" stroke="none" />
       </svg>
     </div>
+    <div class="delete_btn" r-click="deleteselected()">
+      <svg stroke-miterlimit="10"
+        style="fill-rule:nonzero;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;" version="1.1"
+        viewBox="0 0 64 64" xml:space="preserve" xmlns="http://www.w3.org/2000/svg"
+        xmlns:xlink="http://www.w3.org/1999/xlink">
+        <path
+          d="M12.5333 64C11.1111 64 9.86667 63.4667 8.8 62.4C7.73333 61.3333 7.2 60.0889 7.2 58.6667L7.2 8L3.55556 8L3.55556 2.66667L20.2667 2.66667L20.2667 7.10543e-15L43.7333 7.10543e-15L43.7333 2.66667L60.4444 2.66667L60.4444 8L56.8 8L56.8 58.6667C56.8 60.0889 56.2667 61.3333 55.2 62.4C54.1333 63.4667 52.8889 64 51.4667 64L12.5333 64ZM51.4667 8L12.5333 8L12.5333 58.6667L51.4667 58.6667L51.4667 8ZM21.9556 51.0222L27.2889 51.0222L27.2889 15.5556L21.9556 15.5556L21.9556 51.0222ZM36.7111 51.0222L42.0444 51.0222L42.0444 15.5556L36.7111 15.5556L36.7111 51.0222ZM12.5333 8L12.5333 58.6667L12.5333 8Z"
+          fill="var(--d-333333)" fill-rule="evenodd" opacity="1" stroke="none" />
+      </svg>
+    </div>
+    <div class="cancel_btn" r-click="cancelselect()">
+      <svg stroke-miterlimit="10"
+        style="fill-rule:nonzero;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;" version="1.1"
+        viewBox="0 0 64 64" xml:space="preserve" xmlns="http://www.w3.org/2000/svg"
+        xmlns:xlink="http://www.w3.org/1999/xlink">
+        <path
+          d="M4.92308 64L1.67679e-06 59.0769L27.0769 32L2.79465e-06 4.92308L4.92308 1.11786e-06L32 27.0769L59.0769 7.10543e-15L64 4.92308L36.9231 32L64 59.0769L59.0769 64L32 36.9231L4.92308 64Z"
+          fill="var(--d-333333)" fill-rule="evenodd" opacity="1" stroke="none" />
+      </svg>
+    </div>
+
   </div>
   <div class="content_box"></div>
   <div class="addcountdown" r-click="openaddcountdown()">
@@ -552,6 +587,7 @@
 
   <div class="options_mask" r-click="closeoptions()"></div>
   <div class="options">
+    <li r-click="editcountdown()" y="edit">Edit</li>
     <li r-click="refreshpage()" y="refresh">Refresh</li>
   </div>
 </body>
@@ -833,8 +869,40 @@
   function closeoptions() {
     $('.options_mask,.options').css({ 'display': 'none' })
   }
+  function editcountdown() {
+    $('.content_box').attr('edit', '1')
+    $('.cancel_btn,.delete_btn').css({ 'display': 'flex' })
+    closeoptions()
+  }
+  function cancelselect() {
+    $('.content_box').attr('edit', '0')
+    $('.cancel_btn,.delete_btn').css({ 'display': 'none' })
+    var checkbox_len = $('.content_box input[type="checkbox"]').length
+    for (var g = 0; g < checkbox_len; g++) {
+      $('.content_box input[type="checkbox"]').eq(g).prop('checked', false)
+    }
+  }
+  function deleteselected() {
+    var checkbox_len = $('.content_box input[type="checkbox"]').length
+    var deleted_len = 0
+    for (var g = 0; g < checkbox_len; g++) {
+      var this_checkbox = $('.content_box input[type="checkbox"]').eq(g)
+      if (this_checkbox.prop('checked')) {
+        deleted_len += 1
+        if (localStorage.hasOwnProperty('countdown_x_' + this_checkbox.attr('countdown-id')))
+          localStorage.removeItem('countdown_x_' + this_checkbox.attr('countdown-id'))
+      }
+    }
+    refresh_countdown()
+    $('.content_box').attr('edit', '0')
+    $('.cancel_btn,.delete_btn').css({ 'display': 'none' })
+    if (deleted_len > 0) {
+      mes(deleted_len + ' countdown deleted.')
+    }
+  }
   function refreshpage() {
     location.replace('https://erichsia7.github.io/countdown/?' + randid())
+    closeoptions()
   }
 
   function initialize() {
@@ -847,7 +915,7 @@
     $(document).ready(function () {
       setTimeout(function () {
         print_countdown()
-        rclick('.addcountdown,.add_countdown_btn,.back_btn,.options_btn,.options_mask,.options li')
+        rclick('.addcountdown,.add_countdown_btn,.back_btn,.options_btn,.options_mask,.options li,.cancel_btn,.delete_btn')
         window.requestAnimationFrame(countdown_update);
       }, 1500)
       if (urlparams('c') === '1') {
