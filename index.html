@@ -575,7 +575,11 @@
       var date_str = ([date_o.getFullYear(), check_i(date_o.getMonth() + 1), check_i(date_o.getDate())]).join('/') + ' ' + ([check_i(date_o.getHours()), check_i(date_o.getMinutes()), check_i(date_o.getSeconds())]).join(':')
       $('.countdown_title').css({ 'display': 'flex' })
       $('.countdown_content_box').css({ 'display': 'block' })
-      $('#countdown_title_text').text(countdown_json.title)
+      var t_title = countdown_json.title
+      if (t_title.length > 15) {
+        t_title = String(t_title).substring(0, 12) + '...'
+      }
+      $('#countdown_title_text').text(t_title)
       $('.countdown_content_box_count').attr('t', countdown_json.date)
       $('.countdown_content_box_details #countdown_content_box_details_title').text(countdown_json.title)
       $('.countdown_content_box_details #countdown_content_box_details_description').text(countdown_json.description)
