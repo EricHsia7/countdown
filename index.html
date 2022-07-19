@@ -982,8 +982,7 @@
       var countdown_json = JSON.parse(String(localStorage.getItem('countdown_x_' + countdown_id)))
       var date_o = new Date()
       date_o.setTime(parseInt(countdown_json.date))
-      var date_arr = datestr(date_o)
-      var date_str = date_arr[0] + ':' + date_arr[1]
+      var date_str = datestr(date_o)
       $('#edit_title').val(countdown_json.title)
       $('#edit_description').val(countdown_json.description)
       $('#edit_date').val(date_str)
