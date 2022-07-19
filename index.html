@@ -578,11 +578,10 @@
       if (sec_e > 0) {
         return_arr.push(sec_e + 'ms')
       }
-
       return return_arr
     }
   }
-
+var countdown_pause = 0
   function countdown_update() {
     var countdown_len = $('.content_box .countdown_box').length
     for (var e = 0; e < countdown_len; e++) {
@@ -603,7 +602,13 @@
         }
       }
     }
-    window.requestAnimationFrame(countdown_update);
+    if(countdown_pause === 0) {
+      window.requestAnimationFrame(countdown_update);
+    }
+    else {
+      countdown_pause = 0
+      return ''
+    }
   }
   function openaddcountdown() {
     $('.add_countdown_title').css({ 'display': 'flex' })
@@ -656,6 +661,7 @@
   }
   function opencountdown(countdown_id) {
     if (localStorage.hasOwnProperty('countdown_x_' + countdown_id)) {
+      countdown_pause = 1
       var countdown_json = JSON.parse(String(localStorage.getItem('countdown_x_' + countdown_id)))
       var date_o = new Date()
       date_o.setTime(parseInt(countdown_json.date))
@@ -677,6 +683,7 @@
   function closecountdown() {
     $('.countdown_title,.countdown_content_box').css({ 'display': 'none' })
     $('.countdown_content_box_count').attr('f', '1')
+    window.requestAnimationFrame(countdown_update);
   }
 
 
