@@ -317,6 +317,45 @@
       width: 20px;
       height: 20px
     }
+
+    .countdown_content_box_count {
+      width: calc(100% - 20px);
+      height: 150px;
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      color: var(--d-333333);
+    }
+
+    .countdown_content_box_line {
+      width: calc(100% - 20px);
+      height: 1px;
+      background: var(--d-e3e3e3);
+      position: absolute;
+      top: calc(10px + 150px + 5px);
+      left: 10px;
+    }
+
+    .countdown_content_box_details {
+      width: calc(100% - 20px);
+      height: auto;
+      display: inline-block;
+      position: absolute;
+      top: calc(10px + 150px + 5px + 1px + 5px);
+      left: 10px;
+      color: var(--d-333333);
+    }
+    .countdown_content_box_details h3,
+    .countdown_content_box_details p {
+      margin:5px;
+      padding:0px;
+      color: var(--d-333333);
+      word-break:break-all;
+    }
   </style>
 </head>
 
@@ -511,7 +550,26 @@
       return '--'
     }
     if (mode === 1) {
-      var return_arr = [week + 'week', week_e + 'day', day_e + 'hour', hour_e + 'minute', minute_e + 'sec', sec_e + 'ms']
+      var return_arr = []
+      if (week > 0) {
+        return_arr.push(week + 'week')
+      }
+      if (week_e > 0) {
+        return_arr.push(week_e + 'day')
+      }
+      if (day_e > 0) {
+        return_arr.push(day_e + 'hour')
+      }
+      if (hour_e > 0) {
+        return_arr.push(hour_e + 'minute')
+      }
+      if (minute_e > 0) {
+        return_arr.push(minute_e + 'sec')
+      }
+      if (sec_e > 0) {
+        return_arr.push(sec_e + 'ms')
+      }
+
       return return_arr
     }
   }
