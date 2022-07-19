@@ -2,11 +2,11 @@
 <html lang="en">
 
 <head>
- <meta charset="UTF-8">
- <title>Countdown</title>
- <meta name="description" content="Countdown">
- <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=0" />
- <!--
+  <meta charset="UTF-8">
+  <title>Countdown</title>
+  <meta name="description" content="Countdown">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=0" />
+  <!--
   <link href="https://erichsia7.github.io/pwdgen2/pwaicon7/512x512.png" sizes="512x512"
     rel="apple-touch-icon-precomposed" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -20,469 +20,502 @@
   <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#1a1a1a" kji="dark">
   <link rel="manifest" href="https://erichsia7.github.io/pwdgen2/manifest6.json?e1">
     -->
- <link rel="preconnect" href="https://fonts.googleapis.com">
- <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
- <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@200;400&display=swap" rel="stylesheet">
- <style>
-  :root {
-   --d-ffffff: #ffffff;
-   --d-e3e3e3: #e3e3e3;
-   --d-333333: #333333;
-   --d-f4f4f4: #f4f4f4;
-  }
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@200;400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --d-ffffff: #ffffff;
+      --d-e3e3e3: #e3e3e3;
+      --d-333333: #333333;
+      --d-f4f4f4: #f4f4f4;
+    }
 
-  @media (prefers-color-scheme: dark) {
-   :root {
-    --d-ffffff: #000000;
-    --d-e3e3e3: #333333;
-    --d-333333: #ffffff;
-    --d-f4f4f4: #1f1f1f;
-   }
-  }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --d-ffffff: #000000;
+        --d-e3e3e3: #333333;
+        --d-333333: #ffffff;
+        --d-f4f4f4: #1f1f1f;
+      }
+    }
 
-  * {
-   -webkit-appearance: none;
-   outline: none;
-   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-   font-family: 'Noto Sans', sans-serif;
-  }
+    * {
+      -webkit-appearance: none;
+      outline: none;
+      -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+      font-family: 'Noto Sans', sans-serif;
+    }
 
-  body {
-   background: var(--d-ffffff)
-  }
+    body {
+      background: var(--d-ffffff)
+    }
 
-  .title,
-  .countdown_title,
-  .add_countdown_title {
-   position: fixed;
-   top: 0px;
-   left: 0px;
-   width: 100%;
-   height: 55px;
-   background: var(--d-ffffff);
-   border-bottom: 1px solid var(--d-e3e3e3);
-   box-sizing: border-box;
-   display: flex;
-   justify-content: center;
-   align-items: center;
-   font-size: 20px;
-   font-weight: 200;
-   color: var(--d-333333);
-   -webkit-user-select: none;
-   user-select: none;
-  }
+    .title,
+    .countdown_title,
+    .add_countdown_title {
+      position: fixed;
+      top: 0px;
+      left: 0px;
+      width: 100%;
+      height: 55px;
+      background: var(--d-ffffff);
+      border-bottom: 1px solid var(--d-e3e3e3);
+      box-sizing: border-box;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 20px;
+      font-weight: 200;
+      color: var(--d-333333);
+      -webkit-user-select: none;
+      user-select: none;
+    }
 
-  .countdown_title,
-  .add_countdown_title {
-   display: none;
-  }
+    .countdown_title,
+    .add_countdown_title {
+      display: none;
+    }
 
-  .content_box,
-  .countdown_content_box,
-  .add_countdown_content_box {
-   position: fixed;
-   top: 55px;
-   left: 0px;
-   width: 100%;
-   height: calc(100% - 55px);
-   background: var(--d-ffffff);
-   overflow: scroll;
-   -webkit-user-select: none;
-   user-select: none;
-  }
+    .content_box,
+    .countdown_content_box,
+    .add_countdown_content_box {
+      position: fixed;
+      top: 55px;
+      left: 0px;
+      width: 100%;
+      height: calc(100% - 55px);
+      background: var(--d-ffffff);
+      overflow: scroll;
+      -webkit-user-select: none;
+      user-select: none;
+    }
 
-  .countdown_content_box,
-  .add_countdown_content_box {
-   display: none;
-  }
+    .countdown_content_box,
+    .add_countdown_content_box {
+      display: none;
+    }
 
-  .addcountdown {
-   position: fixed;
-   bottom: 20px;
-   right: 20px;
-   border-radius: 99em;
-   background: var(--d-ffffff);
-   width: 55px;
-   height: 55px;
-   border: 1px solid var(--d-e3e3e3);
-   -webkit-user-select: none;
-   user-select: none;
-  }
+    .addcountdown {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      border-radius: 99em;
+      background: var(--d-ffffff);
+      width: 55px;
+      height: 55px;
+      border: 1px solid var(--d-e3e3e3);
+      -webkit-user-select: none;
+      user-select: none;
+    }
 
-  .countdown_box {
-   width: 100%;
-   height: 120px;
-   background: var(--d-f4f4f4);
-   border-bottom: 1px solid var(--d-e3e3e3);
-   position: relative;
-   -webkit-user-select: none;
-   user-select: none;
-  }
+    .countdown_box {
+      width: 100%;
+      height: 120px;
+      background: var(--d-f4f4f4);
+      border-bottom: 1px solid var(--d-e3e3e3);
+      position: relative;
+      -webkit-user-select: none;
+      user-select: none;
+    }
 
-  .countdown_box:nth-last-child(1) {
-   border-bottom: none;
-  }
+    .countdown_box:nth-last-child(1) {
+      border-bottom: none;
+    }
 
-  .countdown_box_count {
-   position: absolute;
-   top: 0px;
-   left: 0px;
-   width: 119px;
-   height: 120px;
-   display: flex;
-   justify-content: center;
-   align-items: center;
-   background: var(--d-ffffff);
-   box-sizing: border-box;
-   font-size: 23px;
-   color: var(--d-333333);
-   -webkit-user-select: none;
-   user-select: none;
-  }
+    .countdown_box_count {
+      position: absolute;
+      top: 0px;
+      left: 0px;
+      width: 119px;
+      height: 120px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: var(--d-ffffff);
+      box-sizing: border-box;
+      font-size: 23px;
+      color: var(--d-333333);
+      -webkit-user-select: none;
+      user-select: none;
+    }
 
-  .countdown_box_title {
-   position: absolute;
-   top: 0px;
-   left: 120px;
-   width: calc(100% - 120px);
-   height: 49px;
-   display: flex;
-   align-items: center;
-   background: var(--d-ffffff);
-   box-sizing: border-box;
-   padding-left: 10px;
-   color: var(--d-333333);
-   -webkit-user-select: none;
-   user-select: none;
-  }
+    .countdown_box_title {
+      position: absolute;
+      top: 0px;
+      left: 120px;
+      width: calc(100% - 120px);
+      height: 49px;
+      display: flex;
+      align-items: center;
+      background: var(--d-ffffff);
+      box-sizing: border-box;
+      padding-left: 10px;
+      color: var(--d-333333);
+      -webkit-user-select: none;
+      user-select: none;
+    }
 
-  .countdown_box_description {
-   position: absolute;
-   top: 50px;
-   left: 120px;
-   width: calc(100% - 120px);
-   height: calc(100% - 50px);
-   background: var(--d-ffffff);
-   box-sizing: border-box;
-   padding-left: 10px;
-   padding-top: 10px;
-   color: var(--d-333333);
-   -webkit-user-select: none;
-   user-select: none;
-  }
+    .countdown_box_description {
+      position: absolute;
+      top: 50px;
+      left: 120px;
+      width: calc(100% - 120px);
+      height: calc(100% - 50px);
+      background: var(--d-ffffff);
+      box-sizing: border-box;
+      padding-left: 10px;
+      padding-top: 10px;
+      color: var(--d-333333);
+      -webkit-user-select: none;
+      user-select: none;
+    }
 
-  .countdown_box.loading {
-   background: var(--d-ffffff);
-  }
+    .countdown_box.loading {
+      background: var(--d-ffffff);
+    }
 
-  .countdown_box.loading .countdown_box_count::after,
-  .countdown_box.loading .countdown_box_title::after,
-  .countdown_box.loading .countdown_box_description::after {
-   content: '';
-   background: var(--d-e3e3e3);
-   position: absolute;
-   border-radius: 10px;
-  }
+    .countdown_box.loading .countdown_box_count::after,
+    .countdown_box.loading .countdown_box_title::after,
+    .countdown_box.loading .countdown_box_description::after {
+      content: '';
+      background: var(--d-e3e3e3);
+      position: absolute;
+      border-radius: 10px;
+    }
 
-  .countdown_box.loading .countdown_box_count::after {
-   top: 10px;
-   left: 10px;
-   width: calc(100% - 20px);
-   height: calc(100% - 20px);
-  }
+    .countdown_box.loading .countdown_box_count::after {
+      top: 10px;
+      left: 10px;
+      width: calc(100% - 20px);
+      height: calc(100% - 20px);
+    }
 
-  .countdown_box.loading .countdown_box_title::after {
-   top: 10px;
-   left: 0px;
-   width: calc(100% - 10px);
-   height: calc(100% - 10px);
-  }
+    .countdown_box.loading .countdown_box_title::after {
+      top: 10px;
+      left: 0px;
+      width: calc(100% - 10px);
+      height: calc(100% - 10px);
+    }
 
-  .countdown_box.loading .countdown_box_description::after {
-   top: 10px;
-   left: 0px;
-   width: calc(100% - 10px);
-   height: calc(100% - 20px);
+    .countdown_box.loading .countdown_box_description::after {
+      top: 10px;
+      left: 0px;
+      width: calc(100% - 10px);
+      height: calc(100% - 20px);
 
-  }
+    }
 
-  .add_countdown_content_box input[type="text"],
-  .add_countdown_content_box textarea {
-   width: calc(100% - 20px);
-   height: 45px;
-   border: 1px solid var(--d-e3e3e3);
-   border-radius: 10px;
-   background: transparent;
-   -webkit-appearance: none;
-   color: var(--d-333333);
-   font-size: 15px;
-   margin-top: 10px;
-   box-sizing: border-box;
-   padding: 5px;
-   position: relative;
-   left: 50%;
-   transform: translateX(-50%);
-   background: transparent;
-   color: var(--d-333333);
-  }
+    .add_countdown_content_box input[type="text"],
+    .add_countdown_content_box textarea {
+      width: calc(100% - 20px);
+      height: 45px;
+      border: 1px solid var(--d-e3e3e3);
+      border-radius: 10px;
+      background: transparent;
+      -webkit-appearance: none;
+      color: var(--d-333333);
+      font-size: 15px;
+      margin-top: 10px;
+      box-sizing: border-box;
+      padding: 5px;
+      position: relative;
+      left: 50%;
+      transform: translateX(-50%);
+      background: transparent;
+      color: var(--d-333333);
+    }
 
-  .add_countdown_content_box input[type="datetime-local"] {
-   -webkit-appearance: none;
-   width: calc(100% - 20px);
-   height: 45px;
-   padding: 5px;
-   box-sizing: border-box;
-   margin-top: 10px;
-   font-size: 15px;
-   border-radius: 10px;
-   border: 1px solid var(--d-e3e3e3);
-   background: transparent;
-   position: relative;
-   left: 50%;
-   transform: translateX(-50%);
-   color: var(--d-333333)
-  }
+    .add_countdown_content_box input[type="datetime-local"] {
+      -webkit-appearance: none;
+      width: calc(100% - 20px);
+      height: 45px;
+      padding: 5px;
+      box-sizing: border-box;
+      margin-top: 10px;
+      font-size: 15px;
+      border-radius: 10px;
+      border: 1px solid var(--d-e3e3e3);
+      background: transparent;
+      position: relative;
+      left: 50%;
+      transform: translateX(-50%);
+      color: var(--d-333333)
+    }
 
-  .add_countdown_content_box textarea {
-   height: 135px;
-  }
+    .add_countdown_content_box textarea {
+      height: 135px;
+    }
 
-  .add_countdown_btn {
-   height: 45px;
-   width: calc(100% - 20px);
-   background: var(--d-e3e3e3);
-   color: var(--d-333333);
-   display: flex;
-   justify-content: center;
-   align-items: center;
-   border-radius: 10px;
-   position: relative;
-   left: 50%;
-   transform: translateX(-50%);
-   margin-top: 10px;
-  }
+    .add_countdown_btn {
+      height: 45px;
+      width: calc(100% - 20px);
+      background: var(--d-e3e3e3);
+      color: var(--d-333333);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 10px;
+      position: relative;
+      left: 50%;
+      transform: translateX(-50%);
+      margin-top: 10px;
+    }
 
 
-  .promptcenter {
-   position: absolute;
-   left: 15px;
-   top: 50%;
-   transform: translateY(-50%);
-   color: var(--d-333333);
-   font-size: 15px;
-   font-family: "Noto Sans TC", sans-serif;
-   user-select: none;
-   -webkit-user-select: none;
-  }
+    .promptcenter {
+      position: absolute;
+      left: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--d-333333);
+      font-size: 15px;
+      font-family: "Noto Sans TC", sans-serif;
+      user-select: none;
+      -webkit-user-select: none;
+    }
 
-  .promptcenter * {
-   color: var(--d-333333);
-   font-size: 15px;
-   font-family: "Noto Sans TC", sans-serif
-  }
+    .promptcenter * {
+      color: var(--d-333333);
+      font-size: 15px;
+      font-family: "Noto Sans TC", sans-serif
+    }
 
-  .prompt {
-   width: clamp(180px, calc(100% - 40px), 450px);
-   height: 60px;
-   border-radius: 15px;
-   position: fixed;
-   left: 50%;
-   bottom: 0px;
-   opacity: 0;
-   transform: translateX(-50%) translateY(0px) scale(0.75);
-   background: var(--d-e3e3e3);
-   box-shadow: 0 0 15px 2px rgba(0, 0, 0, 0.08);
-   will-change: transform, opacity;
-   -webkit-user-select: none;
-   user-select: none;
-  }
- </style>
+    .prompt {
+      width: clamp(180px, calc(100% - 40px), 450px);
+      height: 60px;
+      border-radius: 15px;
+      position: fixed;
+      left: 50%;
+      bottom: 0px;
+      opacity: 0;
+      transform: translateX(-50%) translateY(0px) scale(0.75);
+      background: var(--d-e3e3e3);
+      box-shadow: 0 0 15px 2px rgba(0, 0, 0, 0.08);
+      will-change: transform, opacity;
+      -webkit-user-select: none;
+      user-select: none;
+    }
+
+    .back_btn {
+      width: 35px;
+      height: 35px;
+      top: 10px;
+      left: 10px;
+      overflow: hidden;
+    }
+
+    .addcountdown svg,
+    .back_btn svg {
+      width: 20px;
+      height: 20px
+    }
+  </style>
 </head>
 
 <body>
- <div class="title">
-  Countdown
- </div>
- <div class="content_box"></div>
- <div class="addcountdown" r-click="openaddcountdown()"></div>
- <div class="countdown_title"></div>
- <div class="countdown_content_box"></div>
- <div class="add_countdown_title">Add Countdown</div>
- <div class="add_countdown_content_box">
-  <input type="text" placeholder="Title" id="add_title">
-  <textarea placeholder="Description" id="add_description"></textarea>
-  <input type="datetime-local" id="add_date" placeholder="Date">
-  <div class="add_countdown_btn" r-click="addcountdown()">Add</div>
- </div>
+  <div class="title">
+    Countdown
+  </div>
+  <div class="content_box"></div>
+  <div class="addcountdown" r-click="openaddcountdown()">
+    <svg stroke-miterlimit="10" style="fill-rule:nonzero;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;"
+      version="1.1" viewBox="0 0 64 64" xml:space="preserve" xmlns="http://www.w3.org/2000/svg"
+      xmlns:xlink="http://www.w3.org/1999/xlink">
+      <path
+        d="M28.5714 64L28.5714 35.4286L0 35.4286L0 28.5714L28.5714 28.5714L28.5714 0L35.4286 0L35.4286 28.5714L64 28.5714L64 35.4286L35.4286 35.4286L35.4286 64L28.5714 64Z"
+        fill="var(--d-333333)" fill-rule="evenodd" opacity="1" stroke="none" />
+    </svg>
+  </div>
+  <div class="countdown_title"></div>
+  <div class="countdown_content_box"></div>
+  <div class="add_countdown_title">
+    <div class="back_btn">
+      <svg stroke-miterlimit="10"
+        style="fill-rule:nonzero;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;" version="1.1"
+        viewBox="0 0 64 64" xml:space="preserve" xmlns="http://www.w3.org/2000/svg"
+        xmlns:xlink="http://www.w3.org/1999/xlink">
+        <path d="M32 64L0 32L32 0L36.2 4.2L11.4 29L64 29L64 35L11.4 35L36.2 59.8L32 64Z" fill="var(--d-333333)"
+          fill-rule="evenodd" opacity="1" stroke="none" />
+      </svg>
+    </div>
+    Add Countdown
+  </div>
+  <div class="add_countdown_content_box">
+    <input type="text" placeholder="Title" id="add_title">
+    <textarea placeholder="Description" id="add_description"></textarea>
+    <input type="datetime-local" id="add_date" placeholder="Date">
+    <div class="add_countdown_btn" r-click="addcountdown()">Add</div>
+  </div>
 
 </body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script>
- (function ($) {
-  $.fn.prompt = function (options) {
-   var settings = $.extend(
-    {
-     message: "undefined",
-     time: 2000,
-    },
-    options
-   );
+  (function ($) {
+    $.fn.prompt = function (options) {
+      var settings = $.extend(
+        {
+          message: "undefined",
+          time: 2000,
+        },
+        options
+      );
 
-   return this.each(function () {
-    $('.prompt,style[promptanimation="promptanimation"]').remove();
-    var promptchars = "0123456789abcdefghijklmnopqrstuvwxyz";
-    var promptid = "";
-    for (var i = 0; i < 10; i++) {
-     var randomNumber = Math.floor(Math.random() * promptchars.length);
-     promptid += promptchars.substring(randomNumber, randomNumber + 1);
+      return this.each(function () {
+        $('.prompt,style[promptanimation="promptanimation"]').remove();
+        var promptchars = "0123456789abcdefghijklmnopqrstuvwxyz";
+        var promptid = "";
+        for (var i = 0; i < 10; i++) {
+          var randomNumber = Math.floor(Math.random() * promptchars.length);
+          promptid += promptchars.substring(randomNumber, randomNumber + 1);
+        }
+        var translateY = -1 * (20)
+        $(this).append('<style qix="promptanimation' + promptid + '" promptanimation="promptanimation">.promptanimation' + promptid + '{animation-name:prompt' + promptid + ';animation-duration:' + (settings.time + 300 * 2) + 'ms;animation-fill-mode:forwards;animation-timing-function:ease-in-out}@keyframes prompt' + promptid + '{0%{opacity:0;transform:translateX(-50%) translateY(' + translateY + 'px) scale(0.75);}' + Math.floor((300) / (settings.time + 300 + 150) * 100) + '%{opacity:1;transform:translateX(-50%) translateY(' + translateY + 'px) scale(1);}' + Math.floor((300 + settings.time) / (settings.time + 300 + 150) * 100) + '%{opacity:1;transform:translateX(-50%) translateY(' + translateY + 'px) scale(1);}100%{opacity:0;transform:translateX(-50%) translateY(' + translateY + 'px) scale(1);}}</style><div class="prompt promptanimation' + promptid + '" id="' + promptid + '"><span class="promptcenter">' + settings.message + "</span></div>");
+
+        setTimeout(function () {
+          $("#" + promptid + ',style[qix="promptanimation' + promptid + '"]').remove();
+        }, settings.time + 400 * 2 + 50);
+      });
+    };
+  })(jQuery);
+  function mes(mess) {
+    $('body').prompt({ 'message': mess, 'time': 1200 });
+  }
+  function rclick(select) {
+    $(select).click(function (e) {
+      e.stopPropagation()
+      if ($(this).attr('r-click') != '') {
+        eval('setTimeout(function() {' + $(this).attr('r-click') + '},' + 1 + ');');
+      }
+    });
+  }
+  function searchItemsbyname(name) {
+    var gh = []
+    for (var t in window.localStorage) {
+      if (String(t).indexOf(name) > -1) {
+        gh.push(t)
+      }
     }
-    var translateY = -1 * (20)
-    $(this).append('<style qix="promptanimation' + promptid + '" promptanimation="promptanimation">.promptanimation' + promptid + '{animation-name:prompt' + promptid + ';animation-duration:' + (settings.time + 300 * 2) + 'ms;animation-fill-mode:forwards;animation-timing-function:ease-in-out}@keyframes prompt' + promptid + '{0%{opacity:0;transform:translateX(-50%) translateY(' + translateY + 'px) scale(0.75);}' + Math.floor((300) / (settings.time + 300 + 150) * 100) + '%{opacity:1;transform:translateX(-50%) translateY(' + translateY + 'px) scale(1);}' + Math.floor((300 + settings.time) / (settings.time + 300 + 150) * 100) + '%{opacity:1;transform:translateX(-50%) translateY(' + translateY + 'px) scale(1);}100%{opacity:0;transform:translateX(-50%) translateY(' + translateY + 'px) scale(1);}}</style><div class="prompt promptanimation' + promptid + '" id="' + promptid + '"><span class="promptcenter">' + settings.message + "</span></div>");
-
-    setTimeout(function () {
-     $("#" + promptid + ',style[qix="promptanimation' + promptid + '"]').remove();
-    }, settings.time + 400 * 2 + 50);
-   });
-  };
- })(jQuery);
- function mes(mess) {
-  $('body').prompt({ 'message': mess, 'time': 1200 });
- }
- function rclick(select) {
-  $(select).click(function (e) {
-   e.stopPropagation()
-   if ($(this).attr('r-click') != '') {
-    eval('setTimeout(function() {' + $(this).attr('r-click') + '},' + 1 + ');');
-   }
-  });
- }
- function searchItemsbyname(name) {
-  var gh = []
-  for (var t in window.localStorage) {
-   if (String(t).indexOf(name) > -1) {
-    gh.push(t)
-   }
+    return gh
   }
-  return gh
- }
- function print_countdown() {
-  var list = searchItemsbyname('countdown_x_')
-  if (list.length < 1) {
-   $('.content_box .loading').remove()
-   return ''
-  }
-  var list_len = list.length
-  for (var d = 0; d < list_len; d++) {
-   list[d] = JSON.parse(localStorage.getItem(String(list[d])))
-  }
-  list_len = list.length
-  for (var e = 0; e < list_len; e++) {
-   var this_list = list[e]
-   $('.content_box').append('<div class="countdown_box"><div class="countdown_box_count" t="' + this_list.date + '"></div><div class="countdown_box_title">' + this_list.title + '</div><div class="countdown_box_description">' + this_list.description + '</div></div>')
-  }
-  $('.content_box .loading').remove()
- }
- function refresh_countdown() {
-  $('.content_box').html('')
-  print_countdown()
- }
- function tday(ms) {
-  var sec_e = ms % 1000
-  var sec = (ms - sec_e) / 1000
-  var minute_e = sec % 60
-  var minute = (sec - minute_e) / 60
-  var hour_e = minute % 60
-  var hour = (minute - hour_e) / 60
-  var day_e = hour % 24
-  var day = (hour - day_e) / 24
-  if (day > 0) {
-   return day + 'd'
-  }
-  if (day_e > 0) {
-   return day_e + 'h'
-  }
-  if (hour_e > 0) {
-   return hour_e + 'm'
-  }
-  if (minute_e > 0) {
-   return minute_e + 's'
-  }
-  if (sec_e > 0) {
-   return sec_e + 'ms'
-  }
-  return '--'
- }
-
- function countdown_update() {
-  var countdown_len = $('.content_box .countdown_box').length
-  for (var e = 0; e < countdown_len; e++) {
-   var this_h = $('.content_box .countdown_box .countdown_box_count').eq(e)
-   var thswww = this_h.offset().top - $(document).scrollTop()
-   var thshh = this_h.height()
-   if (thswww > (0 - thshh) && thswww < window.innerHeight && !(this_h.attr('f') === '1')) {
-
-    var time = parseInt(this_h.attr('t'))
-    var nowtime = new Date().getTime()
-    var f = (time - nowtime)
-    if (f > 0) {
-     this_h.text(tday(f))
+  function print_countdown() {
+    var list = searchItemsbyname('countdown_x_')
+    if (list.length < 1) {
+      $('.content_box .loading').remove()
+      return ''
     }
-    else {
-     this_h.text('Finish')
-     this_h.attr('f', '1')
+    var list_len = list.length
+    for (var d = 0; d < list_len; d++) {
+      list[d] = JSON.parse(localStorage.getItem(String(list[d])))
     }
-   }
+    list_len = list.length
+    for (var e = 0; e < list_len; e++) {
+      var this_list = list[e]
+      $('.content_box').append('<div class="countdown_box"><div class="countdown_box_count" t="' + this_list.date + '"></div><div class="countdown_box_title">' + this_list.title + '</div><div class="countdown_box_description">' + this_list.description + '</div></div>')
+    }
+    $('.content_box .loading').remove()
   }
-  window.requestAnimationFrame(countdown_update);
- }
- function openaddcountdown() {
-  $('.add_countdown_title').css({ 'display': 'flex' })
-  $('.add_countdown_content_box').css({ 'display': 'block' })
- }
- function closeaddcountdown() {
-  $('.add_countdown_title,.add_countdown_content_box').css({ 'display': 'none' })
- }
- function addcountdown() {
-  var title = $('#add_title').val()
-  var description = $('#add_description').val()
-  var date = new Date(String($('#add_date').val())).getTime()
-  var id = ''
-  var id_chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
-  for (var i = 0; i < 16; i++) {
-   var rdn = Math.floor(Math.random() * id_chars.length)
-   var rdnstr = id_chars.substring(rdn, rdn + 1)
-   id += rdnstr
-  }
-  var json = {
-   'title': title,
-   'description': description,
-   'date': date,
-   'id': id
-  }
-  localStorage.setItem('countdown_x_' + id, JSON.stringify(json))
-  closeaddcountdown()
-  $('#add_title').val('')
-  $('#add_description').val('')
-  $('#add_date').val('')
-  mes('Countdown added')
-  refresh_countdown()
- }
- function initialize() {
-  var load_len = Math.floor(window.innerHeight / 120) + 1
-  var yy = []
-  for (var y = 0; y < load_len; y++) {
-   yy.push('<div class="countdown_box loading"><div class="countdown_box_count"></div><div class="countdown_box_title"></div><div class="countdown_box_description"></div></div>')
-  }
-  $('.content_box').html(yy.join(''))
-  $(document).ready(function () {
-   setTimeout(function () {
+  function refresh_countdown() {
+    $('.content_box').html('')
     print_countdown()
-    rclick('.addcountdown,.add_countdown_btn')
+  }
+  function tday(ms) {
+    var sec_e = ms % 1000
+    var sec = (ms - sec_e) / 1000
+    var minute_e = sec % 60
+    var minute = (sec - minute_e) / 60
+    var hour_e = minute % 60
+    var hour = (minute - hour_e) / 60
+    var day_e = hour % 24
+    var day = (hour - day_e) / 24
+    if (day > 0) {
+      return day + 'd'
+    }
+    if (day_e > 0) {
+      return day_e + 'h'
+    }
+    if (hour_e > 0) {
+      return hour_e + 'm'
+    }
+    if (minute_e > 0) {
+      return minute_e + 's'
+    }
+    if (sec_e > 0) {
+      return sec_e + 'ms'
+    }
+    return '--'
+  }
+
+  function countdown_update() {
+    var countdown_len = $('.content_box .countdown_box').length
+    for (var e = 0; e < countdown_len; e++) {
+      var this_h = $('.content_box .countdown_box .countdown_box_count').eq(e)
+      var thswww = this_h.offset().top - $(document).scrollTop()
+      var thshh = this_h.height()
+      if (thswww > (0 - thshh) && thswww < window.innerHeight && !(this_h.attr('f') === '1')) {
+
+        var time = parseInt(this_h.attr('t'))
+        var nowtime = new Date().getTime()
+        var f = (time - nowtime)
+        if (f > 0) {
+          this_h.text(tday(f))
+        }
+        else {
+          this_h.text('Finish')
+          this_h.attr('f', '1')
+        }
+      }
+    }
     window.requestAnimationFrame(countdown_update);
-   }, 1500)
-  })
- }
- initialize()
+  }
+  function openaddcountdown() {
+    $('.add_countdown_title').css({ 'display': 'flex' })
+    $('.add_countdown_content_box').css({ 'display': 'block' })
+  }
+  function closeaddcountdown() {
+    $('.add_countdown_title,.add_countdown_content_box').css({ 'display': 'none' })
+  }
+  function addcountdown() {
+    var title = $('#add_title').val()
+    var description = $('#add_description').val()
+    var date = new Date(String($('#add_date').val())).getTime()
+    var id = ''
+    var id_chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
+    for (var i = 0; i < 16; i++) {
+      var rdn = Math.floor(Math.random() * id_chars.length)
+      var rdnstr = id_chars.substring(rdn, rdn + 1)
+      id += rdnstr
+    }
+    var json = {
+      'title': title,
+      'description': description,
+      'date': date,
+      'id': id
+    }
+    localStorage.setItem('countdown_x_' + id, JSON.stringify(json))
+    closeaddcountdown()
+    $('#add_title').val('')
+    $('#add_description').val('')
+    $('#add_date').val('')
+    mes('Countdown added')
+    refresh_countdown()
+  }
+  function initialize() {
+    var load_len = Math.floor(window.innerHeight / 120) + 1
+    var yy = []
+    for (var y = 0; y < load_len; y++) {
+      yy.push('<div class="countdown_box loading"><div class="countdown_box_count"></div><div class="countdown_box_title"></div><div class="countdown_box_description"></div></div>')
+    }
+    $('.content_box').html(yy.join(''))
+    $(document).ready(function () {
+      setTimeout(function () {
+        print_countdown()
+        rclick('.addcountdown,.add_countdown_btn')
+        window.requestAnimationFrame(countdown_update);
+      }, 1500)
+    })
+  }
+  initialize()
 </script>
 
 </html>
