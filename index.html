@@ -120,8 +120,9 @@
       user-select: none;
     }
 
-    .countdown_box:nth-last-child(1) {
-      border-bottom: none;
+     .countdown_box:nth-last-child(1) {
+      /*border-bottom: none;*/
+      margin-bottom:20px
     }
 
     .countdown_box_count {
@@ -400,21 +401,23 @@
       overflow: scroll;
       -webkit-mask-image: -webkit-radial-gradient(white, black);
       mask-image: -webkit-radial-gradient(white, black);
-      max-height:450px;
+      max-height: 450px;
     }
+
     .options li {
-      width:100%;
-      padding-left:10px;
-      height:45px;
-      border-bottom:1px solid var(--d-e3e3e3);
+      width: 100%;
+      padding-left: 10px;
+      height: 45px;
+      border-bottom: 1px solid var(--d-e3e3e3);
       box-sizing: border-box;
-      color:var(--d-333333);
+      color: var(--d-333333);
       font-size: 16px;
       display: flex;
       align-items: center;
     }
+
     .options li:nth-last-child(1) {
-      border:none;
+      border: none;
     }
   </style>
 </head>
