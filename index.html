@@ -369,7 +369,9 @@
 
     .addcountdown svg,
     .back_btn svg,
-    .options_btn svg {
+    .options_btn svg,
+    .delete_btn svg,
+    .cancel_btn svg {
       width: 20px;
       height: 20px
     }
@@ -872,11 +874,13 @@
   function editcountdown() {
     $('.content_box').attr('edit', '1')
     $('.cancel_btn,.delete_btn').css({ 'display': 'flex' })
+    $('.options_btn').css({ 'display': 'none' })
     closeoptions()
   }
   function cancelselect() {
     $('.content_box').attr('edit', '0')
     $('.cancel_btn,.delete_btn').css({ 'display': 'none' })
+    $('.options_btn').css({ 'display': 'flex' })
     var checkbox_len = $('.content_box input[type="checkbox"]').length
     for (var g = 0; g < checkbox_len; g++) {
       $('.content_box input[type="checkbox"]').eq(g).prop('checked', false)
