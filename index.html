@@ -426,6 +426,11 @@
 </body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script>
+  var getUrlString = location.href;
+  var url = new URL(getUrlString);
+  function urlparams(p) {
+    return url.searchParams.get(p)
+  }
   (function ($) {
     $.fn.prompt = function (options) {
       var settings = $.extend(
@@ -662,6 +667,7 @@
   function opencountdown(countdown_id) {
     if (localStorage.hasOwnProperty('countdown_x_' + countdown_id)) {
       countdown_pause = 1
+      history.pushState(null, null,'https://erichsia7.github.io/countdown/?c=1&id=' + countdown_id);
       var countdown_json = JSON.parse(String(localStorage.getItem('countdown_x_' + countdown_id)))
       var date_o = new Date()
       date_o.setTime(parseInt(countdown_json.date))
@@ -683,6 +689,7 @@
   function closecountdown() {
     $('.countdown_title,.countdown_content_box').css({ 'display': 'none' })
     $('.countdown_content_box_count').attr('f', '1')
+    history.pushState(null, null,'https://erichsia7.github.io/countdown/');
     window.requestAnimationFrame(countdown_update);
   }
 
@@ -701,6 +708,12 @@
         rclick('.addcountdown,.add_countdown_btn,.back_btn')
         window.requestAnimationFrame(countdown_update);
       }, 1500)
+      if (urlparams('c') === '1') {
+        var countdown_id = urlparams('id')
+        if (localStorage.hasOwnProperty('countdown_x_' + countdown_id)) {
+          opencountdown(countdown_id)
+        }
+      }
     })
   }
   initialize()
