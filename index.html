@@ -777,7 +777,7 @@
     $(document).ready(function () {
       setTimeout(function () {
         print_countdown()
-        rclick('.addcountdown,.add_countdown_btn,.back_btn,.options_btn,.options_mask')
+        rclick('.addcountdown,.add_countdown_btn,.back_btn,.options_btn,.options_mask,.options li')
         window.requestAnimationFrame(countdown_update);
       }, 1500)
       if (urlparams('c') === '1') {
