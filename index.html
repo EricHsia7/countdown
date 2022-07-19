@@ -431,8 +431,17 @@
     list_len = list.length
     for (var e = 0; e < list_len; e++) {
       var this_list = list[e]
+      var this_title = this_list.title
+      if (this_title.length > 15) {
+        this_title = String(this_title).substring(0, 12) + '...'
+      }
+      var this_description = this_list.description
+      if (this_description.length > 45) {
+        this_description = String(this_description).substring(0, 42) + '...'
+      }
+
       var this_id = randid('countdown')
-      $('.content_box').append('<div class="countdown_box" id="' + this_id + '" r-click="opencountdown(' + "'" + this_list.id + "'" + ')"><div class="countdown_box_count" t="' + this_list.date + '"></div><div class="countdown_box_title">' + String(this_list.title).substring(0, 15) + '</div><div class="countdown_box_description">' + String(this_list.description).substring(0, 45) + '</div></div>')
+      $('.content_box').append('<div class="countdown_box" id="' + this_id + '" r-click="opencountdown(' + "'" + this_list.id + "'" + ')"><div class="countdown_box_count" t="' + this_list.date + '"></div><div class="countdown_box_title">' + this_title + '</div><div class="countdown_box_description">' + this_description + '</div></div>')
       rclick('#' + this_id)
     }
     $('.content_box .loading').remove()
