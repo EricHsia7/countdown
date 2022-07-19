@@ -435,8 +435,13 @@
     var hour = (minute - hour_e) / 60
     var day_e = hour % 24
     var day = (hour - day_e) / 24
-    if (day > 0) {
-      return day + 'd'
+    var week_e = day % 7
+    var week = (day - week_e) / 7
+    if (week > 0) {
+      return week + 'w'
+    }
+    if (week_e > 0) {
+      return week_e + 'd'
     }
     if (day_e > 0) {
       return day_e + 'h'
