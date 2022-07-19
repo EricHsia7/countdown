@@ -157,6 +157,8 @@
       color: var(--d-333333);
       -webkit-user-select: none;
       user-select: none;
+      word-break: break-all;
+      overflow: hidden;
     }
 
     .countdown_box_description {
@@ -172,6 +174,8 @@
       color: var(--d-333333);
       -webkit-user-select: none;
       user-select: none;
+      word-break: break-all;
+      overflow: hidden;
     }
 
     .countdown_box.loading {
@@ -333,7 +337,7 @@
 
     .countdown_content_box_count span {
       font-size: 20px;
-      padding:5px;
+      padding: 5px;
     }
 
     .countdown_content_box_line {
@@ -673,7 +677,7 @@
   }
   function closecountdown() {
     $('.countdown_title,.countdown_content_box').css({ 'display': 'none' })
-    $('.countdown_content_box_count').attr('f','1')
+    $('.countdown_content_box_count').attr('f', '1')
   }
 
 
