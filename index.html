@@ -541,12 +541,15 @@
 
     @media only screen and (max-width: 600px) {
       .count {
-        width: 20px;
+        width: 25px;
         height: 45px;
+        border-radius: 5px;
       }
-
+      .count_track {
+        transform: translateY(calc(var(--count-number) * -45px));
+      }
       .count_track span {
-        font-size: 12px
+        font-size: 13px
       }
     }
   </style>
