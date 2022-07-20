@@ -545,9 +545,11 @@
         height: 45px;
         border-radius: 5px;
       }
+
       .count_track {
         transform: translateY(calc(var(--count-number) * -45px));
       }
+
       .count_track span {
         font-size: 15px
       }
@@ -678,9 +680,8 @@
     <li r-click="editcountdown()" y="edit" group="0">Edit</li>
     <li r-click="refreshpage()" y="refresh" group="0">Refresh</li>
     <li r-click="viewongithub()" y="github" group="0">Github</li>
-
     <li r-click="editcountdown_detail()" y="edit2" group="1">Edit</li>
-
+    <li r-click="sharecountdown()" y="share" group="1">Share</li>
   </div>
 </body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -1027,7 +1028,7 @@
       var f = (time - nowtime)
       if (f > 0) {
         tday(f, 2)
-        if($('.countdown_content_box_count .countdown_content_box_count_finish').length > 0) {
+        if ($('.countdown_content_box_count .countdown_content_box_count_finish').length > 0) {
           $('.countdown_content_box_count .countdown_content_box_count_finish').remove()
         }
         //$('.countdown_content_box_count').html('<span>' + (tday(f, 1)).join('</span><span>') + '</span>')
@@ -1062,6 +1063,7 @@
       $('.countdown_content_box_details #countdown_content_box_details_date').text(date_str)
       window.requestAnimationFrame(countdown_content_count_update);
       $('.options li[y="edit2"]').attr('r-click', "editcountdown_detail('" + countdown_id + "')")
+      $('.options li[y="share"]').attr('r-click', "sharecountdown('" + countdown_id + "')")
     }
   }
   function closecountdown() {
@@ -1146,6 +1148,24 @@
       $('.edit_countdown_btn').attr('countdown-id', countdown_json.id)
     }
   }
+  function sharecountdown(countdown_id) {
+    if (localStorage.hasOwnProperty('countdown_x_' + countdown_id)) {
+      closeoptions()
+      var countdown_json = JSON.parse(String(localStorage.getItem('countdown_x_' + countdown_id)))
+      var link = 'https://erichsia7.github.io/countdown/?s=1&j=' + btoa(encodeURIComponent(JSON.stringify(countdown_json)))
+      if (navigator.share) {
+        navigator.share({
+          title: 'Countdown',
+          url: link
+        }).then(() => {
+        })
+          .catch(console.error);
+      }
+      else {
+        //e
+      }
+    }
+  }
   function savecountdown() {
     var countdown_id = $('.edit_countdown_btn').attr('countdown-id')
     if (localStorage.hasOwnProperty('countdown_x_' + countdown_id)) {
@@ -1186,6 +1206,18 @@
         if (localStorage.hasOwnProperty('countdown_x_' + countdown_id)) {
           opencountdown(countdown_id)
         }
+      }
+      if (urlparams('s') === '1') {
+        var id = ''
+        var id_chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
+        for (var i = 0; i < 16; i++) {
+          var rdn = Math.floor(Math.random() * id_chars.length)
+          var rdnstr = id_chars.substring(rdn, rdn + 1)
+          id += rdnstr
+        }
+        var json = JSON.parse(decodeURIComponent(atob(urlparams('j'))))
+        json.id = id
+        localStorage.setItem('countdown_x_' + id, JSON.stringify(json))
       }
     })
   }
