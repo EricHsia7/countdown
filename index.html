@@ -1218,10 +1218,10 @@
         }*/
         var json = JSON.parse(decodeURIComponent(atob(urlparams('j'))))
         if (!(localStorage.hasOwnProperty('countdown_x_' + json.id))) {
-          localStorage.setItem('countdown_x_' + id, JSON.stringify(json))
-          if (localStorage.hasOwnProperty('countdown_x_' + id)) {
-            opencountdown(id)
-            mes('Added 1 shared countdown')
+          localStorage.setItem('countdown_x_' + json.id, JSON.stringify(json))
+          if (localStorage.hasOwnProperty('countdown_x_' + json.id)) {
+            opencountdown(json.id)
+            mes('Added 1 shared countdown.')
           }
         }
       }
