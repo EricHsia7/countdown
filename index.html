@@ -841,6 +841,7 @@
       }
       var string_arr = []
       var return_arr = []
+      var p_week, p_week_e, p_day_e, p_hour_e, p_minute_e
       if (week > 0) {
         return_arr.push(week + 'week')
         string_arr.push(week)
@@ -848,19 +849,46 @@
       if (week_e > 0) {
         return_arr.push(week_e + 'day')
         string_arr.push(week_e)
+        p_week_e = 1
       }
       if (day_e > 0) {
         return_arr.push(day_e + 'hour')
         string_arr.push(padding(day_e))
+        p_day_e = 1
+      }
+      else {
+        if (p_week_e === 1) {
+          return_arr.push(day_e + 'hour')
+          string_arr.push('00')
+          p_day_e = 1
+        }
       }
       if (hour_e > 0) {
         return_arr.push(hour_e + 'minute')
         string_arr.push(padding(hour_e))
+        p_hour_e = 1
       }
+      else {
+        if (p_day_e === 1) {
+          return_arr.push(day_e + 'minute')
+          string_arr.push('00')
+          p_hour_e = 1
+        }
+      }
+
       if (minute_e > 0) {
         return_arr.push(minute_e + 'sec')
         string_arr.push(padding(minute_e))
+        p_minute_e = 1
       }
+      else {
+        if (p_hour_e === 1) {
+          return_arr.push(day_e + 'sec')
+          string_arr.push('00')
+          p_minute_e = 1
+        }
+      }
+
       /*
       if (sec_e > 0) {
         return_arr.push(sec_e + 'ms')
