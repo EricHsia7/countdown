@@ -394,10 +394,11 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      flex-direction:row;
+      flex-direction: row;
       color: var(--d-333333);
     }
-/*
+
+    /*
     .countdown_content_box_count span {
       font-size: 20px;
       padding: 5px;
@@ -851,10 +852,12 @@
         return_arr.push(minute_e + 'sec')
         string_arr.push(minute_e)
       }
+      /*
       if (sec_e > 0) {
         return_arr.push(sec_e + 'ms')
         string_arr.push(sec_e)
       }
+      */
       var string_len = String(string_arr.join('')).length
       var count_len = $('.countdown_content_box_count .count').length
       if (count_len > string_len) {
@@ -950,7 +953,7 @@
       var nowtime = new Date().getTime()
       var f = (time - nowtime)
       if (f > 0) {
-        tday(f,2)
+        tday(f, 2)
         //$('.countdown_content_box_count').html('<span>' + (tday(f, 1)).join('</span><span>') + '</span>')
         window.requestAnimationFrame(countdown_content_count_update);
       }
