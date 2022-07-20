@@ -1218,6 +1218,9 @@
         var json = JSON.parse(decodeURIComponent(atob(urlparams('j'))))
         json.id = id
         localStorage.setItem('countdown_x_' + id, JSON.stringify(json))
+        if(localStorage.hasOwnProperty('countdown_x_' + id)) {
+          opencountdown(id)
+        }
       }
     })
   }
