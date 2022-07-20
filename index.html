@@ -507,6 +507,35 @@
     input[type="checkbox"]:checked::after {
       background: var(--d-ffffff);
     }
+
+    .count {
+      width: 45px;
+      height: 60px;
+      background: #333;
+      position: relative;
+      overflow: hidden;
+      border-radius: 10px
+    }
+
+    .count_track {
+      position: absolute;
+      top: 0px;
+      left: 0px;
+      width: 100%;
+      height: calc(100% * 10);
+      transform: translateY(calc(var(--count-number) * -60px));
+      transition: 0.5s
+    }
+
+    .count_track span {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      height: calc(100% / 10);
+      font-size: 30px;
+      color: #fff;
+    }
   </style>
   <style id="options_css"></style>
 </head>
@@ -799,6 +828,54 @@
       }
       return return_arr
     }
+    if (mode === 2) {
+      var string_arr = []
+      var return_arr = []
+      if (week > 0) {
+        return_arr.push(week + 'week')
+        string_arr.push(week)
+      }
+      if (week_e > 0) {
+        return_arr.push(week_e + 'day')
+        string_arr.push(week_e)
+      }
+      if (day_e > 0) {
+        return_arr.push(day_e + 'hour')
+        string_arr.push(day_e)
+      }
+      if (hour_e > 0) {
+        return_arr.push(hour_e + 'minute')
+        string_arr.push(hour_e)
+      }
+      if (minute_e > 0) {
+        return_arr.push(minute_e + 'sec')
+        string_arr.push(minute_e)
+      }
+      if (sec_e > 0) {
+        return_arr.push(sec_e + 'ms')
+        string_arr.push(sec_e)
+      }
+      var string_len = String(string_arr.join('')).length
+      var count_len = $('.countdown_content_box_count .count').length
+      if (count_len > string_len) {
+        var delete_len = count_len - string_len
+        var delete_offset = 0
+        for (var r = 0; r < delete_len; r++) {
+          $('.countdown_content_box_count .count').eq(r - delete_offset).remove()
+          delete_offset += 1
+        }
+      }
+      if (count_len < string_len) {
+        var add_len = string_len - count_len
+        for (var r = 0; r < add_len; r++) {
+          $('.countdown_content_box_count').append('<div class="count" style="--count-number:0"><div class="count_track"><span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span></div></div>')
+        }
+      }
+      var string_arr_str = string_arr.join('')
+      for (var r = 0; r < string_len; r++) {
+        $('.countdown_content_box_count .count').eq(r).css({ '--count-number': parseInt(string_arr_str.substring(r, r + 1)) })
+      }
+    }
   }
   var countdown_pause = 0
   function countdown_update() {
@@ -836,11 +913,11 @@
     $('#add_description').val('')
     $('#add_date').val('')
     $('#add_countdown_title_text').text('Add Countdown')
-    
+
   }
   function closeaddcountdown() {
     $('.add_countdown_title,.add_countdown_content_box').css({ 'display': 'none' })
-    
+
   }
   function addcountdown() {
     var title = $('#add_title').val()
@@ -873,7 +950,8 @@
       var nowtime = new Date().getTime()
       var f = (time - nowtime)
       if (f > 0) {
-        $('.countdown_content_box_count').html('<span>' + (tday(f, 1)).join('</span><span>') + '</span>')
+        tday(f,2)
+        //$('.countdown_content_box_count').html('<span>' + (tday(f, 1)).join('</span><span>') + '</span>')
         window.requestAnimationFrame(countdown_content_count_update);
       }
       else {
@@ -886,7 +964,7 @@
       return ''
     }
     if (localStorage.hasOwnProperty('countdown_x_' + countdown_id)) {
-      
+
       history.pushState(null, null, 'https://erichsia7.github.io/countdown/?c=1&id=' + countdown_id);
       var countdown_json = JSON.parse(String(localStorage.getItem('countdown_x_' + countdown_id)))
       var date_o = new Date()
@@ -911,7 +989,7 @@
     $('.countdown_title,.countdown_content_box').css({ 'display': 'none' })
     $('.countdown_content_box_count').attr('f', '1')
     history.pushState(null, null, 'https://erichsia7.github.io/countdown/');
-    
+
   }
   function openoptions(r) {
     $('.options_mask').css({ 'display': 'block' })
