@@ -1027,11 +1027,14 @@
       var f = (time - nowtime)
       if (f > 0) {
         tday(f, 2)
+        if($('.countdown_content_box_count .countdown_content_box_count_finish').length > 0) {
+          $('.countdown_content_box_count .countdown_content_box_count_finish').remove()
+        }
         //$('.countdown_content_box_count').html('<span>' + (tday(f, 1)).join('</span><span>') + '</span>')
         window.requestAnimationFrame(countdown_content_count_update);
       }
       else {
-        $('.countdown_content_box_count').html('<span>Finish</span>').attr('f', '1')
+        $('.countdown_content_box_count').html('<span class="countdown_content_box_count_finish">Finish</span>').attr('f', '1')
       }
     }
   }
