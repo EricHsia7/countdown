@@ -515,7 +515,8 @@
       background: #333;
       position: relative;
       overflow: hidden;
-      border-radius: 10px
+      border-radius: 10px;
+      margin: 5px;
     }
 
     .count_track {
@@ -830,6 +831,14 @@
       return return_arr
     }
     if (mode === 2) {
+      var padding = function (n) {
+        if (n < 10) {
+          return '0' + n
+        }
+        else {
+          return n
+        }
+      }
       var string_arr = []
       var return_arr = []
       if (week > 0) {
@@ -842,15 +851,15 @@
       }
       if (day_e > 0) {
         return_arr.push(day_e + 'hour')
-        string_arr.push(day_e)
+        string_arr.push(padding(day_e))
       }
       if (hour_e > 0) {
         return_arr.push(hour_e + 'minute')
-        string_arr.push(hour_e)
+        string_arr.push(padding(hour_e))
       }
       if (minute_e > 0) {
         return_arr.push(minute_e + 'sec')
-        string_arr.push(minute_e)
+        string_arr.push(padding(minute_e))
       }
       /*
       if (sec_e > 0) {
