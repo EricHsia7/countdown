@@ -510,13 +510,13 @@
     }
 
     .count {
-      width: 45px;
-      height: 60px;
+      width: 35px;
+      height: 55px;
       background: #333;
       position: relative;
       overflow: hidden;
       border-radius: 10px;
-      margin: 5px;
+      margin: 2px;
     }
 
     .count_track {
@@ -535,7 +535,7 @@
       align-items: center;
       width: 100%;
       height: calc(100% / 10);
-      font-size: 30px;
+      font-size: 25px;
       color: #fff;
     }
   </style>
@@ -843,48 +843,48 @@
       var return_arr = []
       var p_week, p_week_e, p_day_e, p_hour_e, p_minute_e
       if (week > 0) {
-        return_arr.push(week + 'week')
         string_arr.push(week)
+        string_arr.push('w')
       }
       if (week_e > 0) {
-        return_arr.push(week_e + 'day')
         string_arr.push(week_e)
+        string_arr.push('d')
         p_week_e = 1
       }
       if (day_e > 0) {
-        return_arr.push(day_e + 'hour')
         string_arr.push(padding(day_e))
+        string_arr.push('h')
         p_day_e = 1
       }
       else {
         if (p_week_e === 1) {
-          return_arr.push(day_e + 'hour')
           string_arr.push('00')
+          string_arr.push('h')
           p_day_e = 1
         }
       }
       if (hour_e > 0) {
-        return_arr.push(hour_e + 'minute')
         string_arr.push(padding(hour_e))
+        string_arr.push('m')
         p_hour_e = 1
       }
       else {
         if (p_day_e === 1) {
-          return_arr.push(day_e + 'minute')
           string_arr.push('00')
+          string_arr.push('m')
           p_hour_e = 1
         }
       }
 
       if (minute_e > 0) {
-        return_arr.push(minute_e + 'sec')
         string_arr.push(padding(minute_e))
+        string_arr.push('s')
         p_minute_e = 1
       }
       else {
         if (p_hour_e === 1) {
-          return_arr.push(day_e + 'sec')
           string_arr.push('00')
+          string_arr.push('s')
           p_minute_e = 1
         }
       }
@@ -908,12 +908,34 @@
       if (count_len < string_len) {
         var add_len = string_len - count_len
         for (var r = 0; r < add_len; r++) {
-          $('.countdown_content_box_count').append('<div class="count" style="--count-number:0"><div class="count_track"><span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span></div></div>')
+          $('.countdown_content_box_count').append('<div class="count" style="--count-number:0"><div class="count_track"><span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>w</span><span>d</span><span>h</span><span>m</span><span>s</span></div></div>')
         }
       }
       var string_arr_str = string_arr.join('')
       for (var r = 0; r < string_len; r++) {
-        $('.countdown_content_box_count .count').eq(r).css({ '--count-number': parseInt(string_arr_str.substring(r, r + 1)) })
+        var this_str = string_arr_str.substring(r, r + 1)
+        var num = 0
+        if (this_str === 'w' || this_str === 'd' || this_str === 'h' || this_str === 'm' || this_str === 's') {
+          if (this_str === 'w') {
+            num = 10
+          }
+          if (this_str === 'd') {
+            num = 11
+          }
+          if (this_str === 'h') {
+            num = 12
+          }
+          if (this_str === 'm') {
+            num = 13
+          }
+          if (this_str === 's') {
+            num = 14
+          }
+        }
+        else {
+          num = parseInt(this_str)
+        }
+        $('.countdown_content_box_count .count').eq(r).css({ '--count-number': num })
       }
     }
   }
