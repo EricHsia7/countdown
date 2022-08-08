@@ -27,6 +27,7 @@
       --d-e3e3e3: #e3e3e3;
       --d-333333: #333333;
       --d-f4f4f4: #f4f4f4;
+      --e-skeleton-screen-light-color: #f2f2f2;
     }
 
     @media (prefers-color-scheme: dark) {
@@ -35,6 +36,7 @@
         --d-e3e3e3: #333333;
         --d-333333: #ffffff;
         --d-f4f4f4: #1f1f1f;
+        --e-skeleton-screen-light-color: #404040;
       }
     }
 
@@ -207,9 +209,25 @@
     .countdown_box.loading .countdown_box_title::after,
     .countdown_box.loading .countdown_box_description::after {
       content: '';
-      background: var(--d-e3e3e3);
+      background: linear-gradient(90deg, var(--d-e3e3e3) 0%, var(--e-skeleton-screen-light-color) 100px, var(--d-e3e3e3) 180px, var(--d-e3e3e3) 100%);
+      background-size: 250% 100%;
+      background-position: 0% 0%;
       position: absolute;
       border-radius: 10px;
+      animation-name: loading;
+      animation-duration: 1500ms;
+      animation-fill-mode: forwards;
+      animation-iteration-count: infinite;
+    }
+
+    @keyframes loading {
+      0% {
+        background-position: -250% 0%;
+      }
+
+      100% {
+        background-position: 0% 0%;
+      }
     }
 
     .countdown_box.loading .countdown_box_count::after {
