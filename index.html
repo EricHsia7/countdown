@@ -490,8 +490,7 @@
       align-items: center;
     }
 
-    .options li[group="0"]:nth-child(1),
-    .options li[group="1"]:nth-child(1) {
+    .options li[b="0"] {
       border: none;
     }
 
@@ -697,10 +696,10 @@
 
   <div class="options_mask" r-click="closeoptions()"></div>
   <div class="options">
-    <li r-click="editcountdown()" y="edit" group="0">Edit</li>
+    <li r-click="editcountdown()" y="edit" group="0" b="0">Edit</li>
     <li r-click="refreshpage()" y="refresh" group="0">Refresh</li>
     <li r-click="viewongithub()" y="github" group="0">Github</li>
-    <li r-click="editcountdown_detail()" y="edit2" group="1">Edit</li>
+    <li r-click="editcountdown_detail()" y="edit2" group="1" b="0">Edit</li>
     <li r-click="sharecountdown()" y="share" group="1">Share</li>
   </div>
 </body>
