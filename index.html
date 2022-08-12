@@ -323,6 +323,8 @@
       left: 50%;
       transform: translateX(-50%);
       margin-top: 10px;
+      user-select: none;
+    -webkit-user-select: none;
     }
 
 
@@ -371,6 +373,8 @@
       display: flex;
       justify-content: center;
       align-items: center;
+      user-select: none;
+      -webkit-user-select: none;
     }
 
     .back_btn {
@@ -415,6 +419,8 @@
       align-items: center;
       flex-direction: row;
       color: var(--d-333333);
+      user-select: none;
+      -webkit-user-select: none;
     }
 
     /*
@@ -430,6 +436,8 @@
       position: absolute;
       top: calc(10px + 250px + 5px);
       left: 10px;
+      user-select: none;
+      -webkit-user-select: none;
     }
 
     .countdown_content_box_details {
@@ -440,6 +448,8 @@
       top: calc(10px + 250px + 5px + 1px + 5px);
       left: 10px;
       color: var(--d-333333);
+      user-select: none;
+      -webkit-user-select: none;
     }
 
     .countdown_content_box_details h3,
@@ -449,6 +459,8 @@
       color: var(--d-333333);
       word-break: break-all;
       white-space: pre-line;
+      user-select: none;
+      -webkit-user-select: none;
     }
 
     .options_mask {
@@ -459,6 +471,8 @@
       height: 100%;
       background: rgba(0, 0, 0, 0.5);
       display: none;
+      user-select: none;
+      -webkit-user-select: none;
     }
 
     .options {
@@ -476,6 +490,8 @@
       -webkit-mask-image: -webkit-radial-gradient(white, black);
       mask-image: -webkit-radial-gradient(white, black);
       max-height: 450px;
+      user-select: none;
+      -webkit-user-select: none;
     }
 
     .options li {
@@ -488,6 +504,8 @@
       font-size: 16px;
       display: flex;
       align-items: center;
+      user-select: none;
+      -webkit-user-select: none;
     }
 
     .options li[b="0"] {
@@ -507,6 +525,8 @@
       position: relative;
       border: 2px solid var(--d-333333);
       box-sizing: border-box;
+      user-select: none;
+      -webkit-user-select: none;
     }
 
     input[type="checkbox"]:checked {
@@ -536,6 +556,8 @@
       overflow: hidden;
       border-radius: 10px;
       margin: 2px;
+      user-select: none;
+      -webkit-user-select: none;
     }
 
     .count_track {
@@ -545,7 +567,9 @@
       width: 100%;
       height: calc(100% * 15);
       transform: translateY(calc(var(--count-number) * -55px));
-      transition: 0.5s
+      transition: 0.5s;
+      user-select: none;
+      -webkit-user-select: none;
     }
 
     .count_track span {
@@ -556,6 +580,8 @@
       height: calc(100% / 15);
       font-size: 25px;
       color: var(--d-333333);
+      user-select: none;
+      -webkit-user-select: none;
     }
 
     @media only screen and (max-width: 600px) {
