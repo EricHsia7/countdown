@@ -149,6 +149,15 @@
       user-select: none;
     }
 
+    .countdown_box_select label {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: rgba(0, 0, 0, 0);
+    }
+
     .countdown_box_count {
       position: absolute;
       top: 0px;
@@ -324,7 +333,7 @@
       transform: translateX(-50%);
       margin-top: 10px;
       user-select: none;
-    -webkit-user-select: none;
+      -webkit-user-select: none;
     }
 
 
@@ -819,7 +828,7 @@
       }
 
       var this_id = randid('countdown')
-      $('.content_box').append('<div class="countdown_box" id="' + this_id + '" r-click="opencountdown(' + "'" + this_list.id + "'" + ')"><div class="countdown_box_select"><input type="checkbox" countdown-id="' + this_list.id + '"></div><div class="countdown_box_count" t="' + this_list.date + '"></div><div class="countdown_box_title">' + this_title + '</div><div class="countdown_box_description">' + this_description + '</div></div>')
+      $('.content_box').append('<div class="countdown_box" id="' + this_id + '" r-click="opencountdown(' + "'" + this_list.id + "'" + ')"><div class="countdown_box_select"><label for="checkbox-' + this_list.id + '"><input type="checkbox" countdown-id="' + this_list.id + '" name="checkbox-' + this_list.id + '" id="checkbox-' + this_list.id + '"></label></div><div class="countdown_box_count" t="' + this_list.date + '"></div><div class="countdown_box_title">' + this_title + '</div><div class="countdown_box_description">' + this_description + '</div></div>')
       rclick('#' + this_id)
     }
     $('.content_box .loading').remove()
