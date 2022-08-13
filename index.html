@@ -466,8 +466,9 @@
       -webkit-user-select: none;
     }
 
-    .countdown_content_box_details h3,
-    .countdown_content_box_details p {
+    .countdown_content_box_details .h3,
+    .countdown_content_box_details .p {
+      display: inline-block;
       margin: 5px;
       padding: 0px;
       color: var(--d-333333);
@@ -475,6 +476,16 @@
       white-space: pre-line;
       user-select: none;
       -webkit-user-select: none;
+    }
+
+    .countdown_content_box_details .h3 {
+      font-size: 18px;
+      font-weight: 700;
+    }
+
+    .countdown_content_box_details .p {
+      font-size: 16px;
+      font-weight: 400;
     }
 
     .options_mask {
@@ -690,9 +701,9 @@
     <div class="countdown_content_box_count"></div>
     <div class="countdown_content_box_line"></div>
     <div class="countdown_content_box_details">
-      <h3 id="countdown_content_box_details_title"></h3>
-      <p id="countdown_content_box_details_description"></p>
-      <p id="countdown_content_box_details_date"></p>
+      <div id="countdown_content_box_details_title" class="h3"></div>
+      <div id="countdown_content_box_details_description" class="p"></div>
+      <div id="countdown_content_box_details_date" class="p"></div>
     </div>
 
   </div>
