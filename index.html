@@ -1280,21 +1280,13 @@
         }
       }
       if (urlparams('s') === '1') {
-        /*
-        var id = ''
-        var id_chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
-        for (var i = 0; i < 16; i++) {
-          var rdn = Math.floor(Math.random() * id_chars.length)
-          var rdnstr = id_chars.substring(rdn, rdn + 1)
-          id += rdnstr
-        }*/
         var json = JSON.parse(decodeURIComponent(atob(urlparams('j'))))
         if (!(localStorage.hasOwnProperty('countdown_x_' + json.id))) {
           localStorage.setItem('countdown_x_' + json.id, JSON.stringify(json))
-          if (localStorage.hasOwnProperty('countdown_x_' + json.id)) {
-            opencountdown(json.id)
-            mes('Added 1 shared countdown.')
-          }
+        }
+        if (localStorage.hasOwnProperty('countdown_x_' + json.id)) {
+          opencountdown(json.id)
+          mes('Added 1 shared countdown.')
         }
       }
     })
