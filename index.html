@@ -1281,12 +1281,18 @@
       }
       if (urlparams('s') === '1') {
         var json = JSON.parse(decodeURIComponent(atob(urlparams('j'))))
+        var share_added = false
         if (!(localStorage.hasOwnProperty('countdown_x_' + json.id))) {
           localStorage.setItem('countdown_x_' + json.id, JSON.stringify(json))
+          if (localStorage.hasOwnProperty('countdown_x_' + json.id)) {
+            share_added = true
+          }
         }
         if (localStorage.hasOwnProperty('countdown_x_' + json.id)) {
           opencountdown(json.id)
-          mes('Added 1 shared countdown.')
+          if (share_added) {
+            mes('Added 1 shared countdown.')
+          }
         }
       }
     })
