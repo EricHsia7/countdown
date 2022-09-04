@@ -1252,6 +1252,42 @@
       refresh_countdown()
     }
   }
+  function unicode_arr(str) {
+    var str_len = str.length
+    var unicode_arr = []
+    for (var t = 0; t < str_len; t++) {
+      var unicode = str.charCodeAt(t)
+      if (!(unicode_arr.indexOf(unicode) > -1)) {
+        unicode_arr.push(unicode)
+      }
+    }
+    return unicode_arr
+  }
+  function create_search_index() {
+    var search_index = []
+    var list = searchItemsbyname('countdown_x_')
+    if (list.length < 1) {
+      return []
+    }
+    var list_len = list.length
+    for (var d = 0; d < list_len; d++) {
+      list[d] = JSON.parse(localStorage.getItem(String(list[d])))
+    }
+    list_len = list.length
+    for (var e = 0; e < list_len; e++) {
+      var this_list = list[e]
+      var this_id = this_list.id
+      var this_title = this_list.title
+      var this_description = this_list.description
+      var this_date = new Date()
+      this_date.setTime(this_list.date)
+      this_date = ([this_date.getFullYear(), check_i(this_date.getMonth() + 1), check_i(this_date.getDate())]).join('/') + ' ' + ([check_i(this_date.getHours()), check_i(this_date.getMinutes()), check_i(this_date.getSeconds())]).join(':')
+      var str = [this_title, this_description, this_date].join('')
+      var str_unicode = unicode_arr(str)
+      search_index.push({ 'id': this_id, 'title': this_title, 'description': this_description, 'date': this_date, 'unicode': str_unicode })
+    }
+    return search_index
+  }
   function refreshpage() {
     location.replace('https://erichsia7.github.io/countdown/?' + randid())
     closeoptions()
