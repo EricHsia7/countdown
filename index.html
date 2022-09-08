@@ -1391,12 +1391,42 @@
     $('.search_result').html(res_htm.join(''))
     rclick('.search_countdown_box[re="' + res_id + '"]')
   }
-  var search_index_cache
+  var search_result_countdown_count_pause = 0
+  function search_result_countdown_count_update() {
+    var now_time = new Date().getTime()
+    var len = $('.search_result .search_countdown_box').length
+    for (var w = 0; w < len; w++) {
+      var this_w = $('.search_result .search_countdown_box').eq(w)
+      if (!(this_w.attr('f') === '1')) {
+        var this_w_date_time = parseInt(this_w.attr('t'))
+        var f = (this_w_date_time - now_time)
+        if (f > 0) {
+          this_w.text(tday(f, 0))
+        }
+        else {
+          this_w.text('F')
+          this_w.attr('f', '1')
+        }
+      }
+      else {
+        continue;
+      }
+    }
+    if (search_result_countdown_count_pause === 0) {
+      window.requestAnimationFrame(search_result_countdown_count_update)
+    }
+  }
+  var search_index_cache = []
   function opensearchpage() {
     var q = $('#search').val()
     search_index_cache = create_search_index()
     var result = search_result(q, search_index_cache)
     print_searchresult(result)
+    search_result_countdown_count_pause = 0
+    search_result_countdown_count_update()
+  }
+  function closesearchpage() {
+    search_result_countdown_count_pause = 1
   }
   function refreshpage() {
     location.replace('https://erichsia7.github.io/countdown/?' + randid())
