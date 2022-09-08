@@ -1363,7 +1363,7 @@
       this_date = ([this_date.getFullYear(), check_i(this_date.getMonth() + 1), check_i(this_date.getDate())]).join('/') + ' ' + ([check_i(this_date.getHours()), check_i(this_date.getMinutes()), check_i(this_date.getSeconds())]).join(':')
       var str = [this_title, this_description, this_date].join('')
       var str_unicode = unicode_arr(str)
-      search_index.push({ 'id': this_id, 'title': this_title, 'description': this_description, 'date': this_date, 'unicode': str_unicode, 'date_time': this_date.getTime() })
+      search_index.push({ 'id': this_id, 'title': this_title, 'description': this_description, 'date': this_date, 'unicode': str_unicode, 'date_time': this_list.date })
     }
     return search_index
   }
