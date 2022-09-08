@@ -1383,21 +1383,25 @@
           var res_t = false
           if ((this_s.title).indexOf(q) > -1) {
             res_t = true
+            break;
           }
           else {
             if ((this_s.description).indexOf(q) > -1) {
               res_t = true
+              break;
             }
             else {
               if ((this_s.date).indexOf(q) > -1) {
                 res_t = true
+                break;
               }
             }
           }
-          if (res_t) {
-            res_1.push(this_s)
-          }
         }
+      }
+
+      if (res_t) {
+        res_1.push(this_s)
       }
     }
     return res_1
