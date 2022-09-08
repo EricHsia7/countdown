@@ -1389,17 +1389,17 @@
           var res_t = false
           if ((this_s.title).indexOf(q) > -1) {
             res_t = true
-            break;
+            f = q_u_len
           }
           else {
             if ((this_s.description).indexOf(q) > -1) {
               res_t = true
-              break;
+              f = q_u_len
             }
             else {
               if ((this_s.date).indexOf(q) > -1) {
                 res_t = true
-                break;
+                f = q_u_len
               }
             }
           }
