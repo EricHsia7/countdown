@@ -1403,26 +1403,34 @@
     return res_1
   }
   function print_searchresult(res) {
-    var res_htm = []
-    var res_len = res.length
-    var rse_id = randid('searchres')
-    console.log(res)
-    console.log(res.length)
-    for (var e = 0; e < res_len; e++) {
-      console.log('2')
-      var this_res = res[e]
-      var this_res_title = this_res.title
-      if (String(this_res_title).length > 15) {
-        this_res_title = String(this_res_title).substring(0, 12) + '...'
+    try {
+
+
+      var res_htm = []
+      var res_len = res.length
+      var rse_id = randid('searchres')
+      console.log(res)
+      console.log(res.length)
+      for (var e = 0; e < res_len; e++) {
+        console.log('2')
+        var this_res = res[e]
+        var this_res_title = this_res.title
+        if (String(this_res_title).length > 15) {
+          this_res_title = String(this_res_title).substring(0, 12) + '...'
+        }
+        var this_res_date_time = this_res.date_time
+        var this_res_id = this_res.id
+        res_htm.push('<li class="search_countdown_box" r-click="opencountdown(' + "'" + this_res_id + "'" + ')" re="' + res_id + '"><div class="search_countdown_count" t="' + this_res_date_time + '" f="0"></div><div class="search_countdown_title">' + this_res_title + '</div></li>')
+        console.log('3')
       }
-      var this_res_date_time = this_res.date_time
-      var this_res_id = this_res.id
-      res_htm.push('<li class="search_countdown_box" r-click="opencountdown(' + "'" + this_res_id + "'" + ')" re="' + res_id + '"><div class="search_countdown_count" t="' + this_res_date_time + '" f="0">?d</div><div class="search_countdown_title">' + this_res_title + '</div></li>')
-      console.log('3')
+      $('.search_result').html(res_htm.join(''))
+      rclick('.search_countdown_box[re="' + res_id + '"]')
+      console.log(res_htm)
+
     }
-    $('.search_result').html(res_htm.join(''))
-    rclick('.search_countdown_box[re="' + res_id + '"]')
-    console.log(res_htm)
+    catch (err) {
+      console.log(err)
+    }
   }
   var search_result_countdown_count_pause = 0
   function search_result_countdown_count_update() {
@@ -1456,9 +1464,9 @@
     serach_page = 1
     $('.search_countdown_title').css({ 'display': 'flex' })
     $('.search_countdown_content_box').css({ 'display': 'block' })
-    var q = $('#search_countdown').val()
+    var qu = $('#search_countdown').val()
     search_index_cache = create_search_index()
-    var result = search_result(q, search_index_cache)
+    var result = search_result(qu, search_index_cache)
     print_searchresult(result)
     search_result_countdown_count_pause = 0
     search_result_countdown_count_update()
@@ -1484,8 +1492,8 @@
     }
   }
   function update_search_result() {
-    var q = $('#search_countdown').val()
-    var result = search_result(q, search_index_cache)
+    var qu = $('#search_countdown').val()
+    var result = search_result(qu, search_index_cache)
     print_searchresult(result)
   }
   function closesearchpage() {
