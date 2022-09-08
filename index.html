@@ -1407,41 +1407,28 @@
     return res_1
   }
   function print_searchresult(res) {
-    try {
-
-
-      var res_htm = []
-      var res_len = res.length
-      var res_id = randid('searchres')
-      console.log(res)
-      console.log(res.length)
-      for (var e = 0; e < res_len; e++) {
-        console.log('2')
-        var this_res = res[e]
-        var this_res_title = this_res.title
-        if (String(this_res_title).length > 15) {
-          this_res_title = String(this_res_title).substring(0, 12) + '...'
-        }
-        var this_res_date_time = this_res.date_time
-        var this_res_id = this_res.id
-        res_htm.push('<li class="search_countdown_box" r-click="opencountdown(' + "'" + this_res_id + "'" + ')" re="' + res_id + '"><div class="search_countdown_count" t="' + this_res_date_time + '" f="0"></div><div class="search_countdown_title">' + this_res_title + '</div></li>')
-        console.log('3')
+    var res_htm = []
+    var res_len = res.length
+    var res_id = randid('searchres')
+    for (var e = 0; e < res_len; e++) {
+      var this_res = res[e]
+      var this_res_title = this_res.title
+      if (String(this_res_title).length > 15) {
+        this_res_title = String(this_res_title).substring(0, 12) + '...'
       }
-      $('.search_result').html(res_htm.join(''))
-      rclick('.search_countdown_box[re="' + res_id + '"]')
-      console.log(res_htm)
-
+      var this_res_date_time = this_res.date_time
+      var this_res_id = this_res.id
+      res_htm.push('<li class="search_countdown_box" r-click="opencountdown(' + "'" + this_res_id + "'" + ')" re="' + res_id + '"><div class="search_countdown_count" t="' + this_res_date_time + '" f="0"></div><div class="search_countdown_title">' + this_res_title + '</div></li>')
     }
-    catch (err) {
-      console.log(err)
-    }
+    $('.search_result').html(res_htm.join(''))
+    rclick('.search_countdown_box[re="' + res_id + '"]')
   }
   var search_result_countdown_count_pause = 0
   function search_result_countdown_count_update() {
     var now_time = new Date().getTime()
     var len = $('.search_result .search_countdown_box').length
     for (var w = 0; w < len; w++) {
-      var this_w = $('.search_result .search_countdown_box').eq(w)
+      var this_w = $('.search_result .search_countdown_box .search_countdown_count').eq(w)
       if (!(this_w.attr('f') === '1')) {
         var this_w_date_time = parseInt(this_w.attr('t'))
         var f = (this_w_date_time - now_time)
