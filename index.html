@@ -611,6 +611,57 @@
       -webkit-user-select: none;
     }
 
+    .search_result {
+      position: relative;
+    }
+
+    .search_result li.search_countdown_box {
+      list-style: none;
+      background: var(--d-ffffff);
+      color: var(--d-333333);
+      width: 100%;
+      height: 45px;
+      border-top: 1px solid var(--d-f4f4f4);
+      box-sizing: border-box;
+      padding: 0px;
+      margin: 0px;
+      position: relative;
+      display: block;
+    }
+
+    .search_result li.search_countdown_box:first-child {
+      border: none;
+    }
+
+    .search_result li.search_countdown_box .search_countdown_count {
+      position: absolute;
+      top: 0px;
+      left: 0px;
+      height: 45px;
+      width: 45px;
+      font-size: 14px;
+      color: var(--d-333333);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+
+    .search_result li.search_countdown_box .search_countdown_title {
+      position: absolute;
+      top: 0px;
+      left: 5px;
+      height: 45px;
+      width: calc(100% - 50px);
+      font-size: 20px;
+      color: var(--d-333333);
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+
     @media only screen and (max-width: 600px) {
       .count {
         width: 25px;
@@ -1284,9 +1335,68 @@
       this_date = ([this_date.getFullYear(), check_i(this_date.getMonth() + 1), check_i(this_date.getDate())]).join('/') + ' ' + ([check_i(this_date.getHours()), check_i(this_date.getMinutes()), check_i(this_date.getSeconds())]).join(':')
       var str = [this_title, this_description, this_date].join('')
       var str_unicode = unicode_arr(str)
-      search_index.push({ 'id': this_id, 'title': this_title, 'description': this_description, 'date': this_date, 'unicode': str_unicode })
+      search_index.push({ 'id': this_id, 'title': this_title, 'description': this_description, 'date': this_date, 'unicode': str_unicode, 'date_time': this_date.getTime() })
     }
     return search_index
+  }
+  function search_result(q, search_index) {
+    if (!(String(q).length > 0)) {
+      return []
+    }
+    var res_1 = []
+    var q_u = unicode_arr(q)
+    var q_u_len = q_u.length
+    var search_index_len = search_index.length
+    for (var s = 0; s < search_index_len; s++) {
+      var this_s = search_index[s]
+      var this_s_u = this_s.unicode
+      for (var f = 0; f < q_u_len; f++) {
+        if (this_s_u.indexOf(q_u[f]) > -1) {
+          var res_t = false
+          if ((this_s.title).indexOf(q) > -1) {
+            res_t = true
+          }
+          else {
+            if ((this_s.description).indexOf(q) > -1) {
+              res_t = true
+            }
+            else {
+              if ((this_s.date).indexOf(q) > -1) {
+                res_t = true
+              }
+            }
+          }
+          if (res_t) {
+            res_1.push(this_s)
+          }
+        }
+      }
+    }
+    return res_1
+  }
+  function print_searchresult(res) {
+    var res_htm = []
+    var res_len = res.length
+    var rse_id = randid('searchres')
+    for (var e = 0; e < res_len; e++) {
+      var this_res = res[e]
+      var this_res_title = this_res.title
+      if (String(this_res_title).length > 15) {
+        this_res_title = this_res_title.substring(0, 12) + '...'
+      }
+      var this_res_date_time = this_res.date_time
+      var this_res_id = this_res.id
+      res_htm.push('<li class="search_countdown_box" r-click="opencountdown(' + "'" + this_res_id + "'" + ')" re="' + res_id + '"><div class="search_countdown_count" t="' + this_res_date_time + '" f="0">?d</div><div class="search_countdown_title">' + this_res_title + '</div></li>')
+    }
+    $('.search_result').html(res_htm.join(''))
+    rclick('.search_countdown_box[re="' + res_id + '"]')
+  }
+  var search_index_cache
+  function opensearchpage() {
+    var q = $('#search').val()
+    search_index_cache = create_search_index()
+    var result = search_result(q, search_index_cache)
+    print_searchresult(result)
   }
   function refreshpage() {
     location.replace('https://erichsia7.github.io/countdown/?' + randid())
