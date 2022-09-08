@@ -1403,10 +1403,12 @@
     return res_1
   }
   function print_searchresult(res) {
+    console.log('1')
     var res_htm = []
     var res_len = res.length
     var rse_id = randid('searchres')
     for (var e = 0; e < res_len; e++) {
+      console.log('2')
       var this_res = res[e]
       var this_res_title = this_res.title
       if (String(this_res_title).length > 15) {
@@ -1415,9 +1417,11 @@
       var this_res_date_time = this_res.date_time
       var this_res_id = this_res.id
       res_htm.push('<li class="search_countdown_box" r-click="opencountdown(' + "'" + this_res_id + "'" + ')" re="' + res_id + '"><div class="search_countdown_count" t="' + this_res_date_time + '" f="0">?d</div><div class="search_countdown_title">' + this_res_title + '</div></li>')
+      console.log('3')
     }
     $('.search_result').html(res_htm.join(''))
     rclick('.search_countdown_box[re="' + res_id + '"]')
+    console.log(res_htm)
   }
   var search_result_countdown_count_pause = 0
   function search_result_countdown_count_update() {
