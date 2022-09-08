@@ -1412,7 +1412,7 @@
       var this_res = res[e]
       var this_res_title = this_res.title
       if (String(this_res_title).length > 15) {
-        this_res_title = this_res_title.substring(0, 12) + '...'
+        this_res_title = String(this_res_title).substring(0, 12) + '...'
       }
       var this_res_date_time = this_res.date_time
       var this_res_id = this_res.id
