@@ -626,7 +626,7 @@
       overflow: hidden;
     }
 
-    .search_result li.search_countdown_box {
+    .search_result li.search_result_countdown_box {
       list-style: none;
       background: var(--d-ffffff);
       color: var(--d-333333);
@@ -640,11 +640,11 @@
       display: block;
     }
 
-    .search_result li.search_countdown_box:first-child {
+    .search_result li.search_result_countdown_box:first-child {
       border-top: none;
     }
 
-    .search_result li.search_countdown_box .search_countdown_count {
+    .search_result li.search_result_countdown_box .search_result_countdown_count {
       position: absolute;
       top: 0px;
       left: 0px;
@@ -660,7 +660,7 @@
       background: var(--d-ffffff);
     }
 
-    .search_result li.search_countdown_box .search_countdown_title {
+    .search_result li.search_result_countdown_box .search_result_countdown_title {
       position: absolute;
       top: 0px;
       left: 50px;
@@ -1427,17 +1427,17 @@
       }
       var this_res_date_time = this_res.date_time
       var this_res_id = this_res.id
-      res_htm.push('<li class="search_countdown_box" r-click="opencountdown(' + "'" + this_res_id + "'" + ')" re="' + res_id + '"><div class="search_countdown_count" t="' + this_res_date_time + '" f="0"></div><div class="search_countdown_title">' + this_res_title + '</div></li>')
+      res_htm.push('<li class="search_result_countdown_box" r-click="opencountdown(' + "'" + this_res_id + "'" + ')" re="' + res_id + '"><div class="search_result_countdown_count" t="' + this_res_date_time + '" f="0"></div><div class="search_result_countdown_title">' + this_res_title + '</div></li>')
     }
     $('.search_result').html(res_htm.join(''))
-    rclick('.search_countdown_box[re="' + res_id + '"]')
+    rclick('.search_result_countdown_box[re="' + res_id + '"]')
   }
   var search_result_countdown_count_pause = 0
   function search_result_countdown_count_update() {
     var now_time = new Date().getTime()
-    var len = $('.search_result .search_countdown_box').length
+    var len = $('.search_result .search_result_countdown_box').length
     for (var w = 0; w < len; w++) {
-      var this_w = $('.search_result .search_countdown_box .search_countdown_count').eq(w)
+      var this_w = $('.search_result .search_result_countdown_box .search_result_countdown_count').eq(w)
       if (!(this_w.attr('f') === '1')) {
         var this_w_date_time = parseInt(this_w.attr('t'))
         var f = (this_w_date_time - now_time)
