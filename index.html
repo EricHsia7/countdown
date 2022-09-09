@@ -1209,9 +1209,9 @@
     var title = $('#add_title').val()
     var description = $('#add_description').val()
     var date = new Date(String($('#add_date').val())).getTime()
-    var id = (new Date().getTime()).toString(36)
+    var id = ''
     var id_chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
-    for (var i = 0; i < 16; i++) {
+    for (var i = 0; i < 32; i++) {
       var rdn = Math.floor(Math.random() * id_chars.length)
       var rdnstr = id_chars.substring(rdn, rdn + 1)
       id += rdnstr
