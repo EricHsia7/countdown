@@ -1528,9 +1528,7 @@
   function input_focus(elem) {
     if (!(elem === document.activeElement)) {
       elem.focus()
-      window.requestAnimationFrame(function (elem) {
-        input_focus(elem)
-      })
+      input_focus(elem)
     }
   }
   var search_input_evt = 0
