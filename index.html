@@ -1526,12 +1526,14 @@
     }
   }
   function input_focus(elem) {
-    if (!(elem === document.activeElement)) {
-      elem.focus()
-      setTimeout(function () {
-        input_focus(elem)
-      }, 10)
-    }
+    var t = setInterval(function () {
+      if (elem === document.activeElement) {
+        clearInterval(t)
+      }
+      else {
+        elem.focus()
+      }
+    }, 30)
   }
   var search_input_evt = 0
   var serach_page = 0
