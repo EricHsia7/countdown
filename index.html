@@ -1525,6 +1525,14 @@
       window.requestAnimationFrame(search_result_countdown_count_update)
     }
   }
+  function input_focus(elem) {
+    if (!(elem === document.activeElement)) {
+      elem.focus()
+      window.requestAnimationFrame(function (elem) {
+        input_focus(elem)
+      })
+    }
+  }
   var search_input_evt = 0
   var serach_page = 0
   var search_index_cache = []
@@ -1533,6 +1541,7 @@
     $('.search_countdown_title').css({ 'display': 'flex' })
     $('.search_countdown_content_box').css({ 'display': 'block' })
     $('#search_countdown').focus()
+
     var qu = $('#search_countdown').val()
     search_index_cache = create_search_index()
     var result = search_result(qu, search_index_cache)
