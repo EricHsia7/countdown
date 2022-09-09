@@ -1389,20 +1389,18 @@
           var res_t = false
           if (String(this_s.title).indexOf(q) > -1) {
             res_t = true
-            f = q_u_len
           }
           else {
             if (String(this_s.description).indexOf(q) > -1) {
               res_t = true
-              f = q_u_len
             }
             else {
               if (String(this_s.date).indexOf(q) > -1) {
                 res_t = true
-                f = q_u_len
               }
             }
           }
+          break;
         }
       }
 
