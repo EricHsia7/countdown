@@ -1448,15 +1448,15 @@
       }
       var res_t2 = false
       if (res_t)
-        if (String(this_s.title).toLowerCase().indexOf(q) > -1) {
+        if (String(this_s.title).toLowerCase().indexOf(q.toLowerCase()) > -1) {
           res_t2 = true
         }
         else {
-          if (String(this_s.description).toLowerCase().indexOf(q) > -1) {
+          if (String(this_s.description).toLowerCase().indexOf(q.toLowerCase()) > -1) {
             res_t2 = true
           }
           else {
-            if (String(this_s.date).indexOf(q) > -1) {
+            if (String(this_s.date).indexOf(q.toLowerCase()) > -1) {
               res_t2 = true
             }
           }
