@@ -1568,6 +1568,9 @@
   var serach_page = 0
   var search_index_cache = []
   function opensearchpage() {
+    if ($('.search_btn').attr('u') === '1') {
+      return ''
+    }
     serach_page = 1
     $('.search_btn').attr('u', '1')
     $('.search_countdown_content_box').css({ 'display': 'block' })
