@@ -891,6 +891,7 @@
     <li r-click="viewongithub()" y="github" group="0">Github</li>
     <li r-click="editcountdown_detail()" y="edit2" group="1" b="0">Edit</li>
     <li r-click="sharecountdown()" y="share" group="1">Share</li>
+    <li r-click="deletecountdown()" y="delete" group="1">Delete</li>
   </div>
 </body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -1274,6 +1275,7 @@
       window.requestAnimationFrame(countdown_content_count_update);
       $('.options li[y="edit2"]').attr('r-click', "editcountdown_detail('" + countdown_id + "')")
       $('.options li[y="share"]').attr('r-click', "sharecountdown('" + countdown_id + "')")
+      $('.options li[y="delete"]').attr('r-click', "deletecountdown('" + countdown_id + "')")
     }
   }
   function closecountdown() {
@@ -1375,6 +1377,14 @@
         //e
       }
     }
+  }
+  function deletecountdown(countdown_id) {
+    if (localStorage.hasOwnProperty('countdown_x_' + countdown_id)) {
+      localStorage.removeItem('countdown_x_' + countdown_id)
+    }
+    refresh_countdown()
+    closecountdown()
+    mes('Countdown deleted.')
   }
   function savecountdown() {
     var countdown_id = $('.edit_countdown_btn').attr('countdown-id')
