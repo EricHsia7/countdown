@@ -305,8 +305,9 @@
       left: 50%;
       transform: translateX(-50%);
       background: transparent;
-      color: var(--d-333333);
+      caret-color: var(--d-333333);
     }
+
 
     .add_countdown_content_box input[type="datetime-local"],
     .edit_countdown_content_box input[type="datetime-local"] {
@@ -323,7 +324,7 @@
       position: relative;
       left: 50%;
       transform: translateX(-50%);
-      color: var(--d-333333)
+      color: var(--d-333333);
     }
 
     .add_countdown_content_box textarea,
@@ -630,7 +631,9 @@
       position: absolute;
       width: 100%;
       height: 100%;
-      overflow: hidden;
+      overflow: scroll;
+      user-select: none;
+      -webkit-user-select: none;
     }
 
     .search_result li.search_result_countdown_box {
@@ -645,6 +648,8 @@
       margin: 0px;
       position: relative;
       display: block;
+      user-select: none;
+      -webkit-user-select: none;
     }
 
     .search_result li.search_result_countdown_box .search_result_countdown_count {
@@ -661,6 +666,9 @@
       overflow: hidden;
       white-space: nowrap;
       background: var(--d-ffffff);
+      font-weight: 700;
+      user-select: none;
+      -webkit-user-select: none;
     }
 
     .search_result li.search_result_countdown_box .search_result_countdown_title {
@@ -678,6 +686,28 @@
       background: var(--d-ffffff);
       box-sizing: border-box;
       padding-left: 5px;
+      font-weight: 400;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    input#search_countdown {
+      color: var(--d-333333);
+      caret-color: var(--d-333333);
+      background: var(--d-ffffff);
+      height: 45px;
+      width: calc(100% - 55px - 10px - 10px);
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%) translateX(0px);
+      left: 65px;
+      border: none;
+      -webkit-appearance: none;
+      border-radius: 0px;
+      padding: 0px;
+      margin: 0px;
+      font-size: 20px;
+      font-weight: 400;
     }
 
     @media only screen and (max-width: 600px) {
@@ -1534,7 +1564,7 @@
     $(document).ready(function () {
       setTimeout(function () {
         print_countdown()
-        rclick('.addcountdown,.add_countdown_btn,.edit_countdown_btn,.back_btn,.options_btn,.options_mask,.options li,.cancel_btn,.delete_btn')
+        rclick('.addcountdown,.add_countdown_btn,.edit_countdown_btn,.back_btn,.options_btn,.options_mask,.options li,.cancel_btn,.delete_btn,.search_btn')
         window.requestAnimationFrame(countdown_update);
       }, 1500)
       if (urlparams('c') === '1') {
