@@ -1528,7 +1528,9 @@
   function input_focus(elem) {
     if (!(elem === document.activeElement)) {
       elem.focus()
-      input_focus(elem)
+      setTimeout(function () {
+        input_focus(elem)
+      }, 10)
     }
   }
   var search_input_evt = 0
