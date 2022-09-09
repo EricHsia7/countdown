@@ -433,14 +433,53 @@
       right: 55px
     }
 
+    .search_btn[u="0"] .back_btn {
+      display: none;
+    }
+
+    .search_btn[u="0"] input#search_countdown {
+      display: block;
+      opacity: 0;
+      position: absolute;
+      top: 0px;
+      left: 0px;
+      width: 100%;
+      height: 100%;
+      padding: 0px;
+      margin: 0px;
+      caret-color: rgba(0, 0, 0, 0);
+    }
+
+    .search_btn[u="1"] {
+      top: 0px;
+      right: 0px;
+      height: 55px;
+      width: 100%;
+      background: var(--d-ffffff);
+      box-sizing: border-box;
+      display: block;
+    }
+
+    .search_btn[u="1"] input#search_countdown {
+      display: block;
+    }
+
+    .search_btn[u="1"] .back_btn {
+      display: flex;
+    }
+
     .addcountdown svg,
     .back_btn svg,
     .options_btn svg,
     .delete_btn svg,
     .cancel_btn svg,
-    .search_btn svg {
+    .search_btn[u="0"] svg#svgsearchicon {
       width: 20px;
       height: 20px
+    }
+
+    .search_btn[u="1"] svg#svgsearchicon {
+      display: none;
     }
 
     .countdown_content_box_count {
@@ -754,15 +793,27 @@
           fill="var(--d-333333)" fill-rule="evenodd" opacity="1" stroke="none" />
       </svg>
     </div>
-    <div class="search_btn" r-click="opensearchpage()">
+    <div class="search_btn" r-click="opensearchpage()" u="0">
       <svg stroke-miterlimit="10"
         style="fill-rule:nonzero;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;" version="1.1"
         viewBox="0 0 64 64" xml:space="preserve" xmlns="http://www.w3.org/2000/svg"
-        xmlns:xlink="http://www.w3.org/1999/xlink">
+        xmlns:xlink="http://www.w3.org/1999/xlink" id="svgsearchicon">
         <path
           d="M60.0889 64L36.7111 40.6222C34.9333 42.163 32.8593 43.363 30.4889 44.2222C28.1185 45.0815 25.6 45.5111 22.9333 45.5111C16.5333 45.5111 11.1111 43.2889 6.66667 38.8444C2.22222 34.4 1.41285e-06 29.037 8.4771e-07 22.7556C8.4771e-07 16.4741 2.22222 11.1111 6.66667 6.66667C11.1111 2.22222 16.5037 3.55271e-15 22.8444 3.55271e-15C29.1259 3.55271e-15 34.4741 2.22222 38.8889 6.66667C43.3037 11.1111 45.5111 16.4741 45.5111 22.7556C45.5111 25.3037 45.0963 27.763 44.2667 30.1333C43.437 32.5037 42.1926 34.7259 40.5333 36.8L64 60.0889L60.0889 64ZM22.8444 40.1778C27.6444 40.1778 31.7333 38.4741 35.1111 35.0667C38.4889 31.6593 40.1778 27.5556 40.1778 22.7556C40.1778 17.9556 38.4889 13.8519 35.1111 10.4444C31.7333 7.03704 27.6444 5.33333 22.8444 5.33333C17.9852 5.33333 13.8519 7.03704 10.4444 10.4444C7.03704 13.8519 5.33333 17.9556 5.33333 22.7556C5.33333 27.5556 7.03704 31.6593 10.4444 35.0667C13.8519 38.4741 17.9852 40.1778 22.8444 40.1778Z"
           fill="var(--d-333333)" fill-rule="nonzero" opacity="1" stroke="none" />
       </svg>
+
+      <div class="back_btn" r-click="closesearchpage()">
+        <svg stroke-miterlimit="10"
+          style="fill-rule:nonzero;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;" version="1.1"
+          viewBox="0 0 64 64" xml:space="preserve" xmlns="http://www.w3.org/2000/svg"
+          xmlns:xlink="http://www.w3.org/1999/xlink">
+          <path d="M32 64L0 32L32 0L36.2 4.2L11.4 29L64 29L64 35L11.4 35L36.2 59.8L32 64Z" fill="var(--d-333333)"
+            fill-rule="evenodd" opacity="1" stroke="none" />
+        </svg>
+      </div>
+      <input type="text" id="search_countdown" placeholder="search">
+
     </div>
     <div class="delete_btn" r-click="deleteselected()">
       <svg stroke-miterlimit="10"
@@ -798,16 +849,6 @@
   </div>
 
   <div class="search_countdown_title">
-    <div class="back_btn" r-click="closesearchpage()">
-      <svg stroke-miterlimit="10"
-        style="fill-rule:nonzero;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;" version="1.1"
-        viewBox="0 0 64 64" xml:space="preserve" xmlns="http://www.w3.org/2000/svg"
-        xmlns:xlink="http://www.w3.org/1999/xlink">
-        <path d="M32 64L0 32L32 0L36.2 4.2L11.4 29L64 29L64 35L11.4 35L36.2 59.8L32 64Z" fill="var(--d-333333)"
-          fill-rule="evenodd" opacity="1" stroke="none" />
-      </svg>
-    </div>
-    <input type="text" id="search_countdown" placeholder="search">
   </div>
   <div class="search_countdown_content_box">
     <div class="search_result"></div>
@@ -1530,7 +1571,7 @@
   var search_index_cache = []
   function opensearchpage() {
     serach_page = 1
-    $('.search_countdown_title').css({ 'display': 'flex' })
+    $('.search_btn').attr('u','1')
     $('.search_countdown_content_box').css({ 'display': 'block' })
     var qu = $('#search_countdown').val()
     search_index_cache = create_search_index()
@@ -1565,7 +1606,8 @@
     print_searchresult(result)
   }
   function closesearchpage() {
-    $('.search_countdown_title,.search_countdown_content_box').css({ 'display': 'none' })
+    $('.search_countdown_content_box').css({ 'display': 'none' })
+    $('.search_btn').attr('u','0')
     search_result_countdown_count_pause = 1
     serach_page = 0
   }
