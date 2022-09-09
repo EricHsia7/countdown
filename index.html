@@ -939,9 +939,9 @@
     }
     if (!(n === undefined)) {
       n = n.replaceAll('_', '-')
-      return n + '-' + genid + '' + new Date().getTime();
+      return n + '-' + (new Date().getTime()).toString(36) + '-' + genid;
     }
-    return genid + '' + new Date().getTime();
+    return (new Date().getTime()).toString(36) + '-' + genid;
   }
   function rclick(select) {
     $(select).click(function (e) {
