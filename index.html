@@ -673,6 +673,10 @@
       padding: 2px;
     }
 
+    .search_result li.search_result_countdown_box .search_result_countdown_count[f="1"] {
+      font-size: 16px;
+    }
+
     .search_result li.search_result_countdown_box .search_result_countdown_title {
       position: absolute;
       top: 0px;
@@ -1415,7 +1419,7 @@
       var this_date = new Date()
       this_date.setTime(this_list.date)
       this_date = ([this_date.getFullYear(), check_i(this_date.getMonth() + 1), check_i(this_date.getDate())]).join('/') + ' ' + ([check_i(this_date.getHours()), check_i(this_date.getMinutes()), check_i(this_date.getSeconds())]).join(':')
-      var str = [this_title, this_description, this_date].join('')
+      var str = [this_title, this_description, this_date, String(this_title).toLowerCase(), String(this_description).toLowerCase(), String(this_title).toUpperCase(), String(this_description).toUpperCase()].join('')
       var str_unicode = unicode_arr(str)
       search_index.push({ 'id': this_id, 'title': this_title, 'description': this_description, 'date': this_date, 'unicode': str_unicode, 'date_time': this_list.date })
     }
@@ -1444,11 +1448,11 @@
       }
       var res_t2 = false
       if (res_t)
-        if (String(this_s.title).indexOf(q) > -1) {
+        if (String(this_s.title).toLowerCase().indexOf(q) > -1) {
           res_t2 = true
         }
         else {
-          if (String(this_s.description).indexOf(q) > -1) {
+          if (String(this_s.description).toLowerCase().indexOf(q) > -1) {
             res_t2 = true
           }
           else {
