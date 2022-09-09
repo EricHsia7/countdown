@@ -458,6 +458,7 @@
       background: var(--d-ffffff);
       box-sizing: border-box;
       display: block;
+      border-bottom: var(--d-e3e3e3);
     }
 
     .search_btn[u="1"] input#search_countdown {
@@ -1571,7 +1572,7 @@
   var search_index_cache = []
   function opensearchpage() {
     serach_page = 1
-    $('.search_btn').attr('u','1')
+    $('.search_btn').attr('u', '1')
     $('.search_countdown_content_box').css({ 'display': 'block' })
     var qu = $('#search_countdown').val()
     search_index_cache = create_search_index()
@@ -1607,7 +1608,7 @@
   }
   function closesearchpage() {
     $('.search_countdown_content_box').css({ 'display': 'none' })
-    $('.search_btn').attr('u','0')
+    $('.search_btn').attr('u', '0')
     search_result_countdown_count_pause = 1
     serach_page = 0
   }
