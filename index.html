@@ -387,7 +387,8 @@
     .back_btn,
     .options_btn,
     .delete_btn,
-    .cancel_btn {
+    .cancel_btn,
+    .search_btn {
       width: 35px;
       height: 35px;
       position: absolute;
@@ -421,11 +422,17 @@
       display: none;
     }
 
+    .search_btn {
+      top: 10px;
+      right: 55px
+    }
+
     .addcountdown svg,
     .back_btn svg,
     .options_btn svg,
     .delete_btn svg,
-    .cancel_btn svg {
+    .cancel_btn svg,
+    .search_btn svg {
       width: 20px;
       height: 20px
     }
@@ -703,6 +710,16 @@
         <path
           d="M4.8 36.8C3.46667 36.8 2.33333 36.3333 1.4 35.4C0.466666 34.4667-6.35783e-07 33.3333 7.10543e-15 32C7.10543e-15 30.6667 0.466667 29.5333 1.4 28.6C2.33333 27.6667 3.46667 27.2 4.8 27.2C6.13333 27.2 7.26667 27.6667 8.2 28.6C9.13333 29.5333 9.6 30.6667 9.6 32C9.6 33.3333 9.13333 34.4667 8.2 35.4C7.26667 36.3333 6.13333 36.8 4.8 36.8ZM32 36.8C30.6667 36.8 29.5333 36.3333 28.6 35.4C27.6667 34.4667 27.2 33.3333 27.2 32C27.2 30.6667 27.6667 29.5333 28.6 28.6C29.5333 27.6667 30.6667 27.2 32 27.2C33.3333 27.2 34.4667 27.6667 35.4 28.6C36.3333 29.5333 36.8 30.6667 36.8 32C36.8 33.3333 36.3333 34.4667 35.4 35.4C34.4667 36.3333 33.3333 36.8 32 36.8ZM59.2 36.8C57.8667 36.8 56.7333 36.3333 55.8 35.4C54.8667 34.4667 54.4 33.3333 54.4 32C54.4 30.6667 54.8667 29.5333 55.8 28.6C56.7333 27.6667 57.8667 27.2 59.2 27.2C60.5333 27.2 61.6667 27.6667 62.6 28.6C63.5333 29.5333 64 30.6667 64 32C64 33.3333 63.5333 34.4667 62.6 35.4C61.6667 36.3333 60.5333 36.8 59.2 36.8Z"
           fill="var(--d-333333)" fill-rule="evenodd" opacity="1" stroke="none" />
+      </svg>
+    </div>
+    <div class="search_btn" r-click="opensearchpage()">
+      <svg stroke-miterlimit="10"
+        style="fill-rule:nonzero;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;" version="1.1"
+        viewBox="0 0 64 64" xml:space="preserve" xmlns="http://www.w3.org/2000/svg"
+        xmlns:xlink="http://www.w3.org/1999/xlink">
+        <path
+          d="M60.0889 64L36.7111 40.6222C34.9333 42.163 32.8593 43.363 30.4889 44.2222C28.1185 45.0815 25.6 45.5111 22.9333 45.5111C16.5333 45.5111 11.1111 43.2889 6.66667 38.8444C2.22222 34.4 1.41285e-06 29.037 8.4771e-07 22.7556C8.4771e-07 16.4741 2.22222 11.1111 6.66667 6.66667C11.1111 2.22222 16.5037 3.55271e-15 22.8444 3.55271e-15C29.1259 3.55271e-15 34.4741 2.22222 38.8889 6.66667C43.3037 11.1111 45.5111 16.4741 45.5111 22.7556C45.5111 25.3037 45.0963 27.763 44.2667 30.1333C43.437 32.5037 42.1926 34.7259 40.5333 36.8L64 60.0889L60.0889 64ZM22.8444 40.1778C27.6444 40.1778 31.7333 38.4741 35.1111 35.0667C38.4889 31.6593 40.1778 27.5556 40.1778 22.7556C40.1778 17.9556 38.4889 13.8519 35.1111 10.4444C31.7333 7.03704 27.6444 5.33333 22.8444 5.33333C17.9852 5.33333 13.8519 7.03704 10.4444 10.4444C7.03704 13.8519 5.33333 17.9556 5.33333 22.7556C5.33333 27.5556 7.03704 31.6593 10.4444 35.0667C13.8519 38.4741 17.9852 40.1778 22.8444 40.1778Z"
+          fill="var(--d-333333)" fill-rule="nonzero" opacity="1" stroke="none" />
       </svg>
     </div>
     <div class="delete_btn" r-click="deleteselected()">
@@ -1238,13 +1255,13 @@
   function editcountdown() {
     $('.content_box').attr('edit', '1')
     $('.cancel_btn,.delete_btn').css({ 'display': 'flex' })
-    $('.options_btn').css({ 'display': 'none' })
+    $('.options_btn,.search_btn').css({ 'display': 'none' })
     closeoptions()
   }
   function cancelselect() {
     $('.content_box').attr('edit', '0')
     $('.cancel_btn,.delete_btn').css({ 'display': 'none' })
-    $('.options_btn').css({ 'display': 'flex' })
+    $('.options_btn,.search_btn').css({ 'display': 'flex' })
     var checkbox_len = $('.content_box input[type="checkbox"]').length
     for (var g = 0; g < checkbox_len; g++) {
       $('.content_box input[type="checkbox"]').eq(g).prop('checked', false)
@@ -1264,7 +1281,7 @@
     refresh_countdown()
     $('.content_box').attr('edit', '0')
     $('.cancel_btn,.delete_btn').css({ 'display': 'none' })
-    $('.options_btn').css({ 'display': 'flex' })
+    $('.options_btn,.search_btn').css({ 'display': 'flex' })
     if (deleted_len > 0) {
       mes(deleted_len + ' countdown deleted.')
     }
