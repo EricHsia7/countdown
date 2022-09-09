@@ -1525,16 +1525,6 @@
       window.requestAnimationFrame(search_result_countdown_count_update)
     }
   }
-  function input_focus(elem) {
-    var t = setInterval(function () {
-      if (elem === document.activeElement) {
-        clearInterval(t)
-      }
-      else {
-        elem.focus()
-      }
-    }, 30)
-  }
   var search_input_evt = 0
   var serach_page = 0
   var search_index_cache = []
@@ -1542,7 +1532,6 @@
     serach_page = 1
     $('.search_countdown_title').css({ 'display': 'flex' })
     $('.search_countdown_content_box').css({ 'display': 'block' })
-    input_focus(document.getElementById('search_countdown'))
     var qu = $('#search_countdown').val()
     search_index_cache = create_search_index()
     var result = search_result(qu, search_index_cache)
