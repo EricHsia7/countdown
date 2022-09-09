@@ -1384,31 +1384,38 @@
     for (var s = 0; s < search_index_len; s++) {
       var this_s = search_index[s]
       var this_s_u = this_s.unicode
+      var res_t = false
       for (var f = 0; f < q_u_len; f++) {
         if (this_s_u.indexOf(q_u[f]) > -1) {
-          var res_t = false
-          if (String(this_s.title).indexOf(q) > -1) {
-            res_t = true
-          }
-          else {
-            if (String(this_s.description).indexOf(q) > -1) {
-              res_t = true
-            }
-            else {
-              if (String(this_s.date).indexOf(q) > -1) {
-                res_t = true
-              }
-            }
-          }
+          res_t = true
           break;
         }
       }
-
-      if (res_t) {
+      if (!(res_t)) {
+        continue;
+      }
+      var res_t2 = false
+      if (res_t)
+        if (String(this_s.title).indexOf(q) > -1) {
+          res_t2 = true
+        }
+        else {
+          if (String(this_s.description).indexOf(q) > -1) {
+            res_t2 = true
+          }
+          else {
+            if (String(this_s.date).indexOf(q) > -1) {
+              res_t2 = true
+            }
+          }
+        }
+      if (res_t2) {
         res_1.push(this_s)
       }
+
     }
-    return res_1
+  }
+  return res_1
   }
   function print_searchresult(res) {
     var res_htm = []
