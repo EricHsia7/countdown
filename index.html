@@ -1282,7 +1282,6 @@
     $('.countdown_title,.countdown_content_box').css({ 'display': 'none' })
     $('.countdown_content_box_count').attr('f', '1')
     history.pushState(null, null, 'https://erichsia7.github.io/countdown/');
-
   }
   function openoptions(r) {
     $('.options_mask').css({ 'display': 'block' })
@@ -1384,6 +1383,7 @@
     }
     refresh_countdown()
     closecountdown()
+    closeoptions()
     mes('Countdown deleted.')
   }
   function savecountdown() {
