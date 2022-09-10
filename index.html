@@ -1530,11 +1530,10 @@
       var this_s = search_index[s]
       var this_s_u = this_s.unicode
       var res_t = false
-      var u_count = 0
       for (var f = 0; f < q_u_len; f++) {
         if (this_s_u.indexOf(q_u[f]) > -1) {
           res_t = true
-          u_count += 1
+          break;
         }
       }
       if (!(res_t)) {
