@@ -1025,17 +1025,33 @@
     return arr
   }
   function print_countdown() {
-    var list = searchItemsbyname('countdown_x_')
-    if (list.length < 1) {
+    var now_time = new Date().getTime()
+    var list_all = searchItemsbyname('countdown_x_')
+    var list_unfinished = []
+    var list_finished = []
+    var list_all_len = list_all.length
+    if (list_all_len < 1) {
       $('.content_box .loading').remove()
       return ''
     }
-    var list_len = list.length
-    for (var d = 0; d < list_len; d++) {
-      list[d] = JSON.parse(localStorage.getItem(String(list[d])))
+
+    for (var d = 0; d < list_all_len; d++) {
+      var this_json = JSON.parse(localStorage.getItem(String(list_all[d])))
+      list_all[d] = this_json
+      if (this_json.date > now_time) {
+        list_unfinished.push(this_json)
+      }
+      else {
+        list_finished.push(this_json)
+      }
     }
-    list = sort_arr(list, 'date').reverse()
+
+    list_unfinished = sort_arr(list_unfinished, 'date')
+    list_finished = sort_arr(list_finished, 'date').reverse()
+
+    list = list_unfinished.concat(list_finished)
     list_len = list.length
+
     for (var e = 0; e < list_len; e++) {
       var this_list = list[e]
       var this_title = this_list.title
