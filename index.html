@@ -1018,6 +1018,12 @@
     }
     return gh
   }
+  function sort_arr(arr, sort_key) {
+    arr.sort(function (a, b) {
+      return a[sort_key] - b[sort_key]
+    });
+    return arr
+  }
   function print_countdown() {
     var list = searchItemsbyname('countdown_x_')
     if (list.length < 1) {
@@ -1028,6 +1034,7 @@
     for (var d = 0; d < list_len; d++) {
       list[d] = JSON.parse(localStorage.getItem(String(list[d])))
     }
+    list = sort_arr(list, 'date').reverse()
     list_len = list.length
     for (var e = 0; e < list_len; e++) {
       var this_list = list[e]
