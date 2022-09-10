@@ -1528,10 +1528,11 @@
       var this_s = search_index[s]
       var this_s_u = this_s.unicode
       var res_t = false
+      var u_count = 0
       for (var f = 0; f < q_u_len; f++) {
         if (this_s_u.indexOf(q_u[f]) > -1) {
           res_t = true
-          break;
+          u_count += 1
         }
       }
       if (!(res_t)) {
@@ -1553,10 +1554,11 @@
           }
         }
       if (res_t2) {
+        this_s['rank'] = (1 / this_s.date_time) + u_count
         res_1.push(this_s)
       }
     }
-    res_1 = sort_arr(res_1, 'date_time').reverse()
+    res_1 = sort_arr(res_1, 'rank')
     return res_1
   }
   function print_searchresult(res) {
