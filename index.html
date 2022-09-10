@@ -432,7 +432,8 @@
     }
 
     .search_btn[loading="1"],
-    .options_btn[loading="1"] {
+    .options_btn[loading="1"],
+    .addcountdown[loading="1"] {
       opacity: 0.3;
     }
 
@@ -1636,7 +1637,7 @@
       setTimeout(function () {
         print_countdown()
         rclick('.addcountdown,.add_countdown_btn,.edit_countdown_btn,.back_btn,.options_btn,.options_mask,.options li,.cancel_btn,.delete_btn,.search_btn')
-        $('.search_btn,.options_btn').attr('loading', '0')
+        $('.search_btn,.options_btn,.addcountdown').attr('loading', '0')
         window.requestAnimationFrame(countdown_update);
       }, 1500)
       if (urlparams('c') === '1') {
