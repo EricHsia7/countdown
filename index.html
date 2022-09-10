@@ -1520,6 +1520,7 @@
     if (!(String(q).length > 0)) {
       return []
     }
+    var now_time = new Date().getTime()
     var res_1 = []
     var q_u = unicode_arr(q)
     var q_u_len = q_u.length
@@ -1554,7 +1555,11 @@
           }
         }
       if (res_t2) {
-        this_s['rank'] = this_s.date_time * (1 / u_count)
+        var this_rank = this_s.date_time
+        if (this_s.date_time < now_time) {
+          this_rank = this_rank * -1
+        }
+        this_s.rank = this_rank
         res_1.push(this_s)
       }
     }
