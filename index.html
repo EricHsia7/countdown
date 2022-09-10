@@ -938,8 +938,6 @@
   <div class="add_countdown_content_box">
     <input type="text" placeholder="Title" id="add_title">
     <textarea placeholder="Description" id="add_description"></textarea>
-    <input type="datetime-local" id="add_date" placeholder="Date">
-
     <div class="date_input_group">
       <div class="date_input_group_date">
         <input type="text" id="add_date_year" placeholder="Year">
@@ -952,7 +950,6 @@
         <input type="text" id="add_date_second" placeholder="Second">
       </div>
     </div>
-
     <div class="add_countdown_btn" r-click="addcountdown()">Add</div>
   </div>
 
@@ -1362,6 +1359,7 @@
     date.setMonth((month - 1))
     date.setDate(date_d)
     date.setHours(hour)
+    date.setMinutes(minute)
     date.setSeconds(second)
 
     date = date.getTime()
@@ -1577,6 +1575,7 @@
       date_o.setMonth((month - 1))
       date_o.setDate(date_d)
       date_o.setHours(hour)
+      date_o.setMinutes(minute)
       date_o.setSeconds(second)
 
       countdown_json.date = date_o.getTime()
