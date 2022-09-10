@@ -431,6 +431,11 @@
       right: 55px
     }
 
+    .search_btn[loading="1"],
+    .options_btn[loading="1"] {
+      opacity: 0.3;
+    }
+
     input#search_countdown {
       color: var(--d-333333);
       caret-color: var(--d-333333);
@@ -783,7 +788,7 @@
 <body>
   <div class="title">
     Countdown
-    <div class="options_btn" r-click="openoptions(0)">
+    <div class="options_btn" r-click="openoptions(0)" loading="1">
       <svg stroke-miterlimit="10"
         style="fill-rule:nonzero;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;" version="1.1"
         viewBox="0 0 64 64" xml:space="preserve" xmlns="http://www.w3.org/2000/svg"
@@ -793,7 +798,7 @@
           fill="var(--d-333333)" fill-rule="evenodd" opacity="1" stroke="none" />
       </svg>
     </div>
-    <div class="search_btn" r-click="opensearchpage()" u="0">
+    <div class="search_btn" r-click="opensearchpage()" u="0" loading="1">
       <svg stroke-miterlimit="10"
         style="fill-rule:nonzero;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;" version="1.1"
         viewBox="0 0 64 64" xml:space="preserve" xmlns="http://www.w3.org/2000/svg"
@@ -1631,6 +1636,7 @@
       setTimeout(function () {
         print_countdown()
         rclick('.addcountdown,.add_countdown_btn,.edit_countdown_btn,.back_btn,.options_btn,.options_mask,.options li,.cancel_btn,.delete_btn,.search_btn')
+        $('.search_btn,.options_btn').attr('loading', '0')
         window.requestAnimationFrame(countdown_update);
       }, 1500)
       if (urlparams('c') === '1') {
