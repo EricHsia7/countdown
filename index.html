@@ -1522,6 +1522,7 @@
     }
     var now_time = new Date().getTime()
     var res_1 = []
+    var res_2 = []
     var q_u = unicode_arr(q)
     var q_u_len = q_u.length
     var search_index_len = search_index.length
@@ -1555,16 +1556,18 @@
           }
         }
       if (res_t2) {
-        var this_rank = this_s.date_time
-        if (this_s.date_time < now_time) {
-          this_rank = this_rank * -1
+        if (this_s.date_time > now_time) {
+          res_2.push(this_s)
         }
-        this_s.rank = this_rank
-        res_1.push(this_s)
+        else {
+          res_1.push(this_s)
+        }
       }
     }
-    res_1 = sort_arr(res_1, 'rank')
-    return res_1
+    res_1 = sort_arr(res_1, 'date_time').reverse()
+    res_2 = sort_arr(res_2, 'date_time')
+    var res_3 = res_2.concat(res_1)
+    return res_3
   }
   function print_searchresult(res) {
     var res_htm = []
