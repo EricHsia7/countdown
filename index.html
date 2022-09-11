@@ -1814,12 +1814,34 @@
     }
     var count_font_size = 128
     var title_font_size = 75
+    var date_font_size = 45
     var link_font_size = 35
     var count_font_weight = 700
     var title_font_weight = 500
+    var date_font_weight = 400
     var link_font_weight = 300
     var link = 'erichsia7.github.io/countdown'
     var count = '--'
+    var t_check = function (t) {
+      if (t < 1) {
+        return true
+      }
+      if (t < 10) {
+        return '0' + t
+      }
+      else {
+        return t
+      }
+    }
+    var tt_check = function (h, m) {
+      if (h === true && m === true) {
+        return ''
+      }
+      else {
+        return ' ' + [h, m].join(':')
+      }
+    }
+    var date_str = [date.getFullYear(), (date.getMonth() + 1), date.getDate()].join('/') + tt_check(t_check(date.getHours()), t_check(date.getMinutes()))
     var now_time = new Date().getTime()
     var f_time = (date - now_time)
     if (f_time > 0) {
@@ -1837,22 +1859,34 @@
     var count_h = count_font_size
     var count_x = count_area_x + (count_area_w - count_w) / 2
     var count_y = count_area_y + (count_area_h - count_h) / 2
+
     var title_area_x = 0;
-    var title_area_y = h * 0.64;
+    var title_area_y = h * 0.45;
     var title_area_w = w;
-    var title_area_h = h * 0.20;
+    var title_area_h = h * 0.55;
     var title_w = getTextWidth(title, font(title_font_weight, title_font_size))
     var title_h = title_font_size
     var title_x = title_area_x + (title_area_w - title_w) / 2
     var title_y = title_area_y + (title_area_h - title_h) / 2
+
+    var date_area_x = 0;
+    var date_area_y = h * 0.58;
+    var date_area_w = w;
+    var date_area_h = h * 0.42;
+    var date_w = getTextWidth(date_str, font(date_font_weight, date_font_size))
+    var date_h = date_font_size
+    var date_x = date_area_x + (date_area_w - date_w) / 2
+    var date_y = date_area_y + (date_area_h - date_h) / 2
+
     var link_area_x = 0;
-    var link_area_y = h * 0.84;
+    var link_area_y = h * 0.85;
     var link_area_w = w;
-    var link_area_h = h * 0.16;
+    var link_area_h = h * 0.15;
     var link_w = getTextWidth(link, font(link_font_weight, link_font_size))
     var link_h = link_font_size
     var link_x = link_area_x + (link_area_w - link_w) / 2
     var link_y = link_area_y + (link_area_h - link_h) / 2
+
     canvas.width = w
     canvas.height = h
     ctx.fillStyle = bg
@@ -1863,9 +1897,10 @@
     ctx.fillText(count, count_x, count_y);
     ctx.font = font(title_font_weight, title_font_size);
     ctx.fillText(title, title_x, title_y);
+    ctx.font = font(date_font_weight, date_font_size);
+    ctx.fillText(date_str, date_x, date_y);
     ctx.font = font(link_font_weight, link_font_size);
     ctx.fillText(link, link_x, link_y);
-    return true
   }
   function blobCallback(name) {
     return (b) => {
