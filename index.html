@@ -289,9 +289,9 @@
       display: flex;
     }
 
-    .add_countdown_content_box input[type="text"],
+    .add_countdown_content_box input[c="1"],
     .add_countdown_content_box textarea,
-    .edit_countdown_content_box input[type="text"],
+    .edit_countdown_content_box input[c="1"],
     .edit_countdown_content_box textarea {
       width: calc(100% - 20px);
       height: 45px;
@@ -311,23 +311,50 @@
       caret-color: var(--d-333333);
     }
 
-
-    .add_countdown_content_box input[type="datetime-local"],
-    .edit_countdown_content_box input[type="datetime-local"] {
-      -webkit-appearance: none;
+    .date_input_group {
+      position: relative;
+      left: 50%;
+      transform: translateX(-50%);
       width: calc(100% - 20px);
+      height: 95px;
+      margin-top: 10px;
+      box-sizing: border-box;
+    }
+
+    .date_input_group_date,
+    .date_input_group_time {
+      position: absolute;
+      width: 100%;
+      height: 45px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      column-gap: 5px;
+    }
+
+    .date_input_group_date {
+      top: 0px;
+      left: 0px;
+    }
+
+    .date_input_group_time {
+      top: 50px;
+      left: 0px;
+    }
+
+    .date_input_group input[type="text"] {
+      -webkit-appearance: none;
+      display: inline-block;
       height: 45px;
       padding: 5px;
+      margin: 0px;
       box-sizing: border-box;
-      margin-top: 10px;
       font-size: 15px;
       border-radius: 10px;
       border: 1px solid var(--d-e3e3e3);
       background: transparent;
-      position: relative;
-      left: 50%;
-      transform: translateX(-50%);
       color: var(--d-333333);
+      min-width: 0px;
+      caret-color: var(--d-333333);
     }
 
     .add_countdown_content_box textarea,
@@ -913,9 +940,20 @@
     <span id="add_countdown_title_text">Add Countdown</span>
   </div>
   <div class="add_countdown_content_box">
-    <input type="text" placeholder="Title" id="add_title">
+    <input type="text" placeholder="Title" id="add_title" c="1">
     <textarea placeholder="Description" id="add_description"></textarea>
-    <input type="datetime-local" id="add_date" placeholder="Date">
+    <div class="date_input_group">
+      <div class="date_input_group_date">
+        <input type="text" id="add_date_year" placeholder="Year" inputmode="numeric">
+        <input type="text" id="add_date_month" placeholder="Month" inputmode="numeric">
+        <input type="text" id="add_date_date" placeholder="Date" inputmode="numeric">
+      </div>
+      <div class="date_input_group_time">
+        <input type="text" id="add_date_hour" placeholder="Hour" inputmode="numeric">
+        <input type="text" id="add_date_minute" placeholder="Minute" inputmode="numeric">
+        <input type="text" id="add_date_second" placeholder="Second" inputmode="numeric">
+      </div>
+    </div>
     <div class="add_countdown_btn" r-click="addcountdown()">Add</div>
   </div>
 
@@ -932,9 +970,20 @@
     <span id="edit_countdown_title_text">Edit Countdown</span>
   </div>
   <div class="edit_countdown_content_box">
-    <input type="text" placeholder="Title" id="edit_title">
+    <input type="text" placeholder="Title" id="edit_title" c="1">
     <textarea placeholder="Description" id="edit_description"></textarea>
-    <input type="datetime-local" id="edit_date" placeholder="Date">
+    <div class="date_input_group">
+      <div class="date_input_group_date">
+        <input type="text" id="edit_date_year" placeholder="Year" inputmode="numeric">
+        <input type="text" id="edit_date_month" placeholder="Month" inputmode="numeric">
+        <input type="text" id="edit_date_date" placeholder="Date" inputmode="numeric">
+      </div>
+      <div class="date_input_group_time">
+        <input type="text" id="edit_date_hour" placeholder="Hour" inputmode="numeric">
+        <input type="text" id="edit_date_minute" placeholder="Minute" inputmode="numeric">
+        <input type="text" id="edit_date_second" placeholder="Second" inputmode="numeric">
+      </div>
+    </div>
     <div class="edit_countdown_btn" r-click="savecountdown()">Save</div>
   </div>
 
@@ -1278,18 +1327,46 @@
     $('.add_countdown_content_box').css({ 'display': 'block' })
     $('#add_title').val('')
     $('#add_description').val('')
-    $('#add_date').val('')
     $('#add_countdown_title_text').text('Add Countdown')
-
+    $('#add_date_year').val('')
+    $('#add_date_month').val('')
+    $('#add_date_date').val('')
+    $('#add_date_hour').val('')
+    $('#add_date_minute').val('')
+    $('#add_date_second').val('')
   }
   function closeaddcountdown() {
     $('.add_countdown_title,.add_countdown_content_box').css({ 'display': 'none' })
 
   }
+  function check_int(str) {
+    if (String(parseInt(String(str))) === 'NaN' || String(str) === '') {
+      return undefined
+    }
+    else {
+      return parseInt(String(str))
+    }
+  }
   function addcountdown() {
     var title = $('#add_title').val()
     var description = $('#add_description').val()
-    var date = new Date(String($('#add_date').val())).getTime()
+    var date = new Date()
+
+    var year = check_int($('#add_date_year').val()) || date.getFullYear()
+    var month = check_int($('#add_date_month').val()) || (date.getMonth() + 1)
+    var date_d = check_int($('#add_date_date').val()) || date.getDate()
+    var hour = check_int($('#add_date_hour').val()) || 0
+    var minute = check_int($('#add_date_minute').val()) || 0
+    var second = check_int($('#add_date_second').val()) || 0
+
+    date.setFullYear(year)
+    date.setMonth((month - 1))
+    date.setDate(date_d)
+    date.setHours(hour)
+    date.setMinutes(minute)
+    date.setSeconds(second)
+
+    date = date.getTime()
     var id = ''
     var id_chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
     for (var i = 0; i < 32; i++) {
@@ -1307,7 +1384,12 @@
     closeaddcountdown()
     $('#add_title').val('')
     $('#add_description').val('')
-    $('#add_date').val('')
+    $('#add_date_year').val('')
+    $('#add_date_month').val('')
+    $('#add_date_date').val('')
+    $('#add_date_hour').val('')
+    $('#add_date_minute').val('')
+    $('#add_date_second').val('')
     mes('Countdown added')
     refresh_countdown()
     opencountdown(id)
@@ -1432,10 +1514,23 @@
       var countdown_json = JSON.parse(String(localStorage.getItem('countdown_x_' + countdown_id)))
       var date_o = new Date()
       date_o.setTime(parseInt(countdown_json.date))
-      var date_str = datestr(date_o)
+
+      var year = date_o.getFullYear()
+      var month = (date_o.getMonth() + 1)
+      var date_d = date_o.getDate()
+      var hour = date_o.getHours()
+      var minute = date_o.getMinutes()
+      var second = date_o.getSeconds()
+
+      $('#edit_date_year').val(year)
+      $('#edit_date_month').val(month)
+      $('#edit_date_date').val(date_d)
+      $('#edit_date_hour').val(hour)
+      $('#edit_date_minute').val(minute)
+      $('#edit_date_second').val(second)
+
       $('#edit_title').val(countdown_json.title)
       $('#edit_description').val(countdown_json.description)
-      $('#edit_date').val(date_str)
       $('.edit_countdown_btn').attr('countdown-id', countdown_json.id)
     }
   }
@@ -1470,7 +1565,23 @@
     var countdown_id = $('.edit_countdown_btn').attr('countdown-id')
     if (localStorage.hasOwnProperty('countdown_x_' + countdown_id)) {
       var countdown_json = JSON.parse(String(localStorage.getItem('countdown_x_' + countdown_id)))
-      var date_o = new Date($('#edit_date').val())
+
+      var date_o = new Date()
+
+      var year = check_int($('#edit_date_year').val()) || date_o.getFullYear()
+      var month = check_int($('#edit_date_month').val()) || (date_o.getMonth() + 1)
+      var date_d = check_int($('#edit_date_date').val()) || date_o.getDate()
+      var hour = check_int($('#edit_date_hour').val()) || 0
+      var minute = check_int($('#edit_date_minute').val()) || 0
+      var second = check_int($('#edit_date_second').val()) || 0
+
+      date_o.setFullYear(year)
+      date_o.setMonth((month - 1))
+      date_o.setDate(date_d)
+      date_o.setHours(hour)
+      date_o.setMinutes(minute)
+      date_o.setSeconds(second)
+
       countdown_json.date = date_o.getTime()
       countdown_json.title = $('#edit_title').val()
       countdown_json.description = $('#edit_description').val()
