@@ -954,7 +954,7 @@
         <input type="text" id="add_date_second" placeholder="Second" inputmode="numeric">
       </div>
     </div>
-    <div class="add_countdown_btn" r-click="addcountdown()">Add</div>
+    <div class="add_countdown_btn" r-click="addcountdown(0)">Add</div>
   </div>
 
   <div class="edit_countdown_title">
@@ -1347,17 +1347,35 @@
       return parseInt(String(str))
     }
   }
-  function addcountdown() {
+  function addcountdown(m) {
+    if (m === 0) {
+      var data_y = $('#add_date_year').val()
+      var data_m = $('#add_date_month').val()
+      var data_d = $('#add_date_date').val()
+      var data_h = $('#add_date_hour').val()
+      var data_min = $('#add_date_minute').val()
+      var data_s = $('#add_date_second').val()
+    }
+    if (m === 1) {
+      if (urlparams('a') === '1') {
+        var data_y = urlparams('add_y')
+        var data_m = urlparams('add_m')
+        var data_d = urlparams('add_d')
+        var data_h = urlparams('add_h')
+        var data_min = urlparams('add_min')
+        var data_s = urlparams('add_s')
+      }
+    }
     var title = $('#add_title').val()
     var description = $('#add_description').val()
     var date = new Date()
 
-    var year = check_int($('#add_date_year').val()) || date.getFullYear()
-    var month = check_int($('#add_date_month').val()) || (date.getMonth() + 1)
-    var date_d = check_int($('#add_date_date').val()) || date.getDate()
-    var hour = check_int($('#add_date_hour').val()) || 0
-    var minute = check_int($('#add_date_minute').val()) || 0
-    var second = check_int($('#add_date_second').val()) || 0
+    var year = check_int(data_y) || date.getFullYear()
+    var month = check_int(data_m) || (date.getMonth() + 1)
+    var date_d = check_int(data_d) || date.getDate()
+    var hour = check_int(data_h) || 0
+    var minute = check_int(data_min) || 0
+    var second = check_int(data_s) || 0
 
     date.setFullYear(year)
     date.setMonth((month - 1))
@@ -1812,6 +1830,9 @@
             mes('Added 1 shared countdown.')
           }
         }
+      }
+      if (urlparams('a') === '1') {
+        addcountdown(1)
       }
     })
   }
