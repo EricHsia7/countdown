@@ -1822,6 +1822,14 @@
     var link_font_weight = 300
     var link = 'erichsia7.github.io/countdown'
     var count = '--'
+    var padding = function (i) {
+      if (i < 10) {
+        return '0' + i
+      }
+      else {
+        return i
+      }
+    }
     var t_check = function (t) {
       if (t < 1) {
         return true
@@ -1841,7 +1849,9 @@
         return ' ' + [h, m].join(':')
       }
     }
-    var date_str = [date.getFullYear(), (date.getMonth() + 1), date.getDate()].join('/') + tt_check(t_check(date.getHours()), t_check(date.getMinutes()))
+    var date_o = new Date()
+    date_o.setTime(date)
+    var date_str = [padding(date_o.getFullYear()), padding(date_o.getMonth() + 1), padding(date_o.getDate())].join('/') + tt_check(t_check(date_o.getHours()), t_check(date_o.getMinutes()))
     var now_time = new Date().getTime()
     var f_time = (date - now_time)
     if (f_time > 0) {
