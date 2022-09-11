@@ -1001,8 +1001,8 @@
     <li r-click="refreshpage()" y="refresh" group="0">Refresh</li>
     <li r-click="viewongithub()" y="github" group="0">Github</li>
     <li r-click="editcountdown_detail()" y="edit2" group="1" b="0">Edit</li>
-    <li r-click="sharecountdown()" y="share" group="1">Share</li>
-    <li r-click="downloadCountdownPhoto()" y="dlcountdownphoto" group="1">Download photo</li>
+    <li r-click="sharecountdown()" y="share" group="1">Share as link</li>
+    <li r-click="shareCountdownPhoto()" y="shcountdownphoto" group="1">Share as photo</li>
     <li r-click="deletecountdown()" y="delete" group="1">Delete</li>
   </div>
 </body>
@@ -1466,7 +1466,7 @@
       $('.options li[y="edit2"]').attr('r-click', "editcountdown_detail('" + countdown_id + "')")
       $('.options li[y="share"]').attr('r-click', "sharecountdown('" + countdown_id + "')")
       $('.options li[y="delete"]').attr('r-click', "deletecountdown('" + countdown_id + "')")
-      $('.options li[y="dlcountdownphoto"]').attr('r-click', "downloadCountdownPhoto('" + countdown_id + "')")
+      $('.options li[y="shcountdownphoto"]').attr('r-click', "shareCountdownPhoto('" + countdown_id + "')")
     }
   }
   function closecountdown() {
@@ -1867,14 +1867,24 @@
     ctx.fillText(link, link_x, link_y);
     return true
   }
-  function blobCallback(name) {
+  function blobCallback(name, tit, txt) {
     return (b) => {
-      const a = document.createElement('a');
-      document.body.appendChild(a);
-      a.download = `${name}.png`;
-      a.href = window.URL.createObjectURL(b);
-      a.click()
-      a.remove()
+      const image = new File([b], name + '.png', { type: b.type })
+      if (navigator.canShare && navigator.canShare({ files: [image] })) {
+        navigator.share({
+          files: [image],
+          title: tit,
+          url: txt
+        })
+      }
+      else {
+        const a = document.createElement('a');
+        document.body.appendChild(a);
+        a.download = `${name}.png`;
+        a.href = window.URL.createObjectURL(b);
+        a.click()
+        a.remove()
+      }
     }
   }
 
@@ -1885,14 +1895,15 @@
       if (title.length > 15) {
         title = String(title).substring(0, 12) + '...'
       }
+      var link = 'https://erichsia7.github.io/countdown/?s=1&j=' + btoa(encodeURIComponent(JSON.stringify(countdown_json)))
       var date = parseInt(countdown_json.date)
       var canvas = document.getElementById('countdown-photo')
       drawCountdownPhoto('#f5f5f5', '#333', 1024, 1024, title, date, canvas)
-      canvas.toBlob(blobCallback(randid('countdown')), 'image/png')
+      canvas.toBlob(blobCallback(randid('countdown'), countdown_json.title, link), 'image/png')
     }
   }
 
-  function downloadCountdownPhoto(countdown_id) {
+  function shareCountdownPhoto(countdown_id) {
     getCountdownPhoto(countdown_id)
     closeoptions()
   }
