@@ -1355,6 +1355,8 @@
       var data_h = $('#add_date_hour').val()
       var data_min = $('#add_date_minute').val()
       var data_s = $('#add_date_second').val()
+      var data_title = $('#add_title').val() || 'Untitled'
+      var data_description = $('#add_description').val() || ''
     }
     if (m === 1) {
       if (urlparams('a') === '1') {
@@ -1364,10 +1366,12 @@
         var data_h = urlparams('add_h')
         var data_min = urlparams('add_min')
         var data_s = urlparams('add_s')
+        var data_title = urlparams('add_title') || 'Untitled'
+        var data_description = urlparams('add_desc') || ''
       }
     }
-    var title = $('#add_title').val()
-    var description = $('#add_description').val()
+    var title = data_title
+    var description = data_description
     var date = new Date()
 
     var year = check_int(data_y) || date.getFullYear()
