@@ -801,6 +801,10 @@
       -webkit-user-select: none;
     }
 
+    canvas#social-media-photo {
+      display: none;
+    }
+
     @media only screen and (max-width: 600px) {
       .count {
         width: 25px;
@@ -821,6 +825,7 @@
 </head>
 
 <body>
+  <canvas id="social-media-photo"></canvas>
   <div class="title">
     Countdown
     <div class="options_btn" r-click="openoptions(0)" loading="1">
@@ -997,6 +1002,7 @@
     <li r-click="viewongithub()" y="github" group="0">Github</li>
     <li r-click="editcountdown_detail()" y="edit2" group="1" b="0">Edit</li>
     <li r-click="sharecountdown()" y="share" group="1">Share</li>
+    <li r-click="downloadSocialMediaPhoto()" y="dlsocialmediaphoto" group="1">Download Socia Media Photo</li>
     <li r-click="deletecountdown()" y="delete" group="1">Delete</li>
   </div>
 </body>
@@ -1460,6 +1466,7 @@
       $('.options li[y="edit2"]').attr('r-click', "editcountdown_detail('" + countdown_id + "')")
       $('.options li[y="share"]').attr('r-click', "sharecountdown('" + countdown_id + "')")
       $('.options li[y="delete"]').attr('r-click', "deletecountdown('" + countdown_id + "')")
+      $('.options li[y="dlsocialmediaphoto"]').attr('r-click', "downloadSocialMediaPhoto('" + countdown_id + "')")
     }
   }
   function closecountdown() {
@@ -1800,8 +1807,7 @@
     return metrics.width;
   }
 
-  function getSocialMediaPhoto(bg, txt, w, h, title, date) {
-    var canvas = document.getElementById('social-media-photo')
+  function drawSocialMediaPhoto(bg, txt, w, h, title, date, canvas) {
     var ctx = canvas.getContext('2d')
     var font = function (w, s) {
       return w + " " + s + "px 'Noto Sans', sans-serif"
@@ -1859,7 +1865,36 @@
     ctx.fillText(title, title_x, title_y);
     ctx.font = font(link_font_weight, link_font_size);
     ctx.fillText(link, link_x, link_y);
-    return ''
+    return true
+  }
+  function blobCallback(name) {
+    return (b) => {
+      const a = document.createElement('a');
+      document.body.appendChild(a);
+      a.download = `${name}.png`;
+      a.href = window.URL.createObjectURL(b);
+      a.click()
+      a.remove()
+    }
+  }
+
+  function getSocialMediaPhoto(countdown_id) {
+    if (localStorage.hasOwnProperty('countdown_x_' + countdown_id)) {
+      var countdown_json = JSON.parse(String(localStorage.getItem('countdown_x_' + countdown_id)))
+      var title = countdown_json.title
+      if (title.length > 15) {
+        title = String(title).substring(0, 12) + '...'
+      }
+      var date = parseInt(countdown_json.date)
+      var canvas = document.getElementById('social-media-photo')
+      drawSocialMediaPhoto('#f5f5f5', '#333', 1024, 1024, title, date, canvas)
+      canvas.toBlob(blobCallback(randid('countdown')), 'image/png')
+    }
+  }
+
+  function downloadSocialMediaPhoto(countdown_id) {
+    getSocialMediaPhoto(countdown_id)
+    closeoptions()
   }
 
   function refreshpage() {
