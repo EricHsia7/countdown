@@ -1791,6 +1791,77 @@
     search_result_countdown_count_pause = 1
     serach_page = 0
   }
+
+  function getTextWidth(text, font) {
+    const canvas = getTextWidth.canvas || (getTextWidth.canvas = document.createElement("canvas"));
+    const context = canvas.getContext("2d");
+    context.font = font;
+    const metrics = context.measureText(text);
+    return metrics.width;
+  }
+
+  function getSocialMediaPhoto(bg, txt, w, h, title, date) {
+    var canvas = document.getElementById('social-media-photo')
+    var ctx = canvas.getContext('2d')
+    var font = function (w, s) {
+      return w + " " + s + "px 'Noto Sans', sans-serif"
+    }
+    var count_font_size = 128
+    var title_font_size = 80
+    var link_font_size = 32
+    var count_font_weight = 700
+    var title_font_weight = 500
+    var link_font_weight = 300
+    var link = 'erichsia7.github.io/countdown'
+    var count = '--'
+    var now_time = new Date().getTime()
+    var f_time = (date - now_time)
+    if (f_time > 0) {
+      count = tday(f_time, 0)
+    }
+    else {
+      count = 'Finish'
+    }
+
+    var count_area_x = 0;
+    var count_area_y = 0;
+    var count_area_w = w;
+    var count_area_h = h * 0.82;
+    var count_w = getTextWidth(count, font(count_font_weight, count_font_size))
+    var count_h = count_font_size
+    var count_x = count_area_x + (count_area_w - count_w) / 2
+    var count_y = count_area_y + (count_area_h - count_h) / 2
+    var title_area_x = 0;
+    var title_area_y = h * 0.64;
+    var title_area_w = w;
+    var title_area_h = h * 0.20;
+    var title_w = getTextWidth(title, font(title_font_weight, title_font_size))
+    var title_h = title_font_size
+    var title_x = title_area_x + (title_area_w - title_w) / 2
+    var title_y = title_area_y + (title_area_h - title_h) / 2
+    var link_area_x = 0;
+    var link_area_y = h * 0.84;
+    var link_area_w = w;
+    var link_area_h = h * 0.16;
+    var link_w = getTextWidth(link, font(link_font_weight, link_font_size))
+    var link_h = link_font_size
+    var link_x = link_area_x + (link_area_w - link_w) / 2
+    var link_y = link_area_y + (link_area_h - link_h) / 2
+    canvas.width = w
+    canvas.height = h
+    ctx.fillStyle = bg
+    ctx.fillRect(0, 0, w, h);
+    ctx.textBaseline = 'top'
+    ctx.fillStyle = txt;
+    ctx.font = font(count_font_weight, count_font_size);
+    ctx.fillText(count, count_x, count_y);
+    ctx.font = font(title_font_weight, title_font_size);
+    ctx.fillText(title, title_x, title_y);
+    ctx.font = font(link_font_weight, link_font_size);
+    ctx.fillText(link, link_x, link_y);
+    return ''
+  }
+
   function refreshpage() {
     location.replace('https://erichsia7.github.io/countdown/?' + randid())
     closeoptions()
