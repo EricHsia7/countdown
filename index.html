@@ -35,7 +35,7 @@
         --d-ffffff: #0d0d0d;
         --d-e3e3e3: #1a1a1a;
         --d-333333: #ffffff;
-        --d-f4f4f4: #1f1f1f;
+        --d-f4f4f4: #141414;
         --e-skeleton-screen-light-color: #262626;
       }
     }
@@ -128,14 +128,16 @@
     }
 
     .countdown_box {
-      width: 100%;
-      height: 120px;
+      width: calc(100% - 20px);
+      height: 100px;
       background: var(--d-f4f4f4);
-      border-bottom: 1px solid var(--d-e3e3e3);
       position: relative;
       -webkit-user-select: none;
       user-select: none;
       overflow: hidden;
+      border-radius: 15px;
+      margin: 10px;
+      box-sizing: border-box;
     }
 
     .countdown_box:nth-last-child(1) {
@@ -148,11 +150,11 @@
       top: 0px;
       left: 0px;
       width: 44px;
-      height: 120px;
+      height: 100px;
       display: none;
       justify-content: center;
       align-items: center;
-      background: var(--d-ffffff);
+      background: var(--d-f4f4f4);
       box-sizing: border-box;
       font-size: 23px;
       color: var(--d-333333);
@@ -171,14 +173,15 @@
 
     .countdown_box_count {
       position: absolute;
-      top: 0px;
-      left: 0px;
-      width: 119px;
-      height: 120px;
+      top: 5px;
+      left: 5px;
+      width: 95px;
+      height: 90px;
       display: flex;
       justify-content: center;
       align-items: center;
-      background: var(--d-ffffff);
+      background: var(--d-f4f4f4);
+      border-right: 1px solid var(--d-e3e3e3);
       box-sizing: border-box;
       font-size: 23px;
       font-weight: 700;
@@ -189,15 +192,15 @@
 
     .countdown_box_title {
       position: absolute;
-      top: 0px;
-      left: 120px;
-      width: calc(100% - 120px);
-      height: 49px;
+      top: 5px;
+      left: 105px;
+      width: calc(100% - 110px);
+      height: 35px;
       display: flex;
       align-items: center;
-      background: var(--d-ffffff);
+      background: var(--d-f4f4f4);
       box-sizing: border-box;
-      padding: 10px;
+      padding: 3px;
       color: var(--d-333333);
       -webkit-user-select: none;
       user-select: none;
@@ -209,13 +212,13 @@
 
     .countdown_box_description {
       position: absolute;
-      top: 50px;
-      left: 120px;
-      width: calc(100% - 120px);
-      height: calc(100% - 50px);
-      background: var(--d-ffffff);
+      top: 40px;
+      left: 105px;
+      width: calc(100% - 110px);
+      height: calc(100% - 45px);
+      background: var(--d-f4f4f4);
       box-sizing: border-box;
-      padding: 10px;
+      padding: 3px;
       color: var(--d-333333);
       -webkit-user-select: none;
       user-select: none;
@@ -227,7 +230,7 @@
     }
 
     .countdown_box.loading {
-      background: var(--d-ffffff);
+      background: var(--d-f4f4f4);
     }
 
     .countdown_box.loading .countdown_box_count::after,
@@ -257,24 +260,24 @@
     }
 
     .countdown_box.loading .countdown_box_count::after {
-      top: 10px;
-      left: 10px;
-      width: calc(100% - 20px);
-      height: calc(100% - 20px);
-    }
-
-    .countdown_box.loading .countdown_box_title::after {
-      top: 10px;
-      left: 0px;
+      top: 5px;
+      left: 5px;
       width: calc(100% - 10px);
       height: calc(100% - 10px);
     }
 
-    .countdown_box.loading .countdown_box_description::after {
-      top: 10px;
+    .countdown_box.loading .countdown_box_title::after {
+      top: 5px;
       left: 0px;
-      width: calc(100% - 10px);
-      height: calc(100% - 20px);
+      width: calc(100% - 5px);
+      height: calc(100% - 10px);
+    }
+
+    .countdown_box.loading .countdown_box_description::after {
+      top: 0px;
+      left: 0px;
+      width: calc(100% - 5px);
+      height: calc(100% - 5px);
 
     }
 
@@ -692,7 +695,7 @@
     }
 
     input[type="checkbox"]:checked::after {
-      background: var(--d-ffffff);
+      background: var(--d-f4f4f4);
     }
 
     .count {
@@ -1940,7 +1943,7 @@
       }
       var date = parseInt(countdown_json.date)
       var canvas = document.getElementById('countdown-photo')
-      drawCountdownPhoto('#f5f5f5', '#333', 1024, 1024, title, date, canvas)
+      drawCountdownPhoto('#f4f4f4', '#333', 1024, 1024, title, date, canvas)
       canvas.toBlob(blobCallback(randid('countdown')), 'image/png')
     }
   }
