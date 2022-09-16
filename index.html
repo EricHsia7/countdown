@@ -1841,9 +1841,9 @@
   }
   function drawCountdownPhoto(style, theme, title, date, canvas) {
     var theme_s = {
-      'light':{
-        'background':'#f5f5f5',
-        'color':'#333'
+      'light': {
+        'background': '#f5f5f5',
+        'color': '#333'
       }
     }
     var style_s = {
@@ -1939,37 +1939,37 @@
       count = 'Finish'
     }
 
-    var count_area_x = 0;
-    var count_area_y = 0;
-    var count_area_w = w;
-    var count_area_h = h * 0.82;
+    var count_area_x = style.area.count.x;
+    var count_area_y = style.area.count.y;
+    var count_area_w = style.area.count.w;
+    var count_area_h = style.area.count.h;
     var count_w = getTextWidth(count, font(count_font_weight, count_font_size))
     var count_h = count_font_size
     var count_x = count_area_x + (count_area_w - count_w) / 2
     var count_y = count_area_y + (count_area_h - count_h) / 2
 
-    var title_area_x = 0;
-    var title_area_y = h * 0.42;
-    var title_area_w = w;
-    var title_area_h = h * 0.58;
+    var title_area_x = style.area.title.x;
+    var title_area_y = style.area.title.y;
+    var title_area_w = style.area.title.w;
+    var title_area_h = style.area.title.h;
     var title_w = getTextWidth(title, font(title_font_weight, title_font_size))
     var title_h = title_font_size
     var title_x = title_area_x + (title_area_w - title_w) / 2
     var title_y = title_area_y + (title_area_h - title_h) / 2
 
-    var date_area_x = 0;
-    var date_area_y = h * 0.58;
-    var date_area_w = w;
-    var date_area_h = h * 0.42;
+    var date_area_x = style.area.date.x;
+    var date_area_y = style.area.date.y;
+    var date_area_w = style.area.date.w;
+    var date_area_h = style.area.date.h;
     var date_w = getTextWidth(date_str, font(date_font_weight, date_font_size))
     var date_h = date_font_size
     var date_x = date_area_x + (date_area_w - date_w) / 2
     var date_y = date_area_y + (date_area_h - date_h) / 2
 
-    var link_area_x = 0;
-    var link_area_y = h * 0.85;
-    var link_area_w = w;
-    var link_area_h = h * 0.15;
+    var link_area_x = style.area.link.x;
+    var link_area_y = style.area.link.y;
+    var link_area_w = style.area.link.w;
+    var link_area_h = style.area.link.h;
     var link_w = getTextWidth(link, font(link_font_weight, link_font_size))
     var link_h = link_font_size
     var link_x = link_area_x + (link_area_w - link_w) / 2
