@@ -1823,7 +1823,6 @@
         var str = [description, title].join('')
         var str_arr = str.split('')
         var str_arr_len = str_arr.length
-        var str_s = []
         for (var p = 0; p < str_arr_len; p++) {
           var this_str = str_arr[p]
           var this_u = this_str.charCodeAt(0)
@@ -1834,7 +1833,9 @@
         }
       }
     }
-    return list_str.join('')
+    var w = 500
+    var s = 16
+    return getTextWidth(list_str.join(''), w + " " + s + "px 'Noto Sans', sans-serif")
   }
   function drawCountdownPhoto(bg, txt, w, h, title, date, canvas) {
     var ctx = canvas.getContext('2d')
