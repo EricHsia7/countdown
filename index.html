@@ -1835,7 +1835,7 @@
     }
     var w = 500
     var s = 16
-    return getTextWidth(list_str.join(''), w + " " + s + "px 'Noto Sans', sans-serif")
+    return getTextWidth(list_str.join(''), w + " " + s + "px 'Noto Sans', sans-serif") / list_str.length
   }
   function drawCountdownPhoto(bg, txt, w, h, title, date, canvas) {
     var ctx = canvas.getContext('2d')
