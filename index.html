@@ -546,7 +546,8 @@
       display: none;
     }
 
-    .countdown_content_box_count {
+    .countdown_content_box_count,
+    .photo_preview {
       width: calc(100% - 20px);
       height: 250px;
       position: absolute;
@@ -561,13 +562,17 @@
       -webkit-user-select: none;
     }
 
-    /*
-    .countdown_content_box_count span {
-      font-size: 20px;
-      padding: 5px;
-    }*/
+    .photo_preview .photo {
+      width: calc(100% - 30px);
+      height: calc(100% - 30px);
+      background: var(--p-bg);
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: contain;
+    }
 
-    .countdown_content_box_line {
+    .countdown_content_box_line,
+    .photo_content_box_line {
       width: calc(100% - 20px);
       height: 1px;
       background: var(--d-e3e3e3);
@@ -578,7 +583,8 @@
       -webkit-user-select: none;
     }
 
-    .countdown_content_box_details {
+    .countdown_content_box_details,
+    .photo_content_box_options {
       width: calc(100% - 20px);
       height: auto;
       display: inline-block;
@@ -588,6 +594,60 @@
       color: var(--d-333333);
       user-select: none;
       -webkit-user-select: none;
+    }
+
+    .photo_content_box_options .photo_style_box,
+    .photo_content_box_options .photo_theme_box {
+      width: 100%;
+      position: relative;
+      height: 250px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .photo_content_box_options .photo_theme_box {
+      height: 60px
+    }
+
+    .photo_content_box_options .photo_theme_box .photo_theme {
+      width: 45px;
+      height: 45px;
+      background: var(--p-bg);
+      border: 1px solid var(--d-e3e3e3);
+      box-sizing: border-box;
+    }
+
+    .photo_content_box_options .photo_style_box .photo_style {
+      display: inline-flex;
+      width: 120px;
+      height: 190px;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+
+    .photo_content_box_options .photo_style_box .photo_style .photo_style_preview {
+      width: 120px;
+      height: 120px;
+      background: var(--p-bg);
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+      overflow: hidden;
+      border-radius: 8px;
+    }
+
+    .photo_content_box_options .photo_style_box .photo_style .photo_style_name {
+      width: 120px;
+      height: 70px;
+      overflow: hidden;
+      color: var(--d-333333);
+      font-size: 24px;
+      font-weight: 500;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
 
     .countdown_content_box_details .h3,
@@ -913,7 +973,6 @@
       </svg>
     </div>
     <span id="countdown_title_text"></span>
-
     <div class="options_btn" r-click="openoptions(1)">
       <svg stroke-miterlimit="10"
         style="fill-rule:nonzero;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;" version="1.1"
@@ -924,7 +983,6 @@
           fill="var(--d-333333)" fill-rule="evenodd" opacity="1" stroke="none" />
       </svg>
     </div>
-
   </div>
   <div class="countdown_content_box">
     <div class="countdown_content_box_count"></div>
@@ -934,8 +992,44 @@
       <div id="countdown_content_box_details_description" class="p"></div>
       <div id="countdown_content_box_details_date" class="p"></div>
     </div>
-
   </div>
+
+  <div class="photo_title">
+    <div class="back_btn" r-click="closephoto()">
+      <svg stroke-miterlimit="10"
+        style="fill-rule:nonzero;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;" version="1.1"
+        viewBox="0 0 64 64" xml:space="preserve" xmlns="http://www.w3.org/2000/svg"
+        xmlns:xlink="http://www.w3.org/1999/xlink">
+        <path d="M32 64L0 32L32 0L36.2 4.2L11.4 29L64 29L64 35L11.4 35L36.2 59.8L32 64Z" fill="var(--d-333333)"
+          fill-rule="evenodd" opacity="1" stroke="none" />
+      </svg>
+    </div>
+    Share as photo
+  </div>
+  <div class="photo_content_box">
+    <div class="photo_preview">
+      <div class="photo"></div>
+    </div>
+    <div class="photo_content_box_line"></div>
+    <div class="photo_content_box_options">
+      <div class="photo_style_box">
+        <div class="photo_style" hg="square">
+          <div class="photo_style_preview"></div>
+          <div class="photo_style_name">Square</div>
+        </div>
+        <div class="photo_style" hg="rect">
+          <div class="photo_style_preview"></div>
+          <div class="photo_style_name">Rect</div>
+        </div>
+      </div>
+      <div class="photo_theme_box">
+        <div class="photo_theme" fg="light"></div>
+        <div class="photo_theme" fg="dark"></div>
+      </div>
+    </div>
+  </div>
+
+
   <div class="add_countdown_title">
     <div class="back_btn" r-click="closeaddcountdown()">
       <svg stroke-miterlimit="10"
