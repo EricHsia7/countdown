@@ -1813,8 +1813,11 @@
   function getTextAvgWidth() {
     var list = searchItemsbyname('countdown_x_')
     var list_len = list.length
-    for(var t =0;t<list_len;t++) {
-     var this_list= localStorage.getItem(list[t])
+    for (var t = 0; t < list_len; t++) {
+      if (localStorage.hasOwnProperty(list[t])) {
+        var this_json = JSON.parse(String(localStorage.getItem(list[t])))
+
+      }
     }
   }
   function drawCountdownPhoto(bg, txt, w, h, title, date, canvas) {
