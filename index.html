@@ -1813,19 +1813,28 @@
   function getTextAvgWidth() {
     var list = searchItemsbyname('countdown_x_')
     var list_len = list.length
+    var list_str = []
+    var unicode_arr = []
     for (var t = 0; t < list_len; t++) {
       if (localStorage.hasOwnProperty(list[t])) {
         var this_json = JSON.parse(String(localStorage.getItem(list[t])))
         var description = this_json.description
         var title = this_json.title
-        var str_arr = [description, title].join('').split('')
+        var str = [description, title].join('')
+        var str_arr = str.split('')
         var str_arr_len = str_arr.length
-
+        var str_s = []
         for (var p = 0; p < str_arr_len; p++) {
           var this_str = str_arr[p]
+          var this_u = this_str.charCodeAt(0)
+          if (!(unicode_arr.indexOf(this_u) > -1)) {
+            list_str.push(this_str)
+            unicode_arr.push(this_u)
+          }
         }
       }
     }
+    return list_str.join('')
   }
   function drawCountdownPhoto(bg, txt, w, h, title, date, canvas) {
     var ctx = canvas.getContext('2d')
