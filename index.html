@@ -2251,12 +2251,13 @@
       var date = parseInt(countdown_json.date)
       var canvas = document.getElementById('countdown-photo')
       drawCountdownPhoto('square', 'light', title, date, canvas)
-      canvas.toBlob(blobCallback(randid('countdown'), 1,'preview'), 'image/png')
-      canvas.toBlob(blobCallback(randid('countdown'), 1,'square'), 'image/png')
+      canvas.toBlob(blobCallback(randid('countdown'), 1, 'preview'), 'image/png')
+      canvas.toBlob(blobCallback(randid('countdown'), 1, 'square'), 'image/png')
 
       drawCountdownPhoto('rect', 'light', title, date, canvas)
-      canvas.toBlob(blobCallback(randid('countdown'), 1,'rect'), 'image/png')
-
+      canvas.toBlob(blobCallback(randid('countdown'), 1, 'rect'), 'image/png')
+      $('.photo_title').css({ 'display': 'flex' })
+      $('.photo_content_box').css({ 'display': 'block' })
     }
   }
 
