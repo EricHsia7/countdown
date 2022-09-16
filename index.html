@@ -1818,8 +1818,12 @@
         var this_json = JSON.parse(String(localStorage.getItem(list[t])))
         var description = this_json.description
         var title = this_json.title
-        var str = [description,title].join('')
-        
+        var str_arr = [description, title].join('').split('')
+        var str_arr_len = str_arr.length
+
+        for (var p = 0; p < str_arr_len; p++) {
+          var this_str = str_arr[p]
+        }
       }
     }
   }
