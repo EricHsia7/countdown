@@ -2253,6 +2253,17 @@
     }
   }
 
+  var shareasphoto_style = 'square'
+  var shareasphoto_theme = 'light'
+  function updateshareasphoto(title, date, canvas) {
+    drawCountdownPhoto(shareasphoto_style, shareasphoto_theme, title, date, canvas)
+    canvas.toBlob(blobCallback(randid('countdown'), 1, 'preview'), 'image/png')
+    drawCountdownPhoto('square', shareasphoto_theme, title, date, canvas)
+    canvas.toBlob(blobCallback(randid('countdown'), 1, 'square'), 'image/png')
+    drawCountdownPhoto('rect', shareasphoto_theme, title, date, canvas)
+    canvas.toBlob(blobCallback(randid('countdown'), 1, 'rect'), 'image/png')
+  }
+
   function openshareasphoto(countdown_id) {
     if (localStorage.hasOwnProperty('countdown_x_' + countdown_id)) {
       var countdown_json = JSON.parse(String(localStorage.getItem('countdown_x_' + countdown_id)))
@@ -2262,12 +2273,7 @@
       }
       var date = parseInt(countdown_json.date)
       var canvas = document.getElementById('countdown-photo')
-      drawCountdownPhoto('square', 'light', title, date, canvas)
-      canvas.toBlob(blobCallback(randid('countdown'), 1, 'preview'), 'image/png')
-      canvas.toBlob(blobCallback(randid('countdown'), 1, 'square'), 'image/png')
-
-      drawCountdownPhoto('rect', 'light', title, date, canvas)
-      canvas.toBlob(blobCallback(randid('countdown'), 1, 'rect'), 'image/png')
+      updateshareasphoto(title, date, canvas)
       $('.photo_title').css({ 'display': 'flex' })
       $('.photo_content_box').css({ 'display': 'block' })
     }
