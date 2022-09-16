@@ -624,6 +624,10 @@
       border-radius: 99em;
     }
 
+    .photo_content_box_options .photo_theme_box .photo_theme[s="1"] {
+      border: 1px solid var(--d-333333);
+    }
+
     .photo_content_box_options .photo_style_box .photo_style {
       display: inline-flex;
       width: 120px;
@@ -632,6 +636,13 @@
       align-items: center;
       flex-direction: column;
       margin: 0px 10px;
+      padding: 5px;
+      border-radius: 15px;
+      border: 1px solid rgba(0, 0, 0, 0);
+    }
+
+    .photo_content_box_options .photo_style_box .photo_style[s="1"] {
+      border: 1px solid var(--d-333333);
     }
 
     .photo_content_box_options .photo_style_box .photo_style .photo_style_preview {
@@ -1020,7 +1031,7 @@
     <div class="photo_content_box_line"></div>
     <div class="photo_content_box_options">
       <div class="photo_style_box">
-        <div class="photo_style" hg="square">
+        <div class="photo_style" hg="square" s="1">
           <div class="photo_style_preview" sg="square"></div>
           <div class="photo_style_name">Square</div>
         </div>
@@ -1030,7 +1041,7 @@
         </div>
       </div>
       <div class="photo_theme_box">
-        <div class="photo_theme" fg="light" style="--p-bg:#f5f5f5"></div>
+        <div class="photo_theme" fg="light" style="--p-bg:#f5f5f5" s="1"></div>
         <div class="photo_theme" fg="dark" style="--p-bg:#333333"></div>
       </div>
     </div>
