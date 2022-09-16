@@ -1839,19 +1839,65 @@
     var s = 16
     return getTextWidth(list_str.join(''), w + " " + s + "px 'Noto Sans', sans-serif") / list_str.length
   }
-  function drawCountdownPhoto(bg, txt, w, h, title, date, canvas) {
+  function drawCountdownPhoto(style, theme, title, date, canvas) {
+    var theme_s = {
+      'light':{
+        'background':'#f5f5f5',
+        'color':'#333'
+      }
+    }
+    var style_s = {
+      'square': {
+        'width': 1024,
+        'height': 1024,
+        'font': {
+          'size': [128, 75, 38, 30],
+          'weight': [700, 500, 400, 300]
+        },
+        'area': {
+          'count': {
+            'x': 0,
+            'y': 0,
+            'w': 1024,
+            'h': 1024 * 0.82
+          },
+          'title': {
+            'x': 0,
+            'y': 1024 * 0.42,
+            'w': 1024,
+            'h': 1024 * 0.58
+          },
+          'date': {
+            'x': 0,
+            'y': 1024 * 0.58,
+            'w': 1024,
+            'h': 1024 * 0.42
+          },
+          'link': {
+            'x': 0,
+            'y': 1024 * 0.85,
+            'w': 1024,
+            'h': 1024 * 0.15
+          }
+        }
+      }
+    }
+    style = style_s[style]
+    theme = theme_s[theme]
+    var bg = style.background
+    var txt = style.color
     var ctx = canvas.getContext('2d')
     var font = function (w, s) {
       return w + " " + s + "px 'Noto Sans', sans-serif"
     }
-    var count_font_size = 128
-    var title_font_size = 75
-    var date_font_size = 38
-    var link_font_size = 30
-    var count_font_weight = 700
-    var title_font_weight = 500
-    var date_font_weight = 400
-    var link_font_weight = 300
+    var count_font_size = style.font.size[0]
+    var title_font_size = style.font.size[1]
+    var date_font_size = style.font.size[2]
+    var link_font_size = style.font.size[3]
+    var count_font_weight = style.font.weight[0]
+    var title_font_weight = style.font.weight[1]
+    var date_font_weight = style.font.weight[2]
+    var link_font_weight = style.font.weight[3]
     var link = 'erichsia7.github.io/countdown'
     var count = '--'
     var padding = function (i) {
@@ -1972,7 +2018,7 @@
       }
       var date = parseInt(countdown_json.date)
       var canvas = document.getElementById('countdown-photo')
-      drawCountdownPhoto('#f4f4f4', '#333', 1024, 1024, title, date, canvas)
+      drawCountdownPhoto('square', 'light', title, date, canvas)
       canvas.toBlob(blobCallback(randid('countdown')), 'image/png')
     }
   }
