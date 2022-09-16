@@ -1863,30 +1863,46 @@
             'x': 0,
             'y': 0,
             'w': 1024,
-            'h': 1024 * 0.82
+            'h': 1024 * 0.82,
+            'center': {
+              'x': true,
+              'y': true
+            }
           },
           'title': {
             'x': 0,
             'y': 1024 * 0.42,
             'w': 1024,
-            'h': 1024 * 0.58
+            'h': 1024 * 0.58,
+            'center': {
+              'x': true,
+              'y': true
+            }
           },
           'date': {
             'x': 0,
             'y': 1024 * 0.58,
             'w': 1024,
-            'h': 1024 * 0.42
+            'h': 1024 * 0.42,
+            'center': {
+              'x': true,
+              'y': true
+            }
           },
           'link': {
             'x': 0,
             'y': 1024 * 0.85,
             'w': 1024,
-            'h': 1024 * 0.15
+            'h': 1024 * 0.15,
+            'center': {
+              'x': true,
+              'y': true
+            }
           }
         }
       },
       'rect': {
-        'width': 1500,
+        'width': 1200,
         'height': 500,
         'font': {
           'size': [100, 65, 40, 30],
@@ -1897,25 +1913,41 @@
             'x': 0,
             'y': 0,
             'w': 500,
-            'h': 500
+            'h': 500,
+            'center': {
+              'x': true,
+              'y': true
+            }
           },
           'title': {
             'x': 550,
             'y': 0,
-            'w': 950,
-            'h': 500 * 0.35
+            'w': 1200 - 550,
+            'h': 500 * 0.35,
+            'center': {
+              'x': false,
+              'y': true
+            }
           },
           'date': {
             'x': 550,
             'y': 500 * 0.35,
-            'w': 950,
-            'h': 500 * 0.2
+            'w': 1200 - 550,
+            'h': 500 * 0.2,
+            'center': {
+              'x': false,
+              'y': true
+            }
           },
           'link': {
             'x': 550,
             'y': 500 * 0.85,
-            'w': 950,
-            'h': 500 * 0.15
+            'w': 1200 - 550,
+            'h': 500 * 0.15,
+            'center': {
+              'x': false,
+              'y': true
+            }
           }
         }
       }
@@ -1993,8 +2025,16 @@
     var count_area_h = style.area.count.h;
     var count_w = getTextWidth(count, font(count_font_weight, count_font_size))
     var count_h = count_font_size
-    var count_x = count_area_x + (count_area_w - count_w) / 2
-    var count_y = count_area_y + (count_area_h - count_h) / 2
+    var count_x_offset = 0
+    var count_y_offset = 0
+    if (style.area.count.center.x) {
+      count_x_offset = (count_area_w - count_w) / 2
+    }
+    if (style.area.count.center.y) {
+      count_y_offset = (count_area_h - count_h) / 2
+    }
+    var count_x = count_area_x + count_x_offset
+    var count_y = count_area_y + count_y_offset
 
     var title_area_x = style.area.title.x;
     var title_area_y = style.area.title.y;
@@ -2002,8 +2042,16 @@
     var title_area_h = style.area.title.h;
     var title_w = getTextWidth(title, font(title_font_weight, title_font_size))
     var title_h = title_font_size
-    var title_x = title_area_x + (title_area_w - title_w) / 2
-    var title_y = title_area_y + (title_area_h - title_h) / 2
+    var title_x_offset = 0
+    var title_y_offset = 0
+    if (style.area.title.center.x) {
+      title_x_offset = (title_area_w - title_w) / 2
+    }
+    if (style.area.title.center.y) {
+      title_y_offset = (title_area_h - title_h) / 2
+    }
+    var title_x = title_area_x + title_x_offset
+    var title_y = title_area_y + title_y_offset
 
     var date_area_x = style.area.date.x;
     var date_area_y = style.area.date.y;
@@ -2011,8 +2059,16 @@
     var date_area_h = style.area.date.h;
     var date_w = getTextWidth(date_str, font(date_font_weight, date_font_size))
     var date_h = date_font_size
-    var date_x = date_area_x + (date_area_w - date_w) / 2
-    var date_y = date_area_y + (date_area_h - date_h) / 2
+    var date_x_offset = 0
+    var date_y_offset = 0
+    if (style.area.date.center.x) {
+      date_x_offset = (date_area_w - date_w) / 2
+    }
+    if (style.area.date.center.y) {
+      date_y_offset = (date_area_h - date_h) / 2
+    }
+    var date_x = date_area_x + date_x_offset
+    var date_y = date_area_y + date_y_offset
 
     var link_area_x = style.area.link.x;
     var link_area_y = style.area.link.y;
@@ -2020,8 +2076,16 @@
     var link_area_h = style.area.link.h;
     var link_w = getTextWidth(link, font(link_font_weight, link_font_size))
     var link_h = link_font_size
-    var link_x = link_area_x + (link_area_w - link_w) / 2
-    var link_y = link_area_y + (link_area_h - link_h) / 2
+    var link_x_offset = 0
+    var link_y_offset = 0
+    if (style.area.link.center.x) {
+      link_x_offset = (link_area_w - link_w) / 2
+    }
+    if (style.area.link.center.y) {
+      link_y_offset = (link_area_h - link_h) / 2
+    }
+    var link_x = link_area_x + link_x_offset
+    var link_y = link_area_y + link_y_offset
 
     canvas.width = w
     canvas.height = h
