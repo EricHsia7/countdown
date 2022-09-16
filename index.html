@@ -204,7 +204,8 @@
       color: var(--d-333333);
       -webkit-user-select: none;
       user-select: none;
-      word-break: break-all;
+      word-break: keep-all;
+      white-space: nowrap;
       overflow: hidden;
       font-weight: 500;
       font-size: 16px;
@@ -1115,7 +1116,7 @@
       var this_list = list[e]
       var this_title = this_list.title
       if (this_title.length > title_max_len) {
-        this_title = String(this_title).substring(0, title_max_len-3) + '...'
+        this_title = String(this_title).substring(0, title_max_len - 3) + '...'
       }
       var this_description = this_list.description
       if (this_description.length > 45) {
