@@ -1014,17 +1014,17 @@
   </div>
   <div class="photo_content_box">
     <div class="photo_preview">
-      <div class="photo"></div>
+      <div class="photo" sg="preview"></div>
     </div>
     <div class="photo_content_box_line"></div>
     <div class="photo_content_box_options">
       <div class="photo_style_box">
         <div class="photo_style" hg="square">
-          <div class="photo_style_preview"></div>
+          <div class="photo_style_preview" sg="square"></div>
           <div class="photo_style_name">Square</div>
         </div>
         <div class="photo_style" hg="rect">
-          <div class="photo_style_preview"></div>
+          <div class="photo_style_preview" sg="rect"></div>
           <div class="photo_style_name">Rect</div>
         </div>
       </div>
@@ -2202,21 +2202,27 @@
     ctx.font = font(link_font_weight, link_font_size);
     ctx.fillText(link, link_x, link_y);
   }
-  function blobCallback(name) {
+  function blobCallback(name, m, sg) {
     return (b) => {
-      const image = new File([b], name + '.png', { type: b.type })
-      if (navigator.canShare && navigator.canShare({ files: [image] })) {
-        navigator.share({
-          files: [image]
-        })
+      if (m === 0) {
+        const image = new File([b], name + '.png', { type: b.type })
+        if (navigator.canShare && navigator.canShare({ files: [image] })) {
+          navigator.share({
+            files: [image]
+          })
+        }
+        else {
+          const a = document.createElement('a');
+          document.body.appendChild(a);
+          a.download = `${name}.png`;
+          a.href = window.URL.createObjectURL(b);
+          a.click()
+          a.remove()
+        }
       }
       else {
-        const a = document.createElement('a');
-        document.body.appendChild(a);
-        a.download = `${name}.png`;
-        a.href = window.URL.createObjectURL(b);
-        a.click()
-        a.remove()
+        var url = window.URL.createObjectURL(b);
+        $('.photo_content_box[sg="' + sg + '"]').css({ '--p-bg': 'url(' + url + ')' })
       }
     }
   }
@@ -2231,9 +2237,29 @@
       var date = parseInt(countdown_json.date)
       var canvas = document.getElementById('countdown-photo')
       drawCountdownPhoto('square', 'light', title, date, canvas)
-      canvas.toBlob(blobCallback(randid('countdown')), 'image/png')
+      canvas.toBlob(blobCallback(randid('countdown'), 0), 'image/png')
     }
   }
+
+  function openshareasphoto(countdown_id) {
+    if (localStorage.hasOwnProperty('countdown_x_' + countdown_id)) {
+      var countdown_json = JSON.parse(String(localStorage.getItem('countdown_x_' + countdown_id)))
+      var title = countdown_json.title
+      if (title.length > 15) {
+        title = String(title).substring(0, 12) + '...'
+      }
+      var date = parseInt(countdown_json.date)
+      var canvas = document.getElementById('countdown-photo')
+      drawCountdownPhoto('square', 'light', title, date, canvas)
+      canvas.toBlob(blobCallback(randid('countdown'), 1,'preview'), 'image/png')
+      canvas.toBlob(blobCallback(randid('countdown'), 1,'square'), 'image/png')
+
+      drawCountdownPhoto('rect', 'light', title, date, canvas)
+      canvas.toBlob(blobCallback(randid('countdown'), 1,'rect'), 'image/png')
+
+    }
+  }
+
 
   function shareCountdownPhoto(countdown_id) {
     getCountdownPhoto(countdown_id)
