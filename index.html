@@ -1810,6 +1810,13 @@
     return metrics.width;
   }
 
+  function getTextAvgWidth() {
+    var list = searchItemsbyname('countdown_x_')
+    var list_len = list.length
+    for(var t =0;t<list_len;t++) {
+     var this_list= localStorage.getItem(list[t])
+    }
+  }
   function drawCountdownPhoto(bg, txt, w, h, title, date, canvas) {
     var ctx = canvas.getContext('2d')
     var font = function (w, s) {
