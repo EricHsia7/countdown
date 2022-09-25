@@ -1874,6 +1874,12 @@
         return ''
       }
       else {
+        if (h === true) {
+          h = '00'
+        }
+        if (m === true) {
+          m = '00'
+        }
         return ' ' + [h, m].join(':')
       }
     }
