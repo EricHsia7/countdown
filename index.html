@@ -2013,7 +2013,7 @@
       end_time = Date2Timestamp(end_time)
       var tit = countdown_json.title
       var desc = countdown_json.description
-      var UID = countdown_json.id + '_' + genid()
+      var UID = countdown_json.id + '_' + randid()
       var ical_json = {
         'SUMMARY': tit,
         'DESCRIPTION': desc,
