@@ -1984,6 +1984,21 @@
     closeoptions()
   }
 
+  function getiCalendar(countdown_json) {
+    var ical_json = {
+      'SUMMARY': 'Title',
+      'DESCRIPTION': '',
+      'UID': '',
+      'CREATED': '20220928T103609Z',
+      'LAST_MODIFIED': '20220928T103904Z',
+      'DTSTAMP': '20220928T230806Z',
+      'DTSTART': '20220929T050000Z',
+      'DTEND': '20220929T053000Z',
+    }
+
+    var ical_text = 'BEGIN:VCALENDAR\nVERSION:2.0\nBEGIN:VEVENT\nSUMMARY:' + ical_json.SUMMARY + '\nDESCRIPTION:' + ical_json.DESCRIPTION + '\nUID:' + ical_json.UID + '\nCREATED:' + ical_json.CREATED + '\nLAST - MODIFIED:' + ical_json.LAST_MODIFIED + '\nDTSTAMP:' + ical_json.DTSTAMP + '\nBEGIN:VALARM\nACTION: DISPLAY\nDESCRIPTION: Reminder\nTRIGGER: -PT60M\nEND: VALARM\nDTSTART:' + ical_json.DTSTART + '\nDTEND:' + ical_json.DTEND + '\nTRANSP: OPAQUE\nSEQUENCE: 0\nEND: VEVENT\nEND:VCALENDAR'
+  }
+
   function refreshpage() {
     location.replace('https://erichsia7.github.io/countdown/?' + randid())
     closeoptions()
