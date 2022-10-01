@@ -2013,7 +2013,7 @@
     end_time.setTime(parseInt(countdown_json.date) + 60 * 60 * 1000)
     end_time = Date2Timestamp(end_time)
     var tit = countdown_json.title
-    var desc = countdown_json.description
+    var desc = String(countdown_json.description).replaceAll(/(?:\r\n|\r|\n)/g, '\u005C\u006E')
     var UID = countdown_json.id + '_' + randid()
     var ical_json = {
       'SUMMARY': tit,
