@@ -2026,7 +2026,7 @@
         'SEQUENCE_s': 0
       }
 
-      var ical_text = 'BEGIN:VCALENDAR\nVERSION:2.0\nBEGIN:VEVENT\nSUMMARY:' + ical_json.SUMMARY + '\nDESCRIPTION:' + ical_json.DESCRIPTION + '\nUID:' + ical_json.UID + '\nCREATED:' + ical_json.CREATED + '\nLAST - MODIFIED:' + ical_json.LAST_MODIFIED + '\nDTSTAMP:' + ical_json.DTSTAMP + '\nBEGIN:VALARM\nACTION: DISPLAY\nDESCRIPTION: Reminder\nTRIGGER: -PT60M\nEND: VALARM\nDTSTART:' + ical_json.DTSTART + '\nDTEND:' + ical_json.DTEND + '\nTRANSP: OPAQUE\nSEQUENCE:' + ical_json.SEQUENCE_s + '\nEND: VEVENT\nEND:VCALENDAR'
+      var ical_text = 'BEGIN:VCALENDAR\nVERSION:2.0\nBEGIN:VEVENT\nSUMMARY:' + ical_json.SUMMARY + '\nDESCRIPTION:' + ical_json.DESCRIPTION + '\nUID:' + ical_json.UID + '\nCREATED:' + ical_json.CREATED + '\nLAST-MODIFIED:' + ical_json.LAST_MODIFIED + '\nDTSTAMP:' + ical_json.DTSTAMP + '\nBEGIN:VALARM\nACTION:DISPLAY\nDESCRIPTION:Reminder\nTRIGGER: -PT60M\nEND:VALARM\nDTSTART:' + ical_json.DTSTART + '\nDTEND:' + ical_json.DTEND + '\nTRANSP:OPAQUE\nSEQUENCE:' + ical_json.SEQUENCE_s + '\nEND:VEVENT\nEND:VCALENDAR'
     }
     catch (err) {
       console.log(err)
