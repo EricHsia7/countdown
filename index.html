@@ -1994,6 +1994,8 @@
       }
     }
     var Date2Timestamp = function (date) {
+      var timezoneoffset = new Date().getTimezoneOffset()
+      date.setMinutes(date.getMinutes() + (timezoneoffset))
       var year = date.getFullYear()
       var month = padding(date.getMonth() + 1)
       var date2 = padding(date.getDate())
