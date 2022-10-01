@@ -1003,6 +1003,7 @@
     <li r-click="editcountdown_detail()" y="edit2" group="1" b="0">Edit</li>
     <li r-click="sharecountdown()" y="share" group="1">Share as link</li>
     <li r-click="shareCountdownPhoto()" y="shcountdownphoto" group="1">Share as photo</li>
+    <li r-click="addToCalendar()" y="addtocalendar" group="1">Add to Calendar</li>
     <li r-click="deletecountdown()" y="delete" group="1">Delete</li>
   </div>
 </body>
@@ -1468,6 +1469,7 @@
       $('.options li[y="share"]').attr('r-click', "sharecountdown('" + countdown_id + "')")
       $('.options li[y="delete"]').attr('r-click', "deletecountdown('" + countdown_id + "')")
       $('.options li[y="shcountdownphoto"]').attr('r-click', "shareCountdownPhoto('" + countdown_id + "')")
+      $('.options li[y="addtocalendar"]').attr('r-click', "addToCalendar('" + countdown_id + "')")
     }
   }
   function closecountdown() {
@@ -1984,6 +1986,68 @@
     closeoptions()
   }
 
+  function getiCalendar(countdown_json) {
+    var padding = function (b) {
+      if (b < 10) {
+        return '0' + b
+      }
+      else {
+        return b
+      }
+    }
+    var Date2Timestamp = function (date) {
+      var timezoneoffset = new Date().getTimezoneOffset()
+      date.setMinutes(date.getMinutes() + (timezoneoffset))
+      var year = date.getFullYear()
+      var month = padding(date.getMonth() + 1)
+      var date2 = padding(date.getDate())
+      var hour = padding(date.getHours())
+      var minute = padding(date.getMinutes())
+      var sec = padding(date.getSeconds())
+      var str = [year, month, date2, 'T', hour, minute, sec, 'Z'].join('')
+      return str
+    }
+    var now_time = Date2Timestamp(new Date())
+    var start_time = new Date()
+    start_time.setTime(countdown_json.date)
+    start_time = Date2Timestamp(start_time)
+    var end_time = new Date()
+    end_time.setTime(parseInt(countdown_json.date) + 60 * 60 * 1000)
+    end_time = Date2Timestamp(end_time)
+    var tit = countdown_json.title
+    var desc = String(countdown_json.description).replaceAll(/(?:\r\n|\r|\n)/g, '\u005C\u006E')
+    var UID = countdown_json.id + '_' + randid()
+    var ical_json = {
+      'SUMMARY': tit,
+      'DESCRIPTION': desc,
+      'UID': UID,
+      'CREATED': now_time,
+      'LAST_MODIFIED': now_time,
+      'DTSTAMP': start_time,
+      'DTSTART': start_time,
+      'DTEND': end_time,
+      'SEQUENCE_s': 0
+    }
+
+    var ical_text = 'BEGIN:VCALENDAR\nVERSION:2.0\nBEGIN:VEVENT\nSUMMARY:' + ical_json.SUMMARY + '\nDESCRIPTION:' + ical_json.DESCRIPTION + '\nUID:' + ical_json.UID + '\nCREATED:' + ical_json.CREATED + '\nLAST-MODIFIED:' + ical_json.LAST_MODIFIED + '\nDTSTAMP:' + ical_json.DTSTAMP + '\nBEGIN:VALARM\nACTION:DISPLAY\nDESCRIPTION:Reminder\nTRIGGER:-PT60M\nEND:VALARM\nDTSTART:' + ical_json.DTSTART + '\nDTEND:' + ical_json.DTEND + '\nTRANSP:OPAQUE\nSEQUENCE:' + ical_json.SEQUENCE_s + '\nEND:VEVENT\nEND:VCALENDAR'
+    return ical_text
+  }
+  function getiCalendarFile(countdown_id) {
+    var json = JSON.parse(String(localStorage.getItem('countdown_x_' + countdown_id)))
+    var txt = getiCalendar(json)
+    var data = new Blob([txt], { type: 'text/calendar' });
+    var uu = window.URL || window.webkitURL;
+    var a = document.createElement('a');
+    a.download = 'countdown' + '.ical';
+    a.href = uu.createObjectURL(data);
+    document.body.appendChild(a);
+    a.click()
+    a.remove()
+  }
+  function addToCalendar(countdown_id) {
+    getiCalendarFile(countdown_id)
+    closeoptions()
+  }
   function refreshpage() {
     location.replace('https://erichsia7.github.io/countdown/?' + randid())
     closeoptions()
