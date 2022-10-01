@@ -1003,6 +1003,7 @@
     <li r-click="editcountdown_detail()" y="edit2" group="1" b="0">Edit</li>
     <li r-click="sharecountdown()" y="share" group="1">Share as link</li>
     <li r-click="shareCountdownPhoto()" y="shcountdownphoto" group="1">Share as photo</li>
+    <li r-click="getiCalendarFile()" y="geticalendarfile" group="1">Add to Calendar</li>
     <li r-click="deletecountdown()" y="delete" group="1">Delete</li>
   </div>
 </body>
@@ -1468,6 +1469,7 @@
       $('.options li[y="share"]').attr('r-click', "sharecountdown('" + countdown_id + "')")
       $('.options li[y="delete"]').attr('r-click', "deletecountdown('" + countdown_id + "')")
       $('.options li[y="shcountdownphoto"]').attr('r-click', "shareCountdownPhoto('" + countdown_id + "')")
+      $('.options li[y="geticalendarfile"]').attr('r-click', "getiCalendarFile('" + countdown_id + "')")
     }
   }
   function closecountdown() {
