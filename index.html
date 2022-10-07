@@ -2048,6 +2048,18 @@
     getiCalendarFile(countdown_id)
     closeoptions()
   }
+  function exportCountdownData() {
+    var list = searchItemsbyname('countdown_x_')
+    var list_len = list.length
+    var json_list = []
+    for (var e = 0; e < list_len; e++) {
+      if (localStorage.hasOwnProperty(list[e])) {
+        var json = JSON.parse(String(localStorage.getItem(list[e])))
+        json_list.push(json)
+      }
+    }
+    return JSON.stringify(json_list)
+  }
   function refreshpage() {
     location.replace('https://erichsia7.github.io/countdown/?' + randid())
     closeoptions()
