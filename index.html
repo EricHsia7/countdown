@@ -240,16 +240,9 @@
     .countdown_box.loading .countdown_box_title::after,
     .countdown_box.loading .countdown_box_description::after {
       content: '';
-      background: linear-gradient(270deg, var(--d-e3e3e3) 0%, var(--e-skeleton-screen-light-color) 30%, var(--e-skeleton-screen-light-color) 40%, var(--d-e3e3e3) 70%, var(--d-e3e3e3) 100%);
-      background-size: 200% 100%;
-      background-position: 0% 0%;
+      background: var(--d-e3e3e3);
       position: absolute;
-      border-radius: 10px;
-      animation-name: loading;
-      animation-duration: 600ms;
-      animation-fill-mode: forwards;
-      animation-iteration-count: infinite;
-      animation-timing-function: linear;
+      border-radius: 9px;
     }
 
     @keyframes loading {
