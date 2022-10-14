@@ -42,6 +42,7 @@
 
     * {
       -webkit-appearance: none;
+      appearance: none;
       outline: none;
       -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
       font-family: 'Noto Sans', sans-serif;
@@ -304,6 +305,7 @@
       border-radius: 10px;
       background: transparent;
       -webkit-appearance: none;
+      appearance: none;
       color: var(--d-333333);
       font-size: 15px;
       margin-top: 10px;
@@ -348,6 +350,7 @@
 
     .date_input_group input[type="text"] {
       -webkit-appearance: none;
+      appearance: none;
       display: inline-block;
       height: 45px;
       padding: 5px;
@@ -480,6 +483,7 @@
       left: 55px;
       border: none;
       -webkit-appearance: none;
+      appearance: none;
       border-radius: 0px;
       padding: 0px 10px 0px 0px;
       margin: 0px;
@@ -661,6 +665,7 @@
 
     input[type="checkbox"] {
       -webkit-appearance: none;
+      appearance: none;
       width: 20px;
       height: 20px;
       border-radius: 25%;
@@ -2059,6 +2064,25 @@
       }
     }
     return JSON.stringify(json_list)
+  }
+  function downloadCountdownDataFile() {
+    var txt = exportCountdownData()
+    var data = new Blob([txt], { type: 'application/json' })
+    var name = randid('countdown_data_export')
+    const filex = new File([data], name + '.json', { type: data.type })
+    if (navigator.canShare && navigator.canShare({ files: [filex] })) {
+      navigator.share({
+        files: [filex]
+      })
+    }
+    else {
+      const a = document.createElement('a');
+      document.body.appendChild(a);
+      a.download = `${name}.json`;
+      a.href = window.URL.createObjectURL(data);
+      a.click()
+      a.remove()
+    }
   }
   function refreshpage() {
     location.replace('https://erichsia7.github.io/countdown/?' + randid())
