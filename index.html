@@ -2102,8 +2102,8 @@
     var reader = new FileReader();
     reader.onload = (function (theFile) {
       return function (e) {
-        var binaryData = e.target.result;
-        var json = JSON.parse(binaryData)
+        var tx = e.target.result;
+        var json = JSON.parse(tx)
         var json_len = json.length
         for (var j = 0; j < json_len; j++) {
           var this_j = json[j]
@@ -2115,7 +2115,7 @@
         refresh_countdown()
       };
     })(f);
-    reader.readAsBinaryString(f);
+    reader.readAsText(f);
   }
 
   function importCountdownData() {
