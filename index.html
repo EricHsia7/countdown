@@ -2104,7 +2104,7 @@
       return function (e) {
         var binaryData = e.target.result;
         var json = JSON.parse(binaryData)
-        var json_len = 0
+        var json_len = json.length
         for (var j = 0; j < json_len; j++) {
           var this_j = json[j]
           var this_j_str = JSON.stringify(this_j)
