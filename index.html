@@ -810,6 +810,15 @@
       display: none;
     }
 
+    input#importcountdowndatainput {
+      opacity: 0;
+      width: 0px;
+      height: 0px;
+      background: transparent;
+      -webkit-appearance: none;
+      appearance: none;
+    }
+
     @media only screen and (max-width: 600px) {
       .count {
         width: 25px;
@@ -831,6 +840,7 @@
 
 <body>
   <canvas id="countdown-photo"></canvas>
+  <input type="file" id="importcountdowndatainput" name="importcountdowndatainput" accept="application/json">
   <div class="title">
     Countdown
     <div class="options_btn" r-click="openoptions(0)" loading="1">
@@ -1005,6 +1015,7 @@
     <li r-click="editcountdown()" y="edit" group="0" b="0">Edit</li>
     <li r-click="refreshpage()" y="refresh" group="0">Refresh</li>
     <li r-click="downloadCountdownDataFile()" y="export" group="0">Export data</li>
+    <li r-click="importCountdownData()" y="import" group="0">Import data</li>
     <li r-click="viewongithub()" y="github" group="0">Github</li>
     <li r-click="editcountdown_detail()" y="edit2" group="1" b="0">Edit</li>
     <li r-click="sharecountdown()" y="share" group="1">Share as link</li>
@@ -2085,6 +2096,31 @@
       a.remove()
     }
   }
+
+  function handleFileSelect(evt) {
+    var f = evt.target.files[0];
+    var reader = new FileReader();
+    reader.onload = (function (theFile) {
+      return function (e) {
+        var binaryData = e.target.result;
+        var json = JSON.parse(binaryData)
+        var json_len = 0
+        for (var j = 0; j < json_len; j++) {
+          var this_j = json[j]
+          var this_j_str = JSON.stringify(this_j)
+          var this_j_id = this_j.id
+          localStorage.setItem('countdown_x_' + this_j_id, this_j_str)
+        }
+        mes('Data imported.')
+        refresh_countdown()
+      };
+    })(f);
+    reader.readAsBinaryString(f);
+  }
+
+  function importCountdownData() {
+    $('#importcountdowndatainput').click()
+  }
   function refreshpage() {
     location.replace('https://erichsia7.github.io/countdown/?' + randid())
     closeoptions()
@@ -2133,6 +2169,9 @@
         addcountdown(1)
       }
     })
+
+    document.getElementById("importcountdowndatainput").addEventListener("change", handleFileSelect, false);
+
   }
   initialize()
 </script>
