@@ -1039,6 +1039,8 @@
     <li r-click="deletecountdown()" y="delete" group="1">Delete</li>
     <li r-click="cleartrashcan()" y="cleartrashcan" group="2" b="0">Clear</li>
     <li r-click="revertdeleteintrash()" y="revertdeleteintrash" group="2">Revert delete</li>
+    <li r-click="revertdeletecountdown()" y="revertdelete" group="3" b="0">Revert delete</li>
+    <li r-click="deletecountdownforever()" y="deleteforever" group="3">Delete forever</li>
   </div>
 </body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -1221,18 +1223,20 @@
   function opentrashcan() {
     $('.content_box').html('')
     $('#content_box_title_text').text('Trash Can')
-    $('.countdown_title .options_btn,.search_btn,.addcountdown').css({ 'display': 'none' })
+    $('.search_btn,.addcountdown').css({ 'display': 'none' })
     $('.trash_back_btn').css({ 'display': 'flex' })
     $('.title .options_btn').attr('r-click', 'openoptions(2)')
+    $('.countdown_title .options_btn').attr('r-click', 'openoptions(3)')
     print_countdown(1)
     closeoptions()
   }
   function closetrashcan() {
     $('.content_box').html('')
     $('#content_box_title_text').text('Countdown')
-    $('.countdown_title .options_btn,.search_btn,.addcountdown').css({ 'display': 'flex' })
+    $('.search_btn,.addcountdown').css({ 'display': 'flex' })
     $('.trash_back_btn').css({ 'display': 'none' })
     $('.title .options_btn').attr('r-click', 'openoptions(0)')
+    $('.countdown_title .options_btn').attr('r-click', 'openoptions(1)')
     print_countdown(0)
   }
   function cleartrashcan() {
@@ -1261,6 +1265,27 @@
     closeoptions()
     mes('Delete reverted.')
     refresh_trash_can()
+  }
+  function revertdeletecountdown(countdown_id) {
+    if (localStorage.hasOwnProperty('countdown_x_' + countdown_id)) {
+      var json = JSON.parse(String(localStorage.getItem('countdown_x_' + countdown_id)))
+      json.trash = false
+      delete json['trash_date']
+      localStorage.setItem('countdown_x_' + countdown_id, JSON.stringify(json))
+      mes('Delete reverted.')
+      closecountdown()
+      closeoptions()
+      refresh_trash_can()
+    }
+  }
+  function deletecountdownforever(countdown_id) {
+    if (localStorage.hasOwnProperty('countdown_x_' + countdown_id)) {
+      localStorage.removeItem('countdown_x_' + countdown_id)
+      mes('Countdown delete forever.')
+      closecountdown()
+      closeoptions()
+      refresh_trash_can()
+    }
   }
   function check_i(i) {
     if (i < 10) {
