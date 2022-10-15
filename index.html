@@ -410,6 +410,7 @@
     }
 
     .back_btn,
+    .trash_back_btn,
     .options_btn,
     .delete_btn,
     .cancel_btn,
@@ -425,9 +426,14 @@
       -webkit-user-select: none;
     }
 
-    .back_btn {
+    .back_btn,
+    .trash_back_btn {
       top: 10px;
       left: 10px;
+    }
+
+    .trash_back_btn {
+      display: none;
     }
 
     .options_btn {
@@ -842,6 +848,17 @@
   <input type="file" id="importcountdowndatainput" name="importcountdowndatainput" accept="application/json">
   <div class="title">
     <span id="content_box_title_text">Countdown</span>
+
+    <div class="trash_back_btn" r-click="closetrashcan()">
+      <svg stroke-miterlimit="10"
+        style="fill-rule:nonzero;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;" version="1.1"
+        viewBox="0 0 64 64" xml:space="preserve" xmlns="http://www.w3.org/2000/svg"
+        xmlns:xlink="http://www.w3.org/1999/xlink">
+        <path d="M32 64L0 32L32 0L36.2 4.2L11.4 29L64 29L64 35L11.4 35L36.2 59.8L32 64Z" fill="var(--d-333333)"
+          fill-rule="evenodd" opacity="1" stroke="none" />
+      </svg>
+    </div>
+
     <div class="options_btn" r-click="openoptions(0)" loading="1">
       <svg stroke-miterlimit="10"
         style="fill-rule:nonzero;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;" version="1.1"
@@ -1199,13 +1216,15 @@
   function opentrashcan() {
     $('.content_box').html('')
     $('#content_box_title_text').text('Trash Can')
-    $('.options_btn,.search_btn').css({ 'display': 'none' })
+    $('.options_btn,.search_btn,.addcountdown').css({ 'display': 'none' })
+    $('.trash_back_btn').css({ 'display': 'flex' })
     print_countdown(1)
   }
   function closetrashcan() {
     $('.content_box').html('')
     $('#content_box_title_text').text('Countdown')
-    $('.options_btn,.search_btn').css({ 'display': 'flex' })
+    $('.options_btn,.search_btn,.addcountdown').css({ 'display': 'flex' })
+    $('.trash_back_btn').css({ 'display': 'none' })
     print_countdown(0)
   }
   function check_i(i) {
@@ -2298,7 +2317,7 @@
       setTimeout(function () {
         countdown_trash_check()
         print_countdown(0)
-        rclick('.addcountdown,.add_countdown_btn,.edit_countdown_btn,.back_btn,.options_btn,.options_mask,.options li,.cancel_btn,.delete_btn,.search_btn')
+        rclick('.addcountdown,.add_countdown_btn,.edit_countdown_btn,.back_btn,.options_btn,.options_mask,.options li,.cancel_btn,.delete_btn,.search_btn,.trash_back_btn')
         $('.search_btn,.options_btn,.addcountdown').attr('loading', '0')
         window.requestAnimationFrame(countdown_update);
       }, 1500)
