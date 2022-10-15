@@ -26,7 +26,8 @@
       --d-ffffff: #ffffff;
       --d-e3e3e3: #e3e3e3;
       --d-333333: #333333;
-      --d-f4f4f4: #fafafa;
+      --d-fafafa: #fafafa;
+      --d-f4f4f4: #f4f4f4;
       --e-skeleton-screen-light-color: #f2f2f2;
     }
 
@@ -35,6 +36,7 @@
         --d-ffffff: #0d0d0d;
         --d-e3e3e3: #1a1a1a;
         --d-333333: #ffffff;
+        --d-fafafa: #141414;
         --d-f4f4f4: #141414;
         --e-skeleton-screen-light-color: #262626;
       }
@@ -184,7 +186,7 @@
       justify-content: center;
       align-items: center;
       background: var(--d-ffffff);
-      border-right: 1px solid var(--d-f4f4f4);
+      border-right: 1px solid var(--d-fafafa);
       box-sizing: border-box;
       font-size: 23px;
       font-weight: 700;
@@ -242,7 +244,7 @@
     .countdown_box.loading .countdown_box_title::after,
     .countdown_box.loading .countdown_box_description::after {
       content: '';
-      background: var(--d-f4f4f4);
+      background: var(--d-fafafa);
       position: absolute;
       border-radius: 9px;
     }
@@ -692,7 +694,7 @@
     }
 
     input[type="checkbox"]:checked::after {
-      background: var(--d-f4f4f4);
+      background: var(--d-fafafa);
     }
 
     .count {
@@ -747,7 +749,7 @@
       width: 100%;
       height: 45px;
       border: none;
-      border-bottom: 1px solid var(--d-f4f4f4);
+      border-bottom: 1px solid var(--d-fafafa);
       padding: 0px;
       margin: 0px;
       position: relative;
@@ -1988,7 +1990,7 @@
       }
       var date = parseInt(countdown_json.date)
       var canvas = document.getElementById('countdown-photo')
-      drawCountdownPhoto('#f4f4f4', '#333', 1024, 1024, title, date, canvas)
+      drawCountdownPhoto('#fafafa', '#333', 1024, 1024, title, date, canvas)
       canvas.toBlob(blobCallback(randid('countdown')), 'image/png')
     }
   }
