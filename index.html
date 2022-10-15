@@ -1226,7 +1226,6 @@
     $('.search_btn,.addcountdown').css({ 'display': 'none' })
     $('.trash_back_btn').css({ 'display': 'flex' })
     $('.title .options_btn').attr('r-click', 'openoptions(2)')
-    $('.countdown_title .options_btn').attr('r-click', 'openoptions(3)')
     print_countdown(1)
     closeoptions()
   }
@@ -1236,7 +1235,6 @@
     $('.search_btn,.addcountdown').css({ 'display': 'flex' })
     $('.trash_back_btn').css({ 'display': 'none' })
     $('.title .options_btn').attr('r-click', 'openoptions(0)')
-    $('.countdown_title .options_btn').attr('r-click', 'openoptions(1)')
     print_countdown(0)
   }
   function cleartrashcan() {
@@ -1700,6 +1698,10 @@
       $('.options li[y="deleteforever"]').attr('r-click', "deletecountdownforever('" + countdown_id + "')")
       if (countdown_json.trash) {
         $('.countdown_content_box_delete_forever').css({ 'display': 'flex' })
+        $('.countdown_title .options_btn').attr('r-click', 'openoptions(3)')
+      }
+      else {
+        $('.countdown_title .options_btn').attr('r-click', 'openoptions(1)')
       }
     }
   }
