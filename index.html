@@ -1682,7 +1682,7 @@
         deleted_len += 1
         var this_countdown_id = this_checkbox.attr('countdown-id')
         if (localStorage.hasOwnProperty('countdown_x_' + this_countdown_id)) {
-          var json = JSON.parse(String(localStorage.getItem('countdown_x_' + countdown_id)))
+          var json = JSON.parse(String(localStorage.getItem('countdown_x_' + this_countdown_id)))
           json['trash'] = true
           json['trash_date'] = nowtime
           localStorage.setItem('countdown_x_' + this_countdown_id, JSON.stringify(json))
