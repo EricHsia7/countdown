@@ -1199,11 +1199,13 @@
   function opentrashcan() {
     $('.content_box').html('')
     $('#content_box_title_text').text('Trash Can')
+    $('.options_btn,.search_btn').css({ 'display': 'none' })
     print_countdown(1)
   }
   function closetrashcan() {
     $('.content_box').html('')
     $('#content_box_title_text').text('Countdown')
+    $('.options_btn,.search_btn').css({ 'display': 'flex' })
     print_countdown(0)
   }
   function check_i(i) {
