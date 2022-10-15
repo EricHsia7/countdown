@@ -1039,7 +1039,7 @@
     <li r-click="shareCountdownPhoto()" y="shcountdownphoto" group="1">Share as photo</li>
     <li r-click="addToCalendar()" y="addtocalendar" group="1">Add to Calendar</li>
     <li r-click="deletecountdown()" y="delete" group="1">Delete</li>
-    <li r-click="cleartrashcan()" y="cleartrashcan" group="2">Clear</li>
+    <li r-click="cleartrashcan()" y="cleartrashcan" group="2" b="0">Clear</li>
     <li r-click="revertdeleteintrash()" y="revertdeleteintrash" group="2">Revert delete</li>
   </div>
 </body>
@@ -1262,7 +1262,6 @@
     closeoptions()
     mes('Delete reverted.')
     refresh_trash_can()
-    refresh_countdown()
   }
   function check_i(i) {
     if (i < 10) {
