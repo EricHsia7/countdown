@@ -1039,6 +1039,8 @@
     <li r-click="shareCountdownPhoto()" y="shcountdownphoto" group="1">Share as photo</li>
     <li r-click="addToCalendar()" y="addtocalendar" group="1">Add to Calendar</li>
     <li r-click="deletecountdown()" y="delete" group="1">Delete</li>
+    <li r-click="cleartrashcan()" y="cleartrashcan" group="2">Clear</li>
+    <li r-click="revertdeleteintrash()" y="revertdeleteintrash" group="2">Revert delete</li>
   </div>
 </body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -1214,12 +1216,16 @@
     $('.content_box').html('')
     print_countdown(0)
   }
+  function refresh_trash_can() {
+    $('.content_box').html('')
+    print_countdown(1)
+  }
   function opentrashcan() {
     $('.content_box').html('')
     $('#content_box_title_text').text('Trash Can')
     $('.countdown_title .options_btn,.search_btn,.addcountdown').css({ 'display': 'none' })
     $('.trash_back_btn').css({ 'display': 'flex' })
-    $('.title .options_btn').attr('r-click','openoptions(3)')
+    $('.title .options_btn').attr('r-click', 'openoptions(2)')
     print_countdown(1)
   }
   function closetrashcan() {
@@ -1227,8 +1233,36 @@
     $('#content_box_title_text').text('Countdown')
     $('.countdown_title .options_btn,.search_btn,.addcountdown').css({ 'display': 'flex' })
     $('.trash_back_btn').css({ 'display': 'none' })
-    $('.title .options_btn').attr('r-click','openoptions(0)')
+    $('.title .options_btn').attr('r-click', 'openoptions(0)')
     print_countdown(0)
+  }
+  function cleartrashcan() {
+    var list = searchItemsbyname('countdown_x_')
+    var list_len = list.length
+    for (var e = 0; e < list_len; e++) {
+      var this_list = JSON.parse(String(localStorage.getItem(String(list[e]))))
+      if (this_list.trash) {
+        localStorage.removeItem(String(list[e]))
+      }
+    }
+    closeoptions()
+    mes('Trash Can cleared.')
+    refresh_trash_can()
+  }
+  function revertdeleteintrash() {
+    var list = searchItemsbyname('countdown_x_')
+    var list_len = list.length
+    for (var e = 0; e < list_len; e++) {
+      var this_list = JSON.parse(String(localStorage.getItem(String(list[e]))))
+      if (this_list.trash) {
+        this_list.trash = false
+        localStorage.setItem(String(list[e]), JSON.stringify(this_list))
+      }
+    }
+    closeoptions()
+    mes('Delete reverted.')
+    refresh_trash_can()
+    refresh_countdown()
   }
   function check_i(i) {
     if (i < 10) {
