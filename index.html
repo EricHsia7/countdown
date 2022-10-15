@@ -1808,7 +1808,7 @@
   }
   var search_result_countdown_count_pause = 0
   function search_result_countdown_count_update() {
-    var now_time = new Date().getTime()
+    var now_time = new Date()
     var len = $('.search_result .search_result_countdown_box').length
     for (var w = 0; w < len; w++) {
       var this_w = $('.search_result .search_result_countdown_box .search_result_countdown_count').eq(w)
