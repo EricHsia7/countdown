@@ -26,7 +26,8 @@
       --d-ffffff: #ffffff;
       --d-e3e3e3: #e3e3e3;
       --d-333333: #333333;
-      --d-f4f4f4: #fafafa;
+      --d-fafafa: #fafafa;
+      --d-f4f4f4: #f4f4f4;
       --e-skeleton-screen-light-color: #f2f2f2;
     }
 
@@ -35,7 +36,8 @@
         --d-ffffff: #0d0d0d;
         --d-e3e3e3: #1a1a1a;
         --d-333333: #ffffff;
-        --d-f4f4f4: #141414;
+        --d-fafafa: #141414;
+        --d-f4f4f4: #1a1a1a;
         --e-skeleton-screen-light-color: #262626;
       }
     }
@@ -131,7 +133,7 @@
     .countdown_box {
       width: calc(100% - 20px);
       height: 100px;
-      background: var(--d-f4f4f4);
+      background: var(--d-ffffff);
       position: relative;
       -webkit-user-select: none;
       user-select: none;
@@ -139,10 +141,11 @@
       border-radius: 15px;
       margin: 10px;
       box-sizing: border-box;
+      border: 1px solid var(--d-f4f4f4);
+      box-shadow: 0px 0px 12px -8px rgba(0, 0, 0, 0.15);
     }
 
     .countdown_box:nth-last-child(1) {
-      /*border-bottom: none;*/
       margin-bottom: 20px
     }
 
@@ -155,7 +158,7 @@
       display: none;
       justify-content: center;
       align-items: center;
-      background: var(--d-f4f4f4);
+      background: var(--d-ffffff);
       box-sizing: border-box;
       font-size: 23px;
       color: var(--d-333333);
@@ -181,8 +184,8 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      background: var(--d-f4f4f4);
-      border-right: 1px solid var(--d-e3e3e3);
+      background: var(--d-ffffff);
+      border-right: 1px solid var(--d-fafafa);
       box-sizing: border-box;
       font-size: 23px;
       font-weight: 700;
@@ -200,7 +203,7 @@
       height: 35px;
       display: flex;
       align-items: center;
-      background: var(--d-f4f4f4);
+      background: var(--d-ffffff);
       box-sizing: border-box;
       padding: 3px;
       color: var(--d-333333);
@@ -219,7 +222,7 @@
       left: 105px;
       width: calc(100% - 110px);
       height: calc(100% - 45px);
-      background: var(--d-f4f4f4);
+      background: var(--d-ffffff);
       box-sizing: border-box;
       padding: 3px;
       color: var(--d-333333);
@@ -233,26 +236,16 @@
     }
 
     .countdown_box.loading {
-      background: var(--d-f4f4f4);
+      background: var(--d-ffffff);
     }
 
     .countdown_box.loading .countdown_box_count::after,
     .countdown_box.loading .countdown_box_title::after,
     .countdown_box.loading .countdown_box_description::after {
       content: '';
-      background: var(--d-e3e3e3);
+      background: var(--d-fafafa);
       position: absolute;
       border-radius: 9px;
-    }
-
-    @keyframes loading {
-      0% {
-        background-position: 0% 0%;
-      }
-
-      100% {
-        background-position: -200% 0%;
-      }
     }
 
     .countdown_box.loading .countdown_box_count::after {
@@ -690,7 +683,7 @@
     }
 
     input[type="checkbox"]:checked::after {
-      background: var(--d-f4f4f4);
+      background: var(--d-fafafa);
     }
 
     .count {
@@ -745,7 +738,7 @@
       width: 100%;
       height: 45px;
       border: none;
-      border-bottom: 1px solid var(--d-f4f4f4);
+      border-bottom: 1px solid var(--d-fafafa);
       padding: 0px;
       margin: 0px;
       position: relative;
@@ -1986,7 +1979,7 @@
       }
       var date = parseInt(countdown_json.date)
       var canvas = document.getElementById('countdown-photo')
-      drawCountdownPhoto('#f4f4f4', '#333', 1024, 1024, title, date, canvas)
+      drawCountdownPhoto('#fafafa', '#333', 1024, 1024, title, date, canvas)
       canvas.toBlob(blobCallback(randid('countdown')), 'image/png')
     }
   }
