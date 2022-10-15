@@ -1180,9 +1180,10 @@
       if (this_description.length > 45) {
         this_description = String(this_description).substring(0, 42) + '...'
       }
+
       var this_date = this_list.date
       if (k === 1) {
-        this_date = this_list.trash_date
+        this_date = this_list.trash_date + (60 * 60 * 24 * 30 * 1000)
       }
       var this_id = randid('countdown')
       var trash = false
