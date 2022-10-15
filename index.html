@@ -28,6 +28,7 @@
       --d-333333: #333333;
       --d-fafafa: #fafafa;
       --d-f4f4f4: #f4f4f4;
+      --d-888888: #888888;
       --e-skeleton-screen-light-color: #f2f2f2;
     }
 
@@ -38,6 +39,7 @@
         --d-333333: #ffffff;
         --d-fafafa: #141414;
         --d-f4f4f4: #1a1a1a;
+        --d-888888: #888888;
         --e-skeleton-screen-light-color: #262626;
       }
     }
@@ -193,6 +195,10 @@
       -webkit-user-select: none;
       user-select: none;
       overflow: hidden;
+    }
+
+    .countdown_box[trash="true"] .countdown_box_count {
+      font-style: italic;
     }
 
     .countdown_box_title {
@@ -410,6 +416,7 @@
     }
 
     .back_btn,
+    .trash_back_btn,
     .options_btn,
     .delete_btn,
     .cancel_btn,
@@ -425,9 +432,14 @@
       -webkit-user-select: none;
     }
 
-    .back_btn {
+    .back_btn,
+    .trash_back_btn {
       top: 10px;
       left: 10px;
+    }
+
+    .trash_back_btn {
+      display: none;
     }
 
     .options_btn {
@@ -521,6 +533,7 @@
 
     .addcountdown svg,
     .back_btn svg,
+    .trash_back_btn svg,
     .options_btn svg,
     .delete_btn svg,
     .cancel_btn svg,
@@ -772,6 +785,12 @@
       font-size: 16px;
     }
 
+    .search_result li.search_result_countdown_box[trash="true"] .search_result_countdown_count {
+      color: var(--d-333333);
+      font-style: italic;
+      font-size: 14px;
+    }
+
     .search_result li.search_result_countdown_box .search_result_countdown_title {
       position: absolute;
       top: 0px;
@@ -790,6 +809,13 @@
       font-weight: 400;
       user-select: none;
       -webkit-user-select: none;
+    }
+
+    .search_result li.search_result_countdown_box[trash="true"] .search_result_countdown_title {
+      text-decoration-line: line-through;
+      text-decoration-color: var(--d-333333);
+      font-style: italic;
+      color: var(--d-888888);
     }
 
     canvas#countdown-photo {
@@ -828,7 +854,18 @@
   <canvas id="countdown-photo"></canvas>
   <input type="file" id="importcountdowndatainput" name="importcountdowndatainput" accept="application/json">
   <div class="title">
-    Countdown
+    <span id="content_box_title_text">Countdown</span>
+
+    <div class="trash_back_btn" r-click="closetrashcan()">
+      <svg stroke-miterlimit="10"
+        style="fill-rule:nonzero;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;" version="1.1"
+        viewBox="0 0 64 64" xml:space="preserve" xmlns="http://www.w3.org/2000/svg"
+        xmlns:xlink="http://www.w3.org/1999/xlink">
+        <path d="M32 64L0 32L32 0L36.2 4.2L11.4 29L64 29L64 35L11.4 35L36.2 59.8L32 64Z" fill="var(--d-333333)"
+          fill-rule="evenodd" opacity="1" stroke="none" />
+      </svg>
+    </div>
+
     <div class="options_btn" r-click="openoptions(0)" loading="1">
       <svg stroke-miterlimit="10"
         style="fill-rule:nonzero;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;" version="1.1"
@@ -993,21 +1030,23 @@
     <div class="edit_countdown_btn" r-click="savecountdown()">Save</div>
   </div>
 
-
-
-
   <div class="options_mask" r-click="closeoptions()"></div>
   <div class="options">
     <li r-click="editcountdown()" y="edit" group="0" b="0">Edit</li>
-    <li r-click="refreshpage()" y="refresh" group="0">Refresh</li>
+    <li r-click="opentrashcan()" y="opentrashcan" group="0">Trash Can</li>
     <li r-click="downloadCountdownDataFile()" y="export" group="0">Export data</li>
     <li r-click="importCountdownData()" y="import" group="0">Import data</li>
+    <li r-click="refreshpage()" y="refresh" group="0">Refresh</li>
     <li r-click="viewongithub()" y="github" group="0">Github</li>
     <li r-click="editcountdown_detail()" y="edit2" group="1" b="0">Edit</li>
     <li r-click="sharecountdown()" y="share" group="1">Share as link</li>
     <li r-click="shareCountdownPhoto()" y="shcountdownphoto" group="1">Share as photo</li>
     <li r-click="addToCalendar()" y="addtocalendar" group="1">Add to Calendar</li>
     <li r-click="deletecountdown()" y="delete" group="1">Delete</li>
+    <li r-click="cleartrashcan()" y="cleartrashcan" group="2" b="0">Clear</li>
+    <li r-click="revertdeleteintrash()" y="revertdeleteintrash" group="2">Revert delete</li>
+    <li r-click="revertdeletecountdown()" y="revertdelete" group="3" b="0">Revert delete</li>
+    <li r-click="deletecountdownforever()" y="deleteforever" group="3">Delete forever</li>
   </div>
 </body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -1083,21 +1122,59 @@
     });
     return arr
   }
-  function print_countdown() {
+  function countdown_trash_check() {
+    var list_all = searchItemsbyname('countdown_x_')
+    var list_all_len = list_all.length
+    var nowtime = new Date().getTime()
+    for (var o = 0; o < list_all_len; o++) {
+      if (!(localStorage.hasOwnProperty(String(list_all[o])))) {
+        continue;
+      }
+      var this_json = JSON.parse(localStorage.getItem(String(list_all[o])))
+      if (this_json.hasOwnProperty('trash')) {
+        if (this_json['trash']) {
+          if (!(this_json.hasOwnProperty('trash_date'))) {
+            this_json['trash_date'] = nowtime
+            localStorage.setItem(String(list_all[o]), JSON.stringify(this_json))
+          }
+          if ((nowtime - this_json['trash_date']) > 60 * 60 * 24 * 30 * 1000) {
+            localStorage.removeItem(String(list_all[o]))
+          }
+        }
+      }
+      else {
+        this_json['trash'] = false
+        localStorage.setItem(String(list_all[o]), JSON.stringify(this_json))
+      }
+    }
+  }
+  function print_countdown(k) {
+    var content_box = '.content_box'
     var now_time = new Date().getTime()
     var list_all = searchItemsbyname('countdown_x_')
     var list_unfinished = []
     var list_finished = []
+    var list_trash = []
     var list_all_len = list_all.length
     var title_max_len = Math.floor((window.innerWidth - 20 - 110 - 6) / getTextAvgWidth())
     if (list_all_len < 1) {
-      $('.content_box .loading').remove()
+      $(content_box + ' .loading').remove()
       return ''
     }
 
     for (var d = 0; d < list_all_len; d++) {
       var this_json = JSON.parse(localStorage.getItem(String(list_all[d])))
       list_all[d] = this_json
+      if (this_json.hasOwnProperty('trash')) {
+        if (this_json['trash'] && k === 0) {
+          continue;
+        }
+        else {
+          if (this_json['trash'] && k === 1) {
+            list_trash.push(this_json)
+          }
+        }
+      }
       if (this_json.date > now_time) {
         list_unfinished.push(this_json)
       }
@@ -1108,8 +1185,12 @@
 
     list_unfinished = sort_arr(list_unfinished, 'date')
     list_finished = sort_arr(list_finished, 'date').reverse()
-
-    list = list_unfinished.concat(list_finished)
+    if (k === 0) {
+      list = list_unfinished.concat(list_finished)
+    }
+    if (k === 1) {
+      list = sort_arr(list_trash, 'trash_date')
+    }
     list_len = list.length
 
     for (var e = 0; e < list_len; e++) {
@@ -1123,15 +1204,92 @@
         this_description = String(this_description).substring(0, 42) + '...'
       }
 
+      var this_date = this_list.date
+      if (k === 1) {
+        this_date = this_list.trash_date + (60 * 60 * 24 * 30 * 1000)
+      }
       var this_id = randid('countdown')
-      $('.content_box').append('<div class="countdown_box" id="' + this_id + '" r-click="opencountdown(' + "'" + this_list.id + "'" + ')"><div class="countdown_box_select"><label for="checkbox-' + this_list.id + '"><input type="checkbox" countdown-id="' + this_list.id + '" name="checkbox-' + this_list.id + '" id="checkbox-' + this_list.id + '"></label></div><div class="countdown_box_count" t="' + this_list.date + '"></div><div class="countdown_box_title">' + this_title + '</div><div class="countdown_box_description">' + this_description + '</div></div>')
+      var trash = false
+      if (k === 1) {
+        trash = true
+      }
+      $(content_box).append('<div class="countdown_box" id="' + this_id + '" r-click="opencountdown(' + "'" + this_list.id + "'" + ')" trash="' + trash + '"><div class="countdown_box_select"><label for="checkbox-' + this_list.id + '"><input type="checkbox" countdown-id="' + this_list.id + '" name="checkbox-' + this_list.id + '" id="checkbox-' + this_list.id + '"></label></div><div class="countdown_box_count" t="' + this_date + '"></div><div class="countdown_box_title">' + this_title + '</div><div class="countdown_box_description">' + this_description + '</div></div>')
       rclick('#' + this_id)
     }
-    $('.content_box .loading').remove()
+    $(content_box + ' .loading').remove()
   }
   function refresh_countdown() {
     $('.content_box').html('')
-    print_countdown()
+    print_countdown(0)
+  }
+  function refresh_trash_can() {
+    $('.content_box').html('')
+    print_countdown(1)
+  }
+  function opentrashcan() {
+    $('.content_box').html('')
+    $('#content_box_title_text').text('Trash Can')
+    $('.search_btn,.addcountdown').css({ 'display': 'none' })
+    $('.trash_back_btn').css({ 'display': 'flex' })
+    $('.title .options_btn').attr('r-click', 'openoptions(2)')
+    print_countdown(1)
+    closeoptions()
+  }
+  function closetrashcan() {
+    $('.content_box').html('')
+    $('#content_box_title_text').text('Countdown')
+    $('.search_btn,.addcountdown').css({ 'display': 'flex' })
+    $('.trash_back_btn').css({ 'display': 'none' })
+    $('.title .options_btn').attr('r-click', 'openoptions(0)')
+    print_countdown(0)
+  }
+  function cleartrashcan() {
+    var list = searchItemsbyname('countdown_x_')
+    var list_len = list.length
+    for (var e = 0; e < list_len; e++) {
+      var this_list = JSON.parse(String(localStorage.getItem(String(list[e]))))
+      if (this_list.trash) {
+        localStorage.removeItem(String(list[e]))
+      }
+    }
+    closeoptions()
+    mes('Trash Can cleared.')
+    refresh_trash_can()
+  }
+  function revertdeleteintrash() {
+    var list = searchItemsbyname('countdown_x_')
+    var list_len = list.length
+    for (var e = 0; e < list_len; e++) {
+      var this_list = JSON.parse(String(localStorage.getItem(String(list[e]))))
+      if (this_list.trash) {
+        this_list.trash = false
+        localStorage.setItem(String(list[e]), JSON.stringify(this_list))
+      }
+    }
+    closeoptions()
+    mes('Delete reverted.')
+    refresh_trash_can()
+  }
+  function revertdeletecountdown(countdown_id) {
+    if (localStorage.hasOwnProperty('countdown_x_' + countdown_id)) {
+      var json = JSON.parse(String(localStorage.getItem('countdown_x_' + countdown_id)))
+      json.trash = false
+      delete json['trash_date']
+      localStorage.setItem('countdown_x_' + countdown_id, JSON.stringify(json))
+      mes('Delete reverted.')
+      closecountdown()
+      closeoptions()
+      refresh_trash_can()
+    }
+  }
+  function deletecountdownforever(countdown_id) {
+    if (localStorage.hasOwnProperty('countdown_x_' + countdown_id)) {
+      localStorage.removeItem('countdown_x_' + countdown_id)
+      mes('Countdown delete forever.')
+      closecountdown()
+      closeoptions()
+      refresh_trash_can()
+    }
   }
   function check_i(i) {
     if (i < 10) {
@@ -1388,7 +1546,11 @@
           this_h.text(tday(nowtime, time_date, 0))
         }
         else {
-          this_h.text('Finish')
+          var finish_text = 'Finish'
+          if (this_h.attr('trash') === 'true') {
+            finish_text = 'Due'
+          }
+          this_h.text(finish_text)
           this_h.attr('f', '1')
         }
       }
@@ -1479,6 +1641,7 @@
       'title': title,
       'description': description,
       'date': date,
+      'trash': false,
       'id': id
     }
     localStorage.setItem('countdown_x_' + id, JSON.stringify(json))
@@ -1519,7 +1682,6 @@
       return ''
     }
     if (localStorage.hasOwnProperty('countdown_x_' + countdown_id)) {
-
       history.pushState(null, null, 'https://erichsia7.github.io/countdown/?c=1&id=' + countdown_id);
       var countdown_json = JSON.parse(String(localStorage.getItem('countdown_x_' + countdown_id)))
       var date_o = new Date()
@@ -1542,6 +1704,15 @@
       $('.options li[y="delete"]').attr('r-click', "deletecountdown('" + countdown_id + "')")
       $('.options li[y="shcountdownphoto"]').attr('r-click', "shareCountdownPhoto('" + countdown_id + "')")
       $('.options li[y="addtocalendar"]').attr('r-click', "addToCalendar('" + countdown_id + "')")
+      $('.options li[y="revertdelete"]').attr('r-click', "revertdeletecountdown('" + countdown_id + "')")
+      $('.options li[y="deleteforever"]').attr('r-click', "deletecountdownforever('" + countdown_id + "')")
+      if (countdown_json.trash) {
+        $('.countdown_content_box_delete_forever').css({ 'display': 'flex' })
+        $('.countdown_title .options_btn').attr('r-click', 'openoptions(3)')
+      }
+      else {
+        $('.countdown_title .options_btn').attr('r-click', 'openoptions(1)')
+      }
     }
   }
   function closecountdown() {
@@ -1575,12 +1746,18 @@
   function deleteselected() {
     var checkbox_len = $('.content_box input[type="checkbox"]').length
     var deleted_len = 0
+    var nowtime = new Date().getTime()
     for (var g = 0; g < checkbox_len; g++) {
       var this_checkbox = $('.content_box input[type="checkbox"]').eq(g)
       if (this_checkbox.prop('checked')) {
         deleted_len += 1
-        if (localStorage.hasOwnProperty('countdown_x_' + this_checkbox.attr('countdown-id')))
-          localStorage.removeItem('countdown_x_' + this_checkbox.attr('countdown-id'))
+        var this_countdown_id = this_checkbox.attr('countdown-id')
+        if (localStorage.hasOwnProperty('countdown_x_' + this_countdown_id)) {
+          var json = JSON.parse(String(localStorage.getItem('countdown_x_' + this_countdown_id)))
+          json['trash'] = true
+          json['trash_date'] = nowtime
+          localStorage.setItem('countdown_x_' + this_countdown_id, JSON.stringify(json))
+        }
       }
     }
     refresh_countdown()
@@ -1658,7 +1835,11 @@
   }
   function deletecountdown(countdown_id) {
     if (localStorage.hasOwnProperty('countdown_x_' + countdown_id)) {
-      localStorage.removeItem('countdown_x_' + countdown_id)
+      var nowtime = new Date().getTime()
+      var json = JSON.parse(String(localStorage.getItem('countdown_x_' + countdown_id)))
+      json['trash'] = true
+      json['trash_date'] = nowtime
+      localStorage.setItem('countdown_x_' + countdown_id, JSON.stringify(json))
     }
     refresh_countdown()
     closecountdown()
@@ -1722,12 +1903,17 @@
       var this_id = this_list.id
       var this_title = this_list.title
       var this_description = this_list.description
+      var this_trash = this_list.trash
+      var this_trash_date = false
+      if (this_trash) {
+        this_trash_date = this_list.trash_date
+      }
       var this_date = new Date()
       this_date.setTime(this_list.date)
       this_date = ([this_date.getFullYear(), check_i(this_date.getMonth() + 1), check_i(this_date.getDate())]).join('/') + ' ' + ([check_i(this_date.getHours()), check_i(this_date.getMinutes()), check_i(this_date.getSeconds())]).join(':')
       var str = [this_title, this_description, this_date, String(this_title).toLowerCase(), String(this_description).toLowerCase(), String(this_title).toUpperCase(), String(this_description).toUpperCase()].join('')
       var str_unicode = unicode_arr(str)
-      search_index.push({ 'id': this_id, 'title': this_title, 'description': this_description, 'date': this_date, 'unicode': str_unicode, 'date_time': this_list.date })
+      search_index.push({ 'id': this_id, 'title': this_title, 'description': this_description, 'date': this_date, 'unicode': str_unicode, 'date_time': this_list.date, 'trash': this_trash, 'trash_date': this_trash_date })
     }
     return search_index
   }
@@ -1787,15 +1973,24 @@
     var res_htm = []
     var res_len = res.length
     var res_id = randid('searchres')
+    var nowtime = new Date()
     for (var e = 0; e < res_len; e++) {
       var this_res = res[e]
+      var this_res_date_time = this_res.date_time
       var this_res_title = this_res.title
+      var this_res_id = this_res.id
+      var this_res_trash = this_res.trash
+      var this_res_trash_date = this_res.trash_date
+      var this_res_trash_text = ''
       if (String(this_res_title).length > 15) {
         this_res_title = String(this_res_title).substring(0, 12) + '...'
       }
-      var this_res_date_time = this_res.date_time
-      var this_res_id = this_res.id
-      res_htm.push('<li class="search_result_countdown_box" r-click="opencountdown(' + "'" + this_res_id + "'" + ')" re="' + res_id + '"><div class="search_result_countdown_count" t="' + this_res_date_time + '" f="0"></div><div class="search_result_countdown_title">' + this_res_title + '</div></li>')
+      if (this_res_trash) {
+        var trash_day_date = (60 * 60 * 24 * 30 * 1000) + this_res_trash_date
+        this_res_date_time = trash_day_date;
+      }
+
+      res_htm.push('<li class="search_result_countdown_box" r-click="opencountdown(' + "'" + this_res_id + "'" + ')" re="' + res_id + '" trash="' + this_res_trash + '"><div class="search_result_countdown_count" t="' + this_res_date_time + '" f="0"></div><div class="search_result_countdown_title">' + this_res_title + '</div></li>')
     }
     $('.search_result').html(res_htm.join(''))
     rclick('.search_result_countdown_box[re="' + res_id + '"]')
@@ -2196,8 +2391,9 @@
     $('.content_box').html(yy.join(''))
     $(document).ready(function () {
       setTimeout(function () {
-        print_countdown()
-        rclick('.addcountdown,.add_countdown_btn,.edit_countdown_btn,.back_btn,.options_btn,.options_mask,.options li,.cancel_btn,.delete_btn,.search_btn')
+        countdown_trash_check()
+        print_countdown(0)
+        rclick('.addcountdown,.add_countdown_btn,.edit_countdown_btn,.back_btn,.options_btn,.options_mask,.options li,.cancel_btn,.delete_btn,.search_btn,.trash_back_btn')
         $('.search_btn,.options_btn,.addcountdown').attr('loading', '0')
         window.requestAnimationFrame(countdown_update);
       }, 1500)
