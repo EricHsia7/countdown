@@ -1086,10 +1086,22 @@
   function countdown_trash_check() {
     var list_all = searchItemsbyname('countdown_x_')
     var list_all_len = list_all.length
+    var nowtime = new Date().getTime()
     for (var o = 0; o < list_all_len; o++) {
+      if (!(localStorage.hasOwnProperty(String(list_all[o])))) {
+        continue;
+      }
       var this_json = JSON.parse(localStorage.getItem(String(list_all[o])))
       if (this_json.hasOwnProperty('trash')) {
-        continue;
+        if (this_json['trash']) {
+          if (!(this_json.hasOwnProperty('trash_date'))) {
+            this_json['trash_date'] = nowtime
+            localStorage.setItem(String(list_all[o]), JSON.stringify(this_json))
+          }
+          if ((nowtime - this_json['trash_date']) > 60 * 60 * 24 * 30 * 1000) {
+            localStorage.removeItem(String(list_all[o]))
+          }
+        }
       }
       else {
         this_json['trash'] = false
@@ -1595,6 +1607,7 @@
   function deleteselected() {
     var checkbox_len = $('.content_box input[type="checkbox"]').length
     var deleted_len = 0
+    var nowtime = new Date().getTime()
     for (var g = 0; g < checkbox_len; g++) {
       var this_checkbox = $('.content_box input[type="checkbox"]').eq(g)
       if (this_checkbox.prop('checked')) {
@@ -1603,6 +1616,7 @@
         if (localStorage.hasOwnProperty('countdown_x_' + this_countdown_id)) {
           var json = JSON.parse(String(localStorage.getItem('countdown_x_' + countdown_id)))
           json['trash'] = true
+          json['trash_date'] = nowtime
           localStorage.setItem('countdown_x_' + this_countdown_id, JSON.stringify(json))
         }
       }
@@ -1682,8 +1696,10 @@
   }
   function deletecountdown(countdown_id) {
     if (localStorage.hasOwnProperty('countdown_x_' + countdown_id)) {
+      var nowtime = new Date().getTime()
       var json = JSON.parse(String(localStorage.getItem('countdown_x_' + countdown_id)))
       json['trash'] = true
+      json['trash_date'] = nowtime
       localStorage.setItem('countdown_x_' + countdown_id, JSON.stringify(json))
     }
     refresh_countdown()
