@@ -792,6 +792,12 @@
       -webkit-user-select: none;
     }
 
+    .search_result li.search_result_countdown_box[trash="true"] .search_result_countdown_title {
+      text-decoration-line: line-through;
+      font-style: italic;
+      color: var(--d-e3e3e3);
+    }
+
     canvas#countdown-photo {
       display: none;
     }
@@ -1840,17 +1846,17 @@
       var this_res_trash = this_res.trash
       var this_res_trash_date = this_res.trash_date
       var this_res_title = this_res.title
+      var this_res_trash_text = ''
       if (String(this_res_title).length > 15) {
         this_res_title = String(this_res_title).substring(0, 12) + '...'
       }
       if (this_res_trash) {
         var trash_day = Math.floor(((60 * 60 * 24 * 30 * 1000) - (nowtime - this_res_trash_date)) / (60 * 60 * 24 * 1000))
-        var trash_text = '(' + trash_day + ' days left)'
-        this_res_title = trash_text + ' ' + this_res_title
+        var this_res_trash_text = '(' + trash_day + ' days left)'
       }
       var this_res_date_time = this_res.date_time
       var this_res_id = this_res.id
-      res_htm.push('<li class="search_result_countdown_box" r-click="opencountdown(' + "'" + this_res_id + "'" + ')" re="' + res_id + '"><div class="search_result_countdown_count" t="' + this_res_date_time + '" f="0"></div><div class="search_result_countdown_title">' + this_res_title + '</div></li>')
+      res_htm.push('<li class="search_result_countdown_box" r-click="opencountdown(' + "'" + this_res_id + "'" + ')" re="' + res_id + '" trash="' + this_res_trash + '"><div class="search_result_countdown_count" t="' + this_res_date_time + '" f="0"></div><div class="search_result_countdown_title" style="--search-result-trash-text:' + "'" + this_res_trash_text + "'" + '">' + this_res_title + '</div></li>')
     }
     $('.search_result').html(res_htm.join(''))
     rclick('.search_result_countdown_box[re="' + res_id + '"]')
