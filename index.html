@@ -773,7 +773,9 @@
     }
 
     .search_result li.search_result_countdown_box[trash="true"] .search_result_countdown_count {
-      color: var(--d-e3e3e3);
+      color: var(--d-333333);
+      font-style: italic;
+      font-size: 14px;
     }
 
     .search_result li.search_result_countdown_box .search_result_countdown_title {
@@ -1856,12 +1858,13 @@
         this_res_title = String(this_res_title).substring(0, 12) + '...'
       }
       if (this_res_trash) {
-        var trash_day = Math.floor(((60 * 60 * 24 * 30 * 1000) - (nowtime - this_res_trash_date)) / (60 * 60 * 24 * 1000))
-        var this_res_trash_text = '(' + trash_day + ' days left)'
+        var trash_day_date = (60 * 60 * 24 * 30 * 1000) + this_res_trash_date
+        this_res_date_time = trash_day_date;
       }
       var this_res_date_time = this_res.date_time
       var this_res_id = this_res.id
-      res_htm.push('<li class="search_result_countdown_box" r-click="opencountdown(' + "'" + this_res_id + "'" + ')" re="' + res_id + '" trash="' + this_res_trash + '"><div class="search_result_countdown_count" t="' + this_res_date_time + '" f="0"></div><div class="search_result_countdown_title" style="--search-result-trash-text:' + "'" + this_res_trash_text + "'" + '">' + this_res_title + '</div></li>')
+
+      res_htm.push('<li class="search_result_countdown_box" r-click="opencountdown(' + "'" + this_res_id + "'" + ')" re="' + res_id + '" trash="' + this_res_trash + '"><div class="search_result_countdown_count" t="' + this_res_date_time + '" f="0"></div><div class="search_result_countdown_title">' + this_res_title + '</div></li>')
     }
     $('.search_result').html(res_htm.join(''))
     rclick('.search_result_countdown_box[re="' + res_id + '"]')
