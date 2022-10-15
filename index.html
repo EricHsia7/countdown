@@ -1270,18 +1270,18 @@
       var p_ym_e, p_day_e, p_hour_e, p_minute_e
       if (gy[0] > 0) {
         string_arr.push(gy[0])
-        string_arr.push('y')
+        string_arr.push('Y')
       }
 
       if (gy[1] > 0) {
         string_arr.push(gy[1])
-        string_arr.push('m')
+        string_arr.push('M')
         p_ym_e = 1
       }
 
       if (gy[2] > 0) {
         string_arr.push(gy[2])
-        string_arr.push('d')
+        string_arr.push('D')
         p_ym_e = 1
       }
 
@@ -1342,28 +1342,31 @@
       if (count_len < string_len) {
         var add_len = string_len - count_len
         for (var r = 0; r < add_len; r++) {
-          $('.countdown_content_box_count').append('<div class="count" style="--count-number:0"><div class="count_track"><span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>y</span><span>d</span><span></span><span>m</span><span>s</span></div></div>')
+          $('.countdown_content_box_count').append('<div class="count" style="--count-number:0"><div class="count_track"><span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>Y</span><span>M</span><span>D</span><span>h</span><span>m</span><span>s</span></div></div>')
         }
       }
       var string_arr_str = string_arr.join('')
       for (var r = 0; r < string_len; r++) {
         var this_str = string_arr_str.substring(r, r + 1)
         var num = 0
-        if (this_str === 'y' || this_str === 'd' || this_str === 'h' || this_str === 'm' || this_str === 's') {
-          if (this_str === 'y') {
+        if (this_str === 'Y' || this_str === 'M' || this_str === 'D' || this_str === 'h' || this_str === 'm' || this_str === 's') {
+          if (this_str === 'Y') {
             num = 10
           }
-          if (this_str === 'd') {
+          if (this_str === 'M') {
             num = 11
           }
-          if (this_str === 'h') {
+          if (this_str === 'D') {
             num = 12
           }
-          if (this_str === 'm') {
+          if (this_str === 'h') {
             num = 13
           }
-          if (this_str === 's') {
+          if (this_str === 'm') {
             num = 14
+          }
+          if (this_str === 's') {
+            num = 15
           }
         }
         else {
