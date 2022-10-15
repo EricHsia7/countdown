@@ -1141,7 +1141,11 @@
       return i
     }
   }
-  function tday(ms, mode) {
+  function tday(start, end, mode) {
+    var ms = end.getTime() - start.getTime()
+    if (ms < 0) {
+      ms = 0
+    }
     var sec_e = ms % 1000
     var sec = (ms - sec_e) / 1000
     var minute_e = sec % 60
@@ -1314,10 +1318,12 @@
       if (thswww > (0 - thshh) && thswww < window.innerHeight && !(this_h.attr('f') === '1')) {
 
         var time = parseInt(this_h.attr('t'))
-        var nowtime = new Date().getTime()
-        var f = (time - nowtime)
+        var time_date = new Date()
+        time_date.setTime(time)
+        var nowtime = new Date()
+        var f = (time - nowtime.getTime())
         if (f > 0) {
-          this_h.text(tday(f, 0))
+          this_h.text(tday(nowtime, time_date, 0))
         }
         else {
           this_h.text('Finish')
@@ -1430,14 +1436,15 @@
   function countdown_content_count_update() {
     if (!($('.countdown_content_box_count').attr('f') === '1')) {
       var time = parseInt($('.countdown_content_box_count').attr('t'))
-      var nowtime = new Date().getTime()
-      var f = (time - nowtime)
+      var time_date = new Date()
+      time_date.setTime(time)
+      var nowtime = new Date()
+      var f = (time - nowtime.getTime())
       if (f > 0) {
-        tday(f, 2)
+        tday(nowtime, time_date, 2)
         if ($('.countdown_content_box_count .countdown_content_box_count_finish').length > 0) {
           $('.countdown_content_box_count .countdown_content_box_count_finish').remove()
         }
-        //$('.countdown_content_box_count').html('<span>' + (tday(f, 1)).join('</span><span>') + '</span>')
         window.requestAnimationFrame(countdown_content_count_update);
       }
       else {
@@ -1739,9 +1746,11 @@
       var this_w = $('.search_result .search_result_countdown_box .search_result_countdown_count').eq(w)
       if (!(this_w.attr('f') === '1')) {
         var this_w_date_time = parseInt(this_w.attr('t'))
-        var f = (this_w_date_time - now_time)
+        var this_w_date_time_date = new Date()
+        this_w_date_time_date.setTime(this_w_date_time)
+        var f = (this_w_date_time - now_time.getTime())
         if (f > 0) {
-          this_w.text(tday(f, 0))
+          this_w.text(tday(now_time, this_w_date_time_date, 0))
         }
         else {
           this_w.text('F')
@@ -1891,10 +1900,10 @@
     var date_o = new Date()
     date_o.setTime(date)
     var date_str = [padding(date_o.getFullYear()), padding(date_o.getMonth() + 1), padding(date_o.getDate())].join('/') + tt_check(t_check(date_o.getHours()), t_check(date_o.getMinutes()))
-    var now_time = new Date().getTime()
-    var f_time = (date - now_time)
+    var now_time = new Date()
+    var f_time = (date - now_time.getTime())
     if (f_time > 0) {
-      count = tday(f_time, 0)
+      count = tday(now_time, date_o, 0)
     }
     else {
       count = 'Finish'
