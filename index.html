@@ -1217,15 +1217,17 @@
   function opentrashcan() {
     $('.content_box').html('')
     $('#content_box_title_text').text('Trash Can')
-    $('.title .options_btn,.title .search_btn,.addcountdown').css({ 'display': 'none' })
+    $('.countdown_title .options_btn,.search_btn,.addcountdown').css({ 'display': 'none' })
     $('.trash_back_btn').css({ 'display': 'flex' })
+    $('.title .options_btn').attr('r-click','openoptions(3)')
     print_countdown(1)
   }
   function closetrashcan() {
     $('.content_box').html('')
     $('#content_box_title_text').text('Countdown')
-    $('.title .options_btn,.title .search_btn,.addcountdown').css({ 'display': 'flex' })
+    $('.countdown_title .options_btn,.search_btn,.addcountdown').css({ 'display': 'flex' })
     $('.trash_back_btn').css({ 'display': 'none' })
+    $('.title .options_btn').attr('r-click','openoptions(0)')
     print_countdown(0)
   }
   function check_i(i) {
@@ -1615,7 +1617,6 @@
       return ''
     }
     if (localStorage.hasOwnProperty('countdown_x_' + countdown_id)) {
-
       history.pushState(null, null, 'https://erichsia7.github.io/countdown/?c=1&id=' + countdown_id);
       var countdown_json = JSON.parse(String(localStorage.getItem('countdown_x_' + countdown_id)))
       var date_o = new Date()
@@ -1638,6 +1639,9 @@
       $('.options li[y="delete"]').attr('r-click', "deletecountdown('" + countdown_id + "')")
       $('.options li[y="shcountdownphoto"]').attr('r-click', "shareCountdownPhoto('" + countdown_id + "')")
       $('.options li[y="addtocalendar"]').attr('r-click', "addToCalendar('" + countdown_id + "')")
+      if (countdown_json.trash) {
+        $('.countdown_content_box_delete_forever').css({ 'display': 'flex' })
+      }
     }
   }
   function closecountdown() {
