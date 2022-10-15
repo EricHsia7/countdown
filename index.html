@@ -1083,6 +1083,20 @@
     });
     return arr
   }
+  function countdown_trash_check() {
+    var list_all = searchItemsbyname('countdown_x_')
+    var list_all_len = list_all.length
+    for (var o = 0; o < list_all_len; o++) {
+      var this_json = JSON.parse(localStorage.getItem(String(list_all[o])))
+      if (this_json.hasOwnProperty('trash')) {
+        continue;
+      }
+      else {
+        this_json['trash'] = false
+        localStorage.setItem(String(list_all[o]), JSON.stringify(this_json))
+      }
+    }
+  }
   function print_countdown() {
     var now_time = new Date().getTime()
     var list_all = searchItemsbyname('countdown_x_')
@@ -1098,6 +1112,11 @@
     for (var d = 0; d < list_all_len; d++) {
       var this_json = JSON.parse(localStorage.getItem(String(list_all[d])))
       list_all[d] = this_json
+      if (this_json.hasOwnProperty('trash')) {
+        if (this_json['trash']) {
+          continue;
+        }
+      }
       if (this_json.date > now_time) {
         list_unfinished.push(this_json)
       }
@@ -1479,6 +1498,7 @@
       'title': title,
       'description': description,
       'date': date,
+      'trash': false,
       'id': id
     }
     localStorage.setItem('countdown_x_' + id, JSON.stringify(json))
@@ -1579,8 +1599,12 @@
       var this_checkbox = $('.content_box input[type="checkbox"]').eq(g)
       if (this_checkbox.prop('checked')) {
         deleted_len += 1
-        if (localStorage.hasOwnProperty('countdown_x_' + this_checkbox.attr('countdown-id')))
-          localStorage.removeItem('countdown_x_' + this_checkbox.attr('countdown-id'))
+        var this_countdown_id = this_checkbox.attr('countdown-id')
+        if (localStorage.hasOwnProperty('countdown_x_' + this_countdown_id)) {
+          var json = JSON.parse(String(localStorage.getItem('countdown_x_' + countdown_id)))
+          json['trash'] = true
+          localStorage.setItem('countdown_x_' + this_countdown_id, JSON.stringify(json))
+        }
       }
     }
     refresh_countdown()
@@ -1658,7 +1682,9 @@
   }
   function deletecountdown(countdown_id) {
     if (localStorage.hasOwnProperty('countdown_x_' + countdown_id)) {
-      localStorage.removeItem('countdown_x_' + countdown_id)
+      var json = JSON.parse(String(localStorage.getItem('countdown_x_' + countdown_id)))
+      json['trash'] = true
+      localStorage.setItem('countdown_x_' + countdown_id, JSON.stringify(json))
     }
     refresh_countdown()
     closecountdown()
@@ -2196,6 +2222,7 @@
     $('.content_box').html(yy.join(''))
     $(document).ready(function () {
       setTimeout(function () {
+        countdown_trash_check()
         print_countdown()
         rclick('.addcountdown,.add_countdown_btn,.edit_countdown_btn,.back_btn,.options_btn,.options_mask,.options li,.cancel_btn,.delete_btn,.search_btn')
         $('.search_btn,.options_btn,.addcountdown').attr('loading', '0')
