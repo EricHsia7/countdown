@@ -1764,12 +1764,17 @@
       var this_id = this_list.id
       var this_title = this_list.title
       var this_description = this_list.description
+      var this_trash = this_list.trash
+      var this_trash_date = false
+      if (this_trash) {
+        this_trash_date = this_list.trash_date
+      }
       var this_date = new Date()
       this_date.setTime(this_list.date)
       this_date = ([this_date.getFullYear(), check_i(this_date.getMonth() + 1), check_i(this_date.getDate())]).join('/') + ' ' + ([check_i(this_date.getHours()), check_i(this_date.getMinutes()), check_i(this_date.getSeconds())]).join(':')
       var str = [this_title, this_description, this_date, String(this_title).toLowerCase(), String(this_description).toLowerCase(), String(this_title).toUpperCase(), String(this_description).toUpperCase()].join('')
       var str_unicode = unicode_arr(str)
-      search_index.push({ 'id': this_id, 'title': this_title, 'description': this_description, 'date': this_date, 'unicode': str_unicode, 'date_time': this_list.date })
+      search_index.push({ 'id': this_id, 'title': this_title, 'description': this_description, 'date': this_date, 'unicode': str_unicode, 'date_time': this_list.date, 'trash': this_trash, 'trash_date': this_trash_date })
     }
     return search_index
   }
@@ -1829,11 +1834,19 @@
     var res_htm = []
     var res_len = res.length
     var res_id = randid('searchres')
+    var nowtime = new Date()
     for (var e = 0; e < res_len; e++) {
       var this_res = res[e]
+      var this_res_trash = this_res.trash
+      var this_res_trash_date = this_res.trash_date
       var this_res_title = this_res.title
       if (String(this_res_title).length > 15) {
         this_res_title = String(this_res_title).substring(0, 12) + '...'
+      }
+      if (this_res_trash) {
+        var trash_day = Math.floor(((60 * 60 * 24 * 30 * 1000) - (nowtime - this_res_trash_date)) / (60 * 60 * 24 * 1000))
+        var trash_text = '(' + trash_day + ' days left)'
+        this_res_title = trash_text + ' ' + this_res_title
       }
       var this_res_date_time = this_res.date_time
       var this_res_id = this_res.id
