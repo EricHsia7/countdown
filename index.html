@@ -1122,7 +1122,11 @@
       }
     }
   }
-  function print_countdown() {
+  function print_countdown(k) {
+    var content_box = '.content_box'
+    if(k === 1) {
+      content_box = '.trash_content_box'
+    }
     var now_time = new Date().getTime()
     var list_all = searchItemsbyname('countdown_x_')
     var list_unfinished = []
@@ -1130,7 +1134,7 @@
     var list_all_len = list_all.length
     var title_max_len = Math.floor((window.innerWidth - 20 - 110 - 6) / getTextAvgWidth())
     if (list_all_len < 1) {
-      $('.content_box .loading').remove()
+      $(content_box + ' .loading').remove()
       return ''
     }
 
@@ -1168,14 +1172,14 @@
       }
 
       var this_id = randid('countdown')
-      $('.content_box').append('<div class="countdown_box" id="' + this_id + '" r-click="opencountdown(' + "'" + this_list.id + "'" + ')"><div class="countdown_box_select"><label for="checkbox-' + this_list.id + '"><input type="checkbox" countdown-id="' + this_list.id + '" name="checkbox-' + this_list.id + '" id="checkbox-' + this_list.id + '"></label></div><div class="countdown_box_count" t="' + this_list.date + '"></div><div class="countdown_box_title">' + this_title + '</div><div class="countdown_box_description">' + this_description + '</div></div>')
+      $(content_box).append('<div class="countdown_box" id="' + this_id + '" r-click="opencountdown(' + "'" + this_list.id + "'" + ')"><div class="countdown_box_select"><label for="checkbox-' + this_list.id + '"><input type="checkbox" countdown-id="' + this_list.id + '" name="checkbox-' + this_list.id + '" id="checkbox-' + this_list.id + '"></label></div><div class="countdown_box_count" t="' + this_list.date + '"></div><div class="countdown_box_title">' + this_title + '</div><div class="countdown_box_description">' + this_description + '</div></div>')
       rclick('#' + this_id)
     }
-    $('.content_box .loading').remove()
+    $(content_box + ' .loading').remove()
   }
   function refresh_countdown() {
     $('.content_box').html('')
-    print_countdown()
+    print_countdown(0)
   }
   function check_i(i) {
     if (i < 10) {
@@ -2266,7 +2270,7 @@
     $(document).ready(function () {
       setTimeout(function () {
         countdown_trash_check()
-        print_countdown()
+        print_countdown(0)
         rclick('.addcountdown,.add_countdown_btn,.edit_countdown_btn,.back_btn,.options_btn,.options_mask,.options li,.cancel_btn,.delete_btn,.search_btn')
         $('.search_btn,.options_btn,.addcountdown').attr('loading', '0')
         window.requestAnimationFrame(countdown_update);
