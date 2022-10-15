@@ -1146,56 +1146,113 @@
     if (ms < 0) {
       ms = 0
     }
-    var sec_e = ms % 1000
-    var sec = (ms - sec_e) / 1000
-    var minute_e = sec % 60
-    var minute = (sec - minute_e) / 60
-    var hour_e = minute % 60
-    var hour = (minute - hour_e) / 60
-    var day_e = hour % 24
-    var day = (hour - day_e) / 24
-    var week_e = day % 7
-    var week = (day - week_e) / 7
+    var dt = function (st_t, end_t) {
+      var st = new Date()
+      st.setTime(st_t.getTime())
+      var end = new Date()
+      end.setTime(end_t.getTime())
+
+      st.setDate(st.getDate() + 1)
+      st.setHours(0)
+      st.setMinutes(0)
+      st.setSeconds(0)
+
+      end.setDate(end.getDate() - 0)
+      end.setHours(0)
+      end.setMinutes(0)
+      end.setSeconds(0)
+
+      var st_hh = 23 - st_t.getHours()
+      var st_mm = 59 - st_t.getMinutes()
+      var st_ss = 60 - st_t.getSeconds()
+      var st_y = st.getFullYear()
+      var end_y = end.getFullYear()
+      var full_y = end_y - st_y - 1
+      var st_a_m = 12 - (st.getMonth() + 1)
+      var st_d_m = new Date()
+      st_d_m.setFullYear(st.getFullYear())
+      st_d_m.setMonth(st.getMonth() + 1)
+      st_d_m.setDate(0)
+      var st_a_d = st_d_m.getDate() - st.getDate()
+      var end_hh = end_t.getHours()
+      var end_mm = end_t.getMinutes()
+      var end_ss = end_t.getSeconds()
+      var end_a_m = end.getMonth()
+      var end_a_d = end.getDate() - 1
+      var t_m = st_a_m + end_a_m
+      var t_d = st_a_d + end_a_d
+      var t_hh = st_hh + end_hh
+      var t_mm = st_mm + end_mm
+      var t_ss = st_ss + end_ss
+      if (t_ss >= 60) {
+        var ssu = (t_ss - (t_ss % 60)) / 60
+        t_mm += ssu
+        t_ss -= ssu * 60
+      }
+      if (t_mm >= 60) {
+        var mmu = (t_mm - (t_mm % 60)) / 60
+        t_hh += mmu
+        t_mm -= mmu * 60
+      }
+      if (t_hh >= 24) {
+        var hhu = (t_hh - (t_hh % 24)) / 24
+        t_d += hhu
+        t_hh -= hhu * 24
+      }
+      if (t_d >= 30) {
+        var du = (t_d - (t_d % 30)) / 30
+        t_m += du
+        t_d -= du * 30
+      }
+      if (t_m >= 12) {
+        var mu = (t_m - (t_m % 12)) / 12
+        full_y += mu
+        t_m -= mu * 12
+      }
+      return [full_y, t_m, t_d, t_hh, t_mm, t_ss]
+    }
+
+    var gy = dt(start, end)
     if (mode === 0) {
-      if (week > 0) {
-        return week + 'w'
+      if (gy[0] > 0) {
+        return gy[0] + 'y'
       }
-      if (week_e > 0) {
-        return week_e + 'd'
+      if (gy[1] > 0) {
+        return gy[1] + 'm'
       }
-      if (day_e > 0) {
-        return day_e + 'h'
+      if (gy[2] > 0) {
+        return gy[2] + 'd'
       }
-      if (hour_e > 0) {
-        return hour_e + 'm'
+      if (gy[3] > 0) {
+        return gy[3] + 'h'
       }
-      if (minute_e > 0) {
-        return minute_e + 's'
+      if (gy[4] > 0) {
+        return gy[4] + 'm'
       }
-      if (sec_e > 0) {
-        return sec_e + 'ms'
+      if (gy[5] > 0) {
+        return gy[5] + 's'
       }
       return '--'
     }
     if (mode === 1) {
       var return_arr = []
-      if (week > 0) {
-        return_arr.push(week + 'week')
+      if (gy[0] > 0) {
+        return_arr.push(gy[0] + 'year')
       }
-      if (week_e > 0) {
-        return_arr.push(week_e + 'day')
+      if (gy[1] > 0) {
+        return_arr.push(gy[1] + 'month')
       }
-      if (day_e > 0) {
-        return_arr.push(day_e + 'hour')
+      if (gy[2] > 0) {
+        return_arr.push(gy[2] + 'day')
       }
-      if (hour_e > 0) {
-        return_arr.push(hour_e + 'minute')
+      if (gy[3] > 0) {
+        return_arr.push(gy[3] + 'hour')
       }
-      if (minute_e > 0) {
-        return_arr.push(minute_e + 'sec')
+      if (gy[4] > 0) {
+        return_arr.push(gy[4] + 'minute')
       }
-      if (sec_e > 0) {
-        return_arr.push(sec_e + 'ms')
+      if (gy[5] > 0) {
+        return_arr.push(gy[5] + 'sec')
       }
       return return_arr
     }
@@ -1210,30 +1267,38 @@
       }
       var string_arr = []
       var return_arr = []
-      var p_week, p_week_e, p_day_e, p_hour_e, p_minute_e
-      if (week > 0) {
-        string_arr.push(week)
-        string_arr.push('w')
+      var p_ym_e, p_day_e, p_hour_e, p_minute_e
+      if (gy[0] > 0) {
+        string_arr.push(gy[0])
+        string_arr.push('y')
       }
-      if (week_e > 0) {
-        string_arr.push(week_e)
+
+      if (gy[1] > 0) {
+        string_arr.push(gy[1])
+        string_arr.push('m')
+        p_ym_e = 1
+      }
+
+      if (gy[2] > 0) {
+        string_arr.push(gy[2])
         string_arr.push('d')
-        p_week_e = 1
+        p_ym_e = 1
       }
-      if (day_e > 0) {
-        string_arr.push(padding(day_e))
+
+      if (gy[3] > 0) {
+        string_arr.push(padding(gy[3]))
         string_arr.push('h')
-        p_day_e = 1
+        p_ym_e = 1
       }
       else {
-        if (p_week_e === 1) {
+        if (p_ym_e === 1) {
           string_arr.push('00')
           string_arr.push('h')
           p_day_e = 1
         }
       }
-      if (hour_e > 0) {
-        string_arr.push(padding(hour_e))
+      if (gy[4] > 0) {
+        string_arr.push(padding(gy[4]))
         string_arr.push('m')
         p_hour_e = 1
       }
@@ -1245,8 +1310,8 @@
         }
       }
 
-      if (minute_e > 0) {
-        string_arr.push(padding(minute_e))
+      if (gy[5] > 0) {
+        string_arr.push(padding(gy[5]))
         string_arr.push('s')
         p_minute_e = 1
       }
@@ -1259,7 +1324,7 @@
       }
 
       /*
-      if (sec_e > 0) {
+      if (gy[5] > 0) {
         return_arr.push(sec_e + 'ms')
         string_arr.push(sec_e)
       }
@@ -1284,8 +1349,8 @@
       for (var r = 0; r < string_len; r++) {
         var this_str = string_arr_str.substring(r, r + 1)
         var num = 0
-        if (this_str === 'w' || this_str === 'd' || this_str === 'h' || this_str === 'm' || this_str === 's') {
-          if (this_str === 'w') {
+        if (this_str === 'y' || this_str === 'd' || this_str === 'h' || this_str === 'm' || this_str === 's') {
+          if (this_str === 'y') {
             num = 10
           }
           if (this_str === 'd') {
