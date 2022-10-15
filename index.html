@@ -841,7 +841,7 @@
   <canvas id="countdown-photo"></canvas>
   <input type="file" id="importcountdowndatainput" name="importcountdowndatainput" accept="application/json">
   <div class="title">
-    Countdown
+    <span id="content_box_title_text">Countdown</span>
     <div class="options_btn" r-click="openoptions(0)" loading="1">
       <svg stroke-miterlimit="10"
         style="fill-rule:nonzero;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;" version="1.1"
@@ -1124,9 +1124,6 @@
   }
   function print_countdown(k) {
     var content_box = '.content_box'
-    if (k === 1) {
-      content_box = '.trash_content_box'
-    }
     var now_time = new Date().getTime()
     var list_all = searchItemsbyname('countdown_x_')
     var list_unfinished = []
@@ -1197,6 +1194,16 @@
   }
   function refresh_countdown() {
     $('.content_box').html('')
+    print_countdown(0)
+  }
+  function opentrashcan() {
+    $('.content_box').html('')
+    $('#content_box_title_text').text('Trash Can')
+    print_countdown(1)
+  }
+  function closetrashcan() {
+    $('.content_box').html('')
+    $('#content_box_title_text').text('Countdown')
     print_countdown(0)
   }
   function check_i(i) {
