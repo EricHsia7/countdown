@@ -28,6 +28,7 @@
       --d-333333: #333333;
       --d-fafafa: #fafafa;
       --d-f4f4f4: #f4f4f4;
+      --d-888888: #888888;
       --e-skeleton-screen-light-color: #f2f2f2;
     }
 
@@ -38,6 +39,7 @@
         --d-333333: #ffffff;
         --d-fafafa: #141414;
         --d-f4f4f4: #1a1a1a;
+        --d-888888: #888888;
         --e-skeleton-screen-light-color: #262626;
       }
     }
@@ -193,6 +195,10 @@
       -webkit-user-select: none;
       user-select: none;
       overflow: hidden;
+    }
+
+    .countdown_box[trash="true"] .countdown_box_count {
+      font-style: italic;
     }
 
     .countdown_box_title {
@@ -809,7 +815,7 @@
       text-decoration-line: line-through;
       text-decoration-color: var(--d-333333);
       font-style: italic;
-      color: var(--d-e3e3e3)
+      color: var(--d-888888);
     }
 
     canvas#countdown-photo {
@@ -1540,7 +1546,11 @@
           this_h.text(tday(nowtime, time_date, 0))
         }
         else {
-          this_h.text('Finish')
+          var finish_text = 'Finish'
+          if (this_h.attr('trash') === 'true') {
+            finish_text = 'Due'
+          }
+          this_h.text(finish_text)
           this_h.attr('f', '1')
         }
       }
