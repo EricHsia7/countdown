@@ -670,7 +670,7 @@
       border: none;
     }
 
-    input[type="checkbox"] {
+    input[type="checkbox"].checkbox {
       -webkit-appearance: none;
       appearance: none;
       width: 20px;
@@ -688,11 +688,11 @@
       -webkit-user-select: none;
     }
 
-    input[type="checkbox"]:checked {
+    input[type="checkbox"].checkbox:checked {
       background: var(--d-333333);
     }
 
-    input[type="checkbox"]::after {
+    input[type="checkbox"].checkbox::after {
       content: '';
       position: absolute;
       top: 3px;
@@ -703,7 +703,7 @@
       clip-path: path('M3.33333 8.66667L2.66667 8L0 5.33333L0.666667 4.66667L3.33333 7.33333L9.33333 1.33333L10 2L4 8L3.33333 8.66667Z')
     }
 
-    input[type="checkbox"]:checked::after {
+    input[type="checkbox"].checkbox:checked::after {
       background: var(--d-fafafa);
     }
 
@@ -911,6 +911,64 @@
     .options_content_box li.options_list .options_list_icon svg {
       width: 25px;
       height: 25px;
+    }
+
+    .switch {
+      position: absolute;
+      right: 32px;
+      top: 10px;
+      -webkit-user-select: none;
+      user-select: none;
+    }
+
+    .switch input[type="checkbox"] {
+      height: 25px;
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
+      border: none;
+      background: rgba(0, 0, 0, 0);
+      transform: translateX(1px);
+      -webkit-user-select: none;
+      user-select: none;
+    }
+
+    .switch input[type="checkbox"]::before {
+      content: '';
+      background: var(--d-switch-a);
+      width: 40px;
+      height: 25px;
+      position: absolute;
+      top: 0;
+      left: -1px;
+      border-radius: 99em;
+      transition: .3s
+    }
+
+    .switch input[type="checkbox"]:checked::before {
+      background: var(--d-switch-c)
+    }
+
+    .switch input[type="checkbox"]::after {
+      content: '';
+      background: var(--d-switch-b);
+      width: 22px;
+      height: 22px;
+      position: absolute;
+      top: 1.5px;
+      left: .5px;
+      border-radius: 99em;
+      transition: .3s
+    }
+
+    .switch input[type="checkbox"]:checked::after {
+      content: '';
+      background: var(--d-switch-b);
+      width: 22px;
+      height: 22px;
+      position: absolute;
+      top: 1.5px;
+      left: 15.5px
     }
 
     @media only screen and (max-width: 600px) {
@@ -1275,7 +1333,7 @@
       if (k === 1) {
         trash = true
       }
-      $(content_box).append('<div class="countdown_box" id="' + this_id + '" r-click="opencountdown(' + "'" + this_list.id + "'" + ')" trash="' + trash + '"><div class="countdown_box_select"><label for="checkbox-' + this_list.id + '"><input type="checkbox" countdown-id="' + this_list.id + '" name="checkbox-' + this_list.id + '" id="checkbox-' + this_list.id + '"></label></div><div class="countdown_box_count" t="' + this_date + '"></div><div class="countdown_box_title">' + this_title + '</div><div class="countdown_box_description">' + this_description + '</div></div>')
+      $(content_box).append('<div class="countdown_box" id="' + this_id + '" r-click="opencountdown(' + "'" + this_list.id + "'" + ')" trash="' + trash + '"><div class="countdown_box_select"><label for="checkbox-' + this_list.id + '"><input type="checkbox" countdown-id="' + this_list.id + '" name="checkbox-' + this_list.id + '" id="checkbox-' + this_list.id + '" class="checkbox"></label></div><div class="countdown_box_count" t="' + this_date + '"></div><div class="countdown_box_title">' + this_title + '</div><div class="countdown_box_description">' + this_description + '</div></div>')
       rclick('#' + this_id)
     }
     $(content_box + ' .loading').remove()
@@ -1810,17 +1868,17 @@
     $('.content_box').attr('edit', '0')
     $('.cancel_btn,.delete_btn').css({ 'display': 'none' })
     $('.options_btn,.search_btn').css({ 'display': 'flex' })
-    var checkbox_len = $('.content_box input[type="checkbox"]').length
+    var checkbox_len = $('.content_box input[type="checkbox"].checkbox').length
     for (var g = 0; g < checkbox_len; g++) {
-      $('.content_box input[type="checkbox"]').eq(g).prop('checked', false)
+      $('.content_box input[type="checkbox"].checkbox').eq(g).prop('checked', false)
     }
   }
   function deleteselected() {
-    var checkbox_len = $('.content_box input[type="checkbox"]').length
+    var checkbox_len = $('.content_box input[type="checkbox"].checkbox').length
     var deleted_len = 0
     var nowtime = new Date().getTime()
     for (var g = 0; g < checkbox_len; g++) {
-      var this_checkbox = $('.content_box input[type="checkbox"]').eq(g)
+      var this_checkbox = $('.content_box input[type="checkbox"].checkbox').eq(g)
       if (this_checkbox.prop('checked')) {
         deleted_len += 1
         var this_countdown_id = this_checkbox.attr('countdown-id')
