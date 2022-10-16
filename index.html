@@ -29,6 +29,9 @@
       --d-fafafa: #fafafa;
       --d-f4f4f4: #f4f4f4;
       --d-888888: #888888;
+      --d-e3e3e3-r: 227;
+      --d-e3e3e3-g: 227;
+      --d-e3e3e3-b: 227;
       --e-skeleton-screen-light-color: #f2f2f2;
     }
 
@@ -40,6 +43,9 @@
         --d-fafafa: #141414;
         --d-f4f4f4: #1a1a1a;
         --d-888888: #888888;
+        --d-e3e3e3-r: 26;
+        --d-e3e3e3-g: 26;
+        --d-e3e3e3-b: 26;
         --e-skeleton-screen-light-color: #262626;
       }
     }
@@ -400,19 +406,20 @@
     }
 
     .prompt {
-      width: clamp(180px, calc(100% - 40px), 450px);
+      width: clamp(180px, calc(100% - 20px), 450px);
       height: 60px;
-      border-radius: 15px;
+      border-radius: 10px;
       position: fixed;
       left: 50%;
       bottom: 0px;
       opacity: 0;
       transform: translateX(-50%) translateY(0px) scale(0.75);
-      background: var(--d-e3e3e3);
-      box-shadow: 0 0 15px 2px rgba(0, 0, 0, 0.08);
+      background: rgba(var(--d-e3e3e3-r), var(--d-e3e3e3-g), var(--d-e3e3e3-b), 0.6);
       will-change: transform, opacity;
       -webkit-user-select: none;
       user-select: none;
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
     }
 
     .back_btn,
@@ -1075,7 +1082,8 @@
           promptid += promptchars.substring(randomNumber, randomNumber + 1);
         }
         var translateY = -1 * (20)
-        $(this).append('<style qix="promptanimation' + promptid + '" promptanimation="promptanimation">.promptanimation' + promptid + '{animation-name:prompt' + promptid + ';animation-duration:' + (settings.time + 300 * 2) + 'ms;animation-fill-mode:forwards;animation-timing-function:ease-in-out}@keyframes prompt' + promptid + '{0%{opacity:0;transform:translateX(-50%) translateY(' + translateY + 'px) scale(0.75);}' + Math.floor((300) / (settings.time + 300 + 150) * 100) + '%{opacity:1;transform:translateX(-50%) translateY(' + translateY + 'px) scale(1);}' + Math.floor((300 + settings.time) / (settings.time + 300 + 150) * 100) + '%{opacity:1;transform:translateX(-50%) translateY(' + translateY + 'px) scale(1);}100%{opacity:0;transform:translateX(-50%) translateY(' + translateY + 'px) scale(1);}}</style><div class="prompt promptanimation' + promptid + '" id="' + promptid + '"><span class="promptcenter">' + settings.message + "</span></div>");
+        var at = 375
+        $(this).append('<style qix="promptanimation' + promptid + '" promptanimation="promptanimation">.promptanimation' + promptid + '{animation-name:prompt' + promptid + ';animation-duration:' + (settings.time + at * 2) + 'ms;animation-fill-mode:forwards;animation-timing-function:ease-in-out}@keyframes prompt' + promptid + '{0%{opacity:0;transform:translateX(-50%) translateY(' + 60 + 'px) scale(1);}' + Math.floor((at) / (settings.time + at + 150) * 100) + '%{opacity:1;transform:translateX(-50%) translateY(' + translateY + 'px) scale(1);}' + Math.floor((at + settings.time) / (settings.time + at + 150) * 100) + '%{opacity:1;transform:translateX(-50%) translateY(' + translateY + 'px) scale(1);}100%{opacity:0;transform:translateX(-50%) translateY(' + 60 + 'px) scale(1);}}</style><div class="prompt promptanimation' + promptid + '" id="' + promptid + '"><span class="promptcenter">' + settings.message + "</span></div>");
 
         setTimeout(function () {
           $("#" + promptid + ',style[qix="promptanimation' + promptid + '"]').remove();
