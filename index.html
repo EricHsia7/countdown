@@ -6,15 +6,12 @@
   <title>Countdown</title>
   <meta name="description" content="Countdown">
   <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=0" />
-  <link href="https://erichsia7.github.io/countdown/pwaicon/512x512.png" sizes="512x512"
-    rel="apple-touch-icon-precomposed" />
+  <link href="https://erichsia7.github.io/countdown/pwaicon/512x512.png" sizes="512x512" rel="apple-touch-icon-precomposed" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="defualt" />
   <link type="image/x-icon" href="https://erichsia7.github.io/countdown/pwaicon/256x256_corner_radius.ico" rel="icon" />
-  <link type="image/x-icon" href="https://erichsia7.github.io/countdown/pwaicon/256x256_corner_radius.ico"
-    rel="bookmark" />
-  <link type="image/x-icon" href="https://erichsia7.github.io/countdown/pwaicon/256x256_corner_radius.ico"
-    rel="shortcut icon" />
+  <link type="image/x-icon" href="https://erichsia7.github.io/countdown/pwaicon/256x256_corner_radius.ico" rel="bookmark" />
+  <link type="image/x-icon" href="https://erichsia7.github.io/countdown/pwaicon/256x256_corner_radius.ico" rel="shortcut icon" />
   <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff" kji="light">
   <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0d0d0d" kji="dark">
   <link rel="manifest" href="https://erichsia7.github.io/countdown/manifest.json">
@@ -65,7 +62,8 @@
     .title,
     .countdown_title,
     .add_countdown_title,
-    .edit_countdown_title {
+    .edit_countdown_title,
+    .options_content_box_title {
       position: fixed;
       top: 0px;
       left: 0px;
@@ -86,7 +84,8 @@
 
     .countdown_title,
     .add_countdown_title,
-    .edit_countdown_title {
+    .edit_countdown_title,
+    .options_content_box_title {
       display: none;
     }
 
@@ -94,7 +93,8 @@
     .countdown_content_box,
     .add_countdown_content_box,
     .edit_countdown_content_box,
-    .search_countdown_content_box {
+    .search_countdown_content_box,
+    .options_content_box {
       position: fixed;
       top: 55px;
       left: 0px;
@@ -109,7 +109,8 @@
     .countdown_content_box,
     .add_countdown_content_box,
     .edit_countdown_content_box,
-    .search_countdown_content_box {
+    .search_countdown_content_box,
+    .options_content_box {
       display: none;
     }
 
@@ -838,6 +839,80 @@
       appearance: none;
     }
 
+    .options_content_box .options_title {
+      color: var(--d-888888);
+      user-select: none;
+      -webkit-user-select: none;
+      word-break: break-all;
+      overflow: hidden;
+      white-space: pre-line;
+      font-weight: 400;
+      font-size: 16px;
+      display: inline-block;
+      width: calc(100% - 20px);
+      position: relative;
+      left: 50%;
+      transform: translateX(-50%);
+      margin-top: 5px;
+      padding: 5px;
+      box-sizing: border-box;
+    }
+
+    .options_content_box li.options_list {
+      list-style: none;
+      display: block;
+      width: calc(100% - 20px);
+      height: 50px;
+      background: var(--d-ffffff);
+      border: 1px solid var(--d-f4f4f4);
+      box-shadow: 0px 0px 12px -8px rgba(0, 0, 0, 0.15);
+      box-sizing: border-box;
+      -webkit-user-select: none;
+      user-select: none;
+      position: relative;
+      margin-top: 10px;
+      border-radius: 15px;
+      overflow: hidden;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .options_content_box li.options_list[b="0"] {
+      margin-top: 0px;
+    }
+
+    .options_content_box li.options_list .options_list_title {
+      position: absolute;
+      top: 5px;
+      left: 10px;
+      width: calc(100% - 15px - 40px);
+      height: calc(100% - 10px);
+      color: var(--d-333333);
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    .options_content_box li.options_list .options_list_icon {
+      position: absolute;
+      top: 5px;
+      right: 5px;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    .options_content_box li.options_list .options_list_icon svg {
+      width: 25px;
+      height: 25px;
+    }
+
     @media only screen and (max-width: 600px) {
       .count {
         width: 25px;
@@ -864,77 +939,45 @@
     <span id="content_box_title_text">Countdown</span>
 
     <div class="trash_back_btn" r-click="closetrashcan()">
-      <svg stroke-miterlimit="10"
-        style="fill-rule:nonzero;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;" version="1.1"
-        viewBox="0 0 64 64" xml:space="preserve" xmlns="http://www.w3.org/2000/svg"
-        xmlns:xlink="http://www.w3.org/1999/xlink">
-        <path d="M32 64L0 32L32 0L36.2 4.2L11.4 29L64 29L64 35L11.4 35L36.2 59.8L32 64Z" fill="var(--d-333333)"
-          fill-rule="evenodd" opacity="1" stroke="none" />
+      <svg stroke-miterlimit="10" style="fill-rule:nonzero;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;" version="1.1" viewBox="0 0 64 64" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <path d="M32 64L0 32L32 0L36.2 4.2L11.4 29L64 29L64 35L11.4 35L36.2 59.8L32 64Z" fill="var(--d-333333)" fill-rule="evenodd" opacity="1" stroke="none" />
       </svg>
     </div>
 
     <div class="options_btn" r-click="openoptions(0)" loading="1">
-      <svg stroke-miterlimit="10"
-        style="fill-rule:nonzero;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;" version="1.1"
-        viewBox="0 0 64 64" xml:space="preserve" xmlns="http://www.w3.org/2000/svg"
-        xmlns:xlink="http://www.w3.org/1999/xlink">
-        <path
-          d="M4.8 36.8C3.46667 36.8 2.33333 36.3333 1.4 35.4C0.466666 34.4667-6.35783e-07 33.3333 7.10543e-15 32C7.10543e-15 30.6667 0.466667 29.5333 1.4 28.6C2.33333 27.6667 3.46667 27.2 4.8 27.2C6.13333 27.2 7.26667 27.6667 8.2 28.6C9.13333 29.5333 9.6 30.6667 9.6 32C9.6 33.3333 9.13333 34.4667 8.2 35.4C7.26667 36.3333 6.13333 36.8 4.8 36.8ZM32 36.8C30.6667 36.8 29.5333 36.3333 28.6 35.4C27.6667 34.4667 27.2 33.3333 27.2 32C27.2 30.6667 27.6667 29.5333 28.6 28.6C29.5333 27.6667 30.6667 27.2 32 27.2C33.3333 27.2 34.4667 27.6667 35.4 28.6C36.3333 29.5333 36.8 30.6667 36.8 32C36.8 33.3333 36.3333 34.4667 35.4 35.4C34.4667 36.3333 33.3333 36.8 32 36.8ZM59.2 36.8C57.8667 36.8 56.7333 36.3333 55.8 35.4C54.8667 34.4667 54.4 33.3333 54.4 32C54.4 30.6667 54.8667 29.5333 55.8 28.6C56.7333 27.6667 57.8667 27.2 59.2 27.2C60.5333 27.2 61.6667 27.6667 62.6 28.6C63.5333 29.5333 64 30.6667 64 32C64 33.3333 63.5333 34.4667 62.6 35.4C61.6667 36.3333 60.5333 36.8 59.2 36.8Z"
-          fill="var(--d-333333)" fill-rule="evenodd" opacity="1" stroke="none" />
+      <svg stroke-miterlimit="10" style="fill-rule:nonzero;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;" version="1.1" viewBox="0 0 64 64" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <path d="M4.8 36.8C3.46667 36.8 2.33333 36.3333 1.4 35.4C0.466666 34.4667-6.35783e-07 33.3333 7.10543e-15 32C7.10543e-15 30.6667 0.466667 29.5333 1.4 28.6C2.33333 27.6667 3.46667 27.2 4.8 27.2C6.13333 27.2 7.26667 27.6667 8.2 28.6C9.13333 29.5333 9.6 30.6667 9.6 32C9.6 33.3333 9.13333 34.4667 8.2 35.4C7.26667 36.3333 6.13333 36.8 4.8 36.8ZM32 36.8C30.6667 36.8 29.5333 36.3333 28.6 35.4C27.6667 34.4667 27.2 33.3333 27.2 32C27.2 30.6667 27.6667 29.5333 28.6 28.6C29.5333 27.6667 30.6667 27.2 32 27.2C33.3333 27.2 34.4667 27.6667 35.4 28.6C36.3333 29.5333 36.8 30.6667 36.8 32C36.8 33.3333 36.3333 34.4667 35.4 35.4C34.4667 36.3333 33.3333 36.8 32 36.8ZM59.2 36.8C57.8667 36.8 56.7333 36.3333 55.8 35.4C54.8667 34.4667 54.4 33.3333 54.4 32C54.4 30.6667 54.8667 29.5333 55.8 28.6C56.7333 27.6667 57.8667 27.2 59.2 27.2C60.5333 27.2 61.6667 27.6667 62.6 28.6C63.5333 29.5333 64 30.6667 64 32C64 33.3333 63.5333 34.4667 62.6 35.4C61.6667 36.3333 60.5333 36.8 59.2 36.8Z" fill="var(--d-333333)" fill-rule="evenodd" opacity="1" stroke="none" />
       </svg>
     </div>
     <div class="search_btn" r-click="opensearchpage()" u="0" loading="1">
-      <svg stroke-miterlimit="10"
-        style="fill-rule:nonzero;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;" version="1.1"
-        viewBox="0 0 64 64" xml:space="preserve" xmlns="http://www.w3.org/2000/svg"
-        xmlns:xlink="http://www.w3.org/1999/xlink" id="svgsearchicon">
-        <path
-          d="M60.0889 64L36.7111 40.6222C34.9333 42.163 32.8593 43.363 30.4889 44.2222C28.1185 45.0815 25.6 45.5111 22.9333 45.5111C16.5333 45.5111 11.1111 43.2889 6.66667 38.8444C2.22222 34.4 1.41285e-06 29.037 8.4771e-07 22.7556C8.4771e-07 16.4741 2.22222 11.1111 6.66667 6.66667C11.1111 2.22222 16.5037 3.55271e-15 22.8444 3.55271e-15C29.1259 3.55271e-15 34.4741 2.22222 38.8889 6.66667C43.3037 11.1111 45.5111 16.4741 45.5111 22.7556C45.5111 25.3037 45.0963 27.763 44.2667 30.1333C43.437 32.5037 42.1926 34.7259 40.5333 36.8L64 60.0889L60.0889 64ZM22.8444 40.1778C27.6444 40.1778 31.7333 38.4741 35.1111 35.0667C38.4889 31.6593 40.1778 27.5556 40.1778 22.7556C40.1778 17.9556 38.4889 13.8519 35.1111 10.4444C31.7333 7.03704 27.6444 5.33333 22.8444 5.33333C17.9852 5.33333 13.8519 7.03704 10.4444 10.4444C7.03704 13.8519 5.33333 17.9556 5.33333 22.7556C5.33333 27.5556 7.03704 31.6593 10.4444 35.0667C13.8519 38.4741 17.9852 40.1778 22.8444 40.1778Z"
-          fill="var(--d-333333)" fill-rule="nonzero" opacity="1" stroke="none" />
+      <svg stroke-miterlimit="10" style="fill-rule:nonzero;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;" version="1.1" viewBox="0 0 64 64" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="svgsearchicon">
+        <path d="M60.0889 64L36.7111 40.6222C34.9333 42.163 32.8593 43.363 30.4889 44.2222C28.1185 45.0815 25.6 45.5111 22.9333 45.5111C16.5333 45.5111 11.1111 43.2889 6.66667 38.8444C2.22222 34.4 1.41285e-06 29.037 8.4771e-07 22.7556C8.4771e-07 16.4741 2.22222 11.1111 6.66667 6.66667C11.1111 2.22222 16.5037 3.55271e-15 22.8444 3.55271e-15C29.1259 3.55271e-15 34.4741 2.22222 38.8889 6.66667C43.3037 11.1111 45.5111 16.4741 45.5111 22.7556C45.5111 25.3037 45.0963 27.763 44.2667 30.1333C43.437 32.5037 42.1926 34.7259 40.5333 36.8L64 60.0889L60.0889 64ZM22.8444 40.1778C27.6444 40.1778 31.7333 38.4741 35.1111 35.0667C38.4889 31.6593 40.1778 27.5556 40.1778 22.7556C40.1778 17.9556 38.4889 13.8519 35.1111 10.4444C31.7333 7.03704 27.6444 5.33333 22.8444 5.33333C17.9852 5.33333 13.8519 7.03704 10.4444 10.4444C7.03704 13.8519 5.33333 17.9556 5.33333 22.7556C5.33333 27.5556 7.03704 31.6593 10.4444 35.0667C13.8519 38.4741 17.9852 40.1778 22.8444 40.1778Z" fill="var(--d-333333)" fill-rule="nonzero" opacity="1" stroke="none" />
       </svg>
 
       <div class="back_btn" r-click="closesearchpage()">
-        <svg stroke-miterlimit="10"
-          style="fill-rule:nonzero;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;" version="1.1"
-          viewBox="0 0 64 64" xml:space="preserve" xmlns="http://www.w3.org/2000/svg"
-          xmlns:xlink="http://www.w3.org/1999/xlink">
-          <path d="M32 64L0 32L32 0L36.2 4.2L11.4 29L64 29L64 35L11.4 35L36.2 59.8L32 64Z" fill="var(--d-333333)"
-            fill-rule="evenodd" opacity="1" stroke="none" />
+        <svg stroke-miterlimit="10" style="fill-rule:nonzero;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;" version="1.1" viewBox="0 0 64 64" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+          <path d="M32 64L0 32L32 0L36.2 4.2L11.4 29L64 29L64 35L11.4 35L36.2 59.8L32 64Z" fill="var(--d-333333)" fill-rule="evenodd" opacity="1" stroke="none" />
         </svg>
       </div>
       <input type="text" id="search_countdown" placeholder="search">
 
     </div>
     <div class="delete_btn" r-click="deleteselected()">
-      <svg stroke-miterlimit="10"
-        style="fill-rule:nonzero;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;" version="1.1"
-        viewBox="0 0 64 64" xml:space="preserve" xmlns="http://www.w3.org/2000/svg"
-        xmlns:xlink="http://www.w3.org/1999/xlink">
-        <path
-          d="M12.5333 64C11.1111 64 9.86667 63.4667 8.8 62.4C7.73333 61.3333 7.2 60.0889 7.2 58.6667L7.2 8L3.55556 8L3.55556 2.66667L20.2667 2.66667L20.2667 7.10543e-15L43.7333 7.10543e-15L43.7333 2.66667L60.4444 2.66667L60.4444 8L56.8 8L56.8 58.6667C56.8 60.0889 56.2667 61.3333 55.2 62.4C54.1333 63.4667 52.8889 64 51.4667 64L12.5333 64ZM51.4667 8L12.5333 8L12.5333 58.6667L51.4667 58.6667L51.4667 8ZM21.9556 51.0222L27.2889 51.0222L27.2889 15.5556L21.9556 15.5556L21.9556 51.0222ZM36.7111 51.0222L42.0444 51.0222L42.0444 15.5556L36.7111 15.5556L36.7111 51.0222ZM12.5333 8L12.5333 58.6667L12.5333 8Z"
-          fill="var(--d-333333)" fill-rule="evenodd" opacity="1" stroke="none" />
+      <svg stroke-miterlimit="10" style="fill-rule:nonzero;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;" version="1.1" viewBox="0 0 64 64" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <path d="M12.5333 64C11.1111 64 9.86667 63.4667 8.8 62.4C7.73333 61.3333 7.2 60.0889 7.2 58.6667L7.2 8L3.55556 8L3.55556 2.66667L20.2667 2.66667L20.2667 7.10543e-15L43.7333 7.10543e-15L43.7333 2.66667L60.4444 2.66667L60.4444 8L56.8 8L56.8 58.6667C56.8 60.0889 56.2667 61.3333 55.2 62.4C54.1333 63.4667 52.8889 64 51.4667 64L12.5333 64ZM51.4667 8L12.5333 8L12.5333 58.6667L51.4667 58.6667L51.4667 8ZM21.9556 51.0222L27.2889 51.0222L27.2889 15.5556L21.9556 15.5556L21.9556 51.0222ZM36.7111 51.0222L42.0444 51.0222L42.0444 15.5556L36.7111 15.5556L36.7111 51.0222ZM12.5333 8L12.5333 58.6667L12.5333 8Z" fill="var(--d-333333)" fill-rule="evenodd" opacity="1" stroke="none" />
       </svg>
     </div>
     <div class="cancel_btn" r-click="cancelselect()">
-      <svg stroke-miterlimit="10"
-        style="fill-rule:nonzero;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;" version="1.1"
-        viewBox="0 0 64 64" xml:space="preserve" xmlns="http://www.w3.org/2000/svg"
-        xmlns:xlink="http://www.w3.org/1999/xlink">
-        <path
-          d="M4.92308 64L1.67679e-06 59.0769L27.0769 32L2.79465e-06 4.92308L4.92308 1.11786e-06L32 27.0769L59.0769 7.10543e-15L64 4.92308L36.9231 32L64 59.0769L59.0769 64L32 36.9231L4.92308 64Z"
-          fill="var(--d-333333)" fill-rule="evenodd" opacity="1" stroke="none" />
+      <svg stroke-miterlimit="10" style="fill-rule:nonzero;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;" version="1.1" viewBox="0 0 64 64" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <path d="M4.92308 64L1.67679e-06 59.0769L27.0769 32L2.79465e-06 4.92308L4.92308 1.11786e-06L32 27.0769L59.0769 7.10543e-15L64 4.92308L36.9231 32L64 59.0769L59.0769 64L32 36.9231L4.92308 64Z" fill="var(--d-333333)" fill-rule="evenodd" opacity="1" stroke="none" />
       </svg>
     </div>
 
   </div>
   <div class="content_box"></div>
   <div class="addcountdown" r-click="openaddcountdown()" loading="1">
-    <svg stroke-miterlimit="10" style="fill-rule:nonzero;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;"
-      version="1.1" viewBox="0 0 64 64" xml:space="preserve" xmlns="http://www.w3.org/2000/svg"
-      xmlns:xlink="http://www.w3.org/1999/xlink">
-      <path
-        d="M28.5714 64L28.5714 35.4286L0 35.4286L0 28.5714L28.5714 28.5714L28.5714 0L35.4286 0L35.4286 28.5714L64 28.5714L64 35.4286L35.4286 35.4286L35.4286 64L28.5714 64Z"
-        fill="var(--d-333333)" fill-rule="evenodd" opacity="1" stroke="none" />
+    <svg stroke-miterlimit="10" style="fill-rule:nonzero;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;" version="1.1" viewBox="0 0 64 64" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+      <path d="M28.5714 64L28.5714 35.4286L0 35.4286L0 28.5714L28.5714 28.5714L28.5714 0L35.4286 0L35.4286 28.5714L64 28.5714L64 35.4286L35.4286 35.4286L35.4286 64L28.5714 64Z" fill="var(--d-333333)" fill-rule="evenodd" opacity="1" stroke="none" />
     </svg>
   </div>
 
@@ -945,24 +988,15 @@
 
   <div class="countdown_title">
     <div class="back_btn" r-click="closecountdown()">
-      <svg stroke-miterlimit="10"
-        style="fill-rule:nonzero;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;" version="1.1"
-        viewBox="0 0 64 64" xml:space="preserve" xmlns="http://www.w3.org/2000/svg"
-        xmlns:xlink="http://www.w3.org/1999/xlink">
-        <path d="M32 64L0 32L32 0L36.2 4.2L11.4 29L64 29L64 35L11.4 35L36.2 59.8L32 64Z" fill="var(--d-333333)"
-          fill-rule="evenodd" opacity="1" stroke="none" />
+      <svg stroke-miterlimit="10" style="fill-rule:nonzero;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;" version="1.1" viewBox="0 0 64 64" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <path d="M32 64L0 32L32 0L36.2 4.2L11.4 29L64 29L64 35L11.4 35L36.2 59.8L32 64Z" fill="var(--d-333333)" fill-rule="evenodd" opacity="1" stroke="none" />
       </svg>
     </div>
     <span id="countdown_title_text"></span>
 
     <div class="options_btn" r-click="openoptions(1)">
-      <svg stroke-miterlimit="10"
-        style="fill-rule:nonzero;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;" version="1.1"
-        viewBox="0 0 64 64" xml:space="preserve" xmlns="http://www.w3.org/2000/svg"
-        xmlns:xlink="http://www.w3.org/1999/xlink">
-        <path
-          d="M4.8 36.8C3.46667 36.8 2.33333 36.3333 1.4 35.4C0.466666 34.4667-6.35783e-07 33.3333 7.10543e-15 32C7.10543e-15 30.6667 0.466667 29.5333 1.4 28.6C2.33333 27.6667 3.46667 27.2 4.8 27.2C6.13333 27.2 7.26667 27.6667 8.2 28.6C9.13333 29.5333 9.6 30.6667 9.6 32C9.6 33.3333 9.13333 34.4667 8.2 35.4C7.26667 36.3333 6.13333 36.8 4.8 36.8ZM32 36.8C30.6667 36.8 29.5333 36.3333 28.6 35.4C27.6667 34.4667 27.2 33.3333 27.2 32C27.2 30.6667 27.6667 29.5333 28.6 28.6C29.5333 27.6667 30.6667 27.2 32 27.2C33.3333 27.2 34.4667 27.6667 35.4 28.6C36.3333 29.5333 36.8 30.6667 36.8 32C36.8 33.3333 36.3333 34.4667 35.4 35.4C34.4667 36.3333 33.3333 36.8 32 36.8ZM59.2 36.8C57.8667 36.8 56.7333 36.3333 55.8 35.4C54.8667 34.4667 54.4 33.3333 54.4 32C54.4 30.6667 54.8667 29.5333 55.8 28.6C56.7333 27.6667 57.8667 27.2 59.2 27.2C60.5333 27.2 61.6667 27.6667 62.6 28.6C63.5333 29.5333 64 30.6667 64 32C64 33.3333 63.5333 34.4667 62.6 35.4C61.6667 36.3333 60.5333 36.8 59.2 36.8Z"
-          fill="var(--d-333333)" fill-rule="evenodd" opacity="1" stroke="none" />
+      <svg stroke-miterlimit="10" style="fill-rule:nonzero;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;" version="1.1" viewBox="0 0 64 64" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <path d="M4.8 36.8C3.46667 36.8 2.33333 36.3333 1.4 35.4C0.466666 34.4667-6.35783e-07 33.3333 7.10543e-15 32C7.10543e-15 30.6667 0.466667 29.5333 1.4 28.6C2.33333 27.6667 3.46667 27.2 4.8 27.2C6.13333 27.2 7.26667 27.6667 8.2 28.6C9.13333 29.5333 9.6 30.6667 9.6 32C9.6 33.3333 9.13333 34.4667 8.2 35.4C7.26667 36.3333 6.13333 36.8 4.8 36.8ZM32 36.8C30.6667 36.8 29.5333 36.3333 28.6 35.4C27.6667 34.4667 27.2 33.3333 27.2 32C27.2 30.6667 27.6667 29.5333 28.6 28.6C29.5333 27.6667 30.6667 27.2 32 27.2C33.3333 27.2 34.4667 27.6667 35.4 28.6C36.3333 29.5333 36.8 30.6667 36.8 32C36.8 33.3333 36.3333 34.4667 35.4 35.4C34.4667 36.3333 33.3333 36.8 32 36.8ZM59.2 36.8C57.8667 36.8 56.7333 36.3333 55.8 35.4C54.8667 34.4667 54.4 33.3333 54.4 32C54.4 30.6667 54.8667 29.5333 55.8 28.6C56.7333 27.6667 57.8667 27.2 59.2 27.2C60.5333 27.2 61.6667 27.6667 62.6 28.6C63.5333 29.5333 64 30.6667 64 32C64 33.3333 63.5333 34.4667 62.6 35.4C61.6667 36.3333 60.5333 36.8 59.2 36.8Z" fill="var(--d-333333)" fill-rule="evenodd" opacity="1" stroke="none" />
       </svg>
     </div>
 
@@ -979,12 +1013,8 @@
   </div>
   <div class="add_countdown_title">
     <div class="back_btn" r-click="closeaddcountdown()">
-      <svg stroke-miterlimit="10"
-        style="fill-rule:nonzero;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;" version="1.1"
-        viewBox="0 0 64 64" xml:space="preserve" xmlns="http://www.w3.org/2000/svg"
-        xmlns:xlink="http://www.w3.org/1999/xlink">
-        <path d="M32 64L0 32L32 0L36.2 4.2L11.4 29L64 29L64 35L11.4 35L36.2 59.8L32 64Z" fill="var(--d-333333)"
-          fill-rule="evenodd" opacity="1" stroke="none" />
+      <svg stroke-miterlimit="10" style="fill-rule:nonzero;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;" version="1.1" viewBox="0 0 64 64" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <path d="M32 64L0 32L32 0L36.2 4.2L11.4 29L64 29L64 35L11.4 35L36.2 59.8L32 64Z" fill="var(--d-333333)" fill-rule="evenodd" opacity="1" stroke="none" />
       </svg>
     </div>
     <span id="add_countdown_title_text">Add Countdown</span>
@@ -1009,12 +1039,8 @@
 
   <div class="edit_countdown_title">
     <div class="back_btn" r-click="closeeditcountdown()" id="edit_back_btn">
-      <svg stroke-miterlimit="10"
-        style="fill-rule:nonzero;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;" version="1.1"
-        viewBox="0 0 64 64" xml:space="preserve" xmlns="http://www.w3.org/2000/svg"
-        xmlns:xlink="http://www.w3.org/1999/xlink">
-        <path d="M32 64L0 32L32 0L36.2 4.2L11.4 29L64 29L64 35L11.4 35L36.2 59.8L32 64Z" fill="var(--d-333333)"
-          fill-rule="evenodd" opacity="1" stroke="none" />
+      <svg stroke-miterlimit="10" style="fill-rule:nonzero;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;" version="1.1" viewBox="0 0 64 64" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <path d="M32 64L0 32L32 0L36.2 4.2L11.4 29L64 29L64 35L11.4 35L36.2 59.8L32 64Z" fill="var(--d-333333)" fill-rule="evenodd" opacity="1" stroke="none" />
       </svg>
     </div>
     <span id="edit_countdown_title_text">Edit Countdown</span>
@@ -1037,12 +1063,40 @@
     <div class="edit_countdown_btn" r-click="savecountdown()">Save</div>
   </div>
 
+  <div class="options_content_box_title">
+    <div class="back_btn" r-click="closeoptionscontentbox()" id="options_content_box_back_btn">
+      <svg stroke-miterlimit="10" style="fill-rule:nonzero;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;" version="1.1" viewBox="0 0 64 64" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <path d="M32 64L0 32L32 0L36.2 4.2L11.4 29L64 29L64 35L11.4 35L36.2 59.8L32 64Z" fill="var(--d-333333)" fill-rule="evenodd" opacity="1" stroke="none" />
+      </svg>
+    </div>
+    <span id="options_content_box_title">Options</span>
+  </div>
+  <div class="options_content_box">
+    <div class="options_title">Options</div>
+    <li class="options_list" b="0">
+      <div class="options_list_title">Auto delete finish countdown</div>
+      <div class="options_list_icon"></div>
+    </li>
+
+    <div class="options_title">Data</div>
+    <li class="options_list" s="1" r-click="opentrashcan()" b="0">
+      <div class="options_list_title">Trash Can</div>
+      <div class="options_list_icon"></div>
+    </li>
+    <li class="options_list" s="1" r-click="downloadCountdownDataFile()">
+      <div class="options_list_title">Export data</div>
+      <div class="options_list_icon"></div>
+    </li>
+    <li class="options_list" s="1" r-click="importCountdownData()">
+      <div class="options_list_title">Import data</div>
+      <div class="options_list_icon"></div>
+    </li>
+  </div>
+
   <div class="options_mask" r-click="closeoptions()"></div>
   <div class="options">
     <li r-click="editcountdown()" y="edit" group="0" b="0">Edit</li>
-    <li r-click="opentrashcan()" y="opentrashcan" group="0">Trash Can</li>
-    <li r-click="downloadCountdownDataFile()" y="export" group="0">Export data</li>
-    <li r-click="importCountdownData()" y="import" group="0">Import data</li>
+    <li r-click="openoptionscontentbox()" y="openoptionscontentbox" group="0">Options</li>
     <li r-click="refreshpage()" y="refresh" group="0">Refresh</li>
     <li r-click="viewongithub()" y="github" group="0">Github</li>
     <li r-click="editcountdown_detail()" y="edit2" group="1" b="0">Edit</li>
@@ -1241,7 +1295,7 @@
     $('.trash_back_btn').css({ 'display': 'flex' })
     $('.title .options_btn').attr('r-click', 'openoptions(2)')
     print_countdown(1)
-    closeoptions()
+    closeoptionscontentbox()
   }
   function closetrashcan() {
     $('.content_box').html('')
@@ -1250,6 +1304,7 @@
     $('.trash_back_btn').css({ 'display': 'none' })
     $('.title .options_btn').attr('r-click', 'openoptions(0)')
     print_countdown(0)
+    openoptionscontentbox()
   }
   function cleartrashcan() {
     var list = searchItemsbyname('countdown_x_')
@@ -1736,6 +1791,14 @@
   }
   function closeoptions() {
     $('.options_mask,.options').css({ 'display': 'none' })
+  }
+  function openoptionscontentbox() {
+    $('.options_content_box_title').css({ 'display': 'flex' })
+    $('.options_content_box').css({ 'display': 'block' })
+    closeoptions()
+  }
+  function closeoptionscontentbox() {
+    $('.options_content_box_title,.options_content_box').css({ 'display': 'none' })
   }
   function editcountdown() {
     $('.content_box').attr('edit', '1')
@@ -2374,7 +2437,7 @@
         }
         mes('Data imported.')
         refresh_countdown()
-        closeoptions()
+        closeoptionscontentbox()
       };
     })(f);
     reader.readAsText(f);
@@ -2402,7 +2465,7 @@
       setTimeout(function () {
         countdown_trash_check()
         print_countdown(0)
-        rclick('.addcountdown,.add_countdown_btn,.edit_countdown_btn,.back_btn,.options_btn,.options_mask,.options li,.cancel_btn,.delete_btn,.search_btn,.trash_back_btn')
+        rclick('.addcountdown,.add_countdown_btn,.edit_countdown_btn,.back_btn,.options_btn,.options_mask,.options li,.cancel_btn,.delete_btn,.search_btn,.trash_back_btn,.options_content_box li.options_list[s="1"]')
         $('.search_btn,.options_btn,.addcountdown').attr('loading', '0')
         window.requestAnimationFrame(countdown_update);
       }, 1500)
