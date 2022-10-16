@@ -877,11 +877,15 @@
       transform: translateX(-50%);
     }
 
+    .options_content_box li.options_list[b="0"] {
+      margin-top: 0px;
+    }
+
     .options_content_box li.options_list .options_list_title {
       position: absolute;
       top: 5px;
-      left: 5px;
-      width: calc(100% - 10px - 40px);
+      left: 10px;
+      width: calc(100% - 15px - 40px);
       height: calc(100% - 10px);
       color: var(--d-333333);
       font-size: 16px;
@@ -1069,13 +1073,13 @@
   </div>
   <div class="options_content_box">
     <div class="options_title">Options</div>
-    <li class="options_list">
+    <li class="options_list" b="0">
       <div class="options_list_title">Auto delete finish countdown</div>
       <div class="options_list_icon"></div>
     </li>
 
     <div class="options_title">Data</div>
-    <li class="options_list" s="1" r-click="opentrashcan()">
+    <li class="options_list" s="1" r-click="opentrashcan()" b="0">
       <div class="options_list_title">Trash Can</div>
       <div class="options_list_icon"></div>
     </li>
