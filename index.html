@@ -1303,6 +1303,7 @@
     $('.trash_back_btn').css({ 'display': 'none' })
     $('.title .options_btn').attr('r-click', 'openoptions(0)')
     print_countdown(0)
+    openoptionscontentbox()
   }
   function cleartrashcan() {
     var list = searchItemsbyname('countdown_x_')
@@ -2435,7 +2436,7 @@
         }
         mes('Data imported.')
         refresh_countdown()
-        closeoptions()
+        closeoptionscontentbox()
       };
     })(f);
     reader.readAsText(f);
