@@ -1061,6 +1061,7 @@
   <div class="options_mask" r-click="closeoptions()"></div>
   <div class="options">
     <li r-click="editcountdown()" y="edit" group="0" b="0">Edit</li>
+    <li r-click="openoptionscontentbox()" y="openoptionscontentbox" group="0">Options</li>
     <li r-click="opentrashcan()" y="opentrashcan" group="0">Trash Can</li>
     <li r-click="downloadCountdownDataFile()" y="export" group="0">Export data</li>
     <li r-click="importCountdownData()" y="import" group="0">Import data</li>
@@ -1094,15 +1095,15 @@
 
     <div class="options_title">Data</div>
     <li class="options_list">
-      <div class="options_list_title">Trash Can</div>
+      <div class="options_list_title" r-click="opentrashcan()">Trash Can</div>
       <div class="options_list_icon"></div>
     </li>
     <li class="options_list">
-      <div class="options_list_title">Export data</div>
+      <div class="options_list_title" r-click="downloadCountdownDataFile()">Export data</div>
       <div class="options_list_icon"></div>
     </li>
     <li class="options_list">
-      <div class="options_list_title">Import data</div>
+      <div class="options_list_title" r-click="importCountdownData()">Import data</div>
       <div class="options_list_icon"></div>
     </li>
   </div>
@@ -1787,6 +1788,14 @@
   }
   function closeoptions() {
     $('.options_mask,.options').css({ 'display': 'none' })
+  }
+  function openoptionscontentbox() {
+    $('.options_content_box_title').css({ 'display': 'flex' })
+    $('.options_content_box').css({ 'display': 'block' })
+    closeoptions()
+  }
+  function closeoptionscontentbox() {
+    $('.options_content_box_title,.options_content_box').css({ 'display': 'none' })
   }
   function editcountdown() {
     $('.content_box').attr('edit', '1')
