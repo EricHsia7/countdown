@@ -1059,28 +1059,8 @@
     <div class="edit_countdown_btn" r-click="savecountdown()">Save</div>
   </div>
 
-  <div class="options_mask" r-click="closeoptions()"></div>
-  <div class="options">
-    <li r-click="editcountdown()" y="edit" group="0" b="0">Edit</li>
-    <li r-click="openoptionscontentbox()" y="openoptionscontentbox" group="0">Options</li>
-    <li r-click="opentrashcan()" y="opentrashcan" group="0">Trash Can</li>
-    <li r-click="downloadCountdownDataFile()" y="export" group="0">Export data</li>
-    <li r-click="importCountdownData()" y="import" group="0">Import data</li>
-    <li r-click="refreshpage()" y="refresh" group="0">Refresh</li>
-    <li r-click="viewongithub()" y="github" group="0">Github</li>
-    <li r-click="editcountdown_detail()" y="edit2" group="1" b="0">Edit</li>
-    <li r-click="sharecountdown()" y="share" group="1">Share as link</li>
-    <li r-click="shareCountdownPhoto()" y="shcountdownphoto" group="1">Share as photo</li>
-    <li r-click="addToCalendar()" y="addtocalendar" group="1">Add to Calendar</li>
-    <li r-click="deletecountdown()" y="delete" group="1">Delete</li>
-    <li r-click="cleartrashcan()" y="cleartrashcan" group="2" b="0">Clear</li>
-    <li r-click="revertdeleteintrash()" y="revertdeleteintrash" group="2">Revert delete</li>
-    <li r-click="revertdeletecountdown()" y="revertdelete" group="3" b="0">Revert delete</li>
-    <li r-click="deletecountdownforever()" y="deleteforever" group="3">Delete forever</li>
-  </div>
-
   <div class="options_content_box_title">
-    <div class="back_btn" r-click="closeeditcountdown()" id="options_content_box_back_btn">
+    <div class="back_btn" r-click="closeoptionscontentbox()" id="options_content_box_back_btn">
       <svg stroke-miterlimit="10" style="fill-rule:nonzero;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;" version="1.1" viewBox="0 0 64 64" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
         <path d="M32 64L0 32L32 0L36.2 4.2L11.4 29L64 29L64 35L11.4 35L36.2 59.8L32 64Z" fill="var(--d-333333)" fill-rule="evenodd" opacity="1" stroke="none" />
       </svg>
@@ -1107,6 +1087,26 @@
       <div class="options_list_title" r-click="importCountdownData()">Import data</div>
       <div class="options_list_icon"></div>
     </li>
+  </div>
+
+  <div class="options_mask" r-click="closeoptions()"></div>
+  <div class="options">
+    <li r-click="editcountdown()" y="edit" group="0" b="0">Edit</li>
+    <li r-click="openoptionscontentbox()" y="openoptionscontentbox" group="0">Options</li>
+    <li r-click="opentrashcan()" y="opentrashcan" group="0">Trash Can</li>
+    <li r-click="downloadCountdownDataFile()" y="export" group="0">Export data</li>
+    <li r-click="importCountdownData()" y="import" group="0">Import data</li>
+    <li r-click="refreshpage()" y="refresh" group="0">Refresh</li>
+    <li r-click="viewongithub()" y="github" group="0">Github</li>
+    <li r-click="editcountdown_detail()" y="edit2" group="1" b="0">Edit</li>
+    <li r-click="sharecountdown()" y="share" group="1">Share as link</li>
+    <li r-click="shareCountdownPhoto()" y="shcountdownphoto" group="1">Share as photo</li>
+    <li r-click="addToCalendar()" y="addtocalendar" group="1">Add to Calendar</li>
+    <li r-click="deletecountdown()" y="delete" group="1">Delete</li>
+    <li r-click="cleartrashcan()" y="cleartrashcan" group="2" b="0">Clear</li>
+    <li r-click="revertdeleteintrash()" y="revertdeleteintrash" group="2">Revert delete</li>
+    <li r-click="revertdeletecountdown()" y="revertdelete" group="3" b="0">Revert delete</li>
+    <li r-click="deletecountdownforever()" y="deleteforever" group="3">Delete forever</li>
   </div>
 </body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -1294,7 +1294,7 @@
     $('.trash_back_btn').css({ 'display': 'flex' })
     $('.title .options_btn').attr('r-click', 'openoptions(2)')
     print_countdown(1)
-    closeoptions()
+    closeoptionscontentbox()
   }
   function closetrashcan() {
     $('.content_box').html('')
@@ -2463,7 +2463,7 @@
       setTimeout(function () {
         countdown_trash_check()
         print_countdown(0)
-        rclick('.addcountdown,.add_countdown_btn,.edit_countdown_btn,.back_btn,.options_btn,.options_mask,.options li,.cancel_btn,.delete_btn,.search_btn,.trash_back_btn,.options_content_box .options_list[s="1"]')
+        rclick('.addcountdown,.add_countdown_btn,.edit_countdown_btn,.back_btn,.options_btn,.options_mask,.options li,.cancel_btn,.delete_btn,.search_btn,.trash_back_btn,.options_content_box li.options_list[s="1"]')
         $('.search_btn,.options_btn,.addcountdown').attr('loading', '0')
         window.requestAnimationFrame(countdown_update);
       }, 1500)
