@@ -109,7 +109,8 @@
     .countdown_content_box,
     .add_countdown_content_box,
     .edit_countdown_content_box,
-    .search_countdown_content_box {
+    .search_countdown_content_box,
+    .options_content_box {
       display: none;
     }
 
@@ -1094,15 +1095,15 @@
     </li>
 
     <div class="options_title">Data</div>
-    <li class="options_list">
+    <li class="options_list" s="1">
       <div class="options_list_title" r-click="opentrashcan()">Trash Can</div>
       <div class="options_list_icon"></div>
     </li>
-    <li class="options_list">
+    <li class="options_list" s="1">
       <div class="options_list_title" r-click="downloadCountdownDataFile()">Export data</div>
       <div class="options_list_icon"></div>
     </li>
-    <li class="options_list">
+    <li class="options_list" s="1">
       <div class="options_list_title" r-click="importCountdownData()">Import data</div>
       <div class="options_list_icon"></div>
     </li>
@@ -2462,7 +2463,7 @@
       setTimeout(function () {
         countdown_trash_check()
         print_countdown(0)
-        rclick('.addcountdown,.add_countdown_btn,.edit_countdown_btn,.back_btn,.options_btn,.options_mask,.options li,.cancel_btn,.delete_btn,.search_btn,.trash_back_btn')
+        rclick('.addcountdown,.add_countdown_btn,.edit_countdown_btn,.back_btn,.options_btn,.options_mask,.options li,.cancel_btn,.delete_btn,.search_btn,.trash_back_btn,.options_content_box .options_list[s="1"]')
         $('.search_btn,.options_btn,.addcountdown').attr('loading', '0')
         window.requestAnimationFrame(countdown_update);
       }, 1500)
