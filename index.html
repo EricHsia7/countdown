@@ -62,7 +62,8 @@
     .title,
     .countdown_title,
     .add_countdown_title,
-    .edit_countdown_title {
+    .edit_countdown_title,
+    .options_content_box_title {
       position: fixed;
       top: 0px;
       left: 0px;
@@ -83,7 +84,8 @@
 
     .countdown_title,
     .add_countdown_title,
-    .edit_countdown_title {
+    .edit_countdown_title,
+    .options_content_box_title {
       display: none;
     }
 
@@ -91,7 +93,8 @@
     .countdown_content_box,
     .add_countdown_content_box,
     .edit_countdown_content_box,
-    .search_countdown_content_box {
+    .search_countdown_content_box,
+    .options_content_box {
       position: fixed;
       top: 55px;
       left: 0px;
@@ -833,6 +836,46 @@
       background: transparent;
       -webkit-appearance: none;
       appearance: none;
+    }
+
+    .options_content_box .options_title {
+      color: var(--d-888888);
+      user-select: none;
+      -webkit-user-select: none;
+      word-break: break-all;
+      overflow: hidden;
+      white-space: pre-line;
+      font-weight: 400;
+      font-size: 16px;
+    }
+
+    .options_content_box li.options_list {
+      list-style: none;
+      display: block;
+      width: calc(100% - 20px);
+      height: 50px;
+      background: var(--d-ffffff);
+      border: 1px solid var(--d-f4f4f4);
+      box-shadow: 0px 0px 12px -8px rgba(0, 0, 0, 0.15);
+      box-sizing: border-box;
+      -webkit-user-select: none;
+      user-select: none;
+      position: relative;
+      margin-top: 10px;
+      border-radius: 15px;
+      overflow: hidden;
+    }
+
+    .options_content_box li.options_list .options_list_title {
+      position: absolute;
+      top: 5px;
+      left: 5px;
+      width: calc(100% - 10px);
+      height: calc(100% - 10px);
+      color: var(--d-333333);
+      font-size: 16px;
+      display: flex;
+      align-items: center;
     }
 
     @media only screen and (max-width: 600px) {
