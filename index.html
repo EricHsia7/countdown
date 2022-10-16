@@ -1242,6 +1242,35 @@
     });
     return arr
   }
+  function countdown_auto_delete_finish_check() {
+    var options_name = 'countdown_options_s_auto_delete_finish_countdown'
+    if (!(localStorage.hasOwnProperty(options_name))) {
+      return ''
+    }
+    else {
+      if (!(String(localStorage.getItem(options_name)) === 'true')) {
+        return ''
+      }
+    }
+
+    var list_all = searchItemsbyname('countdown_x_')
+    var list_all_len = list_all.length
+    var nowtime = new Date().getTime()
+    for (var o = 0; o < list_all_len; o++) {
+      var this_list = JSON.parse(String(localStorage.getItem(list_all[o])))
+      if (this_list.hasOwnProperty('trash')) {
+        if (this_list.trash) {
+          continue;
+        }
+        else {
+          if ((this_list.date - nowtime) < 0) {
+            this_list['trash'] = true
+            this_list['trash_time'] = nowtime
+          }
+        }
+      }
+    }
+  }
   function countdown_trash_check() {
     var list_all = searchItemsbyname('countdown_x_')
     var list_all_len = list_all.length
@@ -2552,6 +2581,7 @@
       setTimeout(function () {
         setoptions()
         countdown_trash_check()
+        countdown_auto_delete_finish_check()
         print_countdown(0)
         rclick('.addcountdown,.add_countdown_btn,.edit_countdown_btn,.back_btn,.options_btn,.options_mask,.options li,.cancel_btn,.delete_btn,.search_btn,.trash_back_btn,.options_content_box li.options_list[s="1"]')
         $('.options_content_box .options_list[r="1"] .switch input[type="checkbox"]').click(function () {
