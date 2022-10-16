@@ -1131,7 +1131,7 @@
   </div>
   <div class="options_content_box">
     <div class="options_title">Options</div>
-    <li class="options_list" b="0">
+    <li class="options_list" r="1" b="0">
       <div class="options_list_title">Auto delete finish countdown</div>
       <label for="options_list_auto_delete_finish_countdown" class="switch"><input type="checkbox" id="options_list_auto_delete_finish_countdown" name="options_list_auto_delete_finish_countdown" jg="auto_delete_finish_countdown"></label>
     </li>
@@ -2501,6 +2501,36 @@
     reader.readAsText(f);
   }
 
+  function setoptions() {
+    var options_list = $('.options_content_box .options_list[r="1"] .switch input[type="checkbox"]')
+    var options_list_len = options_list.length
+    for (var w = 0; w < options_list_len; w++) {
+      var this_options = options_list.eq(w)
+      var this_name = this_options.attr('jg')
+      if (!(localStorage.hasOwnProperty('countdown_options_s_' + this_name))) {
+        localStorage.setItem('countdown_options_s_' + this_name, false)
+      }
+
+      var this_status = localStorage.getItem('countdown_options_s_' + this_name)
+      if (this_status === 'true') {
+        this_options.prop('checked', true)
+      }
+    }
+    mes('Options saved.')
+  }
+
+  function saveoptions() {
+    var options_list = $('.options_content_box .options_list[r="1"] .switch input[type="checkbox"]')
+    var options_list_len = options_list.length
+    for (var w = 0; w < options_list_len; w++) {
+      var this_options = options_list.eq(w)
+      var this_name = this_options.attr('jg')
+      var this_status = this_options.prop('checked')
+      localStorage.setItem('countdown_options_s_' + this_name, this_status)
+    }
+    mes('Options saved.')
+  }
+
   function importCountdownData() {
     $('#importcountdowndatainput').click()
   }
@@ -2524,6 +2554,9 @@
         countdown_trash_check()
         print_countdown(0)
         rclick('.addcountdown,.add_countdown_btn,.edit_countdown_btn,.back_btn,.options_btn,.options_mask,.options li,.cancel_btn,.delete_btn,.search_btn,.trash_back_btn,.options_content_box li.options_list[s="1"]')
+        $('.options_content_box .options_list[r="1"] .switch input[type="checkbox"]').click(function () {
+          saveoptions()
+        })
         $('.search_btn,.options_btn,.addcountdown').attr('loading', '0')
         window.requestAnimationFrame(countdown_update);
       }, 1500)
