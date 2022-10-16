@@ -1466,26 +1466,24 @@
       if (gy[4] > 0) {
         string_arr.push(padding(gy[4]))
         string_arr.push('m')
-        p_hour_e = 1
+        p_minute_e = 1
       }
       else {
         if (p_day_e === 1) {
           string_arr.push('00')
           string_arr.push('m')
-          p_hour_e = 1
+          p_minute_e = 1
         }
       }
 
       if (gy[5] > 0) {
         string_arr.push(padding(gy[5]))
         string_arr.push('s')
-        p_minute_e = 1
       }
       else {
-        if (p_hour_e === 1) {
+        if (p_minute_e === 1) {
           string_arr.push('00')
           string_arr.push('s')
-          p_minute_e = 1
         }
       }
 
