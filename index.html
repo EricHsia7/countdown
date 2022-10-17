@@ -1265,7 +1265,7 @@
         else {
           if ((this_list.date - nowtime) < 0) {
             this_list['trash'] = true
-            this_list['trash_time'] = nowtime
+            this_list['trash_date'] = nowtime
             localStorage.setItem(String(list_all[o]), JSON.stringify(this_list))
           }
         }
