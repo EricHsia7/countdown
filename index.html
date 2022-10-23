@@ -654,20 +654,44 @@
 
     .options li {
       width: 100%;
-      padding-left: 10px;
       height: 45px;
       border-top: 1px solid var(--d-e3e3e3);
       box-sizing: border-box;
-      color: var(--d-333333);
-      font-size: 16px;
-      display: flex;
-      align-items: center;
       user-select: none;
       -webkit-user-select: none;
+      position: relative;
     }
 
     .options li[b="0"] {
       border: none;
+    }
+
+    .options li .l_options_title {
+      position: absolute;
+      top: 0px;
+      left: 10px;
+      width: calc(100% - 45px - 10px);
+      height: 100%;
+      display: flex;
+      align-items: center;
+      color: var(--d-333333);
+      font-size: 16px;
+    }
+
+    .options li .l_options_icon {
+      position: absolute;
+      right: 0px;
+      left: 0px;
+      width: 45px;
+      height: 45px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .options li .l_options_icon svg {
+      width: 20px;
+      height: 20px;
     }
 
     input[type="checkbox"].checkbox {
@@ -1165,19 +1189,58 @@
 
   <div class="options_mask" r-click="closeoptions()"></div>
   <div class="options">
-    <li r-click="editcountdown()" y="edit" group="0" b="0">Edit</li>
-    <li r-click="openoptionscontentbox()" y="openoptionscontentbox" group="0">Options</li>
-    <li r-click="refreshpage()" y="refresh" group="0">Refresh</li>
-    <li r-click="viewongithub()" y="github" group="0">Github</li>
-    <li r-click="editcountdown_detail()" y="edit2" group="1" b="0">Edit</li>
-    <li r-click="sharecountdown()" y="share" group="1">Share as link</li>
-    <li r-click="shareCountdownPhoto()" y="shcountdownphoto" group="1">Share as photo</li>
-    <li r-click="addToCalendar()" y="addtocalendar" group="1">Add to Calendar</li>
-    <li r-click="deletecountdown()" y="delete" group="1">Delete</li>
-    <li r-click="cleartrashcan()" y="cleartrashcan" group="2" b="0">Clear</li>
-    <li r-click="revertdeleteintrash()" y="revertdeleteintrash" group="2">Revert delete</li>
-    <li r-click="revertdeletecountdown()" y="revertdelete" group="3" b="0">Revert delete</li>
-    <li r-click="deletecountdownforever()" y="deleteforever" group="3">Delete forever</li>
+    <li r-click="editcountdown()" y="edit" group="0" b="0">
+      <div class="l_options_title">Edit</div>
+      <div class="l_options_icon"></div>
+    </li>
+    <li r-click="openoptionscontentbox()" y="openoptionscontentbox" group="0">
+      <div class="l_options_title">Options</div>
+      <div class="l_options_icon"></div>
+    </li>
+    <li r-click="refreshpage()" y="refresh" group="0">
+      <div class="l_options_title">Refresh</div>
+      <div class="l_options_icon"></div>
+    </li>
+    <li r-click="viewongithub()" y="github" group="0">
+      <div class="l_options_title">Github</div>
+      <div class="l_options_icon"></div>
+    </li>
+    <li r-click="editcountdown_detail()" y="edit2" group="1" b="0">
+      <div class="l_options_title">Edit</div>
+      <div class="l_options_icon"></div>
+    </li>
+    <li r-click="sharecountdown()" y="share" group="1">
+      <div class="l_options_title">Share as link</div>
+      <div class="l_options_icon"></div>
+    </li>
+    <li r-click="shareCountdownPhoto()" y="shcountdownphoto" group="1">
+      <div class="l_options_title">Share as photo</div>
+      <div class="l_options_icon"></div>
+    </li>
+    <li r-click="addToCalendar()" y="addtocalendar" group="1">
+      <div class="l_options_title">Add to Calendar</div>
+      <div class="l_options_icon"></div>
+    </li>
+    <li r-click="deletecountdown()" y="delete" group="1">
+      <div class="l_options_title">Delete</div>
+      <div class="l_options_icon"></div>
+    </li>
+    <li r-click="cleartrashcan()" y="cleartrashcan" group="2" b="0">
+      <div class="l_options_title">Clear</div>
+      <div class="l_options_icon"></div>
+    </li>
+    <li r-click="revertdeleteintrash()" y="revertdeleteintrash" group="2">
+      <div class="l_options_title">Revert delete</div>
+      <div class="l_options_icon"></div>
+    </li>
+    <li r-click="revertdeletecountdown()" y="revertdelete" group="3" b="0">
+      <div class="l_options_title">Revert delete</div>
+      <div class="l_options_icon"></div>
+    </li>
+    <li r-click="deletecountdownforever()" y="deleteforever" group="3">
+      <div class="l_options_title">Delete forever</div>
+      <div class="l_options_icon"></div>
+    </li>
   </div>
 </body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
