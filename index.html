@@ -1992,6 +1992,7 @@
     json.title = json.title + '(Duplicate)'
     localStorage.setItem('countdown_x_' + id, JSON.stringify(json))
     mes('Countdown duplicated.')
+    closeoptions()
     refresh_countdown()
     opencountdown(id)
   }
