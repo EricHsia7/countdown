@@ -2571,7 +2571,9 @@
       }
       var date = parseInt(countdown_json.date)
       var canvas = document.getElementById('countdown-photo')
-      drawCountdownPhoto('#fafafa', '#333', 1024, 1024, title, date, canvas)
+      var bg = getComputedStyle(document.body).getPropertyValue('--d-ffffff')
+      var txt = getComputedStyle(document.body).getPropertyValue('--d-333333')
+      drawCountdownPhoto(bg, txt, 1024, 1024, title, date, canvas)
       canvas.toBlob(blobCallback(randid('countdown')), 'image/png')
     }
   }
