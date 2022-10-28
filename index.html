@@ -1992,6 +1992,8 @@
     json.title = json.title + '(Duplicate)'
     localStorage.setItem('countdown_x_' + id, JSON.stringify(json))
     mes('Countdown duplicated.')
+    refresh_countdown()
+    opencountdown(id)
   }
   function countdown_content_count_update() {
     if (!($('.countdown_content_box_count').attr('f') === '1')) {
