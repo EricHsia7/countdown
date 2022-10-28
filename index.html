@@ -1509,7 +1509,7 @@
     print_countdown(1)
   }
   function opentrashcan() {
-    $('.content_box').html('')
+    $('.content_box').html('').attr('trash', 'true')
     $('#content_box_title_text').text('Trash Can')
     $('.search_btn,.addcountdown').css({ 'display': 'none' })
     $('.trash_back_btn').css({ 'display': 'flex' })
@@ -1518,7 +1518,7 @@
     closeoptionscontentbox()
   }
   function closetrashcan() {
-    $('.content_box').html('')
+    $('.content_box').html('').attr('trash', 'false')
     $('#content_box_title_text').text('Countdown')
     $('.search_btn,.addcountdown').css({ 'display': 'flex' })
     $('.trash_back_btn').css({ 'display': 'none' })
@@ -1562,7 +1562,12 @@
       mes('Delete reverted.')
       closecountdown()
       closeoptions()
-      refresh_trash_can()
+      if ($('.content_box').attr('trash') === 'true') {
+        refresh_trash_can()
+      }
+      else {
+        refresh_countdown()
+      }
     }
   }
   function deletecountdownforever(countdown_id) {
@@ -1571,7 +1576,12 @@
       mes('Countdown delete forever.')
       closecountdown()
       closeoptions()
-      refresh_trash_can()
+      if ($('.content_box').attr('trash') === 'true') {
+        refresh_trash_can()
+      }
+      else {
+        refresh_countdown()
+      }
     }
   }
   function check_i(i) {
