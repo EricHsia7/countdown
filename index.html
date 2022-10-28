@@ -658,7 +658,7 @@
       max-height: 450px;
       user-select: none;
       -webkit-user-select: none;
-      box-shadow: 0px 0px 30px -11px rgba(0, 0, 0, 0.11);
+      box-shadow: 0px 0px 32px -11px rgba(0, 0, 0, 0.15);
       transition: 0.25s;
       transition-timing-function: cubic-bezier(0.175, 0.660, 0.610, 0.970);
     }
@@ -1273,6 +1273,14 @@
       <div class="l_options_icon">
         <svg stroke-miterlimit="10" style="fill-rule:nonzero;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;" version="1.1" viewBox="0 0 64 64" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
           <path d="M14.5938 0L14.5938 5.84375L8.40625 5.84375C7.06769 5.84375 5.9169 6.33646 4.96875 7.3125C4.0206 8.28854 3.5625 9.43596 3.5625 10.7188L3.5625 59.1562C3.5625 60.4948 4.0206 61.6144 4.96875 62.5625C5.9169 63.5106 7.06769 64 8.40625 64L55.5938 64C56.9323 64 58.0831 63.5106 59.0312 62.5625C59.9794 61.6143 60.4375 60.4948 60.4375 59.1562L60.4375 10.7188C60.4375 9.43596 59.9794 8.28853 59.0312 7.3125C58.0831 6.33647 56.9323 5.84375 55.5938 5.84375L49.5 5.84375L49.5 0L45.375 0L45.375 5.84375L18.7812 5.84375L18.7812 0L14.5938 0ZM8.40625 9.71875L55.5938 9.71875C55.8726 9.71875 56.1207 9.80479 56.3438 10C56.5668 10.1952 56.6875 10.4399 56.6875 10.7188L56.6875 22.1562L7.3125 22.1562L7.3125 10.7188C7.3125 10.4399 7.43316 10.1952 7.65625 10C7.87934 9.80479 8.12738 9.71875 8.40625 9.71875ZM7.3125 25.9375L56.6875 25.9375L56.6875 59.1562C56.6875 59.4351 56.5668 59.6832 56.3438 59.9062C56.1206 60.1293 55.8726 60.25 55.5938 60.25L8.40625 60.25C8.12738 60.25 7.87934 60.1293 7.65625 59.9062C7.43316 59.6832 7.3125 59.4351 7.3125 59.1562L7.3125 25.9375ZM16.0938 33.0312L16.0938 36.8125L47.9062 36.8125L47.9062 33.0312L16.0938 33.0312ZM16.0938 47.6875L16.0938 51.4375L37.7812 51.4375L37.7812 47.6875L16.0938 47.6875Z" fill="var(--d-333333)" fill-rule="nonzero" opacity="1" stroke="none" />
+        </svg>
+      </div>
+    </li>
+    <li r-click="duplicatecountdown()" y="duplicate" group="1">
+      <div class="l_options_title">Duplicate</div>
+      <div class="l_options_icon">
+        <svg stroke-miterlimit="10" style="fill-rule:nonzero;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;" version="1.1" viewBox="0 0 64 64" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+          <path d="M9.6 64C8.32 64 7.2 63.52 6.24 62.56C5.28 61.6 4.8 60.48 4.8 59.2L4.8 10.96L9.6 10.96L9.6 59.2L47.52 59.2L47.52 64L9.6 64ZM19.2 54.4C17.92 54.4 16.8 53.92 15.84 52.96C14.88 52 14.4 50.88 14.4 49.6L14.4 4.8C14.4 3.52 14.88 2.4 15.84 1.44C16.8 0.48 17.92 0 19.2 0L54.4 0C55.68 0 56.8 0.48 57.76 1.44C58.72 2.4 59.2 3.52 59.2 4.8L59.2 49.6C59.2 50.88 58.72 52 57.76 52.96C56.8 53.92 55.68 54.4 54.4 54.4L19.2 54.4ZM19.2 49.6L54.4 49.6L54.4 4.8L19.2 4.8L19.2 49.6ZM19.2 49.6L19.2 4.8L19.2 49.6Z" fill="var(--d-333333)" fill-rule="nonzero" opacity="1" stroke="none" />
         </svg>
       </div>
     </li>
@@ -1949,6 +1957,7 @@
       var rdnstr = id_chars.substring(rdn, rdn + 1)
       id += rdnstr
     }
+
     var json = {
       'title': title,
       'description': description,
@@ -1969,6 +1978,19 @@
     mes('Countdown added')
     refresh_countdown()
     opencountdown(id)
+  }
+  function duplicatecountdown(countdown_id) {
+    var id = ''
+    for (var i = 0; i < 32; i++) {
+      var rdn = Math.floor(Math.random() * id_chars.length)
+      var rdnstr = id_chars.substring(rdn, rdn + 1)
+      id += rdnstr
+    }
+    var json = JSON.parse(String(localStorage.getItem('countdown_x_' + countdown_id)))
+    json.id = id
+    json.title = json.title + '(Duplicate)'
+    localStorage.setItem('countdown_x_' + id, JSON.stringify(json))
+    mes('Countdown duplicated.')
   }
   function countdown_content_count_update() {
     if (!($('.countdown_content_box_count').attr('f') === '1')) {
@@ -2012,6 +2034,7 @@
       $('.countdown_content_box_details #countdown_content_box_details_date').text(date_str)
       window.requestAnimationFrame(countdown_content_count_update);
       $('.options li[y="edit2"]').attr('r-click', "editcountdown_detail('" + countdown_id + "')")
+      $('.options li[y="duplicate"]').attr('r-click', "duplicatecountdown('" + countdown_id + "')")
       $('.options li[y="share"]').attr('r-click', "sharecountdown('" + countdown_id + "')")
       $('.options li[y="delete"]').attr('r-click', "deletecountdown('" + countdown_id + "')")
       $('.options li[y="shcountdownphoto"]').attr('r-click', "shareCountdownPhoto('" + countdown_id + "')")
