@@ -644,11 +644,13 @@
       top: 60px;
       right: 20px;
       transform: scale(0.85);
+      transform-origin: top right;
+      opacity: 0;
       width: 230px;
       height: auto;
       min-height: 45px;
       display: none;
-      background: rgba(var(--d-ffffff-r), var(--d-ffffff-g), var(--d-ffffff-b), 0.6);
+      background: rgba(var(--d-e3e3e3-r), var(--d-e3e3e3-g), var(--d-e3e3e3-b), 0.6);
       backdrop-filter: blur(15px);
       -webkit-backdrop-filter: blur(15px);
       border-radius: 10px;
@@ -659,6 +661,12 @@
       user-select: none;
       -webkit-user-select: none;
       box-shadow: 0px 0px 12px -8px rgba(0, 0, 0, 0.15);
+      transition: 0.35s;
+    }
+
+    .options[k="1"] {
+      transform: scale(1);
+      opacity: 1;
     }
 
     .options li {
@@ -2026,10 +2034,16 @@
   function openoptions(r) {
     $('.options_mask').css({ 'display': 'block' })
     $('.options').css({ 'display': 'inline-block' })
+    setTimeout(function () {
+      $('.options').attr('k', '1')
+    }, 1)
     $('#options_css').html('.options li{display:none;}.options li[group="' + r + '"] {display:flex;}')
   }
   function closeoptions() {
-    $('.options_mask,.options').css({ 'display': 'none' })
+    $('.options').attr('k', '0')
+    setTimeout(function () {
+      $('.options_mask,.options').css({ 'display': 'none' })
+    }, 350)
   }
   function openoptionscontentbox() {
     $('.options_content_box_title').css({ 'display': 'flex' })
