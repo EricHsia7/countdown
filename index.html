@@ -1981,6 +1981,7 @@
   }
   function duplicatecountdown(countdown_id) {
     var id = ''
+    var id_chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
     for (var i = 0; i < 32; i++) {
       var rdn = Math.floor(Math.random() * id_chars.length)
       var rdnstr = id_chars.substring(rdn, rdn + 1)
