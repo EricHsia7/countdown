@@ -669,6 +669,14 @@
       opacity: 1;
       transition: 0.37s;
       transition-timing-function: cubic-bezier(0.190, 1.100, 0.420, 1.025);
+      box-shadow: 0px 0px 32px -11px rgba(0, 0, 0, 0);
+    }
+
+    .options[s="1"] {
+      transform: scale(0.8);
+      opacity: 1;
+      transition: 0.37s;
+      transition-timing-function: cubic-bezier(0.190, 1.100, 0.420, 1.025);
     }
 
     .options li {
@@ -679,10 +687,25 @@
       user-select: none;
       -webkit-user-select: none;
       position: relative;
+      background: rgba(0, 0, 0, 0);
+      border-radius: 0px;
+      box-shadow: 0px 0px 32px -11px rgba(0, 0, 0, 0);
     }
 
     .options li[b="0"] {
       border: none;
+    }
+
+    .options[s="1"] li[s="1"] {
+      opacity: 0.6;
+      transform: scale(1.25);
+      transition: 0.37s;
+      transition-timing-function: cubic-bezier(0.190, 1.100, 0.420, 1.025);
+      box-shadow: 0px 0px 32px -11px rgba(0, 0, 0, 0.15);
+      background: rgba(var(--d-options-r), var(--d-options-g), var(--d-options-b), 0.5);
+      backdrop-filter: blur(11px);
+      -webkit-backdrop-filter: blur(11px);
+      border-radius: 15px;
     }
 
     .options li .l_options_title {
@@ -2060,7 +2083,7 @@
     $('.countdown_content_box_count').attr('f', '1')
     history.pushState(null, null, 'https://erichsia7.github.io/countdown/');
   }
-  function openoptions(r) { 
+  function openoptions(r) {
     $('.options_mask').css({ 'display': 'block' })
     $('.options').css({ 'display': 'inline-block' })
     setTimeout(function () {
@@ -2074,6 +2097,10 @@
     setTimeout(function () {
       $('.options').css({ 'display': 'none' })
     }, 350)
+  }
+  function openoptions_p2(y) {
+    $('.options').attr('s', '1')
+    $('.options li[y="' + y + '"]').attr('s', '1')
   }
   function openoptionscontentbox() {
     $('.options_content_box_title').css({ 'display': 'flex' })
