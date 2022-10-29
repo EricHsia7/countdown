@@ -677,6 +677,7 @@
       opacity: 1;
       transition: 0.37s;
       transition-timing-function: cubic-bezier(0.190, 1.100, 0.420, 1.025);
+      overflow: visible;
     }
 
     .options li {
@@ -696,8 +697,13 @@
       border: none;
     }
 
+    .options[s="1"] li {
+      opacity: 0.6
+    }
+
     .options[s="1"] li[s="1"] {
-      opacity: 0.6;
+      opacity: 1;
+      transform-origin: top right;
       transform: scale(1.25);
       transition: 0.37s;
       transition-timing-function: cubic-bezier(0.190, 1.100, 0.420, 1.025);
