@@ -661,6 +661,7 @@
       box-shadow: 0px 0px 32px -11px rgba(0, 0, 0, 0.15);
       transition: 0.25s;
       transition-timing-function: cubic-bezier(0.175, 0.660, 0.610, 0.970);
+      will-change: transform, opacity;
     }
 
     .options[k="1"] {
@@ -2059,7 +2060,7 @@
     $('.countdown_content_box_count').attr('f', '1')
     history.pushState(null, null, 'https://erichsia7.github.io/countdown/');
   }
-  function openoptions(r) {
+  function openoptions(r) { 
     $('.options_mask').css({ 'display': 'block' })
     $('.options').css({ 'display': 'inline-block' })
     setTimeout(function () {
