@@ -2069,8 +2069,9 @@
   }
   function closeoptions() {
     $('.options').attr('k', '0')
+    $('.options_mask').css({ 'display': 'none' })
     setTimeout(function () {
-      $('.options_mask,.options').css({ 'display': 'none' })
+      $('.options').css({ 'display': 'none' })
     }, 350)
   }
   function openoptionscontentbox() {
