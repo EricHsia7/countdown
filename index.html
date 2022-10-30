@@ -2063,9 +2063,9 @@
   }
   function openoptions(r) {
     $('.options_mask').css({ 'display': 'block' })
-    $('.options').css({ 'display': 'inline-block' })
+    $('.options').css({ 'display': 'inline-block', '--js-options-list-count': $('.options li[group="' + r + '"]').length })
     setTimeout(function () {
-      $('.options').attr('k', '1').css({ '--js-options-list-count': $('.options li[group="' + r + '"]').length })
+      $('.options').attr('k', '1')
     }, 1)
     $('#options_css').html('.options li{display:none;}.options li[group="' + r + '"] {display:flex;}')
   }
