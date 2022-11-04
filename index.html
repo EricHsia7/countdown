@@ -1625,6 +1625,44 @@
     if (ms < 0) {
       ms = 0
     }
+
+
+    var dt2 = function (t1, t2) {
+      t1 = t1.getTime()
+      t2 = t2.getTime()
+      var Ym = function (y) {
+        var m_total = 0
+        var m_c = 0
+        for (var m = 0; m < 12; m++) {
+          var f = new Date()
+          f.setFullYear(y)
+          f.setDate(1)
+          f.setMonth(m)
+          f.setDate(0)
+          m_total += f.getDate()
+          m_c += 1
+        }
+        return (m_total / m_c).toFixed(10)
+      }
+      var yyyy = new Date().getFullYear()
+      var ym = Ym(yyyy)
+      var g = [60 * 60 * 24 * ym * 12 * 1000, 60 * 60 * 24 * ym * 1000, 60 * 60 * 24 * 1000, 60 * 60 * 1000, 60 * 1000, 1000]
+      var gg = function (j) {
+        return Math.floor(g[j])
+      }
+      var fl = function (a, b) {
+        return Math.abs(Math.floor(a / gg(b)))
+      }
+      var f = Math.abs(t1 - t2)
+      var y = (f - (f % gg(0)))
+      var m = ((f - y) - ((f - y) % gg(1)))
+      var d = ((f - y - m) - ((f - y - m) % gg(2)))
+      var h = ((f - y - m - d) - ((f - y - m - d) % gg(3)))
+      var mm = ((f - y - m - d - h) - ((f - y - m - d - h) % gg(4)))
+      var s = ((f - y - m - d - h - mm) - ((f - y - m - d - h - mm) % gg(5)))
+      return [fl(y, 0), fl(m, 1), fl(d, 2), fl(h, 3), fl(mm, 4), fl(s, 5)]
+    }
+
     var dt = function (st_t, end_t) {
       var st = new Date()
       st.setTime(st_t.getTime())
@@ -1691,7 +1729,7 @@
       return [full_y, t_m, t_d, t_hh, t_mm, t_ss]
     }
 
-    var gy = dt(start, end)
+    var gy = dt2(start, end)
     if (mode === 0) {
       if (gy[0] > 0) {
         return gy[0] + 'Y'
