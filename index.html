@@ -1620,33 +1620,32 @@
       return i
     }
   }
+  function Ym(y) {
+    var m_total = 0
+    var m_c = 0
+    for (var m = 0; m < 12; m++) {
+      var f = new Date()
+      f.setFullYear(y)
+      f.setDate(1)
+      f.setMonth(m)
+      f.setDate(0)
+      m_total += f.getDate()
+      m_c += 1
+    }
+    return (m_total / m_c).toFixed(10)
+  }
+
+  var tday_ym = Ym(new Date().getFullYear())
+
   function tday(start, end, mode) {
     var ms = end.getTime() - start.getTime()
     if (ms < 0) {
       ms = 0
     }
-
-
     var dt2 = function (t1, t2) {
       t1 = t1.getTime()
       t2 = t2.getTime()
-      var Ym = function (y) {
-        var m_total = 0
-        var m_c = 0
-        for (var m = 0; m < 12; m++) {
-          var f = new Date()
-          f.setFullYear(y)
-          f.setDate(1)
-          f.setMonth(m)
-          f.setDate(0)
-          m_total += f.getDate()
-          m_c += 1
-        }
-        return (m_total / m_c).toFixed(10)
-      }
-      var yyyy = new Date().getFullYear()
-      var ym = Ym(yyyy)
-      var g = [60 * 60 * 24 * ym * 12 * 1000, 60 * 60 * 24 * ym * 1000, 60 * 60 * 24 * 1000, 60 * 60 * 1000, 60 * 1000, 1000]
+      var g = [60 * 60 * 24 * tday_ym * 12 * 1000, 60 * 60 * 24 * tday_ym * 1000, 60 * 60 * 24 * 1000, 60 * 60 * 1000, 60 * 1000, 1000]
       var gg = function (j) {
         return Math.floor(g[j])
       }
