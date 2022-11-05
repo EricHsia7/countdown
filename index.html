@@ -647,8 +647,8 @@
       transform-origin: top right;
       opacity: 0;
       width: clamp(100px, calc(100% - 20px), 230px);
-      height: auto;
       min-height: 50px;
+      height: 50px;
       display: none;
       background: rgba(var(--d-options-r), var(--d-options-g), var(--d-options-b), 0.5);
       backdrop-filter: blur(11px);
@@ -678,6 +678,9 @@
       transition-timing-function: cubic-bezier(0.190, 1.100, 0.420, 1.025);
       overflow: visible;
       box-shadow: 0px 0px 32px -11px rgba(0, 0, 0, 0);
+      transition: 0.45s;
+      transition-timing-function: cubic-bezier(0.190, 1.100, 0.420, 1.025);
+      height: calc(var(--js-options-list-count) * 50px);
     }
 
     .options li {
@@ -698,7 +701,6 @@
     .options li[b="0"] {
       border: none;
     }
-
     .options[s="1"] li {
       opacity: 0.6;
     }
@@ -717,7 +719,6 @@
       border-top: 0px solid var(--d-e3e3e3);
       z-index: 30;
     }
-
     .options li .l_options_title {
       position: absolute;
       top: 0px;
@@ -1652,11 +1653,48 @@
       return i
     }
   }
+  function Ym(y) {
+    var m_total = 0
+    var m_c = 0
+    for (var m = 0; m < 12; m++) {
+      var f = new Date()
+      f.setFullYear(y)
+      f.setDate(1)
+      f.setMonth(m)
+      f.setDate(0)
+      m_total += f.getDate()
+      m_c += 1
+    }
+    return (m_total / m_c).toFixed(10)
+  }
+
+  var tday_ym = Ym(new Date().getFullYear())
+
   function tday(start, end, mode) {
     var ms = end.getTime() - start.getTime()
     if (ms < 0) {
       ms = 0
     }
+    var dt2 = function (t1, t2) {
+      t1 = t1.getTime()
+      t2 = t2.getTime()
+      var g = [60 * 60 * 24 * tday_ym * 12 * 1000, 60 * 60 * 24 * tday_ym * 1000, 60 * 60 * 24 * 1000, 60 * 60 * 1000, 60 * 1000, 1000]
+      var gg = function (j) {
+        return Math.floor(g[j])
+      }
+      var fl = function (a, b) {
+        return Math.abs(Math.floor(a / gg(b)))
+      }
+      var f = Math.abs(t1 - t2)
+      var y = (f - (f % gg(0)))
+      var m = ((f - y) - ((f - y) % gg(1)))
+      var d = ((f - y - m) - ((f - y - m) % gg(2)))
+      var h = ((f - y - m - d) - ((f - y - m - d) % gg(3)))
+      var mm = ((f - y - m - d - h) - ((f - y - m - d - h) % gg(4)))
+      var s = ((f - y - m - d - h - mm) - ((f - y - m - d - h - mm) % gg(5)))
+      return [fl(y, 0), fl(m, 1), fl(d, 2), fl(h, 3), fl(mm, 4), fl(s, 5)]
+    }
+
     var dt = function (st_t, end_t) {
       var st = new Date()
       st.setTime(st_t.getTime())
@@ -1723,7 +1761,7 @@
       return [full_y, t_m, t_d, t_hh, t_mm, t_ss]
     }
 
-    var gy = dt(start, end)
+    var gy = dt2(start, end)
     if (mode === 0) {
       if (gy[0] > 0) {
         return gy[0] + 'Y'
@@ -1968,6 +2006,8 @@
     var title = data_title
     var description = data_description
     var date = new Date()
+    date.setMonth(0)
+    date.setDate(1)
 
     var year = check_int(data_y) || date.getFullYear()
     var month = check_int(data_m) || (date.getMonth() + 1)
@@ -2095,7 +2135,7 @@
   }
   function openoptions(r) {
     $('.options_mask').css({ 'display': 'block' })
-    $('.options').css({ 'display': 'inline-block' })
+    $('.options').css({ 'display': 'inline-block', '--js-options-list-count': $('.options li[group="' + r + '"]').length })
     setTimeout(function () {
       $('.options').attr('k', '1')
     }, 1)
@@ -2107,10 +2147,6 @@
     setTimeout(function () {
       $('.options').css({ 'display': 'none' })
     }, 350)
-  }
-  function openoptions_p2(y) {
-    $('.options').attr('s', '1')
-    $('.options li[y="' + y + '"]').attr('s', '1')
   }
   function openoptionscontentbox() {
     $('.options_content_box_title').css({ 'display': 'flex' })
