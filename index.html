@@ -700,11 +700,17 @@
       border: none;
     }
 
+    .options[s="1"] li {
+      opacity: 0.6;
+    }
+
     .options[s="1"] li[s="1"] {
+      opacity: 1;
       transition-timing-function: cubic-bezier(0.190, 1.100, 0.420, 1.025);
       transform: scale(calc(100 / 95));
       transition: 0.25s;
       transform-origin: top right;
+      z-index: 30;
     }
 
     .options li .l_options_title {
