@@ -2093,10 +2093,24 @@
   }
 
   function opencountdown_log_check() {
+    var n = 'countdown_log_a'
+    if (!(localStorage.hasOwnProperty(n))) {
+      localStorage.setItem(n, JSON.stringify({}))
+    }
     var list = searchItemsbyname('countdown_x')
+    var log = JSON.parse(String(localStorage.getItem(n)))
+    var log_n = JSON.parse(String(localStorage.getItem(n)))
     var list_len = list.length
     for (var t = 0; t < list_len; t++) {
-
+      var j = JSON.parse(String(localStorage.getItem(list[t])))
+      if (localStorage.hasOwnProperty('c_' + j.id)) {
+        log['c_' + j.id] = true
+      }
+    }
+    for (var y in log) {
+      if (!(log[y] === true)) {
+        delete log_n[y]
+      }
     }
   }
 
