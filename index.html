@@ -2103,7 +2103,7 @@
     var list_len = list.length
     for (var t = 0; t < list_len; t++) {
       var j = JSON.parse(String(localStorage.getItem(list[t])))
-      if (localStorage.hasOwnProperty('c_' + j.id)) {
+      if (localStorage.hasOwnProperty('countdown_x_' + j.id)) {
         log['c_' + j.id] = true
       }
     }
@@ -2112,6 +2112,7 @@
         delete log_n[y]
       }
     }
+    localStorage.setItem(n,JSON.stringify(log_n))
   }
 
   function opencountdown_log(countdown_id) {
