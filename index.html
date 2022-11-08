@@ -2091,12 +2091,27 @@
       }
     }
   }
+
+  function opencountdown_log(countdown_id) {
+    var n = 'countdown_log_a'
+    var json = JSON.parse(String(localStorage.getItem(n)))
+    var key = 'c_' + countdown_id
+    if (json.hasOwnProperty(key)) {
+      var this_countdown_k = json[key]
+      json[key] = (this_countdown_k + 1)
+    }
+    else {
+      json[key] = 1
+    }
+    localStorage.setItem(n, JSON.stringify(json))
+  }
   function opencountdown(countdown_id) {
     if ($('.content_box').attr('edit') === '1') {
       return ''
     }
     if (localStorage.hasOwnProperty('countdown_x_' + countdown_id)) {
       history.pushState(null, null, 'https://erichsia7.github.io/countdown/?c=1&id=' + countdown_id);
+      opencountdown_log(countdown_id)
       var countdown_json = JSON.parse(String(localStorage.getItem('countdown_x_' + countdown_id)))
       var date_o = new Date()
       date_o.setTime(parseInt(countdown_json.date))
