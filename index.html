@@ -2094,6 +2094,9 @@
 
   function opencountdown_log(countdown_id) {
     var n = 'countdown_log_a'
+    if (!(localStorage.hasOwnProperty(n))) {
+      localStorage.setItem(n, JSON.stringify({}))
+    }
     var json = JSON.parse(String(localStorage.getItem(n)))
     var key = 'c_' + countdown_id
     if (json.hasOwnProperty(key)) {
