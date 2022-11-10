@@ -2101,10 +2101,21 @@
     var log = JSON.parse(String(localStorage.getItem(n)))
     var log_n = JSON.parse(String(localStorage.getItem(n)))
     var list_len = list.length
+    var t = new Date().getTime()
     for (var t = 0; t < list_len; t++) {
       var j = JSON.parse(String(localStorage.getItem(list[t])))
       if (localStorage.hasOwnProperty('countdown_x_' + j.id)) {
-        log['c_' + j.id] = true
+        if (typeof log['c_' + j.id] === 'number') {
+          log_n['c_'] = { 'c': log['_c'], 't': t }
+          log['c_' + j.id] = true
+        }
+        else {
+          if (typeof log['c_' + j.id] === 'object') {
+            if ((t - log['c_' + j.id]['t']) < 60 * 60 * 24 * 7 * 1000) {
+              log['c_' + j.id] = true
+            }
+          }
+        }
       }
     }
     for (var y in log) {
@@ -2112,7 +2123,7 @@
         delete log_n[y]
       }
     }
-    localStorage.setItem(n,JSON.stringify(log_n))
+    localStorage.setItem(n, JSON.stringify(log_n))
   }
 
   function opencountdown_log(countdown_id) {
@@ -2120,14 +2131,28 @@
     if (!(localStorage.hasOwnProperty(n))) {
       localStorage.setItem(n, JSON.stringify({}))
     }
+    var t = new Date().getTime()
     var json = JSON.parse(String(localStorage.getItem(n)))
     var key = 'c_' + countdown_id
     if (json.hasOwnProperty(key)) {
-      var this_countdown_k = json[key]
-      json[key] = (this_countdown_k + 1)
+      if (typeof json[key] === 'object') {
+        var this_countdown_k = json[key]
+        var count = this_countdown_k.c
+        json[key]['c'] = (count + 1)
+        json[key]['t'] = t
+      }
+      else {
+        if (typeof json[key] === 'number') {
+          var this_countdown_k = json[key]
+          var count = this_countdown_k
+          json[key] = {}
+          json[key]['c'] = (count + 1)
+          json[key]['t'] = t
+        }
+      }
     }
     else {
-      json[key] = 1
+      json[key] = { 'c': 1, 't': t }
     }
     localStorage.setItem(n, JSON.stringify(json))
   }
