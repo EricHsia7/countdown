@@ -1808,14 +1808,9 @@
       return return_arr
     }
     if (mode === 2) {
-      var padding = function (n) {
-        if (n < 10) {
-          return '0' + n
-        }
-        else {
-          return n
-        }
-      }
+      var padding = function (num) {
+        return (num < 10 ? '0' : '') + num;
+      };
       var string_arr = []
       var return_arr = []
       var g_year, g_month, g_date, g_hour, g_minute, g_second
