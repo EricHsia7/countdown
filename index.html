@@ -2094,6 +2094,9 @@
     var countdown = []
     for (var k = 0; k < list_len; k++) {
       var j = JSON.parse(String(localStorage.getItem(list[k])))
+      if (j['trash'] === true) {
+        continue;
+      }
       var count = 0
       if (log.hasOwnProperty('c_' + j.id)) {
         count = log['c_' + j.id]['c']
