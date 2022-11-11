@@ -2086,7 +2086,29 @@
       }
     }
   }
-
+  function get_recent_access_list() {
+    var n = 'countdown_log_a'
+    var log = JSON.parse(String(localStorage.getItem(n)))
+    var list = searchItemsbyname('countdown_x')
+    var list_len = list.length
+    var countdown = []
+    for (var k = 0; k < list_len; k++) {
+      var j = JSON.parse(String(localStorage.getItem(list[k])))
+      var count = 0
+      if (log.hasOwnProperty('c_' + j.id)) {
+        count = log['c_' + j.id]['c']
+      }
+      j['count'] = count
+      countdown.push(j)
+    }
+    countdown = sort_arr(countdown, 'count').reverse()
+    var max_len = 5
+    if (list_len <= max_len) {
+      max_len = Math.floor(list_len * 0.5)
+    }
+    var result = countdown.slice(0, max_len);
+    return result
+  }
   function opencountdown_log_check() {
     var n = 'countdown_log_a'
     if (!(localStorage.hasOwnProperty(n))) {
