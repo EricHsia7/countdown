@@ -2101,6 +2101,9 @@
       if (log.hasOwnProperty('c_' + j.id)) {
         count = log['c_' + j.id]['c']
       }
+      if (count <= 0) {
+        continue;
+      }
       j['count'] = count
       countdown.push(j)
     }
