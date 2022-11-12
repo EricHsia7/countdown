@@ -1924,6 +1924,27 @@
       }
       return '--'
     }
+    if (mode === 0.5) {
+      if (gy[0] > 0) {
+        return gy[0] + 'Year'
+      }
+      if (gy[1] > 0) {
+        return gy[1] + 'Month'
+      }
+      if (gy[2] > 0) {
+        return gy[2] + 'Day'
+      }
+      if (gy[3] > 0) {
+        return gy[3] + 'Hour'
+      }
+      if (gy[4] > 0) {
+        return gy[4] + 'Minute'
+      }
+      if (gy[5] > 0) {
+        return gy[5] + 'Second'
+      }
+      return '--'
+    }
     if (mode === 1) {
       var return_arr = []
       if (gy[0] > 0) {
