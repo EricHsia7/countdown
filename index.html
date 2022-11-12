@@ -2058,7 +2058,7 @@
   }
   var countdown_pause = 0
   function countdown_update() {
-    var recent_access = $('.content_box .recent_access_content_box')
+    var recent_access = $('.content_box .recent_access_content_box').length
     var countdown_len = $('.content_box .countdown_box').length
     if (recent_access > 0) {
       var recent_access_len = $('.recent_access_content_box .recent_access_countdown_box').length
