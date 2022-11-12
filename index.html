@@ -112,6 +112,18 @@
       user-select: none;
     }
 
+    .content_box_title {
+      width: 100%;
+      padding-left: 10px;
+      box-sizing: border-box;
+      white-space: nowrap;
+      word-break: keep-all;
+      font-size: 20px;
+      color: var(--d-333333);
+      font-weight: 500;
+      align-items: center;
+    }
+
     .countdown_content_box,
     .add_countdown_content_box,
     .edit_countdown_content_box,
@@ -1232,9 +1244,7 @@
     </div>
 
   </div>
-  <div class="content_box">
-    <div class="recent_access_content_box"></div>
-  </div>
+  <div class="content_box"></div>
   <div class="addcountdown" r-click="openaddcountdown()" loading="1">
     <svg stroke-miterlimit="10" style="fill-rule:nonzero;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;" version="1.1" viewBox="0 0 64 64" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
       <path d="M28.5714 64L28.5714 35.4286L0 35.4286L0 28.5714L28.5714 28.5714L28.5714 0L35.4286 0L35.4286 28.5714L64 28.5714L64 35.4286L35.4286 35.4286L35.4286 64L28.5714 64Z" fill="var(--d-333333)" fill-rule="evenodd" opacity="1" stroke="none" />
@@ -1700,7 +1710,7 @@
         }
       }
       else {
-        $(content_box + ' .recent_access_content_box').remove()
+        $(content_box + ' .recent_access_content_box,' + content_box + ' .content_box_title').remove()
       }
 
     }
@@ -3130,7 +3140,7 @@
       gg.push('<div class="recent_access_countdown_box loading"><div class="recent_access_countdown_box_count"></div><div class="recent_access_countdown_box_title"></div><div class="recent_access_countdown_box_description"></div></div>')
     }
 
-    $('.content_box').html('<div class="recent_access_content_box">' + gg.join('') + '</div>' + yy.join(''))
+    $('.content_box').html('<dis class="content_box_title">Recent Access</div><div class="recent_access_content_box">' + gg.join('') + '</div><div class="content_box_title">All</div>' + yy.join(''))
     $(document).ready(function () {
       setTimeout(function () {
         setoptions()
