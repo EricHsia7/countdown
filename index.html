@@ -124,7 +124,7 @@
       align-items: center;
     }
 
-    .content_box .content_box_title[v="0"] {
+    .content_box .content_box_title:nth-child(1) {
       margin-top: 10px;
     }
 
@@ -1672,51 +1672,55 @@
       list = sort_arr(list_trash, 'trash_date').reverse()
     }
     list_len = list.length
+    if (list_len > 0) {
+      for (var e = 0; e < list_len; e++) {
+        var this_list = list[e]
+        var this_title = this_list.title
+        if (this_title.length > title_max_len) {
+          this_title = String(this_title).substring(0, title_max_len - 3) + '...'
+        }
+        var this_description = this_list.description
+        if (this_description.length > 45) {
+          this_description = String(this_description).substring(0, 42) + '...'
+        }
 
-    for (var e = 0; e < list_len; e++) {
-      var this_list = list[e]
-      var this_title = this_list.title
-      if (this_title.length > title_max_len) {
-        this_title = String(this_title).substring(0, title_max_len - 3) + '...'
-      }
-      var this_description = this_list.description
-      if (this_description.length > 45) {
-        this_description = String(this_description).substring(0, 42) + '...'
+        var this_date = this_list.date
+        if (k === 1) {
+          this_date = this_list.trash_date + (60 * 60 * 24 * 30 * 1000)
+        }
+        var this_id = randid('countdown')
+        var trash = false
+        if (k === 1) {
+          trash = true
+        }
+        $(content_box).append('<div class="countdown_box" id="' + this_id + '" r-click="opencountdown(' + "'" + this_list.id + "'" + ')"><div class="countdown_box_select"><label for="checkbox-' + this_list.id + '"><input type="checkbox" countdown-id="' + this_list.id + '" name="checkbox-' + this_list.id + '" id="checkbox-' + this_list.id + '" class="checkbox"></label></div><div class="countdown_box_count" t="' + this_date + '" trash="' + trash + '"></div><div class="countdown_box_title">' + this_title + '</div><div class="countdown_box_description">' + this_description + '</div></div>')
+        rclick('#' + this_id)
       }
 
-      var this_date = this_list.date
-      if (k === 1) {
-        this_date = this_list.trash_date + (60 * 60 * 24 * 30 * 1000)
-      }
-      var this_id = randid('countdown')
-      var trash = false
-      if (k === 1) {
-        trash = true
-      }
-      $(content_box).append('<div class="countdown_box" id="' + this_id + '" r-click="opencountdown(' + "'" + this_list.id + "'" + ')"><div class="countdown_box_select"><label for="checkbox-' + this_list.id + '"><input type="checkbox" countdown-id="' + this_list.id + '" name="checkbox-' + this_list.id + '" id="checkbox-' + this_list.id + '" class="checkbox"></label></div><div class="countdown_box_count" t="' + this_date + '" trash="' + trash + '"></div><div class="countdown_box_title">' + this_title + '</div><div class="countdown_box_description">' + this_description + '</div></div>')
-      rclick('#' + this_id)
-    }
-    if (k === 0) {
-      if ($(content_box + ' .recent_access_content_box').length < 1) {
-        $(content_box).prepend('<div class="recent_access_content_box"></div>')
-      }
-      var recent_access_list = get_recent_access_list()
-      var recent_access_list_len = recent_access_list.length
-      if (recent_access_list_len > 0) {
-        for (var b = 0; b < recent_access_list_len; b++) {
-          var this_r_list = recent_access_list[b]
-          var this_r_title = this_r_list.title
-          var this_r_description = this_r_list.description
-          var this_r_date = this_r_list.date
-          var this_r_id = randid('recent-access')
-          $(content_box + ' .recent_access_content_box').append('<div class="recent_access_countdown_box" id="' + this_r_id + '" r-click="opencountdown(' + "'" + this_r_list.id + "'" + ')"><div class="recent_access_countdown_box_count" t="' + this_r_date + '"></div><div class="recent_access_countdown_box_title">' + this_r_title + '</div><div class="recent_access_countdown_box_description">' + this_r_description + '</div></div>')
-          rclick('#' + this_r_id)
+      if (k === 0) {
+        if ($(content_box + ' .recent_access_content_box').length < 1) {
+          $(content_box).prepend('<div class="recent_access_content_box"></div>')
+        }
+        var recent_access_list = get_recent_access_list()
+        var recent_access_list_len = recent_access_list.length
+        if (recent_access_list_len > 0) {
+          for (var b = 0; b < recent_access_list_len; b++) {
+            var this_r_list = recent_access_list[b]
+            var this_r_title = this_r_list.title
+            var this_r_description = this_r_list.description
+            var this_r_date = this_r_list.date
+            var this_r_id = randid('recent-access')
+            $(content_box + ' .recent_access_content_box').append('<div class="recent_access_countdown_box" id="' + this_r_id + '" r-click="opencountdown(' + "'" + this_r_list.id + "'" + ')"><div class="recent_access_countdown_box_count" t="' + this_r_date + '"></div><div class="recent_access_countdown_box_title">' + this_r_title + '</div><div class="recent_access_countdown_box_description">' + this_r_description + '</div></div>')
+            rclick('#' + this_r_id)
+          }
+        }
+        else {
+          $(content_box + ' .recent_access_content_box,' + content_box + ' .content_box_title[v="0"]').remove()
         }
       }
-      else {
-        $(content_box + ' .recent_access_content_box,' + content_box + ' .content_box_title[v="0"]').remove()
-      }
-
+    }
+    else {
+      $(content_box + ' .recent_access_content_box,' + content_box + ' .content_box_title').remove()
     }
     $(content_box + ' .loading').remove()
   }
