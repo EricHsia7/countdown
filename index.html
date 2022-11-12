@@ -2064,7 +2064,7 @@
       var recent_access_len = $('.recent_access_content_box .recent_access_countdown_box').length
       for (var s = 0; s < recent_access_len; s++) {
         var this_s = $('.recent_access_countdown_box .recent_access_countdown_box_count').eq(s)
-        if (!(this_s.attr('f') === 1)) {
+        if (!(this_s.attr('f') === '1')) {
           var time = parseInt(this_s.attr('t'))
           var time_date = new Date()
           time_date.setTime(time)
@@ -2075,9 +2075,6 @@
           }
           else {
             var finish_text = 'Finish'
-            if (this_s.attr('trash') === 'true') {
-              finish_text = 'Due'
-            }
             this_s.text(finish_text)
             this_s.attr('f', '1')
           }
