@@ -2063,8 +2063,8 @@
     if (recent_access > 0) {
       var recent_access_len = $('.recent_access_content_box .recent_access_countdown_box').length
       for (var s = 0; s < recent_access_len; s++) {
+        var this_s = $('.recent_access_content_box .recent_access_countdown_box .recent_access_countdown_box_count').eq(s)
         if (!(this_s.attr('f') === 1)) {
-          var this_s = $('.recent_access_content_box .recent_access_countdown_box .recent_access_countdown_box_count').eq(s)
           var time = parseInt(this_s.attr('t'))
           var time_date = new Date()
           time_date.setTime(time)
