@@ -184,6 +184,11 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      font-size: 23px;
+      font-weight: 700;
+      color: var(--d-333333);
+      -webkit-user-select: none;
+      user-select: none;
     }
 
     .recent_access_countdown_box .recent_access_countdown_box_title {
@@ -196,10 +201,14 @@
       display: flex;
       align-items: center;
       font-size: 16px;
+      font-weight: 500;
+      color: var(--d-333333);
       padding: 3px;
       box-sizing: border-box;
       word-break: keep-all;
       white-space: nowrap;
+      -webkit-user-select: none;
+      user-select: none;
     }
 
     .recent_access_countdown_box .recent_access_countdown_box_description {
@@ -213,6 +222,11 @@
       box-sizing: border-box;
       word-break: break-all;
       white-space: pre-line;
+      color: var(--d-333333);
+      font-weight: 400;
+      font-size: 16px;
+      -webkit-user-select: none;
+      user-select: none;
     }
 
     .recent_access_countdown_box.loading .recent_access_countdown_count::after,
@@ -1664,7 +1678,9 @@
       rclick('#' + this_id)
     }
     if (k === 0) {
-      $(content_box).prepend('<div class="recent_access_content_box"></div>')
+      if ($(content_box + ' .recent_access_content_box').length < 1) {
+        $(content_box).prepend('<div class="recent_access_content_box"></div>')
+      }
       var recent_access_list = get_recent_access_list()
       var recent_access_list_len = recent_access_list.length
       if (recent_access_list_len > 0) {
@@ -2037,7 +2053,32 @@
   }
   var countdown_pause = 0
   function countdown_update() {
+    var recent_access = $('.content_box .recent_access_content_box')
     var countdown_len = $('.content_box .countdown_box').length
+    if (recent_access > 0) {
+      var recent_access_len = $('.recent_access_content_box .recent_access_countdown_box').length
+      for (var s = 0; s < recent_access_len; s++) {
+        if (!(this_s.attr('f') === 1)) {
+          var this_s = $('.recent_access_content_box .recent_access_countdown_box').eq(s)
+          var time = parseInt(this_s.attr('t'))
+          var time_date = new Date()
+          time_date.setTime(time)
+          var nowtime = new Date()
+          var f = (time - nowtime.getTime())
+          if (f > 0) {
+            this_s.text(tday(nowtime, time_date, 0))
+          }
+          else {
+            var finish_text = 'Finish'
+            if (this_s.attr('trash') === 'true') {
+              finish_text = 'Due'
+            }
+            this_s.text(finish_text)
+            this_s.attr('f', '1')
+          }
+        }
+      }
+    }
     for (var e = 0; e < countdown_len; e++) {
       var this_h = $('.content_box .countdown_box .countdown_box_count').eq(e)
       var thswww = this_h.offset().top - $(document).scrollTop()
