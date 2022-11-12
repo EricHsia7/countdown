@@ -215,6 +215,36 @@
       white-space: pre-line;
     }
 
+    .recent_access_countdown_box.loading .recent_access_countdown_count::after,
+    .recent_access_countdown_box.loading .recent_access_countdown_title::after,
+    .recent_access_countdown_box.loading .recent_access_countdown_description::after {
+      content: '';
+      background: var(--d-fafafa);
+      position: absolute;
+      border-radius: 9px;
+    }
+
+    .recent_access_countdown_box.loading .recent_access_countdown_count::after {
+      top: 2.5px;
+      left: 2.5px;
+      width: calc(100% - 5px);
+      height: calc(100% - 5px);
+    }
+
+    .recent_access_countdown_box.loading .recent_access_countdown_title::after {
+      top: 2px;
+      left: 2.5px;
+      width: calc(100% - 5px);
+      height: calc(100% - 7px);
+    }
+
+    .recent_access_countdown_box.loading .recent_access_countdown_description::after {
+      top: 0px;
+      left: 2.5px;
+      width: calc(100% - 5px);
+      height: calc(100% - 3px);
+    }
+
     .countdown_box {
       width: calc(100% - 20px);
       height: 100px;
