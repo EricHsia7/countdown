@@ -1699,7 +1699,7 @@
 
       if (k === 0) {
         if ($(content_box + ' .recent_access_content_box').length < 1) {
-          $(content_box).prepend('<div class="recent_access_content_box"></div>')
+          $(content_box).prepend('<div class="content_box_title" v="0">Recent Access</div><div class="recent_access_content_box"></div><div class="content_box_title" v="1">All</div>')
         }
         var recent_access_list = get_recent_access_list()
         var recent_access_list_len = recent_access_list.length
