@@ -174,9 +174,11 @@
       border: 1px solid var(--d-f4f4f4);
       box-shadow: 0px 0px 12px -8px rgba(0, 0, 0, 0.15);
     }
+
     .recent_access_content_box .recent_access_countdown_box:nth-last-child(1) {
       margin-right: 10px;
     }
+
     .recent_access_countdown_box .recent_access_countdown_box_count {
       position: absolute;
       top: 5px;
@@ -232,30 +234,30 @@
       user-select: none;
     }
 
-    .recent_access_countdown_box.loading .recent_access_countdown_count::after,
-    .recent_access_countdown_box.loading .recent_access_countdown_title::after,
-    .recent_access_countdown_box.loading .recent_access_countdown_description::after {
+    .recent_access_countdown_box.loading .recent_access_countdown_box_count::after,
+    .recent_access_countdown_box.loading .recent_access_countdown_box_title::after,
+    .recent_access_countdown_box.loading .recent_access_countdown_box_description::after {
       content: '';
       background: var(--d-fafafa);
       position: absolute;
       border-radius: 9px;
     }
 
-    .recent_access_countdown_box.loading .recent_access_countdown_count::after {
+    .recent_access_countdown_box.loading .recent_access_countdown_box_count::after {
       top: 2.5px;
       left: 2.5px;
       width: calc(100% - 5px);
       height: calc(100% - 5px);
     }
 
-    .recent_access_countdown_box.loading .recent_access_countdown_title::after {
+    .recent_access_countdown_box.loading .recent_access_countdown_box_title::after {
       top: 2px;
       left: 2.5px;
       width: calc(100% - 5px);
       height: calc(100% - 7px);
     }
 
-    .recent_access_countdown_box.loading .recent_access_countdown_description::after {
+    .recent_access_countdown_box.loading .recent_access_countdown_box_description::after {
       top: 0px;
       left: 2.5px;
       width: calc(100% - 5px);
@@ -2062,7 +2064,7 @@
       var recent_access_len = $('.recent_access_content_box .recent_access_countdown_box').length
       for (var s = 0; s < recent_access_len; s++) {
         if (!(this_s.attr('f') === 1)) {
-          var this_s = $('.recent_access_content_box .recent_access_countdown_box').eq(s)
+          var this_s = $('.recent_access_content_box .recent_access_countdown_box .recent_access_countdown_box_count').eq(s)
           var time = parseInt(this_s.attr('t'))
           var time_date = new Date()
           time_date.setTime(time)
