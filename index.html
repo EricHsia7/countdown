@@ -145,6 +145,35 @@
       align-items: center;
     }
 
+    .recent_access_content_box {
+      position: relative;
+      width: calc(100% - 20px);
+      height: 180px;
+      overflow-y: hidden;
+      overflow-x: scroll;
+      white-space: nowrap;
+    }
+
+    .recent_access_content_box::-webkit-scrollbar {
+      display: none;
+    }
+
+    .recent_access_content_box .recent_access_countdown_box {
+      width: clamp(200px, calc(33% - 20px), 300px);
+      height: 160px;
+      display: inline-block;
+      background: var(--d-ffffff);
+      position: relative;
+      -webkit-user-select: none;
+      user-select: none;
+      overflow: hidden;
+      border-radius: 15px;
+      margin: 10px;
+      box-sizing: border-box;
+      border: 1px solid var(--d-f4f4f4);
+      box-shadow: 0px 0px 12px -8px rgba(0, 0, 0, 0.15);
+    }
+
     .countdown_box {
       width: calc(100% - 20px);
       height: 100px;
