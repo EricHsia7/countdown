@@ -1213,7 +1213,9 @@
     </div>
 
   </div>
-  <div class="content_box"></div>
+  <div class="content_box">
+    <div class="recent_access_content_box"></div>
+  </div>
   <div class="addcountdown" r-click="openaddcountdown()" loading="1">
     <svg stroke-miterlimit="10" style="fill-rule:nonzero;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;" version="1.1" viewBox="0 0 64 64" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
       <path d="M28.5714 64L28.5714 35.4286L0 35.4286L0 28.5714L28.5714 28.5714L28.5714 0L35.4286 0L35.4286 28.5714L64 28.5714L64 35.4286L35.4286 35.4286L35.4286 64L28.5714 64Z" fill="var(--d-333333)" fill-rule="evenodd" opacity="1" stroke="none" />
@@ -1660,6 +1662,22 @@
       }
       $(content_box).append('<div class="countdown_box" id="' + this_id + '" r-click="opencountdown(' + "'" + this_list.id + "'" + ')"><div class="countdown_box_select"><label for="checkbox-' + this_list.id + '"><input type="checkbox" countdown-id="' + this_list.id + '" name="checkbox-' + this_list.id + '" id="checkbox-' + this_list.id + '" class="checkbox"></label></div><div class="countdown_box_count" t="' + this_date + '" trash="' + trash + '"></div><div class="countdown_box_title">' + this_title + '</div><div class="countdown_box_description">' + this_description + '</div></div>')
       rclick('#' + this_id)
+    }
+    if (k === 0) {
+      $(content_box).prepend('<div class="recent_access_content_box"></div>')
+      var recent_access_list = get_recent_access_list()
+      var recent_access_list_len = recent_access_list.length
+      if (recent_access_list_len > 0) {
+        for (var b = 0; b < recent_access_list_len; b++) {
+          var this_r_list = recent_access_list[b]
+          var this_r_title = this_r_list.title
+          var this_r_description = this_r_list.description
+          var this_r_date = this_r_list.date
+          var this_r_id = randid('recent-access')
+          $(content_box + ' .recent_access_content_box').append('<div class="recent_access_countdown_box" id="' + this_r_id + '" r-click="opencountdown(' + "'" + this_r_list.id + "'" + ')"><div class="recent_access_countdown_box_count" t="' + this_r_date + '"></div><div class="recent_access_countdown_box_title">' + this_r_title + '</div><div class="recent_access_countdown_box_description">' + this_r_description + '</div></div>')
+          rclick('#' + this_r_id)
+        }
+      }
     }
     $(content_box + ' .loading').remove()
   }
@@ -3035,10 +3053,16 @@
   function initialize() {
     var load_len = Math.floor(window.innerHeight / 120) + 1
     var yy = []
+    var gg = []
     for (var y = 0; y < load_len; y++) {
       yy.push('<div class="countdown_box loading"><div class="countdown_box_count"></div><div class="countdown_box_title"></div><div class="countdown_box_description"></div></div>')
     }
-    $('.content_box').html(yy.join(''))
+
+    for (var y = 0; y < 5; y++) {
+      gg.push('<div class="recent_access_countdown_box loading"><div class="recent_access_countdown_box_count"></div><div class="recent_access_countdown_box_title"></div><div class="recent_access_countdown_box_description"></div></div>')
+    }
+
+    $('.content_box').html('<div class="recent_access_content_box">' + gg.join('') + '</div>' + yy.join(''))
     $(document).ready(function () {
       setTimeout(function () {
         setoptions()
