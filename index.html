@@ -112,6 +112,22 @@
       user-select: none;
     }
 
+    .content_box_title {
+      width: 100%;
+      padding-left: 15px;
+      box-sizing: border-box;
+      white-space: nowrap;
+      word-break: keep-all;
+      font-size: 21px;
+      color: var(--d-333333);
+      font-weight: 500;
+      align-items: center;
+    }
+
+    .content_box .content_box_title:nth-child(1) {
+      margin-top: 10px;
+    }
+
     .countdown_content_box,
     .add_countdown_content_box,
     .edit_countdown_content_box,
@@ -143,6 +159,125 @@
       display: flex;
       justify-content: center;
       align-items: center;
+    }
+
+    .recent_access_content_box {
+      position: relative;
+      width: 100%;
+      height: 205px;
+      overflow-y: hidden;
+      overflow-x: scroll;
+      white-space: nowrap;
+    }
+
+    .recent_access_content_box::-webkit-scrollbar {
+      display: none;
+    }
+
+    .recent_access_content_box .recent_access_countdown_box {
+      width: clamp(150px, calc(28% - 20px), 180px);
+      height: 185px;
+      display: inline-block;
+      background: var(--d-ffffff);
+      position: relative;
+      -webkit-user-select: none;
+      user-select: none;
+      overflow: hidden;
+      border-radius: 15px;
+      margin: 10px;
+      margin-right: 0px;
+      box-sizing: border-box;
+      border: 1px solid var(--d-f4f4f4);
+      box-shadow: 0px 0px 12px -8px rgba(0, 0, 0, 0.15);
+    }
+
+    .recent_access_content_box .recent_access_countdown_box:nth-last-child(1) {
+      margin-right: 10px;
+    }
+
+    .recent_access_countdown_box .recent_access_countdown_box_count {
+      position: absolute;
+      top: 5px;
+      left: 5px;
+      width: calc(100% - 10px);
+      height: 90px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 23px;
+      font-weight: 700;
+      color: var(--d-333333);
+      -webkit-user-select: none;
+      user-select: none;
+    }
+
+    .recent_access_countdown_box .recent_access_countdown_box_title {
+      position: absolute;
+      top: 95px;
+      left: 5px;
+      width: calc(100% - 10px);
+      height: 30px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      font-size: 16px;
+      font-weight: 500;
+      color: var(--d-333333);
+      padding: 3px;
+      box-sizing: border-box;
+      word-break: keep-all;
+      white-space: nowrap;
+      -webkit-user-select: none;
+      user-select: none;
+    }
+
+    .recent_access_countdown_box .recent_access_countdown_box_description {
+      position: absolute;
+      top: 125px;
+      left: 5px;
+      width: calc(100% - 10px);
+      height: 55px;
+      overflow: hidden;
+      padding: 3px;
+      box-sizing: border-box;
+      word-break: break-all;
+      white-space: pre-line;
+      color: var(--d-333333);
+      font-weight: 400;
+      font-size: 16px;
+      -webkit-user-select: none;
+      user-select: none;
+    }
+
+    .recent_access_countdown_box.loading .recent_access_countdown_box_count::after,
+    .recent_access_countdown_box.loading .recent_access_countdown_box_title::after,
+    .recent_access_countdown_box.loading .recent_access_countdown_box_description::after {
+      content: '';
+      background: var(--d-fafafa);
+      position: absolute;
+      border-radius: 9px;
+    }
+
+    .recent_access_countdown_box.loading .recent_access_countdown_box_count::after {
+      top: 2.5px;
+      left: 2.5px;
+      width: calc(100% - 5px);
+      height: calc(100% - 5px);
+    }
+
+    .recent_access_countdown_box.loading .recent_access_countdown_box_title::after {
+      top: 2px;
+      left: 2.5px;
+      width: calc(100% - 5px);
+      height: calc(100% - 7px);
+    }
+
+    .recent_access_countdown_box.loading .recent_access_countdown_box_description::after {
+      top: 0px;
+      left: 2.5px;
+      width: calc(100% - 5px);
+      height: calc(100% - 3px);
     }
 
     .countdown_box {
@@ -1493,6 +1628,9 @@
       }
     }
   }
+  function getComputedStyle_s(element, key) {
+    return window.getComputedStyle(element).getPropertyValue(key)
+  }
   function print_countdown(k) {
     var content_box = '.content_box'
     var now_time = new Date().getTime()
@@ -1501,9 +1639,12 @@
     var list_finished = []
     var list_trash = []
     var list_all_len = list_all.length
-    var title_max_len = Math.floor((window.innerWidth - 20 - 110 - 6) / getTextAvgWidth())
+    var title_max_len = Math.floor((window.innerWidth - 20 - 110 - 6) / getTextAvgWidth(500, 16))
+    var title_max_len_recent_access = Math.floor((parseInt(getComputedStyle_s(document.querySelectorAll('.recent_access_content_box .recent_access_countdown_box')[0], 'width')) - 10 - 6) / getTextAvgWidth(400, 16))
+
     if (list_all_len < 1) {
       $(content_box + ' .loading').remove()
+      $(content_box + ' .recent_access_content_box,' + content_box + ' .content_box_title').remove()
       return ''
     }
 
@@ -1537,29 +1678,61 @@
       list = sort_arr(list_trash, 'trash_date').reverse()
     }
     list_len = list.length
+    if (list_len > 0) {
+      for (var e = 0; e < list_len; e++) {
+        var this_list = list[e]
+        var this_title = this_list.title
+        if (this_title.length > title_max_len) {
+          this_title = String(this_title).substring(0, title_max_len - 3) + '...'
+        }
+        var this_description = this_list.description
+        if (this_description.length > 45) {
+          this_description = String(this_description).substring(0, 42) + '...'
+        }
 
-    for (var e = 0; e < list_len; e++) {
-      var this_list = list[e]
-      var this_title = this_list.title
-      if (this_title.length > title_max_len) {
-        this_title = String(this_title).substring(0, title_max_len - 3) + '...'
-      }
-      var this_description = this_list.description
-      if (this_description.length > 45) {
-        this_description = String(this_description).substring(0, 42) + '...'
+        var this_date = this_list.date
+        if (k === 1) {
+          this_date = this_list.trash_date + (60 * 60 * 24 * 30 * 1000)
+        }
+        var this_id = randid('countdown')
+        var trash = false
+        if (k === 1) {
+          trash = true
+        }
+        $(content_box).append('<div class="countdown_box" id="' + this_id + '" r-click="opencountdown(' + "'" + this_list.id + "'" + ')"><div class="countdown_box_select"><label for="checkbox-' + this_list.id + '"><input type="checkbox" countdown-id="' + this_list.id + '" name="checkbox-' + this_list.id + '" id="checkbox-' + this_list.id + '" class="checkbox"></label></div><div class="countdown_box_count" t="' + this_date + '" trash="' + trash + '"></div><div class="countdown_box_title">' + this_title + '</div><div class="countdown_box_description">' + this_description + '</div></div>')
+        rclick('#' + this_id)
       }
 
-      var this_date = this_list.date
-      if (k === 1) {
-        this_date = this_list.trash_date + (60 * 60 * 24 * 30 * 1000)
+      if (k === 0) {
+        if ($(content_box + ' .recent_access_content_box').length < 1) {
+          $(content_box).prepend('<div class="content_box_title" v="0">Recent Access</div><div class="recent_access_content_box"></div><div class="content_box_title" v="1">All</div>')
+        }
+        var recent_access_list = get_recent_access_list()
+        var recent_access_list_len = recent_access_list.length
+        if (recent_access_list_len > 0) {
+          for (var b = 0; b < recent_access_list_len; b++) {
+            var this_r_list = recent_access_list[b]
+            var this_r_title = this_r_list.title
+            if (this_r_title.length > title_max_len_recent_access) {
+              this_r_title = String(this_r_title).substring(0, title_max_len_recent_access - 3) + '...'
+            }
+            var this_r_description = this_r_list.description
+            if (this_r_description.length > 45) {
+              this_r_description = String(this_r_description).substring(0, 42) + '...'
+            }
+            var this_r_date = this_r_list.date
+            var this_r_id = randid('recent-access')
+            $(content_box + ' .recent_access_content_box').append('<div class="recent_access_countdown_box" id="' + this_r_id + '" r-click="opencountdown(' + "'" + this_r_list.id + "'" + ')"><div class="recent_access_countdown_box_count" t="' + this_r_date + '"></div><div class="recent_access_countdown_box_title">' + this_r_title + '</div><div class="recent_access_countdown_box_description">' + this_r_description + '</div></div>')
+            rclick('#' + this_r_id)
+          }
+        }
+        else {
+          $(content_box + ' .recent_access_content_box,' + content_box + ' .content_box_title[v="0"]').remove()
+        }
       }
-      var this_id = randid('countdown')
-      var trash = false
-      if (k === 1) {
-        trash = true
-      }
-      $(content_box).append('<div class="countdown_box" id="' + this_id + '" r-click="opencountdown(' + "'" + this_list.id + "'" + ')"><div class="countdown_box_select"><label for="checkbox-' + this_list.id + '"><input type="checkbox" countdown-id="' + this_list.id + '" name="checkbox-' + this_list.id + '" id="checkbox-' + this_list.id + '" class="checkbox"></label></div><div class="countdown_box_count" t="' + this_date + '" trash="' + trash + '"></div><div class="countdown_box_title">' + this_title + '</div><div class="countdown_box_description">' + this_description + '</div></div>')
-      rclick('#' + this_id)
+    }
+    else {
+      $(content_box + ' .recent_access_content_box,' + content_box + ' .content_box_title').remove()
     }
     $(content_box + ' .loading').remove()
   }
@@ -1785,6 +1958,27 @@
       }
       return '--'
     }
+    if (mode === 0.5) {
+      if (gy[0] > 0) {
+        return gy[0] + 'Year'
+      }
+      if (gy[1] > 0) {
+        return gy[1] + 'Month'
+      }
+      if (gy[2] > 0) {
+        return gy[2] + 'Day'
+      }
+      if (gy[3] > 0) {
+        return gy[3] + 'Hour'
+      }
+      if (gy[4] > 0) {
+        return gy[4] + 'Minute'
+      }
+      if (gy[5] > 0) {
+        return gy[5] + 'Second'
+      }
+      return '--'
+    }
     if (mode === 1) {
       var return_arr = []
       if (gy[0] > 0) {
@@ -1919,7 +2113,29 @@
   }
   var countdown_pause = 0
   function countdown_update() {
+    var recent_access = $('.content_box .recent_access_content_box').length
     var countdown_len = $('.content_box .countdown_box').length
+    if (recent_access > 0) {
+      var recent_access_len = $('.recent_access_content_box .recent_access_countdown_box').length
+      for (var s = 0; s < recent_access_len; s++) {
+        var this_s = $('.recent_access_countdown_box .recent_access_countdown_box_count').eq(s)
+        if (!(this_s.attr('f') === '1')) {
+          var time = parseInt(this_s.attr('t'))
+          var time_date = new Date()
+          time_date.setTime(time)
+          var nowtime = new Date()
+          var f = (time - nowtime.getTime())
+          if (f > 0) {
+            this_s.text(tday(nowtime, time_date, 0.5))
+          }
+          else {
+            var finish_text = 'Finish'
+            this_s.text(finish_text)
+            this_s.attr('f', '1')
+          }
+        }
+      }
+    }
     for (var e = 0; e < countdown_len; e++) {
       var this_h = $('.content_box .countdown_box .countdown_box_count').eq(e)
       var thswww = this_h.offset().top - $(document).scrollTop()
@@ -2086,7 +2302,38 @@
       }
     }
   }
-
+  function get_recent_access_list() {
+    var n = 'countdown_log_a'
+    var log = JSON.parse(String(localStorage.getItem(n)))
+    var list = searchItemsbyname('countdown_x')
+    var list_len = list.length
+    var countdown = []
+    for (var k = 0; k < list_len; k++) {
+      var j = JSON.parse(String(localStorage.getItem(list[k])))
+      if (j['trash'] === true) {
+        continue;
+      }
+      var count = 0
+      var lt = 0
+      if (log.hasOwnProperty('c_' + j.id)) {
+        count = log['c_' + j.id]['c']
+        lt = log['c_' + j.id]['t']
+      }
+      if (count <= 0 || lt <= 0) {
+        continue;
+      }
+      j['count'] = count
+      j['lt'] = lt
+      countdown.push(j)
+    }
+    countdown = sort_arr(countdown, 'lt').reverse()
+    var max_len = 5
+    if (list_len <= max_len) {
+      max_len = Math.floor(list_len * 0.5)
+    }
+    var result = sort_arr(countdown.slice(0, max_len), 'count').reverse();
+    return result
+  }
   function opencountdown_log_check() {
     var n = 'countdown_log_a'
     if (!(localStorage.hasOwnProperty(n))) {
@@ -2570,7 +2817,7 @@
     return metrics.width;
   }
 
-  function getTextAvgWidth() {
+  function getTextAvgWidth(w, s) {
     var list = searchItemsbyname('countdown_x_')
     var list_len = list.length
     var list_str = []
@@ -2593,8 +2840,6 @@
         }
       }
     }
-    var w = 500
-    var s = 16
     return getTextWidth(list_str.join(''), w + " " + s + "px 'Noto Sans', sans-serif") / list_str.length
   }
   function drawCountdownPhoto(bg, txt, w, h, title, date, canvas) {
@@ -2907,10 +3152,16 @@
   function initialize() {
     var load_len = Math.floor(window.innerHeight / 120) + 1
     var yy = []
+    var gg = []
     for (var y = 0; y < load_len; y++) {
       yy.push('<div class="countdown_box loading"><div class="countdown_box_count"></div><div class="countdown_box_title"></div><div class="countdown_box_description"></div></div>')
     }
-    $('.content_box').html(yy.join(''))
+
+    for (var y = 0; y < 5; y++) {
+      gg.push('<div class="recent_access_countdown_box loading"><div class="recent_access_countdown_box_count"></div><div class="recent_access_countdown_box_title"></div><div class="recent_access_countdown_box_description"></div></div>')
+    }
+
+    $('.content_box').html('<div class="content_box_title" v="0">Recent Access</div><div class="recent_access_content_box">' + gg.join('') + '</div><div class="content_box_title" v="1">All</div>' + yy.join(''))
     $(document).ready(function () {
       setTimeout(function () {
         setoptions()
