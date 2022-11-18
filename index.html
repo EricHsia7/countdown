@@ -1639,6 +1639,7 @@
     var title_max_len = Math.floor((window.innerWidth - 20 - 110 - 6) / getTextAvgWidth())
     if (list_all_len < 1) {
       $(content_box + ' .loading').remove()
+      $(content_box + ' .recent_access_content_box,' + content_box + ' .content_box_title').remove()
       return ''
     }
 
