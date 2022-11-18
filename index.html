@@ -1713,7 +1713,13 @@
           for (var b = 0; b < recent_access_list_len; b++) {
             var this_r_list = recent_access_list[b]
             var this_r_title = this_r_list.title
+            if (this_r_title.length > title_max_len) {
+              this_r_title = String(this_r_title).substring(0, ttile_max_len_recent_access - 3) + '...'
+            }
             var this_r_description = this_r_list.description
+            if (this_r_description.length > 45) {
+              this_r_description = String(this_r_description).substring(0, 42) + '...'
+            }
             var this_r_date = this_r_list.date
             var this_r_id = randid('recent-access')
             $(content_box + ' .recent_access_content_box').append('<div class="recent_access_countdown_box" id="' + this_r_id + '" r-click="opencountdown(' + "'" + this_r_list.id + "'" + ')"><div class="recent_access_countdown_box_count" t="' + this_r_date + '"></div><div class="recent_access_countdown_box_title">' + this_r_title + '</div><div class="recent_access_countdown_box_description">' + this_r_description + '</div></div>')
