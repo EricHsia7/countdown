@@ -1640,7 +1640,7 @@
     var list_trash = []
     var list_all_len = list_all.length
     var title_max_len = Math.floor((window.innerWidth - 20 - 110 - 6) / getTextAvgWidth(500, 16))
-    var ttile_max_len_recent_access = Math.floor((parseInt(getComputedStyle_s(document.querySelectorAll('.recent_access_content_box .recent_access_countdown_box'), 'width')) - 10 - 6) / getTextAvgWidth(400, 16))
+    var ttile_max_len_recent_access = Math.floor((parseInt(getComputedStyle_s(document.querySelectorAll('.recent_access_content_box .recent_access_countdown_box')[0], 'width')) - 10 - 6) / getTextAvgWidth(400, 16))
 
     if (list_all_len < 1) {
       $(content_box + ' .loading').remove()
