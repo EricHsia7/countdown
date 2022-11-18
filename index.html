@@ -2302,21 +2302,24 @@
         continue;
       }
       var count = 0
+      var lt = 0
       if (log.hasOwnProperty('c_' + j.id)) {
         count = log['c_' + j.id]['c']
+        lt = log['c_' + j.id]['t']
       }
-      if (count <= 0) {
+      if (count <= 0 || lt <= 0) {
         continue;
       }
       j['count'] = count
+      j['lt'] = lt
       countdown.push(j)
     }
-    countdown = sort_arr(countdown, 'count').reverse()
+    countdown = sort_arr(countdown, 'lt').reverse()
     var max_len = 5
     if (list_len <= max_len) {
       max_len = Math.floor(list_len * 0.5)
     }
-    var result = countdown.slice(0, max_len);
+    var result = sort_arr(countdown.slice(0, max_len), 'count').reverse();
     return result
   }
   function opencountdown_log_check() {
