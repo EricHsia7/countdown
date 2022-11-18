@@ -1628,6 +1628,9 @@
       }
     }
   }
+  function getComputedStyle_s(element, key) {
+    return window.getComputedStyle(element).getPropertyValue(key)
+  }
   function print_countdown(k) {
     var content_box = '.content_box'
     var now_time = new Date().getTime()
@@ -1636,7 +1639,9 @@
     var list_finished = []
     var list_trash = []
     var list_all_len = list_all.length
-    var title_max_len = Math.floor((window.innerWidth - 20 - 110 - 6) / getTextAvgWidth())
+    var title_max_len = Math.floor((window.innerWidth - 20 - 110 - 6) / getTextAvgWidth(500, 16))
+    var ttile_max_len_recent_access = Math.floor((parseInt(getComputedStyle_s(document.querySelectorAll('.recent_access_content_box .recent_access_countdown_box'), 'width')) - 10 - 6) / getTextAvgWidth(400, 16))
+
     if (list_all_len < 1) {
       $(content_box + ' .loading').remove()
       $(content_box + ' .recent_access_content_box,' + content_box + ' .content_box_title').remove()
@@ -2806,7 +2811,7 @@
     return metrics.width;
   }
 
-  function getTextAvgWidth() {
+  function getTextAvgWidth(w, s) {
     var list = searchItemsbyname('countdown_x_')
     var list_len = list.length
     var list_str = []
@@ -2829,8 +2834,6 @@
         }
       }
     }
-    var w = 500
-    var s = 16
     return getTextWidth(list_str.join(''), w + " " + s + "px 'Noto Sans', sans-serif") / list_str.length
   }
   function drawCountdownPhoto(bg, txt, w, h, title, date, canvas) {
