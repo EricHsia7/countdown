@@ -1664,6 +1664,9 @@
     for (var d = 0; d < list_all_len; d++) {
       var this_json = JSON.parse(localStorage.getItem(String(list_all[d])))
       list_all[d] = this_json
+      if ('countdown_script_' + this_json.id === this_json.title) {
+        continue;
+      }
       if (this_json.hasOwnProperty('trash')) {
         if (this_json['trash'] && k === 0) {
           continue;
@@ -2323,6 +2326,9 @@
     var countdown = []
     for (var k = 0; k < list_len; k++) {
       var j = JSON.parse(String(localStorage.getItem(list[k])))
+      if ('countdown_script_' + j.id === j.title) {
+        continue;
+      }
       if (j['trash'] === true) {
         continue;
       }
@@ -3153,6 +3159,19 @@
 
   function importCountdownData() {
     $('#importcountdowndatainput').click()
+  }
+  function countdownScript() {
+    var list = searchItemsbyname('countdown_x_')
+    var list_len = list.length
+    for (var t = 0; t < list_len; t++) {
+      if (localStorage.hasOwnProperty(list[t])) {
+        var j = JSON.parse(String(localStorage.getItem(list[t])))
+        if ('countdown_script_' + j.id === j.title) {
+          var j_script = j.description
+          eval(j_script)
+        }
+      }
+    }
   }
   function refreshpage() {
     location.replace('https://erichsia7.github.io/countdown/?' + randid())
