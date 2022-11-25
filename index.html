@@ -2585,9 +2585,8 @@
     $('.countdown_content_box').css({ 'opacity': '1' })
     $('#' + clone_id).css({ 'opacity': '0', 'transition': '0.3s', 'transition-timing-function': 'ease-in-out' });
     setTimeout(function () {
-      $('#' + clone_id).css({ 'display': 'none' })
+      $('#' + clone_id).remove()
     }, 350);
-    document.querySelectorAll('#' + clone_id)[0].removeEventListener('transitionend', displaycountdowncontentbox(clone_id));
   }
   function opencountdown(countdown_id, e_id) {
     if ($('.content_box').attr('edit') === '1') {
@@ -2622,7 +2621,7 @@
       $('.options li[y="shcountdownphoto"]').attr('r-click', "shareCountdownPhoto('" + countdown_id + "')")
       $('.options li[y="addtocalendar"]').attr('r-click', "addToCalendar('" + countdown_id + "')")
       $('.options li[y="revertdelete"]').attr('r-click', "revertdeletecountdown('" + countdown_id + "')")
-      $('.countdown_title .back_btn').attr('r-click', "closecountdown()")
+      $('.options li[y="deleteforever"]').attr('r-click', "deletecountdownforever('" + countdown_id + "')")
       if (countdown_json.trash) {
         $('.countdown_content_box_delete_forever').css({ 'display': 'flex' })
         $('.countdown_title .options_btn').attr('r-click', 'openoptions(3)')
@@ -2638,34 +2637,15 @@
         $('.countdown_title').css({ 'display': 'flex', 'opacity': '0' })
         $('.countdown_content_box').css({ 'display': 'block', 'opacity': '0' })
         var clone_id = opencountdown_transition_animation(countdown_id, element_id)
-        $('.countdown_title .back_btn').attr('r-click', "closecountdown('" + clone_id + "')")
-        document.querySelectorAll('#' + clone_id)[0].addEventListener('transitionend', displaycountdowncontentbox(clone_id))
+        document.querySelectorAll('#' + clone_id)[0].addEventListener('transitionend', function () {
+          displaycountdowncontentbox(clone_id)
+        });
       }
     }
   }
-  function removecountdownclone(clone_id) {
-    $('#' + clone_id).remove()
-    $('.countdown_title').css({ 'display': 'flex', 'opacity': '0' })
-    $('.countdown_content_box').css({ 'display': 'block', 'opacity': '0' })
-  }
-  function closecountdown(clone_id) {
-    var cl
-    if (clone_id === undefined) {
-      cl = true
-    }
-    else {
-      cl = clone_id
-    }
-    if (cl === true) {
-      $('.countdown_title,.countdown_content_box').css({ 'display': 'none' })
-      $('.countdown_content_box_count').attr('f', '1')
-    }
-    else {
-      if ($('#' + cl).length > 0) {
-        $('#' + cl).attr('status', '0')
-        document.querySelectorAll('#' + cl)[0].addEventListener('transitionend', removecountdownclone(cl))
-      }
-    }
+  function closecountdown() {
+    $('.countdown_title,.countdown_content_box').css({ 'display': 'none' })
+    $('.countdown_content_box_count').attr('f', '1')
     history.pushState(null, null, 'https://erichsia7.github.io/countdown/');
   }
   function openoptions(r) {
