@@ -309,6 +309,18 @@
       margin: 0px;
     }
 
+    .countdown_box[clone="1"][status="1"] {
+      position: fixed;
+      top: 0px;
+      left: 0px;
+      transition: 0.5s;
+      margin: 0px;
+      border: solid rgba(0, 0, 0, 0) 0px;
+      border-radius: 0pc;
+      width: 100%;
+      height: 100%;
+    }
+
     .countdown_box:nth-last-child(1) {
       margin-bottom: 20px
     }
@@ -2496,7 +2508,9 @@
         $('.countdown_title .options_btn').attr('r-click', 'openoptions(1)')
       }
       var clone_id = opencountdown_transition_animation(countdown_id, element_id)
-      document.querySelectorAll('#' + clone_id).addEventListener('transitionend', displaycountdowncontentbox())
+      document.querySelectorAll('#' + clone_id).addEventListener('transitionend', function () {
+        displaycountdowncontentbox(element_id)
+      });
     }
   }
   function closecountdown() {
