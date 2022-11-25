@@ -331,16 +331,14 @@
     }
 
     .countdown_box[clone="1"][status="1"] .countdown_box_title {
-      top: 0px;
-      left: 50%;
-      height: 55px;
+      top: var(--r-title-top);
+      left: var(--r-title-left);
+      height: auto;
       width: auto;
-      transform: translateX(-50%);
       display: inline-flex;
       font-size: 20px;
       font-weight: 200;
       box-sizing: border-box;
-      border-bottom: 1px solid var(--d-e3e3e3);
       padding: 0px;
       transition: 0.5s;
       transition-timing-function: cubic-bezier(0.27, 1.01, 0.38, 0.95);
@@ -2482,8 +2480,11 @@
       if (trash) {
         t_date = trash_date
       }
-      var cth = document.querySelector('#countdown_content_box_details_title').clientHeight
-      $(content_box).append('<div class="countdown_box" id="' + this_id + '" clone="1" status="0" style="--r-top:' + top + 'px;--r-left:' + left + 'px;"><div class="countdown_box_count" t="' + t_date + '" trash="' + trash + '"></div><div class="countdown_box_title">' + title + '</div><div class="countdown_box_description" style="--r-title-height:' + cth + 'px;">' + description + '</div></div>')
+      var countdown_content_box_details = document.querySelector('#countdown_content_box_details_title').clientHeight
+      var tit = document.querySelector('#countdown_title_text')
+      var title_t = tit.offsetTop
+      var title_l = tit.offsetLeft
+      $(content_box).append('<div class="countdown_box" id="' + this_id + '" clone="1" status="0" style="--r-top:' + top + 'px;--r-left:' + left + 'px;"><div class="countdown_box_count" t="' + t_date + '" trash="' + trash + '"></div><div class="countdown_box_title" style="--r-title-top:' + title_t + 'px;--r-title-left:' + title_l + 'px">' + title + '</div><div class="countdown_box_description" style="--r-title-height:' + countdown_content_box_details + 'px;">' + description + '</div></div>')
       return this_id
     }
     if (localStorage.hasOwnProperty('countdown_x_' + countdown_id)) {
