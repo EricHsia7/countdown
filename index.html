@@ -2439,13 +2439,14 @@
     }
   }
   function opencountdown(countdown_id, e) {
+    console.log(e)
     if ($('.content_box').attr('edit') === '1') {
       return ''
     }
     if (localStorage.hasOwnProperty('countdown_x_' + countdown_id)) {
       var element_id = ''
       if (!(e === null || undefined)) {
-        element_id = e.attr('id')
+        element_id = $(e).attr('id')
       }
       history.pushState(null, null, 'https://erichsia7.github.io/countdown/?c=1&id=' + countdown_id);
       opencountdown_log(countdown_id)
