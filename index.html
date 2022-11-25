@@ -2509,7 +2509,10 @@
       if ((time - nowtime.getTime()) < 0) {
         count = 'Finish'
       }
-      $(content_box).append('<div class="countdown_box" id="' + this_id + '" clone="1" status="0" style="--r-top:' + top + 'px;--r-left:' + left + 'px;"><div class="countdown_box_count" t="' + t_date + '" trash="' + trash + '">' + count + '</div><div class="countdown_box_title" style="--r-title-top:' + title_t + 'px;--r-title-left:' + title_l + 'px;--r-title-width:' + title_w + 'px">' + title + '</div><div class="countdown_box_description" style="--r-title-height:' + countdown_content_box_details + 'px;">' + description + '</div></div>')
+      $(content_box).append('<div class="countdown_box" id="' + this_id + '" clone="1" status="0" style="--r-top:' + top + 'px;--r-left:' + left + 'px;"><div class="countdown_box_count" t="' + t_date + '" trash="' + trash + '"></div><div class="countdown_box_title" style="--r-title-top:' + title_t + 'px;--r-title-left:' + title_l + 'px;--r-title-width:' + title_w + 'px"></div><div class="countdown_box_description" style="--r-title-height:' + countdown_content_box_details + 'px;"></div></div>')
+      $('#' + this_id + ' .countdown_box_title').text(title)
+      $('#' + this_id + ' .countdown_box_count').text(count)
+      $('#' + this_id + ' .countdown_box_description').text(description)
       return this_id
     }
     if (localStorage.hasOwnProperty('countdown_x_' + countdown_id)) {
