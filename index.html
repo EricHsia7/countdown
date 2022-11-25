@@ -2444,7 +2444,16 @@
       var t = element.offsetTop - (content_box_r.scrollTop - content_box_r.offsetTop) - (content_box_e.scrollTop - content_box_e.offsetTop)
       var l = element.offsetLeft - (content_box_r.scrollLeft - content_box_r.offsetLeft) - (content_box_e.scrollLeft - content_box_e.offsetLeft)
       var clone_id = clone(j.title, j.description, j.date, j.trash, j.trash_date, t, l)
+      setTimeout(function () {
+        $('#' + clone_id).attr('status', '1')
+      }, 1)
+      return clone_id
     }
+  }
+  function displaycountdowncontentbox(clone_id) {
+    $('.countdown_title').css({ 'display': 'flex' })
+    $('.countdown_content_box').css({ 'display': 'block' })
+    $('#' + clone_id).remove()
   }
   function opencountdown(countdown_id, e_id) {
     if ($('.content_box').attr('edit') === '1') {
@@ -2486,9 +2495,8 @@
       else {
         $('.countdown_title .options_btn').attr('r-click', 'openoptions(1)')
       }
-      opencountdown_transition_animation(countdown_id, element_id)
-      $('.countdown_title').css({ 'display': 'flex' })
-      $('.countdown_content_box').css({ 'display': 'block' })
+      var clone_id = opencountdown_transition_animation(countdown_id, element_id)
+      document.querySelectorAll('#' + clone_id).addEventListener('transitionend', displaycountdowncontentbox())
     }
   }
   function closecountdown() {
