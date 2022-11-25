@@ -1559,7 +1559,7 @@
     $(select).click(function (e) {
       e.stopPropagation()
       if ($(this).attr('r-click') != '') {
-        eval('setTimeout(function() {' + $(this).attr('r-click') + '},' + 1 + ');');
+        eval($(this).attr('r-click'));
       }
     });
   }
