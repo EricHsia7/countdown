@@ -2433,13 +2433,12 @@
       var element = document.querySelectorAll('#' + element_id)[0]
       var content_box_r = document.querySelector('.content_box')
       var content_box_e = document.querySelector(content_box)
-      var t = element.offset.top - (content_box_r.scrollTop + content_box_r.offset.top) - (content_box_e.scrollTop + content_box_e.offset.top)
-      var l = element.offset.left - (content_box_r.scrollLeft + content_box_r.offset.left) - (content_box_e.scrollLeft + content_box_e.offset.left)
+      var t = element.offsetTop - (content_box_r.scrollTop + content_box_r.offsetTop) - (content_box_e.scrollTop + content_box_e.offsetTop)
+      var l = element.offsetLeft - (content_box_r.scrollLeft + content_box_r.offsetLeft) - (content_box_e.scrollLeft + content_box_e.offsetLeft)
       var clone_id = clone(j.title, j.description, j.date, j.trash, j.trash_date, t, l)
     }
   }
   function opencountdown(countdown_id, e_id) {
-    console.log(e_id)
     if ($('.content_box').attr('edit') === '1') {
       return ''
     }
