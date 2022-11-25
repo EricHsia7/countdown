@@ -342,6 +342,7 @@
       padding: 0px;
       transition: 0.5s;
       transition-timing-function: cubic-bezier(0.27, 1.01, 0.38, 0.95);
+      overflow: hidden;
     }
 
     .countdown_box[clone="1"][status="1"] .countdown_box_description {
@@ -2506,7 +2507,7 @@
       if ((time - nowtime.getTime()) < 0) {
         count = 'Finish'
       }
-      $(content_box).append('<div class="countdown_box" id="' + this_id + '" clone="1" status="0" style="--r-top:' + top + 'px;--r-left:' + left + 'px;"><div class="countdown_box_count" t="' + t_date + '" trash="' + trash + '">' + count + '</div><div class="countdown_box_title" style="--r-title-top:' + title_t + 'px;--r-title-left:' + title_l + 'px;--title-width:' + title_w + 'px">' + title + '</div><div class="countdown_box_description" style="--r-title-height:' + countdown_content_box_details + 'px;">' + description + '</div></div>')
+      $(content_box).append('<div class="countdown_box" id="' + this_id + '" clone="1" status="0" style="--r-top:' + top + 'px;--r-left:' + left + 'px;"><div class="countdown_box_count" t="' + t_date + '" trash="' + trash + '">' + count + '</div><div class="countdown_box_title" style="--r-title-top:' + title_t + 'px;--r-title-left:' + title_l + 'px;--r-title-width:' + title_w + 'px">' + title + '</div><div class="countdown_box_description" style="--r-title-height:' + countdown_content_box_details + 'px;">' + description + '</div></div>')
       return this_id
     }
     if (localStorage.hasOwnProperty('countdown_x_' + countdown_id)) {
