@@ -1718,7 +1718,7 @@
         if (k === 1) {
           trash = true
         }
-        $(content_box).append('<div class="countdown_box" id="' + this_id + '" r-click="opencountdown(' + "'" + this_list.id + "'" + ',this)"><div class="countdown_box_select"><label for="checkbox-' + this_list.id + '"><input type="checkbox" countdown-id="' + this_list.id + '" name="checkbox-' + this_list.id + '" id="checkbox-' + this_list.id + '" class="checkbox"></label></div><div class="countdown_box_count" t="' + this_date + '" trash="' + trash + '"></div><div class="countdown_box_title">' + this_title + '</div><div class="countdown_box_description">' + this_description + '</div></div>')
+        $(content_box).append('<div class="countdown_box" id="' + this_id + '" r-click="opencountdown(' + "'" + this_list.id + "'" + ',$(this).attr(' + "'" + 'id' + "'" + '))"><div class="countdown_box_select"><label for="checkbox-' + this_list.id + '"><input type="checkbox" countdown-id="' + this_list.id + '" name="checkbox-' + this_list.id + '" id="checkbox-' + this_list.id + '" class="checkbox"></label></div><div class="countdown_box_count" t="' + this_date + '" trash="' + trash + '"></div><div class="countdown_box_title">' + this_title + '</div><div class="countdown_box_description">' + this_description + '</div></div>')
         rclick('#' + this_id)
       }
 
@@ -1741,7 +1741,7 @@
             }
             var this_r_date = this_r_list.date
             var this_r_id = randid('recent-access')
-            $(content_box + ' .recent_access_content_box').append('<div class="recent_access_countdown_box" id="' + this_r_id + '" r-click="opencountdown(' + "'" + this_r_list.id + "'" + ',this)"><div class="recent_access_countdown_box_count" t="' + this_r_date + '"></div><div class="recent_access_countdown_box_title">' + this_r_title + '</div><div class="recent_access_countdown_box_description">' + this_r_description + '</div></div>')
+            $(content_box + ' .recent_access_content_box').append('<div class="recent_access_countdown_box" id="' + this_r_id + '" r-click="opencountdown(' + "'" + this_r_list.id + "'" + ',$(this).attr(' + "'" + 'id' + "'" + '))"><div class="recent_access_countdown_box_count" t="' + this_r_date + '"></div><div class="recent_access_countdown_box_title">' + this_r_title + '</div><div class="recent_access_countdown_box_description">' + this_r_description + '</div></div>')
             rclick('#' + this_r_id)
           }
         }
@@ -2438,15 +2438,15 @@
       var clone_id = clone(j.title, j.description, j.date, j.trash, j.trash_date, t, l)
     }
   }
-  function opencountdown(countdown_id, e) {
-    console.log(e)
+  function opencountdown(countdown_id, e_id) {
+    console.log(e_id)
     if ($('.content_box').attr('edit') === '1') {
       return ''
     }
     if (localStorage.hasOwnProperty('countdown_x_' + countdown_id)) {
       var element_id = ''
-      if (!(e === null || undefined)) {
-        element_id = $(e).attr('id')
+      if (!(e_id === null || undefined)) {
+        element_id = e_id
       }
       history.pushState(null, null, 'https://erichsia7.github.io/countdown/?c=1&id=' + countdown_id);
       opencountdown_log(countdown_id)
