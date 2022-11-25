@@ -2417,6 +2417,23 @@
     }
     localStorage.setItem(n, JSON.stringify(json))
   }
+  function opencountdown_transition_animation(countdown_id, element_id) {
+    var content_box = 'body'
+    var clone = function (title, description, date, trash, trash_date, top, left) {
+      var this_id = randid('clone')
+      var t_date = date
+      if (trash) {
+        t_date = trash_date
+      }
+      $(content_box).append('<div class="countdown_box" id="' + this_id + '" clone="1" status="0" style="position:fixed;--r-top:' + top + 'px;--r-left:' + left + 'px;"><div class="countdown_box_count" t="' + t_date + '" trash="' + trash + '"></div><div class="countdown_box_title">' + title + '</div><div class="countdown_box_description">' + description + '</div></div>')
+      return this_id
+    }
+    if (localStorage.hasOwnProperty('countdown_x_' + countdown_id)) {
+      var j = JSON.parse(String(localStorage.getItem('countdown_x_' + countdown_id)))
+      
+      var clone_id = clone(j.title, j.description, j.date, j.trash, j.trash_date,t,l)
+    }
+  }
   function opencountdown(countdown_id) {
     if ($('.content_box').attr('edit') === '1') {
       return ''
