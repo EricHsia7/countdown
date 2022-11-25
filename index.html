@@ -1718,7 +1718,7 @@
         if (k === 1) {
           trash = true
         }
-        $(content_box).append('<div class="countdown_box" id="' + this_id + '" r-click="opencountdown(' + "'" + this_list.id + "'" + ')"><div class="countdown_box_select"><label for="checkbox-' + this_list.id + '"><input type="checkbox" countdown-id="' + this_list.id + '" name="checkbox-' + this_list.id + '" id="checkbox-' + this_list.id + '" class="checkbox"></label></div><div class="countdown_box_count" t="' + this_date + '" trash="' + trash + '"></div><div class="countdown_box_title">' + this_title + '</div><div class="countdown_box_description">' + this_description + '</div></div>')
+        $(content_box).append('<div class="countdown_box" id="' + this_id + '" r-click="opencountdown(' + "'" + this_list.id + "'" + ',e)"><div class="countdown_box_select"><label for="checkbox-' + this_list.id + '"><input type="checkbox" countdown-id="' + this_list.id + '" name="checkbox-' + this_list.id + '" id="checkbox-' + this_list.id + '" class="checkbox"></label></div><div class="countdown_box_count" t="' + this_date + '" trash="' + trash + '"></div><div class="countdown_box_title">' + this_title + '</div><div class="countdown_box_description">' + this_description + '</div></div>')
         rclick('#' + this_id)
       }
 
@@ -1741,7 +1741,7 @@
             }
             var this_r_date = this_r_list.date
             var this_r_id = randid('recent-access')
-            $(content_box + ' .recent_access_content_box').append('<div class="recent_access_countdown_box" id="' + this_r_id + '" r-click="opencountdown(' + "'" + this_r_list.id + "'" + ')"><div class="recent_access_countdown_box_count" t="' + this_r_date + '"></div><div class="recent_access_countdown_box_title">' + this_r_title + '</div><div class="recent_access_countdown_box_description">' + this_r_description + '</div></div>')
+            $(content_box + ' .recent_access_content_box').append('<div class="recent_access_countdown_box" id="' + this_r_id + '" r-click="opencountdown(' + "'" + this_r_list.id + "'" + ',e)"><div class="recent_access_countdown_box_count" t="' + this_r_date + '"></div><div class="recent_access_countdown_box_title">' + this_r_title + '</div><div class="recent_access_countdown_box_description">' + this_r_description + '</div></div>')
             rclick('#' + this_r_id)
           }
         }
@@ -2430,23 +2430,29 @@
     }
     if (localStorage.hasOwnProperty('countdown_x_' + countdown_id)) {
       var j = JSON.parse(String(localStorage.getItem('countdown_x_' + countdown_id)))
-      
-      var clone_id = clone(j.title, j.description, j.date, j.trash, j.trash_date,t,l)
+      var element = document.querySelectorAll('#' + element_id)[0]
+      var content_box_r = document.querySelector('.content_box')
+      var content_box_e = document.querySelector(content_box)
+      var t = element.offset.top - (content_box_r.scrollTop + content_box_r.offset.top) - (content_box_e.scrollTop + content_box_e.offset.top)
+      var l = element.offset.left - (content_box_r.scrollLeft + content_box_r.offset.left) - (content_box_e.scrollLeft + content_box_e.offset.left)
+      var clone_id = clone(j.title, j.description, j.date, j.trash, j.trash_date, t, l)
     }
   }
-  function opencountdown(countdown_id) {
+  function opencountdown(countdown_id, e) {
     if ($('.content_box').attr('edit') === '1') {
       return ''
     }
     if (localStorage.hasOwnProperty('countdown_x_' + countdown_id)) {
+      var element_id = ''
+      if (!(e === null || undefined)) {
+        element_id = e.attr('id')
+      }
       history.pushState(null, null, 'https://erichsia7.github.io/countdown/?c=1&id=' + countdown_id);
       opencountdown_log(countdown_id)
       var countdown_json = JSON.parse(String(localStorage.getItem('countdown_x_' + countdown_id)))
       var date_o = new Date()
       date_o.setTime(parseInt(countdown_json.date))
       var date_str = ([date_o.getFullYear(), check_i(date_o.getMonth() + 1), check_i(date_o.getDate())]).join('/') + ' ' + ([check_i(date_o.getHours()), check_i(date_o.getMinutes()), check_i(date_o.getSeconds())]).join(':')
-      $('.countdown_title').css({ 'display': 'flex' })
-      $('.countdown_content_box').css({ 'display': 'block' })
       var t_title = countdown_json.title
       if (t_title.length > 15) {
         t_title = String(t_title).substring(0, 12) + '...'
@@ -2472,6 +2478,9 @@
       else {
         $('.countdown_title .options_btn').attr('r-click', 'openoptions(1)')
       }
+      opencountdown_transition_animation(countdown_id, element_id)
+      $('.countdown_title').css({ 'display': 'flex' })
+      $('.countdown_content_box').css({ 'display': 'block' })
     }
   }
   function closecountdown() {
