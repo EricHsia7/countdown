@@ -2496,8 +2496,8 @@
     }
   }
   function displaycountdowncontentbox(clone_id) {
-    $('.countdown_title').css({ 'display': 'flex' })
-    $('.countdown_content_box').css({ 'display': 'block' })
+    $('.countdown_title').css({ 'opacity': '1' })
+    $('.countdown_content_box').css({ 'opacity': '1' })
     $('#' + clone_id).remove()
   }
   function opencountdown(countdown_id, e_id) {
@@ -2540,6 +2540,8 @@
       else {
         $('.countdown_title .options_btn').attr('r-click', 'openoptions(1)')
       }
+      $('.countdown_title').css({ 'display': 'flex', 'opacity': '0' })
+      $('.countdown_content_box').css({ 'display': 'block', 'opacity': '0' })
       var clone_id = opencountdown_transition_animation(countdown_id, element_id)
       document.querySelectorAll('#' + clone_id)[0].addEventListener('transitionend', function () {
         displaycountdowncontentbox(clone_id)
