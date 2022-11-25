@@ -2542,10 +2542,9 @@
       return ''
     }
     if (localStorage.hasOwnProperty('countdown_x_' + countdown_id)) {
-      var element_id = false
-      if (!(e_id === null || undefined)) {
-        element_id = e_id
-      }
+      console.log(e_id)
+      var element_id = e_id
+
       history.pushState(null, null, 'https://erichsia7.github.io/countdown/?c=1&id=' + countdown_id);
       opencountdown_log(countdown_id)
       var countdown_json = JSON.parse(String(localStorage.getItem('countdown_x_' + countdown_id)))
