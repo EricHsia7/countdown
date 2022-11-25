@@ -2542,7 +2542,7 @@
       return ''
     }
     if (localStorage.hasOwnProperty('countdown_x_' + countdown_id)) {
-      var element_id = ''
+      var element_id = false
       if (!(e_id === null || undefined)) {
         element_id = e_id
       }
@@ -2577,12 +2577,18 @@
       else {
         $('.countdown_title .options_btn').attr('r-click', 'openoptions(1)')
       }
-      $('.countdown_title').css({ 'display': 'flex', 'opacity': '0' })
-      $('.countdown_content_box').css({ 'display': 'block', 'opacity': '0' })
-      var clone_id = opencountdown_transition_animation(countdown_id, element_id)
-      document.querySelectorAll('#' + clone_id)[0].addEventListener('transitionend', function () {
-        displaycountdowncontentbox(clone_id)
-      });
+      if (element_id === false) {
+        $('.countdown_title').css({ 'display': 'flex', 'opacity': '1' })
+        $('.countdown_content_box').css({ 'display': 'block', 'opacity': '1' })
+      }
+      else {
+        $('.countdown_title').css({ 'display': 'flex', 'opacity': '0' })
+        $('.countdown_content_box').css({ 'display': 'block', 'opacity': '0' })
+        var clone_id = opencountdown_transition_animation(countdown_id, element_id)
+        document.querySelectorAll('#' + clone_id)[0].addEventListener('transitionend', function () {
+          displaycountdowncontentbox(clone_id)
+        });
+      }
     }
   }
   function closecountdown() {
