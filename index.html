@@ -2508,7 +2508,7 @@
         $('.countdown_title .options_btn').attr('r-click', 'openoptions(1)')
       }
       var clone_id = opencountdown_transition_animation(countdown_id, element_id)
-      document.querySelectorAll('#' + clone_id).addEventListener('transitionend', function () {
+      document.querySelectorAll('#' + clone_id)[0].addEventListener('transitionend', function () {
         displaycountdowncontentbox(element_id)
       });
     }
