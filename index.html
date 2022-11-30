@@ -2582,7 +2582,7 @@
       var l = element.offsetLeft - (content_box_r.scrollLeft - content_box_r.offsetLeft) - (content_box_e.scrollLeft - content_box_e.offsetLeft)
       var clone_id = clone(j.title, j.description, j.date, j.trash, j.trash_date, t, l)
       setTimeout(function () {
-        $('#' + clone_id).attr('status', '1')
+        $('#' + clone_id + ',#title-' + clone_id + ',#description-' + clone_id + ',#count-' + clone_id).attr('status', '1')
       }, 1)
       return clone_id
     }
