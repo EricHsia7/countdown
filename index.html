@@ -328,8 +328,8 @@
 
     .countdown_box_title[clone="1"][status="0"] {
       position: fixed;
-      top: var(--r-top);
-      left: var(--r-left);
+      top: calc(var(--r-top) + 5px);
+      left: calc(var(--r-left) + 105px);
       width: var(--r-title-width);
       transform-origin: top left;
       transform: scale(1) translateX(0px) translateY(0px);
@@ -339,10 +339,10 @@
 
     .countdown_box_title[clone="1"][status="1"] {
       position: fixed;
-      top: var(--r-top);
-      left: var(--r-left);
+      top: calc(var(--r-top) + 5px);
+      left: calc(var(--r-left) + 105px);
       transform-origin: top left;
-      transform: scale(1) translateX(calc(var(--r-title-left) - var(--r-left))) translateY(calc(var(--r-title-top) - var(--r-top)));
+      transform: scale(1) translateX(calc(var(--r-title-left) - var(--r-left) - 105px)) translateY(calc(var(--r-title-top) - var(--r-top) - 5px));
       height: auto;
       width: var(--r-title-width);
       display: inline-flex;
