@@ -328,6 +328,8 @@
 
     .countdown_box_title[clone="1"][status="0"] {
       position: fixed;
+      top: var(--r-top);
+      left: var(--r-left);
       transition: 0.45s;
       transition-timing-function: cubic-bezier(0.27, 1.01, 0.38, 0.95);
     }
@@ -337,7 +339,7 @@
       top: var(--r-top);
       left: var(--r-left);
       transform-origin: top left;
-      transform: translateX(calc(0px - var(--r-top) + var(--r-title-top))) translateY(calc(0px - var(--r-left) + var(--r-title-left)));
+      transform: translateX(calc(0px - var(--r-left) + var(--r-title-left))) translateY(calc(0px - var(--r-top) + var(--r-title-top)));
       height: auto;
       width: var(--r-title-width);
       display: inline-flex;
