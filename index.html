@@ -328,15 +328,16 @@
 
     .countdown_box_title[clone="1"][status="0"] {
       position: fixed;
-      border-bottom: 0px solid rgba(0, 0, 0, 0);
       transition: 0.45s;
       transition-timing-function: cubic-bezier(0.27, 1.01, 0.38, 0.95);
     }
 
     .countdown_box_title[clone="1"][status="1"] {
       position: fixed;
-      top: var(--r-title-top);
-      left: var(--r-title-left);
+      top: var(--r-top);
+      left: var(--r-left);
+      transform-origin: top left;
+      transform: translateX(calc(0px - var(--r-top) + var(--r-title-top))) translateY(calc(0px - var(--r-left) + var(--r-title-left)));
       height: auto;
       width: var(--r-title-width);
       display: inline-flex;
