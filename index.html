@@ -332,7 +332,7 @@
       top: calc(var(--r-top) + 5px);
       left: calc(var(--r-left) + 105px);
       transform-origin: top left;
-      transform:  translateX(0px) translateY(0px) scale(1);
+      transform: translateX(0px) translateY(0px) scale(1);
       transition: 0.45s;
       transition-timing-function: cubic-bezier(0.27, 1.01, 0.38, 0.95);
       will-change: transform;
@@ -402,7 +402,6 @@
       left: var(--r-left);
       border-right: 0px solid var(--d-fafafa);
       background: rgba(0, 0, 0, 0);
-      font-size: 25px;
       font-weight: 700;
       transform-origin: top left;
       transform: translateX(calc(0px - var(--r-left))) translateY(calc(55px - var(--r-top))) scaleX(var(--r-scale-x)) scaleY(var(--r-scale-y));
@@ -417,7 +416,7 @@
     }
 
     .countdown_box_count[clone="1"][status="1"] span {
-      transform: scaleX(calc(1 / var(--r-scale-x))) scaleY(calc(1 / var(--r-scale-y)));
+      transform: scaleX(calc(1 / var(--r-scale-x) * (25 / 23))) scaleY(calc(1 / var(--r-scale-y) * (25 / 23)));
       transition: 0.45s;
       transition-timing-function: cubic-bezier(0.27, 1.01, 0.38, 0.95);
     }
