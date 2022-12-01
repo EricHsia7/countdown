@@ -390,7 +390,7 @@
       position: fixed;
       top: var(--r-top);
       left: var(--r-left);
-      transform: scale(1) translateX(0px) translateY(0px);
+      transform: translateX(0px) translateY(0px) scaleX(1) scaleY(1);
       transition: 0.45s;
       transition-timing-function: cubic-bezier(0.27, 1.01, 0.38, 0.95);
       will-change: transform;
@@ -403,9 +403,10 @@
       top: var(--r-top);
       left: var(--r-left);
       border-right: 0px solid var(--d-fafafa);
+      background: rgba(0, 0, 0, 0);
       font-size: 25px;
       font-weight: 700;
-      transform: scale(1) translateX(calc(0px - var(--r-left))) translateY(calc(55px - var(--r-top)));
+      transform: translateX(calc(0px - var(--r-left))) translateY(calc(55px - var(--r-top))) scaleX(var(--r-scale-x)) scaleY(var(--r-scale-y));
       transition: 0.45s;
       transition-timing-function: cubic-bezier(0.27, 1.01, 0.38, 0.95);
     }
@@ -2596,6 +2597,8 @@
       var window_h = window.innerHeight
       var box_scale_x = window_w / width
       var box_scale_y = window_h / height
+      var count_scale_x = window_w / 95
+      var count_scale_y = 270 / 90
       var nowtime = new Date()
       var time = new Date()
       time.setTime(parseInt(t_date))
@@ -2603,7 +2606,7 @@
       if ((time - nowtime.getTime()) < 0) {
         count = 'Finish'
       }
-      $(content_box).append('<div class="countdown_box" id="' + this_id + '" clone="1" status="0" style="--r-top:' + top + 'px;--r-left:' + left + 'px;--r-scale-x:' + box_scale_x + ';--r-scale-y:' + box_scale_y + ';" clone="1"></div><div class="countdown_box_count" style="--r-top:' + top + 'px;--r-left:' + left + 'px;" id="count-' + this_id + '" clone="1" status="0"></div><div class="countdown_box_title" style="--r-top:' + top + 'px;--r-left:' + left + 'px;--r-title-top:' + title_t + 'px;--r-title-left:' + title_l + 'px;--r-title-width:' + title_w + 'px;--r-title-height:' + title_h + 'px;" id="title-' + this_id + '" clone="1" status="0"></div><div class="countdown_box_description" style="--r-title-height:' + countdown_content_box_details + 'px;--r-top:' + top + 'px;--r-left:' + left + 'px;" id="description-' + this_id + '" clone="1" status="0"></div>')
+      $(content_box).append('<div class="countdown_box" id="' + this_id + '" clone="1" status="0" style="--r-top:' + top + 'px;--r-left:' + left + 'px;--r-scale-x:' + box_scale_x + ';--r-scale-y:' + box_scale_y + ';" clone="1"></div><div class="countdown_box_count" style="--r-top:' + top + 'px;--r-left:' + left + 'px;--r-scale-x:' + count_scale_x + ';--r-scale-y:' + count_scale_y + ';" id="count-' + this_id + '" clone="1" status="0"></div><div class="countdown_box_title" style="--r-top:' + top + 'px;--r-left:' + left + 'px;--r-title-top:' + title_t + 'px;--r-title-left:' + title_l + 'px;--r-title-width:' + title_w + 'px;--r-title-height:' + title_h + 'px;" id="title-' + this_id + '" clone="1" status="0"></div><div class="countdown_box_description" style="--r-title-height:' + countdown_content_box_details + 'px;--r-top:' + top + 'px;--r-left:' + left + 'px;" id="description-' + this_id + '" clone="1" status="0"></div>')
       $('#title-' + this_id + '[clone="1"]').text(title)
       $('#count-' + this_id + '[clone="1"]').text(count)
       $('#description-' + this_id + '[clone="1"]').text(description)
