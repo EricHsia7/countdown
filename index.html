@@ -1930,7 +1930,7 @@
             }
             var this_r_date = this_r_list.date
             var this_r_id = randid('recent-access')
-            $(content_box + ' .recent_access_content_box').append('<div class="recent_access_countdown_box" id="' + this_r_id + '" r-click="opencountdown(' + "'" + this_list.id + "','" + this_r_id + "'" + ')"><div class="recent_access_countdown_box_count" t="' + this_r_date + '"></div><div class="recent_access_countdown_box_title">' + this_r_title + '</div><div class="recent_access_countdown_box_description">' + this_r_description + '</div></div>')
+            $(content_box + ' .recent_access_content_box').append('<div class="recent_access_countdown_box" id="' + this_r_id + '" r-click="opencountdown(' + "'" + this_r_list.id + "','" + this_r_id + "'" + ')"><div class="recent_access_countdown_box_count" t="' + this_r_date + '"></div><div class="recent_access_countdown_box_title">' + this_r_title + '</div><div class="recent_access_countdown_box_description">' + this_r_description + '</div></div>')
             rclick('#' + this_r_id)
           }
         }
