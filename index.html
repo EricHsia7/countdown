@@ -332,7 +332,7 @@
       top: calc(var(--r-top) + 5px);
       left: calc(var(--r-left) + 105px);
       transform-origin: top left;
-      transform: scale(1) translateX(0px) translateY(0px);
+      transform:  translateX(0px) translateY(0px) scale(1);
       transition: 0.45s;
       transition-timing-function: cubic-bezier(0.27, 1.01, 0.38, 0.95);
       will-change: transform;
@@ -343,7 +343,7 @@
       top: calc(var(--r-top) + 5px);
       left: calc(var(--r-left) + 105px);
       transform-origin: top left;
-      transform: scale(1.25) translateX(calc(var(--r-title-left) - (var(--r-left) + 105px))) translateY(calc(var(--r-title-top) - (var(--r-top) + 5px)));
+      transform: translateX(calc(var(--r-title-left) - (var(--r-left) + 105px))) translateY(calc(var(--r-title-top) - (var(--r-top) + 5px))) scale(1.25);
       height: var(--r-title-height);
       width: var(--r-title-width);
       display: inline-flex;
