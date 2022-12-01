@@ -308,8 +308,6 @@
       width: 100%;
       height: 100%;
       background: rgba(0, 0, 0, 0);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
       user-select: none;
       -webkit-user-select: none;
       transition: 0.45s;
@@ -318,10 +316,14 @@
 
     .countdown_box_clone_mask[status="0"] {
       opacity: 0;
+      backdrop-filter: blur(0px);
+      -webkit-backdrop-filter: blur(0px);
     }
 
     .countdown_box_clone_mask[status="1"] {
       opacity: 1;
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
     }
 
     .countdown_box[clone="1"][status="0"] {
