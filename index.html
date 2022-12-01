@@ -2644,7 +2644,7 @@
   function displaycountdowncontentbox(clone_id) {
     $('.countdown_title').css({ 'opacity': '1' })
     $('.countdown_content_box').css({ 'opacity': '1' })
-    $('#' + clone_id + ',#title-' + clone_id + ',#description-' + clone_id + ',#count-' + clone_id).css({ 'opacity': '0', 'transition': '0.3s', 'transition-timing-function': 'ease-in-out' });
+    $('#' + clone_id).css({ 'opacity': '0', 'transition': '0.3s', 'transition-timing-function': 'ease-in-out' });
     setTimeout(function () {
       $('#' + clone_id + ',#title-' + clone_id + ',#description-' + clone_id + ',#count-' + clone_id).remove()
     }, 350);
