@@ -2673,6 +2673,7 @@
       var clone_id = clone(j.title, j.description, j.date, j.trash, j.trash_date, t, l, w, h)
       setTimeout(function () {
         $('#' + clone_id + ',#title-' + clone_id + ',#description-' + clone_id + ',#count-' + clone_id + ',#mask-' + clone_id).attr('status', '1')
+        $('.countdown_title .back_btn').attr('r-click', 'closecountdown(1,' + '"' + clone_id + '")')
       }, 1)
       return clone_id
     }
