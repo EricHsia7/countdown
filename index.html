@@ -2694,10 +2694,7 @@
     }
     if ($('#' + clone_id).attr('o') === "1") {
       $('#' + clone_id).attr('o', '2')
-      $('#' + clone_id + ',#title-' + clone_id + ',#description-' + clone_id + ',#count-' + clone_id).addClass('fade-out')
-      setTimeout(function () {
-        $('#' + clone_id + ',#title-' + clone_id + ',#description-' + clone_id + ',#count-' + clone_id + ',#mask-' + clone_id).remove()
-      }, 300);
+      $('#' + clone_id + ',#title-' + clone_id + ',#description-' + clone_id + ',#count-' + clone_id + ',#mask-' + clone_id).remove()
     }
   }
   function opencountdown(countdown_id, e_id) {
@@ -2765,7 +2762,7 @@
         $('.countdown_title,.countdown_content_box').css({ 'display': 'none' })
         $('#' + clone_id + ',#title-' + clone_id + ',#description-' + clone_id + ',#count-' + clone_id).attr('status', '0').attr('o', '1')
         $('#mask-' + clone_id).attr('status', '0')
-      }, 350);
+      }, 1);
     }
     else {
       $('.countdown_title,.countdown_content_box').css({ 'display': 'none' })
