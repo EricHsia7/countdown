@@ -2754,6 +2754,7 @@
   }
   function closecountdown(k, clone_id) {
     if (k === 1) {
+      $('.countdown_title .back_btn').attr('r-click', 'closecountdown()')
       $('.countdown_title').css({ 'opacity': '0' })
       $('.countdown_content_box').css({ 'opacity': '0' })
       $('#mask-' + clone_id).css({ 'display': 'block' })
@@ -2763,8 +2764,8 @@
       }, 1);
       setTimeout(function () {
         $('#' + clone_id + ',#title-' + clone_id + ',#description-' + clone_id + ',#count-' + clone_id).removeClass('fade-in').attr('status', '0').attr('o', '2')
+        $('#mask-' + clone_id).attr('status', '0')
       }, 350);
-
     }
     $('.countdown_title,.countdown_content_box').css({ 'display': 'none' })
     $('.countdown_content_box_count').attr('f', '1')
