@@ -2758,7 +2758,7 @@
       $('.countdown_title').css({ 'opacity': '0' })
       $('.countdown_content_box').css({ 'opacity': '0' })
       $('#mask-' + clone_id).css({ 'display': 'block' })
-      $('#' + clone_id + ',#title-' + clone_id + ',#description-' + clone_id + ',#count-' + clone_id).css({ 'display': 'block' })
+      $('#' + clone_id + ',#title-' + clone_id + ',#description-' + clone_id + ',#count-' + clone_id).css({ 'display': 'block' }).removeClass('fade-out')
       setTimeout(function () {
         $('#' + clone_id + ',#title-' + clone_id + ',#description-' + clone_id + ',#count-' + clone_id).addClass('fade-in')
       }, 1);
