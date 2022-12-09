@@ -2694,7 +2694,10 @@
     }
     if ($('#' + clone_id).attr('o') === "1") {
       $('#' + clone_id).attr('o', '2')
-      $('#' + clone_id + ',#title-' + clone_id + ',#description-' + clone_id + ',#count-' + clone_id + ',#mask-' + clone_id).remove()
+      $('#' + clone_id + ',#title-' + clone_id + ',#description-' + clone_id + ',#count-' + clone_id + ',#mask-' + clone_id).addClass('fade-out')
+      setTimeout(function () {
+        $('#' + clone_id + ',#title-' + clone_id + ',#description-' + clone_id + ',#count-' + clone_id + ',#mask-' + clone_id).remove()
+      }, 300);
     }
   }
   function opencountdown(countdown_id, e_id) {
