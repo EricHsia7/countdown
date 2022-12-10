@@ -303,202 +303,6 @@
       box-shadow: 0px 0px 12px -8px rgba(0, 0, 0, 0.15);
     }
 
-    .countdown_box_clone_mask {
-      position: fixed;
-      top: 0px;
-      left: 0px;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0);
-      user-select: none;
-      -webkit-user-select: none;
-      transition: 0.45s;
-      transition-timing-function: cubic-bezier(0.27, 1.01, 0.38, 0.95);
-    }
-
-    .countdown_box_clone_mask[status="0"] {
-      backdrop-filter: blur(0px);
-      -webkit-backdrop-filter: blur(0px);
-    }
-
-    .countdown_box_clone_mask[status="1"] {
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-    }
-
-    .countdown_box[clone="1"][status="0"] {
-      position: fixed;
-      top: var(--r-top);
-      left: var(--r-left);
-      transition: var(--clone-tn-dg);
-      transition-timing-function: var(--clone-tn-tg-fn);
-      transform-origin: top left;
-      transform: translateX(0px) translateY(0px) scaleX(1) scaleY(1);
-      margin: 0px;
-      will-change: transform;
-    }
-
-    .countdown_box[clone="1"][status="1"] {
-      position: fixed;
-      top: var(--r-top);
-      left: var(--r-left);
-      transform-origin: top left;
-      transform: translateX(calc(0px - var(--r-left))) translateY(calc(0px - var(--r-top))) scaleX(var(--r-scale-x)) scaleY(var(--r-scale-y));
-      transition: var(--clone-tn-dg);
-      transition-timing-function: var(--clone-tn-tg-fn);
-      border: 0px solid rgba(0, 0, 0, 0);
-      border-radius: 0px;
-      box-shadow: 0px 0px 12px -8px rgba(0, 0, 0, 0);
-      margin: 0px;
-    }
-
-    .countdown_box_title[clone="1"][status="0"] {
-      position: fixed;
-      top: calc(var(--r-top) + 5px);
-      left: calc(var(--r-left) + 105px);
-      transform-origin: top left;
-      transform: translateX(0px) translateY(0px) scale(1);
-      transition: var(--clone-tn-dg);
-      transition-timing-function: var(--clone-tn-tg-fn);
-      will-change: transform;
-    }
-
-    .countdown_box_title[clone="1"][status="1"] {
-      position: fixed;
-      top: calc(var(--r-top) + 5px);
-      left: calc(var(--r-left) + 105px);
-      transform-origin: top left;
-      transform: translateX(calc(var(--r-title-left) - (var(--r-left) + 105px))) translateY(calc(var(--r-title-top) - (var(--r-top) + 5px))) scale(1.25);
-      height: var(--r-title-height);
-      width: var(--r-title-width);
-      display: block;
-      font-weight: 200;
-      font-size: 16px;
-      box-sizing: border-box;
-      transition: var(--clone-tn-dg);
-      transition-timing-function: var(--clone-tn-tg-fn);
-      overflow: hidden;
-      background: rgba(0, 0, 0, 0);
-      padding: 0px;
-    }
-
-    .countdown_box_description[clone="1"][status="0"] {
-      position: fixed;
-      top: calc(var(--r-top) + 40px);
-      left: calc(var(--r-left) + 105px);
-      transform-origin: top left;
-      transform: scale(1) translateX(0px) translateY(0px);
-      transition: var(--clone-tn-dg);
-      transition-timing-function: var(--clone-tn-tg-fn);
-      will-change: transform;
-    }
-
-    .countdown_box_description[clone="1"][status="1"] {
-      position: fixed;
-      top: calc(var(--r-top) + 40px);
-      left: calc(var(--r-left) + 105px);
-      height: auto;
-      width: calc(100% - 20px);
-      display: inline-block;
-      padding: 0px;
-      margin: 5px;
-      font-size: 16px;
-      font-weight: 400;
-      background: rgba(0, 0, 0, 0);
-      transform-origin: top left;
-      transform: scale(1) translateX(calc(10px - (var(--r-left) + 105px))) translateY(calc((336px + var(--r-title-height)) - (var(--r-top) + 40px)));
-      transition: var(--clone-tn-dg);
-      transition-timing-function: var(--clone-tn-tg-fn);
-    }
-
-    .countdown_box_count[clone="1"][status="0"] {
-      position: fixed;
-      top: var(--r-top);
-      left: var(--r-left);
-      transform-origin: top left;
-      transform: translateX(0px) translateY(0px) scaleX(1) scaleY(1);
-      transition: var(--clone-tn-dg);
-      transition-timing-function: var(--clone-tn-tg-fn);
-      will-change: transform;
-    }
-
-    .countdown_box_count[clone="1"][status="1"] {
-      position: fixed;
-      top: var(--r-top);
-      left: var(--r-left);
-      border-right: 0px solid rgba(0, 0, 0, 0);
-      background: rgba(0, 0, 0, 0);
-      font-weight: 700;
-      transform-origin: top left;
-      transform: translateX(calc(0px - var(--r-left))) translateY(calc(55px - var(--r-top))) scaleX(var(--r-scale-x)) scaleY(var(--r-scale-y));
-      transition: var(--clone-tn-dg);
-      transition-timing-function: var(--clone-tn-tg-fn);
-    }
-
-    .countdown_box_count[clone="1"][status="0"] span {
-      transition: var(--clone-tn-dg);
-      transition-timing-function: var(--clone-tn-tg-fn);
-      will-change: transform;
-    }
-
-    .countdown_box_count[clone="1"][status="1"] span {
-      transform: scaleX(calc(1 / var(--r-scale-x) * (25 / 23))) scaleY(calc(1 / var(--r-scale-y) * (25 / 23)));
-      transition: var(--clone-tn-dg);
-      transition-timing-function: var(--clone-tn-tg-fn);
-    }
-
-    .countdown_box_count[clone="1"][status="0"]::before {
-      position: absolute;
-      content: '';
-      top: 0px;
-      left: 0px;
-      width: 100%;
-      height: 1px;
-      background: var(--d-e3e3e3);
-      opacity: 0;
-      transition: var(--clone-tn-dg);
-      transition-timing-function: var(--clone-tn-tg-fn);
-    }
-
-    .countdown_box_count[clone="1"][status="1"]::before {
-      content: '';
-      position: absolute;
-      top: 0px;
-      left: 0px;
-      width: 100%;
-      height: calc(1px / var(--r-scale-y));
-      background: var(--d-e3e3e3);
-      opacity: 1;
-      transition: var(--clone-tn-dg);
-      transition-timing-function: var(--clone-tn-tg-fn);
-    }
-
-    .countdown_box_count[clone="1"][status="0"]::after {
-      content: '';
-      position: absolute;
-      top: 89px;
-      left: 0px;
-      width: 100%;
-      height: 1px;
-      background: var(--d-e3e3e3);
-      opacity: 0;
-      transition: var(--clone-tn-dg);
-      transition-timing-function: var(--clone-tn-tg-fn);
-    }
-
-    .countdown_box_count[clone="1"][status="1"]::after {
-      content: '';
-      position: absolute;
-      top: calc(265 / 270 * 90px);
-      left: calc(10px / var(--r-scale-x));
-      width: calc(100% - 20px / var(--r-scale-x));
-      height: calc(1px / var(--r-scale-y));
-      background: var(--d-e3e3e3);
-      opacity: 1;
-      transition: var(--clone-tn-dg);
-      transition-timing-function: var(--clone-tn-tg-fn);
-    }
-
     .countdown_box:nth-last-child(1) {
       margin-bottom: 20px
     }
@@ -637,6 +441,217 @@
 
     .content_box[edit="1"] .countdown_box_select {
       display: flex;
+    }
+
+    .countdown_box_clone_mask {
+      position: fixed;
+      top: 0px;
+      left: 0px;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0);
+      user-select: none;
+      -webkit-user-select: none;
+      transition: 0.45s;
+      transition-timing-function: cubic-bezier(0.27, 1.01, 0.38, 0.95);
+    }
+
+    .countdown_box_clone_mask[status="0"] {
+      backdrop-filter: blur(0px);
+      -webkit-backdrop-filter: blur(0px);
+    }
+
+    .countdown_box_clone_mask[status="1"] {
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+    }
+
+    .countdown_box[clone="1"][status="0"] {
+      position: fixed;
+      top: var(--r-top);
+      left: var(--r-left);
+      transition: var(--clone-tn-dg);
+      transition-timing-function: var(--clone-tn-tg-fn);
+      transform-origin: top left;
+      transform: translateX(0px) translateY(0px) scaleX(1) scaleY(1);
+      margin: 0px;
+      will-change: transform;
+    }
+
+    .countdown_box[clone="1"][status="1"] {
+      position: fixed;
+      top: var(--r-top);
+      left: var(--r-left);
+      transform-origin: top left;
+      transform: translateX(calc(0px - var(--r-left))) translateY(calc(0px - var(--r-top))) scaleX(var(--r-scale-x)) scaleY(var(--r-scale-y));
+      transition: var(--clone-tn-dg);
+      transition-timing-function: var(--clone-tn-tg-fn);
+      border: 0px solid rgba(0, 0, 0, 0);
+      border-radius: 0px;
+      box-shadow: 0px 0px 12px -8px rgba(0, 0, 0, 0);
+      margin: 0px;
+    }
+
+    .countdown_box_title[clone="1"][status="0"] {
+      position: fixed;
+      top: calc(var(--r-top) + 6px);
+      left: calc(var(--r-left) + 106px);
+      width: calc(100% - 20px - 110px);
+      transform-origin: top left;
+      transform: translateX(0px) translateY(0px) scale(1);
+      transition: var(--clone-tn-dg);
+      transition-timing-function: var(--clone-tn-tg-fn);
+      will-change: transform;
+    }
+
+    .countdown_box_title[clone="1"][status="1"] {
+      position: fixed;
+      top: calc(var(--r-top) + 6px);
+      left: calc(var(--r-left) + 106px);
+      transform-origin: top left;
+      transform: translateX(calc(var(--r-title-left) - (var(--r-left) + 106px))) translateY(calc(var(--r-title-top) - (var(--r-top) + 6px))) scale(1.25);
+      height: var(--r-title-height);
+      width: var(--r-title-width);
+      display: block;
+      font-weight: 200;
+      font-size: 16px;
+      box-sizing: border-box;
+      transition: var(--clone-tn-dg);
+      transition-timing-function: var(--clone-tn-tg-fn);
+      overflow: hidden;
+      background: rgba(0, 0, 0, 0);
+      padding: 0px;
+    }
+
+    .countdown_box_description[clone="1"][status="0"] {
+      position: fixed;
+      top: calc(var(--r-top) + 41px);
+      left: calc(var(--r-left) + 106px);
+      height: 55px;
+      width: calc(100% - 20px - 110px);
+      transform-origin: top left;
+      transform: scale(1) translateX(0px) translateY(0px);
+      transition: var(--clone-tn-dg);
+      transition-timing-function: var(--clone-tn-tg-fn);
+      will-change: transform;
+    }
+
+    .countdown_box_description[clone="1"][status="1"] {
+      position: fixed;
+      top: calc(var(--r-top) + 41px);
+      left: calc(var(--r-left) + 106px);
+      height: auto;
+      width: calc(100% - 20px);
+      display: inline-block;
+      padding: 0px;
+      margin: 5px;
+      font-size: 16px;
+      font-weight: 400;
+      background: rgba(0, 0, 0, 0);
+      transform-origin: top left;
+      transform: scale(1) translateX(calc(10px - (var(--r-left) + 106px))) translateY(calc((336px + var(--r-title-height)) - (var(--r-top) + 41px)));
+      transition: var(--clone-tn-dg);
+      transition-timing-function: var(--clone-tn-tg-fn);
+    }
+
+    .countdown_box_count[clone="1"][status="0"] {
+      position: fixed;
+      top: calc(var(--r-top) + 6px);
+      left: calc(var(--r-left) + 6px);
+      transform-origin: top left;
+      transform: translateX(0px) translateY(0px) scaleX(1) scaleY(1);
+      transition: var(--clone-tn-dg);
+      transition-timing-function: var(--clone-tn-tg-fn);
+      will-change: transform;
+    }
+
+    .countdown_box_count[clone="1"][status="1"] {
+      position: fixed;
+      top: calc(var(--r-top) + 6px);
+      left: calc(var(--r-left) + 6px);
+      border-right: 0px solid rgba(0, 0, 0, 0);
+      background: rgba(0, 0, 0, 0);
+      font-weight: 700;
+      transform-origin: top left;
+      transform: translateX(calc(0px - (var(--r-left) + 6px))) translateY(calc(55px - (var(--r-top) + 6px))) scaleX(var(--r-scale-x)) scaleY(var(--r-scale-y));
+      transition: var(--clone-tn-dg);
+      transition-timing-function: var(--clone-tn-tg-fn);
+    }
+
+    .countdown_box_count[clone="1"][status="0"] span {
+      transition: var(--clone-tn-dg);
+      transition-timing-function: var(--clone-tn-tg-fn);
+      will-change: transform;
+    }
+
+    .countdown_box_count[clone="1"][status="1"] span {
+      transform: scaleX(calc(1 / var(--r-scale-x) * (25 / 23))) scaleY(calc(1 / var(--r-scale-y) * (25 / 23)));
+      transition: var(--clone-tn-dg);
+      transition-timing-function: var(--clone-tn-tg-fn);
+    }
+
+    .countdown_box_count[clone="1"][status="0"]::before {
+      position: absolute;
+      content: '';
+      top: 0px;
+      left: 0px;
+      width: 100%;
+      height: 1px;
+      background: var(--d-e3e3e3);
+      opacity: 0;
+      transition: var(--clone-tn-dg);
+      transition-timing-function: var(--clone-tn-tg-fn);
+    }
+
+    .countdown_box_count[clone="1"][status="1"]::before {
+      content: '';
+      position: absolute;
+      top: 0px;
+      left: 0px;
+      width: 100%;
+      height: calc(1px / var(--r-scale-y));
+      background: var(--d-e3e3e3);
+      opacity: 1;
+      transition: var(--clone-tn-dg);
+      transition-timing-function: var(--clone-tn-tg-fn);
+    }
+
+    .countdown_box_count[clone="1"][status="0"]::after {
+      content: '';
+      position: absolute;
+      top: 89px;
+      left: 0px;
+      width: 100%;
+      height: 1px;
+      background: var(--d-e3e3e3);
+      opacity: 0;
+      transition: var(--clone-tn-dg);
+      transition-timing-function: var(--clone-tn-tg-fn);
+    }
+
+    .countdown_box_count[clone="1"][status="1"]::after {
+      content: '';
+      position: absolute;
+      top: calc(265 / 270 * 90px);
+      left: calc(10px / var(--r-scale-x));
+      width: calc(100% - 20px / var(--r-scale-x));
+      height: calc(1px / var(--r-scale-y));
+      background: var(--d-e3e3e3);
+      opacity: 1;
+      transition: var(--clone-tn-dg);
+      transition-timing-function: var(--clone-tn-tg-fn);
+    }
+
+    .fade-in {
+      opacity: 1;
+      transition: 0.3s;
+      transition-timing-function: ease-in-out;
+    }
+
+    .fade-out {
+      opacity: 0;
+      transition: 0.3s;
+      transition-timing-function: ease-in-out;
     }
 
     .add_countdown_content_box input[c="1"],
@@ -2643,7 +2658,7 @@
       if ((time - nowtime.getTime()) < 0) {
         count = 'Finish'
       }
-      $(content_box).append('<div class="countdown_box_clone_mask" id="mask-' + this_id + '" status="0"></div><div class="countdown_box" id="' + this_id + '" clone="1" status="0" style="--r-top:' + top + 'px;--r-left:' + left + 'px;--r-scale-x:' + box_scale_x + ';--r-scale-y:' + box_scale_y + ';" clone="1"></div><div class="countdown_box_count" style="--r-top:' + top + 'px;--r-left:' + left + 'px;--r-scale-x:' + count_scale_x + ';--r-scale-y:' + count_scale_y + ';--l-scale-x:' + line_scale_x + ';" id="count-' + this_id + '" clone="1" status="0"><span></span></div><div class="countdown_box_title" style="--r-top:' + top + 'px;--r-left:' + left + 'px;--r-title-top:' + title_t + 'px;--r-title-left:' + title_l + 'px;--r-title-width:' + title_w + 'px;--r-title-height:' + title_h + 'px;" id="title-' + this_id + '" clone="1" status="0"></div><div class="countdown_box_description" style="--r-title-height:' + countdown_content_box_details + 'px;--r-top:' + top + 'px;--r-left:' + left + 'px;" id="description-' + this_id + '" clone="1" status="0"></div>')
+      $(content_box).append('<div class="countdown_box_clone_mask" id="mask-' + this_id + '" status="0"></div><div class="countdown_box" id="' + this_id + '" clone="1" status="0" o="0" style="--r-top:' + top + 'px;--r-left:' + left + 'px;--r-scale-x:' + box_scale_x + ';--r-scale-y:' + box_scale_y + ';" clone="1"></div><div class="countdown_box_count" style="--r-top:' + top + 'px;--r-left:' + left + 'px;--r-scale-x:' + count_scale_x + ';--r-scale-y:' + count_scale_y + ';--l-scale-x:' + line_scale_x + ';" id="count-' + this_id + '" clone="1" status="0"><span></span></div><div class="countdown_box_title" style="--r-top:' + top + 'px;--r-left:' + left + 'px;--r-title-top:' + title_t + 'px;--r-title-left:' + title_l + 'px;--r-title-width:' + title_w + 'px;--r-title-height:' + title_h + 'px;" id="title-' + this_id + '" clone="1" status="0"></div><div class="countdown_box_description" style="--r-title-height:' + countdown_content_box_details + 'px;--r-top:' + top + 'px;--r-left:' + left + 'px;" id="description-' + this_id + '" clone="1" status="0"></div>')
       $('#title-' + this_id + '[clone="1"]').text(title)
       $('#count-' + this_id + '[clone="1"] span').text(count)
       $('#description-' + this_id + '[clone="1"]').text(description)
@@ -2661,18 +2676,29 @@
       var clone_id = clone(j.title, j.description, j.date, j.trash, j.trash_date, t, l, w, h)
       setTimeout(function () {
         $('#' + clone_id + ',#title-' + clone_id + ',#description-' + clone_id + ',#count-' + clone_id + ',#mask-' + clone_id).attr('status', '1')
+        $('.countdown_title .back_btn').attr('r-click', 'closecountdown(1,' + '"' + clone_id + '")')
       }, 1)
       return clone_id
     }
   }
   function displaycountdowncontentbox(clone_id) {
-    $('.countdown_title').css({ 'opacity': '1' })
-    $('.countdown_content_box').css({ 'opacity': '1' })
-    $('#' + clone_id + ',#title-' + clone_id + ',#description-' + clone_id + ',#count-' + clone_id).css({ 'opacity': '0', 'transition': '0.3s', 'transition-timing-function': 'ease-in-out' });
-    $('#mask-' + clone_id).remove()
-    setTimeout(function () {
-      $('#' + clone_id + ',#title-' + clone_id + ',#description-' + clone_id + ',#count-' + clone_id).remove()
-    }, 300);
+    if ($('#' + clone_id).attr('o') === "0") {
+      $('#' + clone_id).attr('o', '2')
+      $('.countdown_title').css({ 'opacity': '1' })
+      $('.countdown_content_box').css({ 'opacity': '1' })
+      $('#' + clone_id + ',#title-' + clone_id + ',#description-' + clone_id + ',#count-' + clone_id).addClass('fade-out')
+      $('#mask-' + clone_id).css({ 'display': 'none' })
+      setTimeout(function () {
+        $('#' + clone_id + ',#title-' + clone_id + ',#description-' + clone_id + ',#count-' + clone_id).css({ 'display': 'none' }).removeClass('fade-out')
+      }, 300);
+    }
+    if ($('#' + clone_id).attr('o') === "1") {
+      $('#' + clone_id).attr('o', '2')
+      $('#' + clone_id + ',#title-' + clone_id + ',#description-' + clone_id + ',#count-' + clone_id).addClass('fade-out')
+      setTimeout(function () {
+        $('#' + clone_id + ',#title-' + clone_id + ',#description-' + clone_id + ',#count-' + clone_id + ',#mask-' + clone_id).remove()
+      }, 300);
+    }
   }
   function opencountdown(countdown_id, e_id) {
     if ($('.content_box').attr('edit') === '1') {
@@ -2729,8 +2755,21 @@
       }
     }
   }
-  function closecountdown() {
-    $('.countdown_title,.countdown_content_box').css({ 'display': 'none' })
+  function closecountdown(k, clone_id) {
+    if (k === 1) {
+      $('.countdown_title .back_btn').attr('r-click', 'closecountdown()')
+      $('#mask-' + clone_id).css({ 'display': 'block' })
+      $('#' + clone_id + ',#description-' + clone_id).css({ 'display': 'block' })
+      $('#title-' + clone_id + ',#count-' + clone_id).css({ 'display': 'flex' })
+      setTimeout(function () {
+        $('.countdown_title,.countdown_content_box').css({ 'display': 'none' })
+        $('#' + clone_id + ',#title-' + clone_id + ',#description-' + clone_id + ',#count-' + clone_id).attr('status', '0').attr('o', '1')
+        $('#mask-' + clone_id).attr('status', '0')
+      }, 1);
+    }
+    else {
+      $('.countdown_title,.countdown_content_box').css({ 'display': 'none' })
+    }
     $('.countdown_content_box_count').attr('f', '1')
     history.pushState(null, null, 'https://erichsia7.github.io/countdown/');
   }
