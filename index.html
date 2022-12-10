@@ -2743,6 +2743,7 @@
       $('.options li[y="addtocalendar"]').attr('r-click', "addToCalendar('" + countdown_id + "')")
       $('.options li[y="revertdelete"]').attr('r-click', "revertdeletecountdown('" + countdown_id + "')")
       $('.options li[y="deleteforever"]').attr('r-click', "deletecountdownforever('" + countdown_id + "')")
+      $('.countdown_title .back_btn').attr('r-click', 'closecountdown()')
       if (countdown_json.trash) {
         $('.countdown_content_box_delete_forever').css({ 'display': 'flex' })
         $('.countdown_title .options_btn').attr('r-click', 'openoptions(3)')
