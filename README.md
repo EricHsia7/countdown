@@ -5,7 +5,7 @@
 ### Font
 * [Google Fonts](https://fonts.google.com)
 ## JS Library
-* JQuery(https://github.com/jquery/jquery)
+* [JQuery](https://github.com/jquery/jquery)
 ## API
  ### Google Fonts Developer Api
  [Document](https://developers.google.com/fonts/docs/developer_api)
