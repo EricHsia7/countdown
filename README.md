@@ -9,5 +9,5 @@
  [Document](https://developers.google.com/fonts/docs/developer_api)
  ### Google Apps Script
  [Document](https://developers.google.com/apps-script)
- 
- [font-library.gs](/google-apps-script/font-library.gs)
+ ### Spreadsheet Service
+[Document](https://developers.google.com/apps-script/reference/spreadsheet)
