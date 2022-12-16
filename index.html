@@ -3607,7 +3607,7 @@
   function fontlistloaded(arr, json, load_l) {
     var arr_len = arr.length;
     var fontHTML = function (j) {
-      return '<li class="font_list_font" url-query="' + j.cq + '" id="' + j.id + '" j="1"><div class="font_list_font_name" style="font-family:' + "'" + j.n + "'" + '">' + j.n + '</div><div class="font_list_font_apply">Apply</div></li>'
+      return '<li class="font_list_font" url-query="' + j.cq + '" id="font-' + j.id + '" j="1"><div class="font_list_font_name" style="font-family:' + "'" + j.n + "'" + '">' + j.n + '</div><div class="font_list_font_apply">Apply</div></li>'
     };
     var printFonts = function (start, end) {
       if (end >= arr_len) {
@@ -3661,7 +3661,7 @@
           } else {
             p = p.split(",");
           }
-          var id = randid("font");
+          var id = randid();
           var jj = {
             n: p[0],
             q: p[1].replaceAll('"', ""),
