@@ -3654,7 +3654,8 @@
   }
 
   function openfontlibrary() {
-
+    $('.font_library_box').css({ 'display': 'block' })
+    $('.font_library_title').css({ 'display': 'flex' })
     if (fontlist_status === 0) {
       var skeleton_screen_amount = Math.floor(window.innerHeight / 65) + 5
       var f = [];
@@ -3666,6 +3667,10 @@
     }
   }
 
+  function closefontlibrary() {
+    $('.font_library_box,.font_library_title').css({ 'display': 'none' })
+  }
+  
   function setoptions() {
     var options_list = $('.options_content_box .options_list[r="1"] .switch input[type="checkbox"]')
     var options_list_len = options_list.length
