@@ -105,7 +105,8 @@
     .edit_countdown_content_box,
     .search_countdown_content_box,
     .options_content_box,
-    .font_library_box {
+    .font_library_content_box,
+    .search_font_library_content_box {
       position: fixed;
       top: 55px;
       left: 0px;
@@ -138,7 +139,8 @@
     .edit_countdown_content_box,
     .search_countdown_content_box,
     .options_content_box,
-    .font_library_box {
+    .font_library_content_box,
+    .search_font_library_content_box {
       display: none;
     }
 
@@ -1724,7 +1726,7 @@
     </li>
   </div>
 
-  <div class="font_library_box">
+  <div class="font_library_content_box">
     <div class="font_list"></div>
     <div id="font_list_css"></div>
   </div>
@@ -3709,7 +3711,7 @@
     return res
   }
   function openfontlibrary() {
-    $('.font_library_box').css({ 'display': 'block' })
+    $('.font_library_content_box').css({ 'display': 'block' })
     $('.font_library_title').css({ 'display': 'flex' })
     if (fontlist_status === 0) {
       var skeleton_screen_amount = Math.floor((window.innerHeight / 56) * 1.6) + 5
@@ -3724,7 +3726,7 @@
   }
 
   function closefontlibrary() {
-    $('.font_library_box,.font_library_title').css({ 'display': 'none' })
+    $('.font_library_content_box,.font_library_title').css({ 'display': 'none' })
   }
   function openfontlibrarysearchpage() {
     if ($('.font_library_search_btn').attr('loading') === '1') {
