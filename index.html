@@ -1296,16 +1296,19 @@
 
     .search_result_font_library li.search_result_font .search_result_font_apply {
       position: absolute;
-      top: 5px;
+      top: 7.5px;
       right: 5px;
       border-radius: 15px;
       background: var(--d-e3e3e3);
       color: var(--d-333333);
       user-select: none;
       -webkit-user-select: none;
-      font-size: 15px;
-      height: 35px;
+      font-size: 20px;
+      height: 30px;
       width: 55px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
 
     canvas#countdown-photo {
@@ -3759,13 +3762,19 @@
     var res_len = res.length
     var htm = []
     var res_btn_selector = []
+    var nn = []
     for (var o = 0; o < res_len; o++) {
+      var s = res[o]
       var id = randid('search_res_font_lib')
-      var html = '<li class="search_result_font" id="' + id + '" style="--w-fm:' + "'" + res[o].n + "'" + '"><div class="search_result_font_name">' + htmlCodeEncode(res[o].n) + '</div><div class="search_result_font_apply" r-click="font_library_apply(' + "'" + res[o].id + "'" + ')">Apply</div></li>'
+      var family = 'family=' + s.cq
+      var html = '<li class="search_result_font" id="' + id + '" style="--w-fm:' + "'" + s.n + "'" + '"><div class="search_result_font_name">' + htmlCodeEncode(s.n) + '</div><div class="search_result_font_apply" r-click="font_library_apply(' + "'" + s.id + "'" + ')">Apply</div></li>'
+      nn.push(s.n)
       htm.push(html)
-      res_btn_selector.push('.search_result_font_library li#' + id + ' .a')
+      res_btn_selector.push('.search_result_font_library li#' + id + ' .apply')
     }
-    $('.search_result_font_library').html(htm.join(''))
+    var css_url = "https://fonts.googleapis.com/css2?" + family.join("&") + "&display=swap&text=" + encodeURIComponent(nn.join(""));
+
+    $('.search_result_font_library').html('<link href="' + css_url + '" rel="stylesheet" id="css-' + id2.join("-") + '">' + htm.join(''))
     rclick(res_btn_selector.join(','))
   }
   function update_search_result_fontlibrary() {
