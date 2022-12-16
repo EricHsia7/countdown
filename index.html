@@ -3594,8 +3594,8 @@
   var fontlist = [];
   var fontlist_status = 0;
 
-  function fontlistloaded(arr, json) {
-    var load_l = Math.floor(window.innerHeight / 65) * 2;
+  function fontlistloaded(arr, json,load_l) {
+    var load_l = load_l * 2;
     var arr_len = arr.length;
     var fontHTML = function (j) {
       return '<li class="font_list_font" url-query="' + j.cq + '" id="' + j.id + '" j="1"><div class="font_list_font_name" style="font-family:' + "'" + j.n + "'" + '">' + j.n + '</div><div class="font_list_font_apply">Apply</div></li>'
