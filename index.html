@@ -1442,6 +1442,15 @@
       -webkit-user-select: none;
     }
 
+    .font_list_group {
+      position: relative;
+      width: 100%;
+      height: var(--o-font-list-group-height);
+      display: block;
+      box-sizing: border-box;
+      overflow: hidden;
+    }
+
     .font_list_font {
       position: relative;
       width: 100%;
@@ -3595,7 +3604,6 @@
   var fontlist_status = 0;
 
   function fontlistloaded(arr, json, load_l) {
-    var load_l = load_l;
     var arr_len = arr.length;
     var fontHTML = function (j) {
       return '<li class="font_list_font" url-query="' + j.cq + '" id="' + j.id + '" j="1"><div class="font_list_font_name" style="font-family:' + "'" + j.n + "'" + '">' + j.n + '</div><div class="font_list_font_apply">Apply</div></li>'
@@ -3615,9 +3623,9 @@
         txt.push(arr[u].n);
         id2.push(arr[u].id);
       }
-      $(".font_list").append(htm.join(""));
+      $(".font_list").append('<div class="font_list_group">' + htm.join("") + '</div>');
       var css_url = "https://fonts.googleapis.com/css2?" + f.join("&") + "&display=swap&text=" + encodeURIComponent(txt.join(""));
-      $("#font_list_css").append('<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="' + css_url + '" rel="stylesheet" id="' + id2.join("-") + '">');
+      $("#font_list_css").append('<link href="' + css_url + '" rel="stylesheet" id="' + id2.join("-") + '">');
       fontlistindex += load_l;
     };
     $(".font_list").scroll(function () {
@@ -3680,6 +3688,7 @@
       }
       $(".font_list").html(f.join(""));
       loadfontlist(skeleton_screen_amount);
+      $("#font_list_css").append('<style>:root {--o-font-list-group-height:' + skeleton_screen_amount * 65 + 'px;}</style>');
     }
   }
 
