@@ -1,4 +1,4 @@
-function getFontsList() {
+function getfontlist() {
   var key = '{secret_key}'
   var api = 'https://www.googleapis.com/webfonts/v1/webfonts?key=' + key
   var request = UrlFetchApp.fetch(api)
@@ -6,7 +6,7 @@ function getFontsList() {
   var json = JSON.parse(response)
   var p = json.items
   var p_len = p.length
-  var fonts_list = []
+  var font_list = []
   for (var t = 0; t < p_len; t++) {
     var ital = false
     var this_p = p[t]
@@ -63,14 +63,14 @@ function getFontsList() {
       })
     }
     var url_query = this_k + '' + this_wght.join(';')
-    fonts_list.push([f, url_query])
+    font_list.push([f, url_query])
   }
-  return fonts_list
+  return font_list
 }
 
 function updateFonts() {
   var spreadsheet = SpreadsheetApp.getActive();
-  var arr = getFontsList()
+  var arr = getfontlist()
   var arr_len = arr.length
   spreadsheet.getRange('A1:' + 'B' + arr_len).setValues(arr)
 };
