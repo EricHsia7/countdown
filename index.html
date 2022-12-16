@@ -3681,6 +3681,7 @@
     });
   }
   function search_result_font_library(txt, search_index) {
+    var txt_l = txt.toLowerCase()
     var txt_unicode = unicode_arr(txt)
     var txt_unicode_len = txt_unicode.length
     var arr = search_index.a
@@ -3697,7 +3698,7 @@
         }
       }
       if (yu) {
-        if ((toLowerCase(t.n)).indexOf(toLowerCase(txt)) > -1) {
+        if (((t.n).toLowerCase()).indexOf(txt_l) > -1) {
           res.push(t)
         }
       }
