@@ -3589,9 +3589,7 @@
     var load_l = Math.floor(window.innerHeight / 65) * 2;
     var arr_len = arr.length;
     var fontHTML = function (j) {
-      return (
-        '<li class="font_list_font" url-query="' + j.cq + '" id="' + j.id + '" j="1"><div class="font_list_font_name" style="font-family:' + "'" + j.n + "'" + '">' + j.n + '</div><div class="font_list_font_apply">Apply</div></li>'
-      );
+      return '<li class="font_list_font" url-query="' + j.cq + '" id="' + j.id + '" j="1"><div class="font_list_font_name" style="font-family:' + "'" + j.n + "'" + '">' + j.n + '</div><div class="font_list_font_apply">Apply</div></li>'
     };
     var printFonts = function (start, end) {
       if (end >= arr_len) {
@@ -3617,7 +3615,7 @@
       var scrolltop = document.querySelector(".font_list").scrollTop
       var scrollheight = document.querySelector(".font_list").scrollHeight
       var clientheight = document.querySelector(".font_list").clientHeight
-      if (scrolltop > scrollheight - clientheight - clientheight * 0.6) {
+      if (scrolltop > scrollheight - clientheight - clientheight * 0.3) {
         if (fontlistindex < arr_len - load_l && fontlistststus === 0) {
           printFonts(fontlistindex, fontlistindex + load_l);
           fontlistststus = 1;
