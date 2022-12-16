@@ -3668,7 +3668,7 @@
           var jj = {
             n: p[0],
             q: p[1].replaceAll('"', ""),
-            u: unicode_arr(p.join("")),
+            u: unicode_arr(toLowerCase(p.join("")) + toUpperCase(p.join(""))),
             cq: p[0].replaceAll(" ", "+") + ":" + p[1].replaceAll('"', ""),
             id: id
           };
@@ -3697,7 +3697,7 @@
         }
       }
       if (yu) {
-        if ((t.n).indexOf(txt) > -1) {
+        if ((toLowerCase(t.n)).indexOf(toLowerCase(txt)) > -1) {
           res.push(t)
         }
       }
