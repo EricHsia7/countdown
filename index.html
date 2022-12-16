@@ -3595,7 +3595,7 @@
   var fontlist_status = 0;
 
   function fontlistloaded(arr, json, load_l) {
-    var load_l = load_l * 2;
+    var load_l = load_l;
     var arr_len = arr.length;
     var fontHTML = function (j) {
       return '<li class="font_list_font" url-query="' + j.cq + '" id="' + j.id + '" j="1"><div class="font_list_font_name" style="font-family:' + "'" + j.n + "'" + '">' + j.n + '</div><div class="font_list_font_apply">Apply</div></li>'
@@ -3673,7 +3673,7 @@
     $('.font_library_box').css({ 'display': 'block' })
     $('.font_library_title').css({ 'display': 'flex' })
     if (fontlist_status === 0) {
-      var skeleton_screen_amount = Math.floor(window.innerHeight / 65) + 5
+      var skeleton_screen_amount = Math.floor((window.innerHeight / 65) * 1.6) + 5
       var f = [];
       for (var t = 0; t < skeleton_screen_amount; t++) {
         f.push('<li class="font_list_font loading" j="0"><div class="font_list_font_name"></div><div class="font_list_font_apply"></div></li>');
