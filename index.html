@@ -1448,7 +1448,7 @@
       height: 55px;
       display: block;
       list-style: none;
-      border-top: 1px solid #f7f7f7;
+      border-top: 1px solid var(--d-f4f4f4);
       box-sizing: border-box;
       margin: 1px 0px;
       user-select: none;
@@ -1458,7 +1458,10 @@
 
     .font_list .font_list_font:nth-child(1) {
       border: none;
-      margin-top: 55px;
+    }
+
+    .font_list .font_list_font:last-child {
+      margin-bottom: 20px;
     }
 
     .font_list_font_name {
@@ -1477,6 +1480,7 @@
       box-sizing: border-box;
       user-select: none;
       -webkit-user-select: none;
+      color: var(--d-333333);
     }
 
     .font_list_font_apply {
@@ -1484,7 +1488,7 @@
       top: 6.5px;
       right: 6.5px;
       width: 72px;
-      background: #f5f5f5;
+      background: var(--d-e3e3e3);
       height: 42px;
       display: flex;
       justify-content: center;
@@ -1492,11 +1496,16 @@
       border-radius: 10px;
       user-select: none;
       -webkit-user-select: none;
+      color: var(--d-333333);
     }
 
     .font_list_font.loading .font_list_font_apply,
     .font_list_font.loading .font_list_font_name {
       color: rgba(0, 0, 0, 0);
+    }
+
+    .font_list_font.loading .font_list_font_apply {
+      background: var(--d-f4f4f4);
     }
 
     .font_list_font.loading .font_list_font_name::after {
@@ -1506,7 +1515,7 @@
       left: 1.5px;
       width: calc(100% - 3px);
       height: calc(100% - 3px);
-      background: #f5f5f5;
+      background: var(--d-f4f4f4);
       border-radius: 15px;
       user-select: none;
       -webkit-user-select: none;
