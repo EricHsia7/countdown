@@ -1777,6 +1777,7 @@
   </div>
   <div class="search_font_library_content_box">
     <div class="search_result_font_library"></div>
+    <div class="search_result_font_library_css"></div>
   </div>
   <div class="options_mask" r-click="closeoptions()"></div>
   <div class="options">
@@ -3639,6 +3640,7 @@
   var fontlist = [];
   var fontlist_status = 0;
   var fontlibrarysearchpage = 0
+  var searchresultfontlibrarycss = {}
   function font_library_apply(id) {
     key = id.replace('-', '_')
     var cq = ''
@@ -3762,21 +3764,22 @@
     var res_len = res.length
     var htm = []
     var res_btn_selector = []
-    var nn = []
-    var f = []
     var id = randid('search_res_font_lib')
     for (var o = 0; o < res_len; o++) {
       var s = res[o]
-      var family = 'family=' + s.cq
+      var id2 = (s.id).replaceAll('-', '_')
       var html = '<li class="search_result_font" id="' + id + '" style="--w-fm:' + "'" + s.n + "'" + '"><div class="search_result_font_name">' + htmlCodeEncode(s.n) + '</div><div class="search_result_font_apply" r-click="font_library_apply(' + "'" + s.id + "'" + ')">Apply</div></li>'
-      nn.push(s.n)
       htm.push(html)
-      f.push(family)
+      if (!(searchresultfontlibrarycss.hasOwnProperty(id2))) {
+        var family = 'family=' + s.cq
+        var css_url = "https://fonts.googleapis.com/css2?" + family + "&display=swap&text=" + encodeURIComponent(s.n);
+        $('.search_result_font_library_css').append('<link href="' + css_url + '" rel="stylesheet" id="search-res-font-lib-css-' + s.id + '">')
+        searchresultfontlibrarycss[id2] = 1
+      }
     }
     res_btn_selector.push('.search_result_font_library li#' + id + ' .apply')
     var css_url = "https://fonts.googleapis.com/css2?" + f.join("&") + "&display=swap&text=" + encodeURIComponent(nn.join(""));
-
-    $('.search_result_font_library').html('<link href="' + css_url + '" rel="stylesheet">' + htm.join(''))
+    $('.search_result_font_library').html(htm.join(''))
     rclick(res_btn_selector.join(','))
   }
   function update_search_result_fontlibrary() {
