@@ -3646,10 +3646,9 @@
       }
     });
     printFonts(0, load_l);
+    fontlist = { a: arr, j: json };
     $('.font_list .font_list_font.loading[j="0"]').remove();
     $('.font_library_search_btn').attr('loading', '0')
-    var w = { a: arr, j: json };
-    fontlist = w;
   }
   function loadfontlist(load_l) {
     $.ajax({
@@ -3681,7 +3680,33 @@
       }
     });
   }
-
+  function search_result_font_library(txt, search_index) {
+    var txt_unicode = unicode_arr(txt)
+    var txt_unicode_len = txt_unicode.length
+    var arr = search_index.a
+    var arr_len = arr.length
+    var res = []
+    for (var q = 0; q < arr_len; q++) {
+      var t = arr[q]
+      var tu = t.u
+      var yu = false
+      for (var e = 0; e < txt_unicode_len; e++) {
+        if (tu.indexOf(txt_unicode[e]) > -1) {
+          yu = true
+          break;
+        }
+      }
+      if (yu) {
+        if ((t.n).indexOf(txt) > -1) {
+          res.push(t)
+        }
+      }
+      else {
+        continue;
+      }
+    }
+    return res
+  }
   function openfontlibrary() {
     $('.font_library_box').css({ 'display': 'block' })
     $('.font_library_title').css({ 'display': 'flex' })
