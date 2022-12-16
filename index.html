@@ -3698,7 +3698,12 @@
   function closefontlibrary() {
     $('.font_library_box,.font_library_title').css({ 'display': 'none' })
   }
-
+  function openfontlibrarysearchpage() {
+    $('.font_library_search_btn').attr('u', '1')
+  }
+  function closefontlibrarysearchpage() {
+    $('.font_library_search_btn').attr('u', '0')
+  }
   function setoptions() {
     var options_list = $('.options_content_box .options_list[r="1"] .switch input[type="checkbox"]')
     var options_list_len = options_list.length
