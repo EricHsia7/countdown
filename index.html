@@ -1213,7 +1213,8 @@
       -webkit-user-select: none;
     }
 
-    .search_result li.search_result_countdown_box {
+    .search_result li.search_result_countdown_box,
+    .search_result_font_library li.search_result_font {
       list-style: none;
       background: var(--d-ffffff);
       color: var(--d-333333);
@@ -1260,7 +1261,8 @@
       font-size: 14px;
     }
 
-    .search_result li.search_result_countdown_box .search_result_countdown_title {
+    .search_result li.search_result_countdown_box .search_result_countdown_title,
+    .search_result_font_library li.search_result_font .search_result_font_name {
       position: absolute;
       top: 0px;
       left: 55px;
@@ -1280,11 +1282,30 @@
       -webkit-user-select: none;
     }
 
+    .search_result_font_library li.search_result_font .search_result_font_name {
+      font-family: var(--w-fm);
+      width: calc(100% - 55px - 55px);
+    }
+
     .search_result li.search_result_countdown_box[trash="true"] .search_result_countdown_title {
       text-decoration-line: line-through;
       text-decoration-color: var(--d-333333);
       font-style: italic;
       color: var(--d-888888);
+    }
+
+    .search_result_font_library li.search_result_font .search_result_font_apply {
+      position: absolute;
+      top: 5px;
+      right: 5px;
+      border-radius: 15px;
+      background: var(--d-e3e3e3);
+      color: var(--d-333333);
+      user-select: none;
+      -webkit-user-select: none;
+      font-size: 15px;
+      height: 35px;
+      width: 55px;
     }
 
     canvas#countdown-photo {
@@ -3615,11 +3636,26 @@
   var fontlist = [];
   var fontlist_status = 0;
   var fontlibrarysearchpage = 0
-
+  function font_library_apply(id) {
+    key = id.replace('-', '_')
+    var cq = ''
+    if (fontlist['j'].hasOwnProperty(key)) {
+      cq = fontlist['j'][key].cq
+    }
+    else {
+      return ''
+    }
+    var y = $('.font_library_content_box').attr('y')
+    if (y === '1') {
+      localStorage.setItem('countdown_options_s_global_font', cq)
+      closefontlibrary()
+      mes('Options saved.')
+    }
+  }
   function fontlistloaded(arr, json, load_l) {
     var arr_len = arr.length;
     var fontHTML = function (j) {
-      return '<li class="font_list_font" id="font-' + j.id + '" j="1"><div class="font_list_font_name" style="font-family:' + "'" + j.n + "'" + '">' + j.n + '</div><div class="font_list_font_apply" r-click="font_library_apply(' + "'" + j.cq + "'" + ')">Apply</div></li>'
+      return '<li class="font_list_font" id="font-' + j.id + '" j="1"><div class="font_list_font_name" style="font-family:' + "'" + j.n + "'" + '">' + j.n + '</div><div class="font_list_font_apply" r-click="font_library_apply(' + "'" + j.id + "'" + ')">Apply</div></li>'
     };
     var printFonts = function (start, end) {
       if (end >= arr_len) {
@@ -3725,7 +3761,7 @@
     var res_btn_selector = []
     for (var o = 0; o < res_len; o++) {
       var id = randid('search_res_font_lib')
-      var html = '<li id="' + id + '"><div class="">' + htmlCodeEncode(res[o].n) + '</div></li>'
+      var html = '<li class="search_result_font" id="' + id + '" style="--w-fm:' + "'" + res[o].n + "'" + '"><div class="search_result_font_name">' + htmlCodeEncode(res[o].n) + '</div><div class="search_result_font_apply" r-click="font_library_apply(' + "'" + res[o].id + "'" + ')">Apply</div></li>'
       htm.push(html)
       res_btn_selector.push('.search_result_font_library li#' + id + ' .a')
     }
