@@ -3668,7 +3668,7 @@
           var jj = {
             n: p[0],
             q: p[1].replaceAll('"', ""),
-            u: unicode_arr((p.join("").toLowerCase()) + (p.join("").toUpperCase())),
+            u: unicode_arr((p.join("")).toLowerCase() + (p.join("")).toUpperCase()),
             cq: p[0].replaceAll(" ", "+") + ":" + p[1].replaceAll('"', ""),
             id: id
           };
