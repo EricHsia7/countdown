@@ -1422,7 +1422,7 @@
 
 
 
-    .fonts_list {
+    .font_list {
       position: absolute;
       top: 0px;
       left: 0px;
@@ -1433,7 +1433,7 @@
       -webkit-user-select: none;
     }
 
-    .fonts_list_font {
+    .font_list_font {
       position: relative;
       width: 100%;
       height: 55px;
@@ -1447,12 +1447,12 @@
 
     }
 
-    .fonts_list .fonts_list_font:nth-child(1) {
+    .font_list .font_list_font:nth-child(1) {
       border: none;
       margin-top: 55px;
     }
 
-    .fonts_list_font_name {
+    .font_list_font_name {
       position: absolute;
       top: 5px;
       left: 5px;
@@ -1470,7 +1470,7 @@
       -webkit-user-select: none;
     }
 
-    .fonts_list_font_apply {
+    .font_list_font_apply {
       position: absolute;
       top: 6.5px;
       right: 6.5px;
@@ -1485,12 +1485,12 @@
       -webkit-user-select: none;
     }
 
-    .fonts_list_font.loading .fonts_list_font_apply,
-    .fonts_list_font.loading .fonts_list_font_name {
+    .font_list_font.loading .font_list_font_apply,
+    .font_list_font.loading .font_list_font_name {
       color: rgba(0, 0, 0, 0);
     }
 
-    .fonts_list_font.loading .fonts_list_font_name::after {
+    .font_list_font.loading .font_list_font_name::after {
       content: "";
       position: absolute;
       top: 1.5px;
@@ -1696,8 +1696,8 @@
   </div>
 
   <div class="font_library_box">
-    <div class="fonts_list"></div>
-    <div id="fonts_list_css"></div>
+    <div class="font_list"></div>
+    <div id="font_list_css"></div>
   </div>
 
   <div class="font_library_title">
@@ -3670,7 +3670,7 @@
   function closefontlibrary() {
     $('.font_library_box,.font_library_title').css({ 'display': 'none' })
   }
-  
+
   function setoptions() {
     var options_list = $('.options_content_box .options_list[r="1"] .switch input[type="checkbox"]')
     var options_list_len = options_list.length
