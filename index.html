@@ -3594,7 +3594,7 @@
   var fontlist = [];
   var fontlist_status = 0;
 
-  function fontlistloaded(arr, json,load_l) {
+  function fontlistloaded(arr, json, load_l) {
     var load_l = load_l * 2;
     var arr_len = arr.length;
     var fontHTML = function (j) {
@@ -3638,7 +3638,7 @@
     var w = { a: arr, j: json };
     fontlist = w;
   }
-  function loadfontlist() {
+  function loadfontlist(load_l) {
     $.ajax({
       type: "get", url: "https://docs.google.com/spreadsheets/d/e/2PACX-1vQr9AMO_1nI-u0wzyxXv5JWJeOahfBX2nY6toh_5a0hT1eprezEUksQKmmL68vw0BIWdApLmchWybo2/pub?gid=0&single=true&output=csv&" + randid(), dataType: "text", success: function (e) {
         var r = e.split(/\r?\n|\r|\n/g);
@@ -3663,7 +3663,7 @@
           g.push(jj);
           v[id.replaceAll("-", "_")] = jj;
         }
-        fontlistloaded(g, v);
+        fontlistloaded(g, v, load_l);
         fontlist_status = 1
       }
     });
@@ -3679,7 +3679,7 @@
         f.push('<li class="font_list_font loading" j="0"><div class="font_list_font_name"></div><div class="font_list_font_apply"></div></li>');
       }
       $(".font_list").html(f.join(""));
-      loadfontlist();
+      loadfontlist(skeleton_screen_amount);
     }
   }
 
