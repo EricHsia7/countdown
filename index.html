@@ -3615,7 +3615,7 @@
       var scrolltop = document.querySelector(".font_list").scrollTop
       var scrollheight = document.querySelector(".font_list").scrollHeight
       var clientheight = document.querySelector(".font_list").clientHeight
-      if (scrolltop > scrollheight - clientheight - clientheight * 0.3) {
+      if (scrolltop > scrollheight - clientheight - clientheight * 1.5) {
         if (fontlistindex < arr_len - load_l && fontlistststus === 0) {
           printFonts(fontlistindex, fontlistindex + load_l);
           fontlistststus = 1;
