@@ -3624,9 +3624,9 @@
         txt.push(arr[u].n);
         id2.push(arr[u].id);
       }
-      $(".font_list").append('<div class="font_list_group">' + htm.join("") + '</div>');
+      $(".font_list").append('<div class="font_list_group" id="' + id2.join("-") + '">' + htm.join("") + '</div>');
       var css_url = "https://fonts.googleapis.com/css2?" + f.join("&") + "&display=swap&text=" + encodeURIComponent(txt.join(""));
-      $("#font_list_css").append('<link href="' + css_url + '" rel="stylesheet" id="' + id2.join("-") + '">');
+      $("#font_list_css").append('<link href="' + css_url + '" rel="stylesheet" id="css-' + id2.join("-") + '">');
       fontlistindex += load_l;
     };
     $(".font_list").scroll(function () {
