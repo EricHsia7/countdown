@@ -71,7 +71,8 @@
     .countdown_title,
     .add_countdown_title,
     .edit_countdown_title,
-    .options_content_box_title {
+    .options_content_box_title,
+    .font_library_title {
       position: fixed;
       top: 0px;
       left: 0px;
@@ -102,7 +103,8 @@
     .add_countdown_content_box,
     .edit_countdown_content_box,
     .search_countdown_content_box,
-    .options_content_box {
+    .options_content_box,
+    .font_library_box {
       position: fixed;
       top: 55px;
       left: 0px;
@@ -788,7 +790,9 @@
     .options_btn,
     .delete_btn,
     .cancel_btn,
-    .search_btn {
+    .search_btn,
+    .font_library_back_btn,
+    .font_library_search_btn {
       width: 35px;
       height: 35px;
       position: absolute;
@@ -801,7 +805,8 @@
     }
 
     .back_btn,
-    .trash_back_btn {
+    .trash_back_btn,
+    .font_library_back_btn {
       top: 10px;
       left: 10px;
     }
@@ -810,7 +815,8 @@
       display: none;
     }
 
-    .options_btn {
+    .options_btn,
+    .font_library_search_btn {
       top: 10px;
       right: 10px;
     }
@@ -837,7 +843,8 @@
       opacity: 0.3;
     }
 
-    input#search_countdown {
+    input#search_countdown,
+    input#search_font_library {
       color: var(--d-333333);
       caret-color: var(--d-333333);
       background: var(--d-ffffff);
@@ -862,7 +869,8 @@
       display: none;
     }
 
-    .search_btn[u="0"] input#search_countdown {
+    .search_btn[u="0"] input#search_countdown,
+    .font_library_search_btn[u="0"] input#search_font_library {
       display: block;
       opacity: 0;
       position: absolute;
@@ -877,7 +885,8 @@
       transform: translateX(0px) translateY(0px);
     }
 
-    .search_btn[u="1"] {
+    .search_btn[u="1"],
+    .font_library_search_btn[u="1"] {
       top: 0px;
       right: 0px;
       height: 54px;
@@ -905,7 +914,8 @@
     .options_btn svg,
     .delete_btn svg,
     .cancel_btn svg,
-    .search_btn[u="0"] svg#svgsearchicon {
+    .search_btn[u="0"] svg#svgsearchicon,
+    .font_library_search_btn[u="0"] svg#fontlibsvgsearchicon {
       width: 20px;
       height: 20px
     }
@@ -914,7 +924,8 @@
       opacity: 0.3;
     }
 
-    .search_btn[u="1"] svg#svgsearchicon {
+    .search_btn[u="1"] svg#svgsearchicon,
+    .font_library_search_btn[u="1"] svg#fontlibsvgsearchicon {
       display: none;
     }
 
@@ -1406,6 +1417,90 @@
       left: 15.5px
     }
 
+
+
+
+    .fonts_list {
+      position: absolute;
+      top: 0px;
+      left: 0px;
+      width: 100%;
+      height: 100%;
+      overflow: scroll;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    .fonts_list_font {
+      position: relative;
+      width: 100%;
+      height: 55px;
+      display: block;
+      list-style: none;
+      border-top: 1px solid #f7f7f7;
+      box-sizing: border-box;
+      margin: 1px 0px;
+      user-select: none;
+      -webkit-user-select: none;
+
+    }
+
+    .fonts_list .fonts_list_font:nth-child(1) {
+      border: none;
+      margin-top: 55px;
+    }
+
+    .fonts_list_font_name {
+      position: absolute;
+      top: 5px;
+      left: 5px;
+      width: calc(100% - 5px - 5px - 80px);
+      height: 45px;
+      display: flex;
+      align-items: center;
+      font-size: 20px;
+      word-break: keep-all;
+      white-space: nowrap;
+      overflow: hidden;
+      padding-left: 5px;
+      box-sizing: border-box;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    .fonts_list_font_apply {
+      position: absolute;
+      top: 6.5px;
+      right: 6.5px;
+      width: 72px;
+      background: #f5f5f5;
+      height: 42px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 10px;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    .fonts_list_font.loading .fonts_list_font_apply,
+    .fonts_list_font.loading .fonts_list_font_name {
+      color: rgba(0, 0, 0, 0);
+    }
+
+    .fonts_list_font.loading .fonts_list_font_name::after {
+      content: "";
+      position: absolute;
+      top: 1.5px;
+      left: 1.5px;
+      width: calc(100% - 3px);
+      height: calc(100% - 3px);
+      background: #f5f5f5;
+      border-radius: 15px;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
     @media only screen and (max-width: 600px) {
       .count {
         width: 25px;
@@ -1596,6 +1691,31 @@
         </svg>
       </div>
     </li>
+  </div>
+
+  <div class="font_library_box">
+    <div class="fonts_list"></div>
+    <div id="fonts_list_css"></div>
+  </div>
+
+  <div class="font_library_title">
+    <span>Font Library</span>
+    <div class="font_library_back_btn" r-click="closesearchpage()">
+      <svg stroke-miterlimit="10" style="fill-rule:nonzero;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;" version="1.1" viewBox="0 0 64 64" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <path d="M32 64L0 32L32 0L36.2 4.2L11.4 29L64 29L64 35L11.4 35L36.2 59.8L32 64Z" fill="var(--d-333333)" fill-rule="evenodd" opacity="1" stroke="none" />
+      </svg>
+    </div>
+    <div class="font_library_search_btn" r-click="opensearchpage()" u="1">
+      <svg stroke-miterlimit="10" style="fill-rule:nonzero;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;" version="1.1" viewBox="0 0 64 64" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="svgsearchicon">
+        <path d="M60.0889 64L36.7111 40.6222C34.9333 42.163 32.8593 43.363 30.4889 44.2222C28.1185 45.0815 25.6 45.5111 22.9333 45.5111C16.5333 45.5111 11.1111 43.2889 6.66667 38.8444C2.22222 34.4 1.41285e-06 29.037 8.4771e-07 22.7556C8.4771e-07 16.4741 2.22222 11.1111 6.66667 6.66667C11.1111 2.22222 16.5037 3.55271e-15 22.8444 3.55271e-15C29.1259 3.55271e-15 34.4741 2.22222 38.8889 6.66667C43.3037 11.1111 45.5111 16.4741 45.5111 22.7556C45.5111 25.3037 45.0963 27.763 44.2667 30.1333C43.437 32.5037 42.1926 34.7259 40.5333 36.8L64 60.0889L60.0889 64ZM22.8444 40.1778C27.6444 40.1778 31.7333 38.4741 35.1111 35.0667C38.4889 31.6593 40.1778 27.5556 40.1778 22.7556C40.1778 17.9556 38.4889 13.8519 35.1111 10.4444C31.7333 7.03704 27.6444 5.33333 22.8444 5.33333C17.9852 5.33333 13.8519 7.03704 10.4444 10.4444C7.03704 13.8519 5.33333 17.9556 5.33333 22.7556C5.33333 27.5556 7.03704 31.6593 10.4444 35.0667C13.8519 38.4741 17.9852 40.1778 22.8444 40.1778Z" fill="var(--d-333333)" fill-rule="nonzero" opacity="1" stroke="none" />
+      </svg>
+      <div class="font_library_back_btn" r-click="closesearchpage()">
+        <svg stroke-miterlimit="10" style="fill-rule:nonzero;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;" version="1.1" viewBox="0 0 64 64" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+          <path d="M32 64L0 32L32 0L36.2 4.2L11.4 29L64 29L64 35L11.4 35L36.2 59.8L32 64Z" fill="var(--d-333333)" fill-rule="evenodd" opacity="1" stroke="none" />
+        </svg>
+      </div>
+      <input type="text" id="search_font_library" placeholder="search">
+    </div>
   </div>
 
   <div class="options_mask" r-click="closeoptions()"></div>
