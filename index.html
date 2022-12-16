@@ -3607,7 +3607,7 @@
   function fontlistloaded(arr, json, load_l) {
     var arr_len = arr.length;
     var fontHTML = function (j) {
-      return '<li class="font_list_font" url-query="' + j.cq + '" id="font-' + j.id + '" j="1"><div class="font_list_font_name" style="font-family:' + "'" + j.n + "'" + '">' + j.n + '</div><div class="font_list_font_apply">Apply</div></li>'
+      return '<li class="font_list_font" id="font-' + j.id + '" j="1"><div class="font_list_font_name" style="font-family:' + "'" + j.n + "'" + '">' + j.n + '</div><div class="font_list_font_apply" r-click="font_library_apply(' + "'" + j.cq + "'" + ')">Apply</div></li>'
     };
     var printFonts = function (start, end) {
       if (end >= arr_len) {
@@ -3624,7 +3624,9 @@
         txt.push(arr[u].n);
         id2.push(arr[u].id);
       }
-      $(".font_list").append('<div class="font_list_group" id="' + id2.join("-") + '">' + htm.join("") + '</div>');
+      var group_id = 'g-' + id2.join("-")
+      $(".font_list").append('<div class="font_list_group" id="' + group_id + '">' + htm.join("") + '</div>');
+      rclick('.font_list_group#' + group_id + ' .font_list_font_apply')
       var css_url = "https://fonts.googleapis.com/css2?" + f.join("&") + "&display=swap&text=" + encodeURIComponent(txt.join(""));
       $("#font_list_css").append('<link href="' + css_url + '" rel="stylesheet" id="css-' + id2.join("-") + '">');
       fontlistindex += load_l;
