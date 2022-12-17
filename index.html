@@ -3806,7 +3806,7 @@
       for (var t = 0; t < skeleton_screen_amount; t++) {
         f.push('<li class="font_list_font loading" j="0"><div class="font_list_font_name"></div><div class="font_list_font_apply"></div></li>');
       }
-      $(".font_list").html('div class="font_list_group loading">' + f.join("") + '</div>');
+      $(".font_list").html('<div class="font_list_group loading">' + f.join("") + '</div>');
       loadfontlist(skeleton_screen_amount);
       $("#font_list_css").append('<style>:root {--o-font-list-group-height:' + skeleton_screen_amount * 65 + 'px;}</style>');
       document.querySelector('#search_font_library').addEventListener("paste", function (e) {
