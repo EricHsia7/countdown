@@ -17,7 +17,12 @@
   <link rel="manifest" href="https://erichsia7.github.io/countdown/manifest.json">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@200;400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@200;400;500;700&display=swap" rel="stylesheet" id="font_css">
+  <style id="options_global_font_css">
+    :root {
+      --g-font: 'Noto Sans', sans-serif;
+    }
+  </style>
   <style>
     :root {
       --d-ffffff: #ffffff;
@@ -60,7 +65,7 @@
       appearance: none;
       outline: none;
       -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-      font-family: 'Noto Sans', sans-serif;
+      font-family: var(--g-font);
     }
 
     body {
@@ -71,7 +76,8 @@
     .countdown_title,
     .add_countdown_title,
     .edit_countdown_title,
-    .options_content_box_title {
+    .options_content_box_title,
+    .font_library_title {
       position: fixed;
       top: 0px;
       left: 0px;
@@ -93,7 +99,8 @@
     .countdown_title,
     .add_countdown_title,
     .edit_countdown_title,
-    .options_content_box_title {
+    .options_content_box_title,
+    .font_library_title {
       display: none;
     }
 
@@ -102,7 +109,9 @@
     .add_countdown_content_box,
     .edit_countdown_content_box,
     .search_countdown_content_box,
-    .options_content_box {
+    .options_content_box,
+    .font_library_content_box,
+    .search_font_library_content_box {
       position: fixed;
       top: 55px;
       left: 0px;
@@ -134,7 +143,9 @@
     .add_countdown_content_box,
     .edit_countdown_content_box,
     .search_countdown_content_box,
-    .options_content_box {
+    .options_content_box,
+    .font_library_content_box,
+    .search_font_library_content_box {
       display: none;
     }
 
@@ -788,7 +799,10 @@
     .options_btn,
     .delete_btn,
     .cancel_btn,
-    .search_btn {
+    .search_btn,
+    .font_library_back_btn,
+    .font_library_search_btn,
+    .search_font_library_back_btn {
       width: 35px;
       height: 35px;
       position: absolute;
@@ -801,7 +815,9 @@
     }
 
     .back_btn,
-    .trash_back_btn {
+    .trash_back_btn,
+    .font_library_back_btn,
+    .search_font_library_back_btn {
       top: 10px;
       left: 10px;
     }
@@ -810,7 +826,8 @@
       display: none;
     }
 
-    .options_btn {
+    .options_btn,
+    .font_library_search_btn {
       top: 10px;
       right: 10px;
     }
@@ -833,11 +850,13 @@
     }
 
     .search_btn[loading="1"],
-    .options_btn[loading="1"] {
+    .options_btn[loading="1"],
+    .font_library_search_btn[loading="1"] {
       opacity: 0.3;
     }
 
-    input#search_countdown {
+    input#search_countdown,
+    input#search_font_library {
       color: var(--d-333333);
       caret-color: var(--d-333333);
       background: var(--d-ffffff);
@@ -862,7 +881,12 @@
       display: none;
     }
 
-    .search_btn[u="0"] input#search_countdown {
+    .search_font_library_back_btn {
+      display: flex;
+    }
+
+    .search_btn[u="0"] input#search_countdown,
+    .font_library_search_btn[u="0"] input#search_font_library {
       display: block;
       opacity: 0;
       position: absolute;
@@ -877,7 +901,8 @@
       transform: translateX(0px) translateY(0px);
     }
 
-    .search_btn[u="1"] {
+    .search_btn[u="1"],
+    .font_library_search_btn[u="1"] {
       top: 0px;
       right: 0px;
       height: 54px;
@@ -905,7 +930,10 @@
     .options_btn svg,
     .delete_btn svg,
     .cancel_btn svg,
-    .search_btn[u="0"] svg#svgsearchicon {
+    .search_btn svg#svgsearchicon,
+    .font_library_search_btn svg#fontlibsvgsearchicon,
+    .font_library_back_btn svg,
+    .search_font_library_back_btn svg {
       width: 20px;
       height: 20px
     }
@@ -914,7 +942,9 @@
       opacity: 0.3;
     }
 
-    .search_btn[u="1"] svg#svgsearchicon {
+    .search_btn[u="1"] svg#svgsearchicon,
+    .font_library_search_btn[u="1"] svg#fontlibsvgsearchicon,
+    .font_library_search_btn[u="0"] .search_font_library_back_btn svg {
       display: none;
     }
 
@@ -1178,7 +1208,8 @@
       -webkit-user-select: none;
     }
 
-    .search_result {
+    .search_result,
+    .search_result_font_library {
       position: absolute;
       width: 100%;
       height: 100%;
@@ -1187,7 +1218,8 @@
       -webkit-user-select: none;
     }
 
-    .search_result li.search_result_countdown_box {
+    .search_result li.search_result_countdown_box,
+    .search_result_font_library li.search_result_font {
       list-style: none;
       background: var(--d-ffffff);
       color: var(--d-333333);
@@ -1234,7 +1266,8 @@
       font-size: 14px;
     }
 
-    .search_result li.search_result_countdown_box .search_result_countdown_title {
+    .search_result li.search_result_countdown_box .search_result_countdown_title,
+    .search_result_font_library li.search_result_font .search_result_font_name {
       position: absolute;
       top: 0px;
       left: 55px;
@@ -1254,11 +1287,33 @@
       -webkit-user-select: none;
     }
 
+    .search_result_font_library li.search_result_font .search_result_font_name {
+      font-family: var(--w-fm);
+      width: calc(100% - 55px - 55px);
+    }
+
     .search_result li.search_result_countdown_box[trash="true"] .search_result_countdown_title {
       text-decoration-line: line-through;
       text-decoration-color: var(--d-333333);
       font-style: italic;
       color: var(--d-888888);
+    }
+
+    .search_result_font_library li.search_result_font .search_result_font_apply {
+      position: absolute;
+      top: 7.5px;
+      right: 5px;
+      border-radius: 15px;
+      background: var(--d-e3e3e3);
+      color: var(--d-333333);
+      user-select: none;
+      -webkit-user-select: none;
+      font-size: 15px;
+      height: 30px;
+      width: 55px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
 
     canvas#countdown-photo {
@@ -1404,6 +1459,107 @@
       position: absolute;
       top: 1.5px;
       left: 15.5px
+    }
+
+    .font_list {
+      position: absolute;
+      top: 0px;
+      left: 0px;
+      width: 100%;
+      height: 100%;
+      overflow: scroll;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    .font_list_group {
+      position: relative;
+      width: 100%;
+      height: var(--o-font-list-group-height);
+      display: flex;
+      box-sizing: border-box;
+      overflow: hidden;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+
+    .font_list_font {
+      position: relative;
+      width: calc(100% - 20px);
+      height: 55px;
+      display: block;
+      background: var(--d-ffffff);
+      list-style: none;
+      border: 1px solid var(--d-f4f4f4);
+      box-shadow: 0px 0px 12px -8px rgba(0, 0, 0, 0.15);
+      box-sizing: border-box;
+      margin-top: 10px;
+      user-select: none;
+      -webkit-user-select: none;
+      border-radius: 15px;
+      overflow: hidden;
+    }
+
+    .font_list .font_list_group:last-child {
+      margin-bottom: 20px;
+    }
+
+    .font_list_font_name {
+      position: absolute;
+      top: 5px;
+      left: 5px;
+      width: calc(100% - 5px - 5px - 80px);
+      height: 45px;
+      display: flex;
+      align-items: center;
+      font-size: 20px;
+      word-break: keep-all;
+      white-space: nowrap;
+      overflow: hidden;
+      padding-left: 5px;
+      box-sizing: border-box;
+      user-select: none;
+      -webkit-user-select: none;
+      color: var(--d-333333);
+    }
+
+    .font_list_font_apply {
+      position: absolute;
+      top: 6.5px;
+      right: 6.5px;
+      width: 72px;
+      background: var(--d-e3e3e3);
+      height: 42px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 10px;
+      user-select: none;
+      -webkit-user-select: none;
+      color: var(--d-333333);
+    }
+
+    .font_list_font.loading .font_list_font_apply,
+    .font_list_font.loading .font_list_font_name {
+      color: rgba(0, 0, 0, 0);
+    }
+
+    .font_list_font.loading .font_list_font_apply {
+      background: var(--d-f4f4f4);
+    }
+
+    .font_list_font.loading .font_list_font_name::after {
+      content: "";
+      position: absolute;
+      top: 1.5px;
+      left: 1.5px;
+      width: calc(100% - 3px);
+      height: calc(100% - 3px);
+      background: var(--d-f4f4f4);
+      border-radius: 15px;
+      user-select: none;
+      -webkit-user-select: none;
     }
 
     @media only screen and (max-width: 600px) {
@@ -1570,6 +1726,14 @@
       <div class="options_list_title">Auto delete finish countdown</div>
       <label for="options_list_auto_delete_finish_countdown" class="switch"><input type="checkbox" id="options_list_auto_delete_finish_countdown" name="options_list_auto_delete_finish_countdown" jg="auto_delete_finish_countdown"></label>
     </li>
+    <li class="options_list" s="1" r-click="openfontlibrary(1)">
+      <div class="options_list_title">Global font</div>
+      <div class="options_list_icon">
+        <svg stroke-miterlimit="10" style="fill-rule:nonzero;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;" version="1.1" viewBox="0 0 64 64" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+          <path d="M0 6.6875L0 12.5625L17.3438 12.5625L17.3438 57.3125L23.2188 57.3125L23.2188 12.5625L40.5312 12.5625L40.5312 6.6875L0 6.6875ZM36.8438 23.4688L36.8438 29.3125L47.5 29.3125L47.5 57.3125L53.375 57.3125L53.375 29.3125L64 29.3125L64 23.4688L36.8438 23.4688Z" fill="var(--d-333333)" fill-rule="nonzero" opacity="1" stroke="none" />
+        </svg>
+      </div>
+    </li>
 
     <div class="options_title">Data</div>
     <li class="options_list" s="1" r-click="opentrashcan()" b="0">
@@ -1598,6 +1762,34 @@
     </li>
   </div>
 
+  <div class="font_library_content_box">
+    <div class="font_list"></div>
+    <div id="font_list_css"></div>
+  </div>
+
+  <div class="font_library_title">
+    <span>Font Library</span>
+    <div class="font_library_back_btn" r-click="closefontlibrary()">
+      <svg stroke-miterlimit="10" style="fill-rule:nonzero;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;" version="1.1" viewBox="0 0 64 64" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <path d="M32 64L0 32L32 0L36.2 4.2L11.4 29L64 29L64 35L11.4 35L36.2 59.8L32 64Z" fill="var(--d-333333)" fill-rule="evenodd" opacity="1" stroke="none" />
+      </svg>
+    </div>
+    <div class="font_library_search_btn" r-click="openfontlibrarysearchpage()" u="0" loading="1">
+      <svg stroke-miterlimit="10" style="fill-rule:nonzero;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;" version="1.1" viewBox="0 0 64 64" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="fontlibsvgsearchicon">
+        <path d="M60.0889 64L36.7111 40.6222C34.9333 42.163 32.8593 43.363 30.4889 44.2222C28.1185 45.0815 25.6 45.5111 22.9333 45.5111C16.5333 45.5111 11.1111 43.2889 6.66667 38.8444C2.22222 34.4 1.41285e-06 29.037 8.4771e-07 22.7556C8.4771e-07 16.4741 2.22222 11.1111 6.66667 6.66667C11.1111 2.22222 16.5037 3.55271e-15 22.8444 3.55271e-15C29.1259 3.55271e-15 34.4741 2.22222 38.8889 6.66667C43.3037 11.1111 45.5111 16.4741 45.5111 22.7556C45.5111 25.3037 45.0963 27.763 44.2667 30.1333C43.437 32.5037 42.1926 34.7259 40.5333 36.8L64 60.0889L60.0889 64ZM22.8444 40.1778C27.6444 40.1778 31.7333 38.4741 35.1111 35.0667C38.4889 31.6593 40.1778 27.5556 40.1778 22.7556C40.1778 17.9556 38.4889 13.8519 35.1111 10.4444C31.7333 7.03704 27.6444 5.33333 22.8444 5.33333C17.9852 5.33333 13.8519 7.03704 10.4444 10.4444C7.03704 13.8519 5.33333 17.9556 5.33333 22.7556C5.33333 27.5556 7.03704 31.6593 10.4444 35.0667C13.8519 38.4741 17.9852 40.1778 22.8444 40.1778Z" fill="var(--d-333333)" fill-rule="nonzero" opacity="1" stroke="none" />
+      </svg>
+      <div class="search_font_library_back_btn" r-click="closefontlibrarysearchpage()">
+        <svg stroke-miterlimit="10" style="fill-rule:nonzero;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;" version="1.1" viewBox="0 0 64 64" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+          <path d="M32 64L0 32L32 0L36.2 4.2L11.4 29L64 29L64 35L11.4 35L36.2 59.8L32 64Z" fill="var(--d-333333)" fill-rule="evenodd" opacity="1" stroke="none" />
+        </svg>
+      </div>
+      <input type="text" id="search_font_library" placeholder="search">
+    </div>
+  </div>
+  <div class="search_font_library_content_box">
+    <div class="search_result_font_library"></div>
+    <div class="search_result_font_library_css"></div>
+  </div>
   <div class="options_mask" r-click="closeoptions()"></div>
   <div class="options">
     <li r-click="editcountdown()" style="--options-list-n:0;" style="--options-list-n:0;" y="edit" group="0" b="0">
@@ -1774,6 +1966,11 @@
       if ($(this).attr('r-click') != '') {
         eval($(this).attr('r-click'));
       }
+    });
+  }
+  function htmlCodeEncode(html) {
+    return html.replace(/[\u00A0-\u9999<>\&]/g, function (i) {
+      return '&#' + i.charCodeAt(0) + ';';
     });
   }
   function searchItemsbyname(name) {
@@ -3449,6 +3646,210 @@
     reader.readAsText(f);
   }
 
+  var fontlistindex = 0;
+  var fontlistststus = 0;
+  var fontlist = [];
+  var fontlist_status = 0;
+  var fontlibrarysearchpage = 0
+  var searchresultfontlibrarycss = {}
+  function font_library_apply(id) {
+    key = id.replace('-', '_')
+    var c = ''
+    if (fontlist['j'].hasOwnProperty(key)) {
+      c = fontlist['j'][key]
+    }
+    else {
+      return ''
+    }
+    var y = $('.font_library_content_box').attr('y')
+    if (y === '1') {
+      var json = { 'n': c.n, 'q': c.q }
+      localStorage.setItem('countdown_options_s_global_font', JSON.stringify(json))
+      closefontlibrarysearchpage()
+      closefontlibrary()
+      mes('Options saved.')
+    }
+  }
+  function fontlistloaded(arr, json, load_l) {
+    var arr_len = arr.length;
+    var fontHTML = function (j) {
+      return '<li class="font_list_font" id="font-' + j.id + '" j="1"><div class="font_list_font_name" style="font-family:' + "'" + j.n + "'" + '">' + j.n + '</div><div class="font_list_font_apply" r-click="font_library_apply(' + "'" + j.id + "'" + ')">Apply</div></li>'
+    };
+    var printFonts = function (start, end) {
+      if (end >= arr_len) {
+        end = arr_len;
+      }
+      var htm = [];
+      var f = [];
+      var txt = [];
+      var id = [];
+      var id2 = [];
+      for (var u = start; u < end; u++) {
+        htm.push(fontHTML(arr[u]));
+        f.push("family=" + arr[u].cq);
+        txt.push(arr[u].n);
+        id2.push(arr[u].id);
+      }
+      var group_id = 'g-' + id2.join("-")
+      $(".font_list").append('<div class="font_list_group" id="' + group_id + '">' + htm.join("") + '</div>');
+      rclick('.font_list_group#' + group_id + ' .font_list_font_apply')
+      var css_url = "https://fonts.googleapis.com/css2?" + f.join("&") + "&display=swap&text=" + encodeURIComponent(txt.join(""));
+      $("#font_list_css").append('<link href="' + css_url + '" rel="stylesheet" id="css-' + id2.join("-") + '">');
+      fontlistindex += load_l;
+    };
+    $(".font_list").scroll(function () {
+      var scrolltop = document.querySelector(".font_list").scrollTop
+      var scrollheight = document.querySelector(".font_list").scrollHeight
+      var clientheight = document.querySelector(".font_list").clientHeight
+      if (scrolltop > scrollheight - clientheight - clientheight * 3) {
+        if (fontlistindex < arr_len - load_l && fontlistststus === 0) {
+          printFonts(fontlistindex, fontlistindex + load_l);
+          fontlistststus = 1;
+        } else {
+          fontlistststus = 0;
+        }
+      }
+    });
+    printFonts(0, load_l);
+    fontlist = { a: arr, j: json };
+    $('.font_list .font_list_group.loading').remove();
+    $('.font_library_search_btn').attr('loading', '0')
+  }
+  function loadfontlist(load_l) {
+    $.ajax({
+      type: "get", url: "https://docs.google.com/spreadsheets/d/e/2PACX-1vQr9AMO_1nI-u0wzyxXv5JWJeOahfBX2nY6toh_5a0hT1eprezEUksQKmmL68vw0BIWdApLmchWybo2/pub?gid=0&single=true&output=csv&" + randid(), dataType: "text", success: function (e) {
+        var r = e.split(/\r?\n|\r|\n/g);
+        var rl = r.length;
+        var g = [];
+        var v = {};
+        for (var w = 0; w < rl; w++) {
+          var p = r[w];
+          if (p.indexOf('"') > -1) {
+            p = p.split(',"');
+          } else {
+            p = p.split(",");
+          }
+          var id = randid();
+          var jj = {
+            n: p[0],
+            q: p[1].replaceAll('"', ""),
+            u: unicode_arr((p.join("")).toLowerCase() + (p.join("")).toUpperCase()),
+            cq: p[0].replaceAll(" ", "+") + ":" + p[1].replaceAll('"', ""),
+            id: id
+          };
+          g.push(jj);
+          v[id.replaceAll("-", "_")] = jj;
+        }
+        fontlistloaded(g, v, load_l);
+        fontlist_status = 1
+      }
+    });
+  }
+  function search_result_font_library(txt, search_index) {
+    if (fontlist_status === 0) {
+      return []
+    }
+    var txt_l = txt.toLowerCase()
+    var txt_unicode = unicode_arr(txt)
+    var txt_unicode_len = txt_unicode.length
+    var arr = search_index.a
+    var arr_len = arr.length
+    var res = []
+    for (var q = 0; q < arr_len; q++) {
+      var t = arr[q]
+      var tu = t.u
+      var yu = false
+      for (var e = 0; e < txt_unicode_len; e++) {
+        if (tu.indexOf(txt_unicode[e]) > -1) {
+          yu = true
+          break;
+        }
+      }
+      if (yu) {
+        if (((t.n).toLowerCase()).indexOf(txt_l) > -1) {
+          res.push(t)
+        }
+      }
+      else {
+        continue;
+      }
+    }
+    return res
+  }
+  function print_searchresult_fontlibrary(res) {
+    var res_len = res.length
+    var htm = []
+    var res_btn_selector = []
+    var id = randid('search_res_font_lib')
+    for (var o = 0; o < res_len; o++) {
+      var s = res[o]
+      var id2 = (s.id).replaceAll('-', '_')
+      var html = '<li class="search_result_font" id="' + id + '" style="--w-fm:' + "'" + s.n + "'" + '"><div class="search_result_font_name">' + htmlCodeEncode(s.n) + '</div><div class="search_result_font_apply" r-click="font_library_apply(' + "'" + s.id + "'" + ')">Apply</div></li>'
+      htm.push(html)
+      if (!(searchresultfontlibrarycss.hasOwnProperty(id2))) {
+        var family = 'family=' + s.cq
+        var css_url = "https://fonts.googleapis.com/css2?" + family + "&display=swap&text=" + encodeURIComponent(s.n);
+        $('.search_result_font_library_css').append('<link href="' + css_url + '" rel="stylesheet" id="search-res-font-lib-css-' + s.id + '">')
+        searchresultfontlibrarycss[id2] = 1
+      }
+    }
+    res_btn_selector.push('.search_result_font_library li#' + id + ' .search_result_font_apply')
+    $('.search_result_font_library').html(htm.join(''))
+    rclick(res_btn_selector.join(','))
+  }
+  function update_search_result_fontlibrary() {
+    var txt = $('#search_font_library').val()
+    var res = search_result_font_library(txt, fontlist)
+    print_searchresult_fontlibrary(res)
+  }
+  function openfontlibrary(y) {
+    fontlibrarysearchpage = 1
+    $('.font_library_content_box').css({ 'display': 'block' }).attr('y', y)
+    $('.font_library_title').css({ 'display': 'flex' })
+    if (fontlist_status === 0) {
+      var skeleton_screen_amount = Math.floor((window.innerHeight / 56) * 1.6) + 5
+      var f = [];
+      for (var t = 0; t < skeleton_screen_amount; t++) {
+        f.push('<li class="font_list_font loading" j="0"><div class="font_list_font_name"></div><div class="font_list_font_apply"></div></li>');
+      }
+      $(".font_list").html('<div class="font_list_group loading">' + f.join("") + '</div>');
+      loadfontlist(skeleton_screen_amount);
+      $("#font_list_css").append('<style>:root {--o-font-list-group-height:' + skeleton_screen_amount * 65 + 'px;}</style>');
+      document.querySelector('#search_font_library').addEventListener("paste", function (e) {
+        update_search_result_fontlibrary()
+      });
+      document.querySelector('#search_font_library').addEventListener("cut", function (e) {
+        update_search_result_fontlibrary()
+      });
+      document.querySelector('#search_font_library').addEventListener("selectionchange", function (e) {
+        update_search_result_fontlibrary()
+      });
+      document.addEventListener("selectionchange", function (e) {
+        if (fontlibrarysearchpage === 1) {
+          update_search_result_fontlibrary()
+        }
+      });
+      document.querySelector('#search_font_library').addEventListener("keyup", function (e) {
+        update_search_result_fontlibrary()
+      });
+    }
+  }
+
+  function closefontlibrary() {
+    fontlibrarysearchpage = 0
+    $('.font_library_content_box,.font_library_title').css({ 'display': 'none' })
+  }
+  function openfontlibrarysearchpage() {
+    if ($('.font_library_search_btn').attr('loading') === '1') {
+      return ''
+    }
+    $('.font_library_search_btn').attr('u', '1')
+    $('.search_font_library_content_box').css({ 'display': 'block' })
+  }
+  function closefontlibrarysearchpage() {
+    $('.font_library_search_btn').attr('u', '0')
+    $('.search_font_library_content_box').css({ 'display': 'none' })
+  }
   function setoptions() {
     var options_list = $('.options_content_box .options_list[r="1"] .switch input[type="checkbox"]')
     var options_list_len = options_list.length
@@ -3509,12 +3910,19 @@
         countdown_auto_delete_finish_check()
         opencountdown_log_check()
         print_countdown(0)
-        rclick('.addcountdown,.add_countdown_btn,.edit_countdown_btn,.back_btn,.options_btn,.options_mask,.options li,.cancel_btn,.delete_btn,.search_btn,.trash_back_btn,.options_content_box li.options_list[s="1"]')
+        rclick('.addcountdown,.add_countdown_btn,.edit_countdown_btn,.back_btn,.options_btn,.options_mask,.options li,.cancel_btn,.delete_btn,.search_btn,.trash_back_btn,.options_content_box li.options_list[s="1"],.font_library_back_btn,.font_library_search_btn,.search_font_library_back_btn')
         $('.options_content_box .options_list[r="1"] .switch input[type="checkbox"]').click(function () {
           saveoptions()
         })
         $('.search_btn,.options_btn,.addcountdown').attr('loading', '0')
         window.requestAnimationFrame(countdown_update);
+        if (localStorage.hasOwnProperty('countdown_options_s_global_font')) {
+          var j = JSON.parse(String(localStorage.getItem('countdown_options_s_global_font')))
+          var cq = (j.n).replaceAll(' ', '+') + ':' + j.q
+          var u = 'https://fonts.googleapis.com/css2?family=Noto+Sans:wght@200;400;500;700&family=' + cq + '&display=swap'
+          $('#font_css').attr('href', u)
+          $('#options_global_font_css').html(':root{--g-font:' + "'" + j.n + "'" + ';}')
+        }
       }, 1500)
       if (urlparams('c') === '1') {
         var countdown_id = urlparams('id')
