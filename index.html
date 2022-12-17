@@ -1474,7 +1474,6 @@
       display: flex;
       box-sizing: border-box;
       overflow: hidden;
-      border-top: 1px solid var(--d-f4f4f4);
       justify-content: center;
       align-items: center;
       flex-direction: column;
@@ -1720,6 +1719,14 @@
     <li class="options_list" r="1" b="0">
       <div class="options_list_title">Auto delete finish countdown</div>
       <label for="options_list_auto_delete_finish_countdown" class="switch"><input type="checkbox" id="options_list_auto_delete_finish_countdown" name="options_list_auto_delete_finish_countdown" jg="auto_delete_finish_countdown"></label>
+    </li>
+    <li class="options_list" s="1" r-click="opentrashcan()">
+      <div class="options_list_title">Global font</div>
+      <div class="options_list_icon">
+        <svg stroke-miterlimit="10" style="fill-rule:nonzero;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;" version="1.1" viewBox="0 0 64 64" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+          <path d="M12.8474 64C11.3936 64 10.1294 63.4627 9.05481 62.3881C7.98025 61.3136 7.44296 60.0178 7.44296 58.5007L7.44296 6.92148L3.55556 6.92148L3.55556 2.65481L19.7689 2.65481L19.7689 0L44.2311 0L44.2311 2.65481L60.4444 2.65481L60.4444 6.92148L56.557 6.92148L56.557 58.5007C56.557 60.0178 56.0198 61.3136 54.9452 62.3881C53.8706 63.4627 52.6064 64 51.1526 64L12.8474 64ZM52.2904 6.92148L11.7096 6.92148L11.7096 58.5007C11.7096 58.88 11.8202 59.1802 12.0415 59.4015C12.2627 59.6227 12.5314 59.7333 12.8474 59.7333L51.1526 59.7333C51.4054 59.7333 51.6583 59.6069 51.9111 59.3541C52.164 59.1012 52.2904 58.8168 52.2904 58.5007L52.2904 6.92148ZM22.6133 51.6741L26.9748 51.6741L26.9748 14.8859L22.6133 14.8859L22.6133 51.6741ZM37.0252 51.6741L41.3867 51.6741L41.3867 14.8859L37.0252 14.8859L37.0252 51.6741ZM11.7096 6.92148L11.7096 59.7333L11.7096 58.5007L11.7096 6.92148Z" fill="var(--d-333333)" fill-rule="nonzero" opacity="1" stroke="none" />
+        </svg>
+      </div>
     </li>
 
     <div class="options_title">Data</div>
@@ -3641,16 +3648,17 @@
   var searchresultfontlibrarycss = {}
   function font_library_apply(id) {
     key = id.replace('-', '_')
-    var cq = ''
+    var c = ''
     if (fontlist['j'].hasOwnProperty(key)) {
-      cq = fontlist['j'][key].cq
+      c = fontlist['j'][key]
     }
     else {
       return ''
     }
     var y = $('.font_library_content_box').attr('y')
     if (y === '1') {
-      localStorage.setItem('countdown_options_s_global_font', cq)
+      var json = { 'n': c.n, 'q': c.q }
+      localStorage.setItem('countdown_options_s_global_font', JSON.stringify(json))
       closefontlibrary()
       mes('Options saved.')
     }
@@ -3787,9 +3795,9 @@
     var res = search_result_font_library(txt, fontlist)
     print_searchresult_fontlibrary(res)
   }
-  function openfontlibrary() {
+  function openfontlibrary(y) {
     fontlibrarysearchpage = 1
-    $('.font_library_content_box').css({ 'display': 'block' })
+    $('.font_library_content_box').css({ 'display': 'block' }).attr('y', y)
     $('.font_library_title').css({ 'display': 'flex' })
     if (fontlist_status === 0) {
       var skeleton_screen_amount = Math.floor((window.innerHeight / 56) * 1.6) + 5
