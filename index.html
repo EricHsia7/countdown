@@ -3705,7 +3705,7 @@
     });
     printFonts(0, load_l);
     fontlist = { a: arr, j: json };
-    $('.font_list .font_list_font.loading[j="0"]').remove();
+    $('.font_list .font_list_group.loadind').remove();
     $('.font_library_search_btn').attr('loading', '0')
   }
   function loadfontlist(load_l) {
@@ -3786,7 +3786,7 @@
         searchresultfontlibrarycss[id2] = 1
       }
     }
-    res_btn_selector.push('.search_result_font_library li#' + id + ' .apply')
+    res_btn_selector.push('.search_result_font_library li#' + id + ' .search_result_font_apply')
     $('.search_result_font_library').html(htm.join(''))
     rclick(res_btn_selector.join(','))
   }
@@ -3805,7 +3805,7 @@
       for (var t = 0; t < skeleton_screen_amount; t++) {
         f.push('<li class="font_list_font loading" j="0"><div class="font_list_font_name"></div><div class="font_list_font_apply"></div></li>');
       }
-      $(".font_list").html(f.join(""));
+      $(".font_list").html('div class="font_list_group loading">' + f.join("") + '</div>');
       loadfontlist(skeleton_screen_amount);
       $("#font_list_css").append('<style>:root {--o-font-list-group-height:' + skeleton_screen_amount * 65 + 'px;}</style>');
       document.querySelector('#search_font_library').addEventListener("paste", function (e) {
