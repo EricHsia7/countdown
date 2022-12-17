@@ -1471,10 +1471,12 @@
       position: relative;
       width: 100%;
       height: var(--o-font-list-group-height);
-      display: block;
+      display: flex;
       box-sizing: border-box;
       overflow: hidden;
       border-top: 1px solid var(--d-f4f4f4);
+      justify-content: center;
+      flex-direction: column;
     }
 
     .font_list .font_list_group:first-child {
@@ -1483,15 +1485,18 @@
 
     .font_list_font {
       position: relative;
-      width: 100%;
+      width: calc(100% - 20px);
       height: 55px;
       display: block;
+      background: var(--d-ffffff);
       list-style: none;
-      border-top: 1px solid var(--d-f4f4f4);
+      border: 1px solid var(--d-f4f4f4);
       box-sizing: border-box;
-      margin: 1px 0px;
+      margin-top: 10px;
       user-select: none;
       -webkit-user-select: none;
+      border-radius: 15px;
+      overflow: hidden;
     }
 
     .font_list .font_list_font:nth-child(1) {
@@ -3733,6 +3738,9 @@
     });
   }
   function search_result_font_library(txt, search_index) {
+    if (fontlist_status === 0) {
+      return []
+    }
     var txt_l = txt.toLowerCase()
     var txt_unicode = unicode_arr(txt)
     var txt_unicode_len = txt_unicode.length
@@ -3798,7 +3806,7 @@
       }
       $(".font_list").html(f.join(""));
       loadfontlist(skeleton_screen_amount);
-      $("#font_list_css").append('<style>:root {--o-font-list-group-height:' + skeleton_screen_amount * 56 + 'px;}</style>');
+      $("#font_list_css").append('<style>:root {--o-font-list-group-height:' + skeleton_screen_amount * 65 + 'px;}</style>');
       document.querySelector('#search_font_library').addEventListener("paste", function (e) {
         update_search_result_fontlibrary()
       });
