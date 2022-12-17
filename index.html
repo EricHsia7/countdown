@@ -3660,6 +3660,7 @@
     if (y === '1') {
       var json = { 'n': c.n, 'q': c.q }
       localStorage.setItem('countdown_options_s_global_font', JSON.stringify(json))
+      closefontlibrarysearchpage()
       closefontlibrary()
       mes('Options saved.')
     }
