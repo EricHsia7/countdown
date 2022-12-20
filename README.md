@@ -1,5 +1,6 @@
 # Countdown
-![Screenshot](https://raw.githubusercontent.com/EricHsia7/countdown/master/readme/62AsxMDUl8s3aq0S615hLlEQxoK7rJ67.webp)
+<img src="https://raw.githubusercontent.com/EricHsia7/countdown/master/readme/62AsxMDUl8s3aq0S615hLlEQxoK7rJ67.webp" alt="screenshot" height="auto" width="300px" />
+
 ## Material
 ### Icon
 * [Material Symbols](https://fonts.google.com/icons)
