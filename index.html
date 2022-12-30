@@ -3683,18 +3683,16 @@
       var f = [];
       var txt = [];
       var id = [];
-      var id2 = [];
       for (var u = start; u < end; u++) {
         htm.push(fontHTML(arr[u]));
         f.push("family=" + arr[u].cq);
         txt.push(arr[u].n);
-        id2.push(arr[u].id);
       }
-      var group_id = 'g-' + id2.join("-")
+      var group_id = randid('group')
+      htm.push('<link href="' + css_url + '" rel="stylesheet" id="css-' + id2.join("-") + '">');
       $(".font_list").append('<div class="font_list_group" id="' + group_id + '">' + htm.join("") + '</div>');
       rclick('.font_list_group#' + group_id + ' .font_list_font_apply')
       var css_url = "https://fonts.googleapis.com/css2?" + f.join("&") + "&display=swap&text=" + encodeURIComponent(txt.join(""));
-      $("#font_list_css").append('<link href="' + css_url + '" rel="stylesheet" id="css-' + id2.join("-") + '">');
       fontlistindex += load_l;
     };
     $(".font_list").scroll(function () {
