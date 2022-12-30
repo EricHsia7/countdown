@@ -3689,10 +3689,10 @@
         txt.push(arr[u].n);
       }
       var group_id = randid('group')
+      var css_url = "https://fonts.googleapis.com/css2?" + f.join("&") + "&display=swap&text=" + encodeURIComponent(txt.join(""));
       htm.push('<link href="' + css_url + '" rel="stylesheet">');
       $(".font_list").append('<div class="font_list_group" id="' + group_id + '">' + htm.join("") + '</div>');
       rclick('.font_list_group#' + group_id + ' .font_list_font_apply')
-      var css_url = "https://fonts.googleapis.com/css2?" + f.join("&") + "&display=swap&text=" + encodeURIComponent(txt.join(""));
       fontlistindex += load_l;
     };
     $(".font_list").scroll(function () {
