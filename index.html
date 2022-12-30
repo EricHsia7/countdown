@@ -17,6 +17,7 @@
   <link rel="manifest" href="https://erichsia7.github.io/countdown/manifest.json">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@200;400;500;700&display=swap&text=AaCcdelnoRstuw" rel="stylesheet" id="font_css_l">
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@200;400;500;700&display=swap" rel="stylesheet" id="font_css">
   <style id="options_global_font_css">
     :root {
@@ -766,7 +767,6 @@
       transform: translateY(-50%);
       color: var(--d-333333);
       font-size: 15px;
-      font-family: "Noto Sans TC", sans-serif;
       user-select: none;
       -webkit-user-select: none;
     }
@@ -774,7 +774,6 @@
     .promptcenter * {
       color: var(--d-333333);
       font-size: 15px;
-      font-family: "Noto Sans TC", sans-serif
     }
 
     .prompt {
@@ -3667,6 +3666,7 @@
       localStorage.setItem('countdown_options_s_global_font', JSON.stringify(json))
       closefontlibrarysearchpage()
       closefontlibrary()
+      setglobalfont()
       mes('Options saved.')
     }
   }
@@ -3850,6 +3850,21 @@
     $('.font_library_search_btn').attr('u', '0')
     $('.search_font_library_content_box').css({ 'display': 'none' })
   }
+  function setglobalfont(o) {
+    if (localStorage.hasOwnProperty('countdown_options_s_global_font')) {
+      var j = JSON.parse(String(localStorage.getItem('countdown_options_s_global_font')))
+      var cq = (j.n).replaceAll(' ', '+') + ':' + j.q
+      var u = 'https://fonts.googleapis.com/css2?family=Noto+Sans:wght@200;400;500;700&family=' + cq + '&display=swap'
+      if (o === true) {
+        u = u + '&text=AaCcdelnoRstuw'
+        $('#font_css_l').attr('href', u)
+      }
+      else {
+        $('#font_css').attr('href', u)
+      }
+      $('#options_global_font_css').html(':root{--g-font:' + "'" + j.n + "'" + ';}')
+    }
+  }
   function setoptions() {
     var options_list = $('.options_content_box .options_list[r="1"] .switch input[type="checkbox"]')
     var options_list_len = options_list.length
@@ -3904,6 +3919,7 @@
 
     $('.content_box').html('<div class="content_box_title" v="0">Recent Access</div><div class="recent_access_content_box">' + gg.join('') + '</div><div class="content_box_title" v="1">All</div>' + yy.join(''))
     $(document).ready(function () {
+      setglobalfont(true)
       setTimeout(function () {
         setoptions()
         countdown_trash_check()
@@ -3916,13 +3932,7 @@
         })
         $('.search_btn,.options_btn,.addcountdown').attr('loading', '0')
         window.requestAnimationFrame(countdown_update);
-        if (localStorage.hasOwnProperty('countdown_options_s_global_font')) {
-          var j = JSON.parse(String(localStorage.getItem('countdown_options_s_global_font')))
-          var cq = (j.n).replaceAll(' ', '+') + ':' + j.q
-          var u = 'https://fonts.googleapis.com/css2?family=Noto+Sans:wght@200;400;500;700&family=' + cq + '&display=swap'
-          $('#font_css').attr('href', u)
-          $('#options_global_font_css').html(':root{--g-font:' + "'" + j.n + "'" + ';}')
-        }
+        setglobalfont()
       }, 1500)
       if (urlparams('c') === '1') {
         var countdown_id = urlparams('id')
