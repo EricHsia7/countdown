@@ -3687,7 +3687,7 @@
         txt.push(arr[u].n);
       }
       var css_url = "https://fonts.googleapis.com/css2?" + f.join("&") + "&display=swap&text=" + encodeURIComponent(txt.join(""));
-      c = "@import url('" + css_url + "')"
+      c = '<link href="' + css_url + '" rel="stylesheet">'
       return c
     }
     var loadcss = function () {
@@ -3696,7 +3696,7 @@
         var c = fontcss(i, i + load_l);
         h.push(c)
       }
-      $('#font_list_css').prepend(h.join(' '))
+      $('head').append(h.join(' '))
     }
     var printFonts = function (start, end) {
       if (end >= arr_len) {
