@@ -3692,9 +3692,11 @@
     }
     var loadcss = function () {
       var h = []
+      var u = 0
       for (var i = 0; i < Math.floor(arr_len / 10) + 2; i++) {
-        var c = fontcss(i, i + 10);
+        var c = fontcss(u, u + 10);
         h.push(c)
+        u += 10
       }
       $('head').append(h.join(' '))
     }
