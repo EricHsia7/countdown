@@ -3677,6 +3677,7 @@
     };
     var fontcss = function (start, end) {
       var c = ''
+      var f = []
       if (end >= arr_len) {
         end = arr_len;
       }
@@ -3706,7 +3707,7 @@
         htm.push(fontHTML(arr[u]));
       }
       var group_id = randid('group')
-      $(".font_list").append('<div class="font_list_group" id="' + group_id + '">' + htm.join("") + '</div>');      rclick('.font_list_group#' + group_id + ' .font_list_font_apply')
+      $(".font_list").append('<div class="font_list_group" id="' + group_id + '">' + htm.join("") + '</div>'); rclick('.font_list_group#' + group_id + ' .font_list_font_apply')
       fontlistindex += load_l;
     };
     $(".font_list").scroll(function () {
