@@ -3706,8 +3706,7 @@
         htm.push(fontHTML(arr[u]));
       }
       var group_id = randid('group')
-      $('.font_list').append(htm.join(''))
-      rclick('.font_list_group#' + group_id + ' .font_list_font_apply')
+      $(".font_list").append('<div class="font_list_group" id="' + group_id + '">' + htm.join("") + '</div>');      rclick('.font_list_group#' + group_id + ' .font_list_font_apply')
       fontlistindex += load_l;
     };
     $(".font_list").scroll(function () {
