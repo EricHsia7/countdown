@@ -1787,7 +1787,7 @@
   </div>
   <div class="search_font_library_content_box">
     <div class="search_result_font_library"></div>
-    <div class="search_result_font_library_css"></div>
+    <style class="search_result_font_library_css"></style>
   </div>
   <div class="options_mask" r-click="closeoptions()"></div>
   <div class="options">
@@ -3787,7 +3787,7 @@
       if (!(searchresultfontlibrarycss.hasOwnProperty(id2))) {
         var family = 'family=' + s.cq
         var css_url = "https://fonts.googleapis.com/css2?" + family + "&display=swap&text=" + encodeURIComponent(s.n);
-        $('.search_result_font_library_css').append('<link href="' + css_url + '" rel="stylesheet" id="search-res-font-lib-css-' + s.id + '">')
+        $('.search_result_font_library_css').append("@import url('" + css_url + "')")
         searchresultfontlibrarycss[id2] = 1
       }
     }
