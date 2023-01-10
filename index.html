@@ -2863,27 +2863,32 @@
     if (localStorage.hasOwnProperty('countdown_x_' + countdown_id)) {
       var j = JSON.parse(String(localStorage.getItem('countdown_x_' + countdown_id)))
       var element = document.querySelectorAll('#' + element_id)[0]
-      var content_box_r = document.querySelector('.content_box')
-      var content_box_e = document.querySelector(content_box)
-      var t = element.offsetTop - content_box_r.scrollTop + content_box_r.offsetTop - content_box_e.scrollTop
-      var l = element.offsetLeft - content_box_r.scrollLeft + content_box_r.offsetLeft - content_box_e.scrollLeft
-      var w = element.clientWidth
-      var h = element.clientHeight
-      var title_max_len = Math.floor((window.innerWidth - 20 - 110 - 6) / getTextAvgWidth(500, 16))
-      var title = j.title
-      if (title.length > title_max_len) {
-        title = String(title).substring(0, title_max_len - 3) + '...'
+      if (element.className === 'countdown_box') {
+        var content_box_r = document.querySelector('.content_box')
+        var content_box_e = document.querySelector(content_box)
+        var t = element.offsetTop - content_box_r.scrollTop + content_box_r.offsetTop - content_box_e.scrollTop
+        var l = element.offsetLeft - content_box_r.scrollLeft + content_box_r.offsetLeft - content_box_e.scrollLeft
+        var w = element.clientWidth
+        var h = element.clientHeight
+        var title_max_len = Math.floor((window.innerWidth - 20 - 110 - 6) / getTextAvgWidth(500, 16))
+        var title = j.title
+        if (title.length > title_max_len) {
+          title = String(title).substring(0, title_max_len - 3) + '...'
+        }
+        var description = j.description
+        if (description.length > 45) {
+          description = String(description).substring(0, 42) + '...'
+        }
+        var clone_id = clone(title, description, j.date, j.trash, j.trash_date, t, l, w, h)
+        setTimeout(function () {
+          $('#' + clone_id + ',#title-' + clone_id + ',#description-' + clone_id + ',#count-' + clone_id + ',#mask-' + clone_id).attr('status', '1')
+          $('.countdown_title .back_btn').attr('r-click', 'closecountdown(1,' + '"' + clone_id + '")')
+        }, 1)
+        return clone_id
       }
-      var description = j.description
-      if (description.length > 45) {
-        description = String(description).substring(0, 42) + '...'
+      else {
+        return true
       }
-      var clone_id = clone(title, description, j.date, j.trash, j.trash_date, t, l, w, h)
-      setTimeout(function () {
-        $('#' + clone_id + ',#title-' + clone_id + ',#description-' + clone_id + ',#count-' + clone_id + ',#mask-' + clone_id).attr('status', '1')
-        $('.countdown_title .back_btn').attr('r-click', 'closecountdown(1,' + '"' + clone_id + '")')
-      }, 1)
-      return clone_id
     }
   }
   function displaycountdowncontentbox(clone_id) {
