@@ -24,6 +24,7 @@
       --g-font: 'Noto Sans', sans-serif;
     }
   </style>
+  <style id="font_list_css"></style>
   <style>
     :root {
       --d-ffffff: #ffffff;
@@ -1763,7 +1764,6 @@
 
   <div class="font_library_content_box">
     <div class="font_list"></div>
-    <div id="font_list_css"></div>
   </div>
 
   <div class="font_library_title">
@@ -1787,7 +1787,7 @@
   </div>
   <div class="search_font_library_content_box">
     <div class="search_result_font_library"></div>
-    <div class="search_result_font_library_css"></div>
+    <style class="search_result_font_library_css"></style>
   </div>
   <div class="options_mask" r-click="closeoptions()"></div>
   <div class="options">
@@ -3675,26 +3675,45 @@
     var fontHTML = function (j) {
       return '<li class="font_list_font" id="font-' + j.id + '" j="1"><div class="font_list_font_name" style="font-family:' + "'" + j.n + "'" + '">' + j.n + '</div><div class="font_list_font_apply" r-click="font_library_apply(' + "'" + j.id + "'" + ')">Apply</div></li>'
     };
+    var fontcss = function (start, end) {
+      var c = ''
+      var f = []
+      var txt = []
+      if (end >= arr_len) {
+        end = arr_len;
+      }
+      for (var u = start; u < end; u++) {
+        f.push("family=" + arr[u].cq);
+        txt.push(arr[u].n);
+      }
+      if (f.length <= 0) {
+        return ''
+      }
+      var css_url = "https://fonts.googleapis.com/css2?" + f.join("&") + "&display=swap&text=" + encodeURIComponent(txt.join(""));
+      c = '<link href="' + css_url + '" rel="stylesheet">'
+      return c
+    }
+    var loadcss = function () {
+      var h = []
+      var u = 0
+      for (var i = 0; i < (arr_len - (arr_len % 10)) / 10 + 1; i++) {
+        var c = fontcss(u, u + 10);
+        h.push(c)
+        u += 10
+      }
+      $('head').append(h.join(' '))
+    }
     var printFonts = function (start, end) {
       if (end >= arr_len) {
         end = arr_len;
       }
       var htm = [];
-      var f = [];
-      var txt = [];
       var id = [];
-      var id2 = [];
       for (var u = start; u < end; u++) {
         htm.push(fontHTML(arr[u]));
-        f.push("family=" + arr[u].cq);
-        txt.push(arr[u].n);
-        id2.push(arr[u].id);
       }
-      var group_id = 'g-' + id2.join("-")
-      $(".font_list").append('<div class="font_list_group" id="' + group_id + '">' + htm.join("") + '</div>');
-      rclick('.font_list_group#' + group_id + ' .font_list_font_apply')
-      var css_url = "https://fonts.googleapis.com/css2?" + f.join("&") + "&display=swap&text=" + encodeURIComponent(txt.join(""));
-      $("#font_list_css").append('<link href="' + css_url + '" rel="stylesheet" id="css-' + id2.join("-") + '">');
+      var group_id = randid('group')
+      $(".font_list").append('<div class="font_list_group" id="' + group_id + '">' + htm.join("") + '</div>'); rclick('.font_list_group#' + group_id + ' .font_list_font_apply')
       fontlistindex += load_l;
     };
     $(".font_list").scroll(function () {
@@ -3714,6 +3733,7 @@
     fontlist = { a: arr, j: json };
     $('.font_list .font_list_group.loading').remove();
     $('.font_library_search_btn').attr('loading', '0')
+    loadcss()
   }
   function loadfontlist(load_l) {
     $.ajax({
@@ -3786,12 +3806,6 @@
       var id2 = (s.id).replaceAll('-', '_')
       var html = '<li class="search_result_font" id="' + id + '" style="--w-fm:' + "'" + s.n + "'" + '"><div class="search_result_font_name">' + htmlCodeEncode(s.n) + '</div><div class="search_result_font_apply" r-click="font_library_apply(' + "'" + s.id + "'" + ')">Apply</div></li>'
       htm.push(html)
-      if (!(searchresultfontlibrarycss.hasOwnProperty(id2))) {
-        var family = 'family=' + s.cq
-        var css_url = "https://fonts.googleapis.com/css2?" + family + "&display=swap&text=" + encodeURIComponent(s.n);
-        $('.search_result_font_library_css').append('<link href="' + css_url + '" rel="stylesheet" id="search-res-font-lib-css-' + s.id + '">')
-        searchresultfontlibrarycss[id2] = 1
-      }
     }
     res_btn_selector.push('.search_result_font_library li#' + id + ' .search_result_font_apply')
     $('.search_result_font_library').html(htm.join(''))
@@ -3814,7 +3828,7 @@
       }
       $(".font_list").html('<div class="font_list_group loading">' + f.join("") + '</div>');
       loadfontlist(skeleton_screen_amount);
-      $("#font_list_css").append('<style>:root {--o-font-list-group-height:' + skeleton_screen_amount * 65 + 'px;}</style>');
+      $("#font_list_css").html(':root {--o-font-list-group-height:' + skeleton_screen_amount * 65 + 'px;}');
       document.querySelector('#search_font_library').addEventListener("paste", function (e) {
         update_search_result_fontlibrary()
       });
