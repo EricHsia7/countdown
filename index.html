@@ -2622,6 +2622,8 @@
     }
   }
   function addcountdown(m) {
+  var date = new Date()
+    date.setDate(2)
     if (m === 0) {
       var data_y = $('#add_date_year').val()
       var data_m = $('#add_date_month').val()
@@ -2646,9 +2648,6 @@
     }
     var title = data_title
     var description = data_description
-    var date = new Date()
-    date.setDate(2)
-    
     date.setMonth(0)
     
 
