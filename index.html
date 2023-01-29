@@ -3123,7 +3123,7 @@
     if (localStorage.hasOwnProperty('countdown_x_' + countdown_id)) {
       var countdown_json = JSON.parse(String(localStorage.getItem('countdown_x_' + countdown_id)))
 
-      var date_o = new Date()
+      var date_o = new Date(2000, 0, 1, 0, 0, 0)
 
       var year = check_int($('#edit_date_year').val()) || date_o.getFullYear()
       var month = check_int($('#edit_date_month').val()) || (date_o.getMonth() + 1)
@@ -3131,13 +3131,7 @@
       var hour = check_int($('#edit_date_hour').val()) || 0
       var minute = check_int($('#edit_date_minute').val()) || 0
       var second = check_int($('#edit_date_second').val()) || 0
-
-      date_o.setFullYear(year)
-      date_o.setMonth((month - 1))
-      date_o.setDate(date_d)
-      date_o.setHours(hour)
-      date_o.setMinutes(minute)
-      date_o.setSeconds(second)
+      date_o = new Date(year, (month - 1), date_d, hour, minute, second)
 
       countdown_json.date = date_o.getTime()
       countdown_json.title = $('#edit_title').val()
