@@ -2647,8 +2647,9 @@
     var title = data_title
     var description = data_description
     var date = new Date()
-    date.setMonth(0)
     date.setDate(1)
+    date.setMonth(0)
+    
 
     var year = check_int(data_y) || date.getFullYear()
     var month = check_int(data_m) || (date.getMonth() + 1)
