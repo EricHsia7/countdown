@@ -2622,7 +2622,7 @@
     }
   }
   function addcountdown(m) {
-  var date
+    var date = new Date(2000, 0, 1, 0, 0, 0)
     if (m === 0) {
       var data_y = $('#add_date_year').val()
       var data_m = $('#add_date_month').val()
@@ -2647,7 +2647,7 @@
     }
     var title = data_title
     var description = data_description
-    
+
     var year = check_int(data_y) || date.getFullYear()
     var month = check_int(data_m) || (date.getMonth() + 1)
     var date_d = check_int(data_d) || date.getDate()
@@ -2655,8 +2655,8 @@
     var minute = check_int(data_min) || 0
     var second = check_int(data_s) || 0
 
-date = new Date(year,(month-1),date_d,hour,minute,second)
-    
+    date = new Date(year, (month - 1), date_d, hour, minute, second)
+
     date = date.getTime()
     var id = ''
     var id_chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
