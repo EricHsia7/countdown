@@ -2830,6 +2830,7 @@
     }
     return p
   }
+
   function opencountdown_transition_animation(countdown_id, element_id) {
     var content_box = 'body'
     var clone = function (title, description, date, trash, trash_date, top, left, width, height, classes) {
@@ -2884,11 +2885,12 @@
         if (description.length > 45) {
           description = String(description).substring(0, 42) + '...'
         }
+
         var cl = {
-          'container_box': 'countdown_box',
-          'count': 'countdown_box_count',
-          'title': 'countdown_box_title',
-          'description': 'countdown_box_description'
+          'container_box': `countdown_box`,
+          'count': `countdown_box_count`,
+          'title': `countdown_box_title`,
+          'description': `countdown_box_description`
         }
         var clone_id = clone(title, description, j.date, j.trash, j.trash_date, t, l, w, h, cl)
         setTimeout(function () {
@@ -2897,7 +2899,7 @@
         }, 1)
         return clone_id
       }
-      
+
       if (element.className === 'recent_access_countdown_box') {
         var content_box_r = document.querySelector('.content_box')
         var content_box_e = document.querySelector(content_box)
@@ -2914,12 +2916,12 @@
         if (description.length > 45) {
           description = String(description).substring(0, 42) + '...'
         }
-
+        
         var cl = {
-          'container_box': 'recent_access_countdown_box',
-          'count': 'recent_access_countdown_box_count',
-          'title': 'recent_access_countdown_box_title',
-          'description': 'recent_access_countdown_box_description'
+          'container_box': `recent_access_countdown_box`,
+          'count': `recent_access_countdown_box_count`,
+          'title': `recent_access_countdown_box_title`,
+          'description': `recent_access_countdown_box_description`
         }
         var clone_id = clone(title, description, j.date, j.trash, j.trash_date, t, l, w, h, cl)
 
