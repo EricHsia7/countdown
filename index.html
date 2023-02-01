@@ -583,8 +583,7 @@
       left: calc(var(--r-left) + 5px);
       transform-origin: top left;
       transform: translateX(calc(var(--r-title-left) - (var(--r-left) + 5px))) translateY(calc(var(--r-title-top) - (var(--r-top) + 95px))) scale(calc(4.75 / 30));
-      height: var(--r-title-height);
-      width: var(--r-title-width);
+      width: calc(clamp(150px, calc(28% - 20px), 180px) - 10px);
       display: block;
       font-weight: 200;
       font-size: 16px;
