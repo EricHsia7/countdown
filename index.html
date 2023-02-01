@@ -1654,7 +1654,7 @@
     <div class="countdown_content_box_count"></div>
     <div class="countdown_content_box_line"></div>
     <div class="countdown_content_box_details">
-      <div id="countdown_content_box_details_title" class="h3"></div>
+      <div id="countdown_content_box_full_title" class="h3"></div>
       <div id="countdown_content_box_details_description" class="p"></div>
       <div id="countdown_content_box_details_date" class="p"></div>
     </div>
@@ -2821,13 +2821,13 @@
   }
   function opencountdown_transition_animation(countdown_id, element_id) {
     var content_box = 'body'
-    var clone = function (title, description, date, trash, trash_date, top, left, width, height) {
+    var clone = function (title, description, date, trash, trash_date, top, left, width, height, classes) {
       var this_id = randid('clone')
       var t_date = date
       if (trash) {
         t_date = trash_date
       }
-      var countdown_content_box_details = document.querySelector('#countdown_content_box_details_title').clientHeight
+      var countdown_content_box_details = document.querySelector('#countdown_content_box_full_title').clientHeight
       var tit = document.querySelector('#countdown_title_text')
       var title_t = tit.offsetTop
       var title_l = tit.offsetLeft
@@ -2847,12 +2847,13 @@
       if ((time - nowtime.getTime()) < 0) {
         count = 'Finish'
       }
-      $(content_box).append('<div class="countdown_box_clone_mask" id="mask-' + this_id + '" status="0"></div><div class="countdown_box" id="' + this_id + '" clone="1" status="0" o="0" style="--r-top:' + top + 'px;--r-left:' + left + 'px;--r-scale-x:' + box_scale_x + ';--r-scale-y:' + box_scale_y + ';" clone="1"></div><div class="countdown_box_count" style="--r-top:' + top + 'px;--r-left:' + left + 'px;--r-scale-x:' + count_scale_x + ';--r-scale-y:' + count_scale_y + ';--l-scale-x:' + line_scale_x + ';" id="count-' + this_id + '" clone="1" status="0"><span></span></div><div class="countdown_box_title" style="--r-top:' + top + 'px;--r-left:' + left + 'px;--r-title-top:' + title_t + 'px;--r-title-left:' + title_l + 'px;--r-title-width:' + title_w + 'px;--r-title-height:' + title_h + 'px;" id="title-' + this_id + '" clone="1" status="0"></div><div class="countdown_box_description" style="--r-title-height:' + countdown_content_box_details + 'px;--r-top:' + top + 'px;--r-left:' + left + 'px;" id="description-' + this_id + '" clone="1" status="0"></div>')
+      $(content_box).append(`<div class="countdown_box_clone_mask" id="mask-${this_id}" status="0"></div><div class="${classes.container_box}" id="${this_id}" clone="1" status="0" o="0" style="--r-top:${top}px;--r-left:${left}px;--r-scale-x:${box_scale_x};--r-scale-y:${box_scale_y};" clone="1"></div><div class="${classes.count}" style="--r-top:${top}px;--r-left:${left}px;--r-scale-x:${count_scale_x};--r-scale-y:${count_scale_y};--l-scale-x:${line_scale_x};" id="count-${this_id}" clone="1" status="0"><span></span></div><div class="${classes.title}" style="--r-top:${top}px;--r-left:${left}px;--r-title-top:${title_t}px;--r-title-left:${title_l}px;--r-title-width:${title_w}px;--r-title-height:${title_h}px;" id="title-${this_id}" clone="1" status="0"></div><div class="${classes.description}" style="--r-title-height:${countdown_content_box_details}px;--r-top:${top}px;--r-left:${left}px;" id="description-${this_id}" clone="1" status="0"></div>`)
       $('#title-' + this_id + '[clone="1"]').text(title)
       $('#count-' + this_id + '[clone="1"] span').text(count)
       $('#description-' + this_id + '[clone="1"]').text(description)
       return this_id
     }
+
     if (localStorage.hasOwnProperty('countdown_x_' + countdown_id)) {
       var j = JSON.parse(String(localStorage.getItem('countdown_x_' + countdown_id)))
       var element = document.querySelectorAll('#' + element_id)[0]
@@ -2872,15 +2873,26 @@
         if (description.length > 45) {
           description = String(description).substring(0, 42) + '...'
         }
-        var clone_id = clone(title, description, j.date, j.trash, j.trash_date, t, l, w, h)
+        var cl = {
+          'container_box': 'countdown_box',
+          'count': 'countdown_box_count',
+          'title': 'countdown_box_title',
+          'description': 'countdown_box_description'
+        }
+        var clone_id = clone(title, description, j.date, j.trash, j.trash_date, t, l, w, h, cl)
         setTimeout(function () {
           $('#' + clone_id + ',#title-' + clone_id + ',#description-' + clone_id + ',#count-' + clone_id + ',#mask-' + clone_id).attr('status', '1')
           $('.countdown_title .back_btn').attr('r-click', 'closecountdown(1,' + '"' + clone_id + '")')
         }, 1)
         return clone_id
       }
-      else {
-        return true
+      if (element.className === 'recent_access_countdown_box') {
+        var cl = {
+          'container_box': 'recent_access_countdown_box',
+          'count': 'recent_access_countdown_box_count',
+          'title': 'recent_access_countdown_box_title',
+          'description': 'recent_access_countdown_box_description'
+        }
       }
     }
   }
@@ -2925,7 +2937,7 @@
       }
       $('#countdown_title_text').text(t_title)
       $('.countdown_content_box_count').attr('t', countdown_json.date).attr('f', '0')
-      $('.countdown_content_box_details #countdown_content_box_details_title').text(countdown_json.title)
+      $('.countdown_content_box_details #countdown_content_box_full_title').text(countdown_json.title)
       $('.countdown_content_box_details #countdown_content_box_details_description').text(countdown_json.description)
       $('.countdown_content_box_details #countdown_content_box_details_date').text(date_str)
       window.requestAnimationFrame(countdown_content_count_update);
