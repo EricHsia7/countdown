@@ -479,7 +479,18 @@
       -webkit-backdrop-filter: blur(20px);
     }
 
-    .countdown_box[clone="1"][status="0"],
+    .countdown_box[clone="1"][status="0"] {
+      position: fixed;
+      top: var(--r-top);
+      left: var(--r-left);
+      transition: var(--clone-tn-dg);
+      transition-timing-function: var(--clone-tn-tg-fn);
+      transform-origin: top left;
+      transform: translateX(0px) translateY(0px) scaleX(1) scaleY(1);
+      margin: 0px;
+      will-change: transform;
+    }
+
     .recent_access_countdown_box[clone="1"][status="0"] {
       position: fixed;
       top: var(--r-top);
@@ -492,7 +503,20 @@
       will-change: transform;
     }
 
-    .countdown_box[clone="1"][status="1"],
+    .countdown_box[clone="1"][status="1"] {
+      position: fixed;
+      top: var(--r-top);
+      left: var(--r-left);
+      transform-origin: top left;
+      transform: translateX(calc(0px - var(--r-left))) translateY(calc(0px - var(--r-top))) scaleX(var(--r-scale-x)) scaleY(var(--r-scale-y));
+      transition: var(--clone-tn-dg);
+      transition-timing-function: var(--clone-tn-tg-fn);
+      border: 0px solid rgba(0, 0, 0, 0);
+      border-radius: 0px;
+      box-shadow: 0px 0px 12px -8px rgba(0, 0, 0, 0);
+      margin: 0px;
+    }
+
     .recent_access_countdown_box[clone="1"][status="1"] {
       position: fixed;
       top: var(--r-top);
@@ -507,8 +531,9 @@
       margin: 0px;
     }
 
-    .countdown_box_title[clone="1"][status="0"],
-    .recent_access_countdown_box_title[clone="1"][status="0"] {
+
+
+    .countdown_box_title[clone="1"][status="0"] {
       position: fixed;
       top: calc(var(--r-top) + 6px);
       left: calc(var(--r-left) + 106px);
@@ -520,8 +545,19 @@
       will-change: transform;
     }
 
-    .countdown_box_title[clone="1"][status="1"],
-    .recent_access_countdown_box_title[clone="1"][status="1"] {
+    .recent_access_countdown_box_title[clone="1"][status="0"] {
+      position: fixed;
+      top: calc(var(--r-top) + 95);
+      left: calc(var(--r-left) + 5px);
+      width: calc(clamp(150px, calc(28% - 20px), 180px) - 20px - 10px);
+      transform-origin: top left;
+      transform: translateX(0px) translateY(0px) scale(1);
+      transition: var(--clone-tn-dg);
+      transition-timing-function: var(--clone-tn-tg-fn);
+      will-change: transform;
+    }
+
+    .countdown_box_title[clone="1"][status="1"] {
       position: fixed;
       top: calc(var(--r-top) + 6px);
       left: calc(var(--r-left) + 106px);
@@ -540,8 +576,26 @@
       padding: 0px;
     }
 
-    .countdown_box_description[clone="1"][status="0"],
-    .recent_access_countdown_box_description[clone="1"][status="0"] {
+  .recent_access_countdown_box_title[clone="1"][status="1"] {
+      position: fixed;
+      top: calc(var(--r-top) + 95px);
+      left: calc(var(--r-left) + 5px);
+      transform-origin: top left;
+      transform: translateX(calc(var(--r-title-left) - (var(--r-left) + 5px))) translateY(calc(var(--r-title-top) - (var(--r-top) + 95px))) scale(calc(4.75 / 30));
+      height: var(--r-title-height);
+      width: var(--r-title-width);
+      display: block;
+      font-weight: 200;
+      font-size: 16px;
+      box-sizing: border-box;
+      transition: var(--clone-tn-dg);
+      transition-timing-function: var(--clone-tn-tg-fn);
+      overflow: hidden;
+      background: rgba(0, 0, 0, 0);
+      padding: 0px;
+    }
+
+    .countdown_box_description[clone="1"][status="0"] {
       position: fixed;
       top: calc(var(--r-top) + 41px);
       left: calc(var(--r-left) + 106px);
@@ -554,8 +608,7 @@
       will-change: transform;
     }
 
-    .countdown_box_description[clone="1"][status="1"],
-    .recent_access_countdown_box_description[clone="1"][status="1"] {
+    .countdown_box_description[clone="1"][status="1"] {
       position: fixed;
       top: calc(var(--r-top) + 41px);
       left: calc(var(--r-left) + 106px);
@@ -573,8 +626,7 @@
       transition-timing-function: var(--clone-tn-tg-fn);
     }
 
-    .countdown_box_count[clone="1"][status="0"],
-    .recent_access_countdown_box_count[clone="1"][status="0"] {
+    .countdown_box_count[clone="1"][status="0"] {
       position: fixed;
       top: calc(var(--r-top) + 6px);
       left: calc(var(--r-left) + 6px);
@@ -585,8 +637,7 @@
       will-change: transform;
     }
 
-    .countdown_box_count[clone="1"][status="1"],
-    .recent_access_countdown_box_count[clone="1"][status="1"] {
+    .countdown_box_count[clone="1"][status="1"] {
       position: fixed;
       top: calc(var(--r-top) + 6px);
       left: calc(var(--r-left) + 6px);
@@ -599,22 +650,19 @@
       transition-timing-function: var(--clone-tn-tg-fn);
     }
 
-    .countdown_box_count[clone="1"][status="0"] span,
-    .recent_access_countdown_box_count[clone="1"][status="0"] span {
+    .countdown_box_count[clone="1"][status="0"] span {
       transition: var(--clone-tn-dg);
       transition-timing-function: var(--clone-tn-tg-fn);
       will-change: transform;
     }
 
-    .countdown_box_count[clone="1"][status="1"] span,
-    .recent_access_countdown_box_count[clone="1"][status="1"] span {
+    .countdown_box_count[clone="1"][status="1"] span {
       transform: scaleX(calc(1 / var(--r-scale-x) * (25 / 23))) scaleY(calc(1 / var(--r-scale-y) * (25 / 23)));
       transition: var(--clone-tn-dg);
       transition-timing-function: var(--clone-tn-tg-fn);
     }
 
-    .countdown_box_count[clone="1"][status="0"]::before,
-    .recent_access_countdown_box_count[clone="1"][status="0"]::before {
+    .countdown_box_count[clone="1"][status="0"]::before {
       position: absolute;
       content: '';
       top: 0px;
@@ -627,8 +675,7 @@
       transition-timing-function: var(--clone-tn-tg-fn);
     }
 
-    .countdown_box_count[clone="1"][status="1"]::before,
-    .recent_access_countdown_box_count[clone="1"][status="1"]::before {
+    .countdown_box_count[clone="1"][status="1"]::before {
       content: '';
       position: absolute;
       top: 0px;
@@ -641,8 +688,7 @@
       transition-timing-function: var(--clone-tn-tg-fn);
     }
 
-    .countdown_box_count[clone="1"][status="0"]::after,
-    .recent_access_countdown_box_count[clone="1"][status="0"]::after {
+    .countdown_box_count[clone="1"][status="0"]::after {
       content: '';
       position: absolute;
       top: 89px;
@@ -655,8 +701,7 @@
       transition-timing-function: var(--clone-tn-tg-fn);
     }
 
-    .countdown_box_count[clone="1"][status="1"]::after,
-    .recent_access_countdown_box_count[clone="1"][status="1"]::after {
+    .countdown_box_count[clone="1"][status="1"]::after {
       content: '';
       position: absolute;
       top: calc(265 / 270 * 90px);
