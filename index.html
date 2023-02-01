@@ -3029,6 +3029,10 @@
       var box_scale_y = window_h / height
       var count_scale_x = window_w / 95
       var count_scale_y = 270 / 90
+      if (classes.container_box === 'recent_access_countdown_box') {
+        count_scale_x = window_w / (clamp(window.innerWidth, 150, [0.28, -20], 180) - 10)
+        //count_scale_y = 270 / 90
+      }
       var line_scale_x = 0
       var nowtime = new Date()
       var time = new Date()
