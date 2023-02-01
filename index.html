@@ -3084,10 +3084,11 @@
       }
 
       if (element.className === 'recent_access_countdown_box') {
-        var content_box_r = document.querySelector('.recent_access_content_box')
+        var content_box_r = document.querySelector('.content_box')
+        var content_box_g = document.querySelector('.recent_access_content_box')
         var content_box_e = document.querySelector(content_box)
-        var t = element.offsetTop - content_box_r.scrollTop + content_box_r.offsetTop - content_box_e.scrollTop
-        var l = element.offsetLeft - content_box_r.scrollLeft + content_box_r.offsetLeft - content_box_e.scrollLeft
+        var t = element.offsetTop - content_box_r.scrollTop + content_box_r.offsetTop - content_box_e.scrollTop + content_box_g.offsetTop - content_box_g.scrollTop
+        var l = element.offsetLeft - content_box_r.scrollLeft + content_box_r.offsetLeft - content_box_e.scrollLeft + content_box_g.offsetLeft - content_box_g.scrollLeft
         var w = element.clientWidth
         var h = element.clientHeight
         var title_max_len = Math.floor(clamp(window.innerWidth, 150, [0.28, -20], 180) / getTextAvgWidth(500, 16))
