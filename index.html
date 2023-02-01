@@ -210,13 +210,13 @@
       margin-right: 10px;
     }
 
-    .content_box[edit="1"] .recent_access_content_box .recent_access_countdown_box .recent_access_countdown_box_count,
-    .content_box[edit="1"] .recent_access_content_box .recent_access_countdown_box .recent_access_countdown_box_title,
-    .content_box[edit="1"] .recent_access_content_box .recent_access_countdown_box .recent_access_countdown_box_description {
+    .content_box[edit="1"] .recent_access_content_box .recent_access_countdown_box_count,
+    .content_box[edit="1"] .recent_access_content_box .recent_access_countdown_box_title,
+    .content_box[edit="1"] .recent_access_content_box .recent_access_countdown_box_description {
       opacity: 0.6;
     }
 
-    .recent_access_countdown_box .recent_access_countdown_box_count {
+    .recent_access_countdown_box_count {
       position: absolute;
       top: 5px;
       left: 5px;
@@ -234,7 +234,7 @@
       background: var(--d-ffffff);
     }
 
-    .recent_access_countdown_box .recent_access_countdown_box_title {
+    .recent_access_countdown_box_title {
       position: absolute;
       top: 95px;
       left: 5px;
@@ -254,7 +254,7 @@
       user-select: none;
     }
 
-    .recent_access_countdown_box .recent_access_countdown_box_description {
+    .recent_access_countdown_box_description {
       position: absolute;
       top: 125px;
       left: 5px;
@@ -2725,7 +2725,7 @@
     if (recent_access > 0) {
       var recent_access_len = $('.recent_access_content_box .recent_access_countdown_box').length
       for (var s = 0; s < recent_access_len; s++) {
-        var this_s = $('.recent_access_countdown_box .recent_access_countdown_box_count').eq(s)
+        var this_s = $('.recent_access_countdown_box_count').eq(s)
         if (!(this_s.attr('f') === '1')) {
           var time = parseInt(this_s.attr('t'))
           var time_date = new Date()
